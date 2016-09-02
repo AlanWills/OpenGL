@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\Alan Wills\Documents\Visual Studio 2012\3rd Party\glfw-3.2.1\glfw-3.2.1\examples\gears.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\Alan Wills\Documents\Visual Studio 2012\3rd Party\glfw-3.2.1\glfw-3.2.1\deps\glad.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\Alan Wills\Documents\Visual Studio 2012\3rd Party\glfw-3.2.1\glfw-3.2.1\deps\glad\glad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Alan Wills\Documents\Visual Studio 2012\3rd Party\glfw-3.2.1\glfw-3.2.1\examples\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\Users\Alan Wills\Documents\Visual Studio 2012\3rd Party\glfw-3.2.1\glfw-3.2.1\examples\glfw.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{110A7179-E63D-359B-AD3F-21DBF443FC6E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{9421A1A1-D961-3F4A-85B2-4E4BEFF410CD}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
