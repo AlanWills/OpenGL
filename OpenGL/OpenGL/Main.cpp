@@ -1,4 +1,5 @@
 #include "Main.h"
+#include "Shader.h"
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -54,16 +55,67 @@ int main()
   // Set the clear colour
   glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 
+  // Create our shader
+  std::string folderPath("C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\");
+  Shader shader(folderPath + "simple.vs", folderPath + "simple.frag");
+
+  // Store all of this state data in one object for easy reuse
+  GLfloat vertices[] = 
+  {
+     0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // Top Right
+     0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Bottom Right
+    -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, // Bottom Left
+    -0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 0.0f, // Top Left 
+  };
+
+  // Order in which we draw the triangles
+  GLuint indices[] = 
+  {  
+    // Note that we start from 0!
+    0, 1, 3,   // First Triangle
+    1, 2, 3    // Second Triangle
+  };
+
+  GLuint VAO, VBO, EBO;
+  glGenVertexArrays(1, &VAO);
+  glGenBuffers(1, &VBO);
+  glGenBuffers(1, &EBO);
+  glBindVertexArray(VAO);
+  {
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    // Colour
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(1);
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+  }
+  glBindVertexArray(0);
+
+  // Draw in wireframe
+  //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
   // Game loop to keep the window open
   while (!glfwWindowShouldClose(window))
   {
     // Check and call events
     glfwPollEvents();
 
-    // Render here
-
     // Clear the buffer
     glClear(GL_COLOR_BUFFER_BIT);
+
+    shader.useShader();
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0); // Unbind so we don't accidently reconfigure
 
     // Swap the buffers
     glfwSwapBuffers(window);
