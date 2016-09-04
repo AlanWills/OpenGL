@@ -1,5 +1,6 @@
 #include "Main.h"
 #include "Shader.h"
+#include <SOIL\SOIL.h>
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -62,10 +63,10 @@ int main()
   // Store all of this state data in one object for easy reuse
   GLfloat vertices[] = 
   {
-     0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f, // Top Right
-     0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f, // Bottom Right
-    -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f, // Bottom Left
-    -0.5f,  0.5f, 0.0f,  0.0f, 0.0f, 0.0f, // Top Left 
+     0.5f,  0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f, // Top Right
+     0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  1.0f, 0.0f, // Bottom Right
+    -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,  0.0f, 0.0f, // Bottom Left
+    -0.5f,  0.5f, 0.0f,  1.0f, 1.0f, 0.0f,  0.0f, 1.0f, // Top Left 
   };
 
   // Order in which we draw the triangles
@@ -89,16 +90,49 @@ int main()
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     // Colour
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
+
+    // Texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
   }
   glBindVertexArray(0);
+
+  int texWidth, texHeight;
+  std::string directoryPath = "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\";
+  unsigned char* image = SOIL_load_image((directoryPath + "container.jpg").c_str(), &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+
+  // Binding = give GL a GLuint for some kind of object type (like texture).
+  // Then do some operations on the object type.
+  // It associates these settings/data with this int
+  GLuint texture;
+  glGenTextures(1, &texture);
+  glBindTexture(GL_TEXTURE_2D, texture);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+  // Cleanup
+  SOIL_free_image_data(image);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  image = SOIL_load_image((directoryPath + "awesomeface.png").c_str(), &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
+
+  GLuint texture2;
+  glGenTextures(1, &texture2);
+  glBindTexture(GL_TEXTURE_2D, texture2);
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+  glGenerateMipmap(GL_TEXTURE_2D);
+
+  // Cleanup
+  SOIL_free_image_data(image);
+  glBindTexture(GL_TEXTURE_2D, 0);
 
   // Draw in wireframe
   //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -113,6 +147,14 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT);
 
     shader.useShader();
+
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glUniform1i(glGetUniformLocation(shader.getProgram(), "ourTexture"), 0);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, texture2);
+    glUniform1i(glGetUniformLocation(shader.getProgram(), "ourTexture2"), 1);
+
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0); // Unbind so we don't accidently reconfigure

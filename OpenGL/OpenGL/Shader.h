@@ -16,6 +16,8 @@ public:
   // Use the program
   void useShader();
 
+  const GLuint getProgram() { return m_program; }
+
 private:
   // Wrapper function for opening the file and reading the contents into the input string
   bool readShaderFile(const GLchar* vertexPath, std::string& shaderCode);

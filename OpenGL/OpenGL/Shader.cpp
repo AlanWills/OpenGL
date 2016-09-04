@@ -3,6 +3,7 @@
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
   // Retrieve the vertex/fragment source code from filePath
+  // The ifstream doesn't seem to like GLchar* - maybe I am doing something really silly
   std::string vString, fString;
 
   if (!readShaderFile(vertexPath.c_str(), vString))
