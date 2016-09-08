@@ -11,9 +11,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include <iostream>
+
 #include "Shader.h"
 #include "Camera.h"
-#include <iostream>
+#include "Texture.h"
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -167,34 +169,9 @@ int main()
   }
   glBindVertexArray(0);
 
-  int texWidth, texHeight;
   std::string directoryPath = "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\";
-  unsigned char* image = SOIL_load_image((directoryPath + "container.jpg").c_str(), &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
-
-  // Binding = give GL a GLuint for some kind of object type (like texture).
-  // Then do some operations on the object type.
-  // It associates these settings/data with this int
-  GLuint texture;
-  glGenTextures(1, &texture);
-  glBindTexture(GL_TEXTURE_2D, texture);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  // Cleanup
-  SOIL_free_image_data(image);
-  glBindTexture(GL_TEXTURE_2D, 0);
-
-  image = SOIL_load_image((directoryPath + "awesomeface.png").c_str(), &texWidth, &texHeight, 0, SOIL_LOAD_RGB);
-
-  GLuint texture2;
-  glGenTextures(1, &texture2);
-  glBindTexture(GL_TEXTURE_2D, texture2);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  // Cleanup
-  SOIL_free_image_data(image);
-  glBindTexture(GL_TEXTURE_2D, 0);
+  Texture containerTexture(directoryPath + "container.jpg");
+  Texture faceTexture(directoryPath + "awesomeface.png");
 
   // Draw in wireframe
   //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -217,25 +194,16 @@ int main()
     GLuint shaderProgram = shader.getProgram();
 
     // Bind the textures to the shader samplers
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture"), 0);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture2);
-    glUniform1i(glGetUniformLocation(shaderProgram, "ourTexture2"), 1);
+    shader.bindTexture(containerTexture, "ourTexture", 0);
+    shader.bindTexture(faceTexture, "ourTexture2", 1);
 
     // Camera matrices
-    glm::mat4 view = camera.getViewMatrix();
-
     glm::mat4 projection;
     projection = glm::perspective(glm::radians(camera.getZoom()), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
 
     // Bind the camera matrices to the shader
-    GLuint modelLocation = glGetUniformLocation(shaderProgram, "model");
-    GLuint viewLocation = glGetUniformLocation(shaderProgram, "view");
-    glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
-    GLuint projectionLocation = glGetUniformLocation(shaderProgram, "projection");
-    glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, glm::value_ptr(projection));
+    shader.bindMatrix(camera.getViewMatrix(), "view");
+    shader.bindMatrix(projection, "projection");
 
     glBindVertexArray(VAO);
     for (GLuint i = 0; i < 10; i++)
@@ -245,7 +213,7 @@ int main()
       GLfloat angle = glm::radians(20.0f * i);
       model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
 
-      glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
+      shader.bindMatrix(model, "model");
       glDrawArrays(GL_TRIANGLES, 0, 36);
     }
     glBindVertexArray(0); // Unbind so we don't accidently reconfigure
@@ -259,6 +227,7 @@ int main()
 	return 0;
 }
 
+//------------------------------------------------------------------------------------------------
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
   // When a user presses the escape key, we set the WindowShouldClose property to true

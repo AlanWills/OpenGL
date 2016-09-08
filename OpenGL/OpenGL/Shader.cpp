@@ -1,4 +1,7 @@
 #include "Shader.h"
+#include "Texture.h"
+
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
@@ -58,6 +61,7 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 }
 
 
+//------------------------------------------------------------------------------------------------
 bool Shader::readShaderFile(const GLchar* shaderFilePath, std::string& shaderCode)
 {
   std::ifstream shaderFile(shaderFilePath);
@@ -77,6 +81,7 @@ bool Shader::readShaderFile(const GLchar* shaderFilePath, std::string& shaderCod
 }
 
 
+//------------------------------------------------------------------------------------------------
 GLint Shader::createAndCompileShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput)
 {
   shaderHandleOutput = glCreateShader(shaderType);
@@ -90,7 +95,32 @@ GLint Shader::createAndCompileShader(const GLchar* shaderCode, GLenum shaderType
 }
 
 
+//------------------------------------------------------------------------------------------------
 void Shader::useShader()
 {
   glUseProgram(m_program);
+}
+
+
+//------------------------------------------------------------------------------------------------
+void Shader::bindTexture(GLuint textureHandle, const std::string& shaderVariableName, int index)
+{
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, textureHandle);
+  glUniform1i(glGetUniformLocation(m_program, shaderVariableName.c_str()), index);
+}
+
+
+//------------------------------------------------------------------------------------------------
+void Shader::bindTexture(Texture texture, const std::string& shaderVariableName, int index)
+{
+  bindTexture(texture.getTextureHandle(), shaderVariableName, index);
+}
+
+
+//------------------------------------------------------------------------------------------------
+void Shader::bindMatrix(const glm::mat4& matrix, const std::string& shaderVariableName)
+{
+  GLuint matrixLocation = glGetUniformLocation(m_program, shaderVariableName.c_str());
+  glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(matrix));
 }
