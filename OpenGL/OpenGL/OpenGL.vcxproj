@@ -20,12 +20,17 @@
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="GLHeaders.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="experiment.frag" />
+    <None Include="experiment.vs" />
     <None Include="simple.frag" />
     <None Include="simple.vs" />
+    <None Include="texture.frag" />
+    <None Include="texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="awesomeface.png" />

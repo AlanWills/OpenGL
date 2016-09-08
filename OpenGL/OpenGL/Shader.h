@@ -10,6 +10,12 @@
 
 class Texture;
 
+// Shader variable names
+#define MODEL_MATRIX "model"
+#define VIEW_MATRIX "view"
+#define PROJECTION_MATRIX "projection"
+#define COLOUR "inputColour"
+
 class Shader
 {
 public:

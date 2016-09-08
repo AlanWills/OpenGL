@@ -1,10 +1,3 @@
-// GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
-
-// GLFW
-#include <GLFW/glfw3.h>
-
 #include <SOIL\SOIL.h>
 
 #include <glm/glm.hpp>
@@ -13,9 +6,11 @@
 
 #include <iostream>
 
+#include "GLHeaders.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "Texture.h"
+#include "Cube.h"
 
 // Window dimensions
 const GLuint WIDTH = 800, HEIGHT = 600;
@@ -87,52 +82,7 @@ int main()
 
   // Create our shader
   std::string folderPath("C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\");
-  Shader shader(folderPath + "simple.vs", folderPath + "simple.frag");
-
-  // Store all of this state data in one object for easy reuse
-  GLfloat vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
-  };
+  Shader shader(folderPath + "experiment.vs", folderPath + "experiment.frag");
 
   // Cube positions
   glm::vec3 cubePositions[] = {
@@ -148,26 +98,9 @@ int main()
     glm::vec3(-1.3f,  1.0f, -1.5f)
   };
 
-  GLuint VAO, VBO, EBO;
-  glGenVertexArrays(1, &VAO);
-  glGenBuffers(1, &VBO);
-  glGenBuffers(1, &EBO);
-  glBindVertexArray(VAO);
-  {
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // Position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-    glEnableVertexAttribArray(0);
-
-    // Texture
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-  }
-  glBindVertexArray(0);
+  // Cube object which holds gl data
+  // We can use this one object to draw multiple instances
+  Cube cube;
 
   std::string directoryPath = "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\";
   Texture containerTexture(directoryPath + "container.jpg");
@@ -203,10 +136,10 @@ int main()
     camera.getViewMatrix(view);
 
     // Bind the camera matrices to the shader
-    shader.bindMatrix(view, "view");
-    shader.bindMatrix(projection, "projection");
+    shader.bindMatrix(view, VIEW_MATRIX);
+    shader.bindMatrix(projection, PROJECTION_MATRIX);
 
-    glBindVertexArray(VAO);
+    cube.beginDraw();
     for (GLuint i = 0; i < 10; i++)
     {
       glm::mat4 model;
@@ -214,10 +147,9 @@ int main()
       GLfloat angle = glm::radians(20.0f * i);
       model = glm::rotate(model, angle, glm::vec3(1.0f, 0.3f, 0.5f));
 
-      shader.bindMatrix(model, "model");
-      glDrawArrays(GL_TRIANGLES, 0, 36);
+      cube.drawInstance(shader, model);
     }
-    glBindVertexArray(0); // Unbind so we don't accidently reconfigure
+    cube.endDraw();
 
     // Swap the buffers
     glfwSwapBuffers(window);

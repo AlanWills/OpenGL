@@ -2,6 +2,7 @@
 #include "Texture.h"
 
 #include <glm/gtc/type_ptr.hpp>
+#include <assert.h>
 
 Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 {
@@ -11,11 +12,13 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
 
   if (!readShaderFile(vertexPath.c_str(), vString))
   {
+    assert(false);
     std::cout << "ERROR::VERTEX::SHADER::FILE_NOT_SUCCESSFULLY_READ\n" << std::endl;
   }
 
   if (!readShaderFile(fragmentPath.c_str(), fString))
   {
+    assert(false);
     std::cout << "ERROR::FRAGMENT::SHADER::FILE_NOT_SUCCESSFULLY_READ\n" << std::endl;
   }
 
@@ -30,6 +33,7 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
   // Vertex shader
   if (!createAndCompileShader(vertexCode, GL_VERTEX_SHADER, vertex))
   {
+    assert(false);
     glGetShaderInfoLog(vertex, 512, nullptr, infoLog);
     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
   }
@@ -37,6 +41,7 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
   // Fragment shader
   if (!createAndCompileShader(fragmentCode, GL_FRAGMENT_SHADER, fragment))
   {
+    assert(false);
     glGetShaderInfoLog(fragment, 512, nullptr, infoLog);
     std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
   }
@@ -51,6 +56,7 @@ Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
   glGetProgramiv(m_program, GL_LINK_STATUS, &success);
   if (!success)
   {
+    assert(false);
     glGetProgramInfoLog(m_program, 512, nullptr, infoLog);
     std::cout << "ERROR::SHADER::PROGRAM::LINKING_FAILED\n" << infoLog << std::endl;
   }
@@ -68,6 +74,7 @@ bool Shader::readShaderFile(const GLchar* shaderFilePath, std::string& shaderCod
 
   if (!shaderFile.good())
   {
+    assert(false);
     return false;
   }
 

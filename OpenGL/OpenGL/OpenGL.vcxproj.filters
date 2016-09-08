@@ -47,12 +47,27 @@
     <ClInclude Include="Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLHeaders.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="simple.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="simple.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="texture.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="texture.frag">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="experiment.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="experiment.frag">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
