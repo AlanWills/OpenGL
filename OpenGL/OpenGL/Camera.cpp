@@ -13,15 +13,23 @@ Camera::Camera()
   m_zoom(45.0f),
   m_speed(5.0f),
   m_sensitivity(0.05f),
+  m_near(0.1f),
+  m_far(100),
   m_firstMouse(true)
 {
   updateCameraVectors();
 }
 
 //------------------------------------------------------------------------------------------------
-glm::mat4 Camera::getViewMatrix() const
+void Camera::getViewMatrix(glm::mat4& outputView) const
 {
-  return glm::lookAt(m_cameraPos, m_cameraPos + m_lookDirection, m_up);
+  outputView = glm::lookAt(m_cameraPos, m_cameraPos + m_lookDirection, m_up);
+}
+
+//------------------------------------------------------------------------------------------------
+void Camera::getProjectionMatrix(GLuint viewportWidth, GLuint viewportHeight, glm::mat4& outputProj) const
+{
+  outputProj = glm::perspective(glm::radians(m_zoom), (float)viewportWidth / (float)viewportHeight, 0.1f, 100.0f);
 }
 
 //------------------------------------------------------------------------------------------------

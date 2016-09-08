@@ -194,15 +194,16 @@ int main()
     GLuint shaderProgram = shader.getProgram();
 
     // Bind the textures to the shader samplers
-    shader.bindTexture(containerTexture, "ourTexture", 0);
-    shader.bindTexture(faceTexture, "ourTexture2", 1);
+    shader.bindTexture(GL_TEXTURE0, containerTexture, "ourTexture", 0);
+    shader.bindTexture(GL_TEXTURE1, faceTexture, "ourTexture2", 1);
 
     // Camera matrices
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(camera.getZoom()), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
+    glm::mat4 projection, view;
+    camera.getProjectionMatrix(WIDTH, HEIGHT, projection);
+    camera.getViewMatrix(view);
 
     // Bind the camera matrices to the shader
-    shader.bindMatrix(camera.getViewMatrix(), "view");
+    shader.bindMatrix(view, "view");
     shader.bindMatrix(projection, "projection");
 
     glBindVertexArray(VAO);

@@ -103,18 +103,18 @@ void Shader::useShader()
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::bindTexture(GLuint textureHandle, const std::string& shaderVariableName, int index)
+void Shader::bindTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index)
 {
-  glActiveTexture(GL_TEXTURE0);
+  glActiveTexture(textureMacroNumber);
   glBindTexture(GL_TEXTURE_2D, textureHandle);
   glUniform1i(glGetUniformLocation(m_program, shaderVariableName.c_str()), index);
 }
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::bindTexture(Texture texture, const std::string& shaderVariableName, int index)
+void Shader::bindTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index)
 {
-  bindTexture(texture.getTextureHandle(), shaderVariableName, index);
+  bindTexture(textureMacroNumber, texture.getTextureHandle(), shaderVariableName, index);
 }
 
 

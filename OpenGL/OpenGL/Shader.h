@@ -22,8 +22,8 @@ public:
   void useShader();
 
   /// \brief Used to bind textures to uniform sampler variables in the shader
-  void bindTexture(GLuint textureHandle, const std::string& shaderVariableName, int index);
-  void bindTexture(Texture texture, const std::string& shaderVariableName, int index);
+  void bindTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index);
+  void bindTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index);
 
   void bindMatrix(const glm::mat4& matrix, const std::string& shaderVariableName);
 

@@ -21,8 +21,8 @@ public:
 
   Camera();
 
-  glm::mat4 getViewMatrix() const;
-  GLfloat getZoom() const {return m_zoom; }
+  void getViewMatrix(glm::mat4& outputView) const;
+  void getProjectionMatrix(GLuint viewportWidth, GLuint viewportHeight, glm::mat4& outputProj) const;
 
   void processMouseMovement(GLfloat xOffset, GLfloat yOffset);
   void move(CameraMovement cameraMovement, GLfloat deltaTime);
@@ -42,6 +42,8 @@ private:
   GLfloat m_zoom;
   GLfloat m_speed;
   GLfloat m_sensitivity;
+  GLfloat m_near;
+  GLfloat m_far;
 
   bool m_firstMouse;
 };
