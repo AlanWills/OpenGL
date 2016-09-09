@@ -10,6 +10,9 @@
 
 class Texture;
 
+#define VERTEX_DIR "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\Shaders\\Vertex\\"
+#define FRAGMENT_DIR "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\Shaders\\Fragment\\"
+
 // Shader variable names
 #define MODEL_MATRIX "model"
 #define VIEW_MATRIX "view"

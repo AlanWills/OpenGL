@@ -81,8 +81,7 @@ int main()
   glEnable(GL_DEPTH_TEST);
 
   // Create our shader
-  std::string folderPath("C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\");
-  Shader shader(folderPath + "experiment.vs", folderPath + "experiment.frag");
+  Shader shader("experiment.vs", "experiment.frag");
 
   // Cube positions
   glm::vec3 cubePositions[] = {

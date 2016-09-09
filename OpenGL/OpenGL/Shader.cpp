@@ -4,19 +4,21 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <assert.h>
 
-Shader::Shader(const std::string& vertexPath, const std::string& fragmentPath)
+Shader::Shader(const std::string& relativeVertexPath, const std::string& fragmentPath)
 {
   // Retrieve the vertex/fragment source code from filePath
   // The ifstream doesn't seem to like GLchar* - maybe I am doing something really silly
   std::string vString, fString;
 
-  if (!readShaderFile(vertexPath.c_str(), vString))
+  std::string fullPath(VERTEX_DIR + relativeVertexPath);
+  if (!readShaderFile(fullPath.c_str(), vString))
   {
     assert(false);
     std::cout << "ERROR::VERTEX::SHADER::FILE_NOT_SUCCESSFULLY_READ\n" << std::endl;
   }
 
-  if (!readShaderFile(fragmentPath.c_str(), fString))
+  fullPath = FRAGMENT_DIR + fragmentPath;
+  if (!readShaderFile(fullPath.c_str(), fString))
   {
     assert(false);
     std::cout << "ERROR::FRAGMENT::SHADER::FILE_NOT_SUCCESSFULLY_READ\n" << std::endl;
