@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Shaders/Shader.h"
 #include "Texture.h"
 
 #include <glm/gtc/type_ptr.hpp>
@@ -105,14 +105,16 @@ GLint Shader::createAndCompileShader(const GLchar* shaderCode, GLenum shaderType
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::useShader()
+void Shader::useShader(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix)
 {
   glUseProgram(m_program);
+  bindUniformMatrix(viewMatrix, VIEW_MATRIX);
+  bindUniformMatrix(projectionMatrix, PROJECTION_MATRIX);
 }
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::bindTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index)
+void Shader::bindUniformTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index)
 {
   glActiveTexture(textureMacroNumber);
   glBindTexture(GL_TEXTURE_2D, textureHandle);
@@ -121,14 +123,14 @@ void Shader::bindTexture(int textureMacroNumber, GLuint textureHandle, const std
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::bindTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index)
+void Shader::bindUniformTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index)
 {
-  bindTexture(textureMacroNumber, texture.getTextureHandle(), shaderVariableName, index);
+  bindUniformTexture(textureMacroNumber, texture.getTextureHandle(), shaderVariableName, index);
 }
 
 
 //------------------------------------------------------------------------------------------------
-void Shader::bindMatrix(const glm::mat4& matrix, const std::string& shaderVariableName)
+void Shader::bindUniformMatrix(const glm::mat4& matrix, const std::string& shaderVariableName)
 {
   GLuint matrixLocation = glGetUniformLocation(m_program, shaderVariableName.c_str());
   glUniformMatrix4fv(matrixLocation, 1, GL_FALSE, glm::value_ptr(matrix));

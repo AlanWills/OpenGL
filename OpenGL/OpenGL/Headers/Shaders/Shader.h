@@ -17,7 +17,7 @@ class Texture;
 #define MODEL_MATRIX "model"
 #define VIEW_MATRIX "view"
 #define PROJECTION_MATRIX "projection"
-#define COLOUR "inputColour"
+#define COLOUR "objectColour"
 
 class Shader
 {
@@ -28,13 +28,14 @@ public:
   const GLuint getProgram() { return m_program; }
 
   // Use the program
-  void useShader();
+  void useShader(const glm::mat4& viewMatrix, const glm::mat4& projectionMatrix);
 
   /// \brief Used to bind textures to uniform sampler variables in the shader
-  void bindTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index);
-  void bindTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index);
+  void bindUniformTexture(int textureMacroNumber, GLuint textureHandle, const std::string& shaderVariableName, int index);
+  void bindUniformTexture(int textureMacroNumber, Texture texture, const std::string& shaderVariableName, int index);
 
-  void bindMatrix(const glm::mat4& matrix, const std::string& shaderVariableName);
+  /// brief Used to bind matrices to uniform sampler variables in the shader
+  void bindUniformMatrix(const glm::mat4& matrix, const std::string& shaderVariableName);
 
 private:
   // Wrapper function for opening the file and reading the contents into the input string

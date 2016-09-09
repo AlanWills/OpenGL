@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "GLHeaders.h"
-#include "Shader.h"
+#include "Shaders/Shader.h"
 #include "Camera.h"
 #include "Texture.h"
 #include "Cube.h"
@@ -122,21 +122,18 @@ int main()
     // Clear the buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    shader.useShader();
-    GLuint shaderProgram = shader.getProgram();
-
-    // Bind the textures to the shader samplers
-    shader.bindTexture(GL_TEXTURE0, containerTexture, "ourTexture", 0);
-    shader.bindTexture(GL_TEXTURE1, faceTexture, "ourTexture2", 1);
-
     // Camera matrices
     glm::mat4 projection, view;
     camera.getProjectionMatrix(WIDTH, HEIGHT, projection);
     camera.getViewMatrix(view);
 
-    // Bind the camera matrices to the shader
-    shader.bindMatrix(view, VIEW_MATRIX);
-    shader.bindMatrix(projection, PROJECTION_MATRIX);
+    // Ready gl to use this shader and bind the view and projection matrices to the uniform shader variables
+    shader.useShader(view, projection);
+    GLuint shaderProgram = shader.getProgram();
+
+    // Bind the textures to the shader samplers
+    shader.bindUniformTexture(GL_TEXTURE0, containerTexture, "ourTexture", 0);
+    shader.bindUniformTexture(GL_TEXTURE1, faceTexture, "ourTexture2", 1);
 
     cube.beginDraw();
     for (GLuint i = 0; i < 10; i++)
