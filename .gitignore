@@ -1,3 +1,4 @@
-OpenGL.VC.db
 Debug/
 *.tlog
+*.db
+*.opendb

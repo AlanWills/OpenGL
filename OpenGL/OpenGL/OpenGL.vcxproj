@@ -10,33 +10,6 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Texture.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="Cube.h" />
-    <ClInclude Include="GLHeaders.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="Texture.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="experiment.frag" />
-    <None Include="experiment.vs" />
-    <None Include="simple.frag" />
-    <None Include="simple.vs" />
-    <None Include="texture.frag" />
-    <None Include="texture.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="awesomeface.png" />
-    <Image Include="container.jpg" />
-    <Image Include="wall.jpg" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
     <RootNamespace>OpenGL</RootNamespace>
@@ -66,11 +39,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\OpenGL\OpenGL\Headers;C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\OpenGL\OpenGL\Headers;C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

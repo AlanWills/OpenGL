@@ -22,70 +22,8 @@
     <Filter Include="Resource Files\Shaders\Fragment">
       <UniqueIdentifier>{d5c36b6a-e0db-44b4-a2b2-cd29c880e45c}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GLHeaders.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="experiment.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="simple.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="texture.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="experiment.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-    <None Include="simple.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-    <None Include="texture.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="wall.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="container.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="awesomeface.png">
-      <Filter>Resource Files</Filter>
-    </Image>
+    <Filter Include="Resource Files\Assets">
+      <UniqueIdentifier>{cb7c4d9b-7216-430b-9f63-6a5813e70519}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

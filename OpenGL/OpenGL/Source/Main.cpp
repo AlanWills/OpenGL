@@ -101,7 +101,7 @@ int main()
   // We can use this one object to draw multiple instances
   Cube cube;
 
-  std::string directoryPath = "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\";
+  std::string directoryPath = "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\Assets";
   Texture containerTexture(directoryPath + "container.jpg");
   Texture faceTexture(directoryPath + "awesomeface.png");
 
