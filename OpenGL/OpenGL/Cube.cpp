@@ -71,8 +71,9 @@ void Cube::glInitialize()
   glGenBuffers(1, &m_edgeBufferHandle);
   glBindVertexArray(m_vertexAttributeHandle);
   {
+    auto size = sizeof(m_vertexAttributeData.get());
     glBindBuffer(GL_ARRAY_BUFFER, m_vertexBufferHandle);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexAttributeData.get()), m_vertexAttributeData.get(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertexAttributeData.get()) * 180, m_vertexAttributeData.get(), GL_STATIC_DRAW);
 
     // Position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
