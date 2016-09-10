@@ -1,7 +1,8 @@
 #include "GLHeaders.h"
-
 #include "Game.h"
 #include "ResourceManager.h"
+
+#include <iostream>
 
 #define MS_PER_UPDATE 16.66666666
 
@@ -37,11 +38,8 @@ int main(int argc, char* argv[])
 
   // Initialize glew before we start calling any OpenGL functions
   glewExperimental = GL_TRUE;
-  if (glewInit() != GLEW_OK)
-  {
-    std::cout << "Failed to initialize GLEW" << std::endl;
-    return -1;
-  }
+  glewInit();
+  glGetError(); // Clear the error buffer (glew bug)
 
   // Set up the key callback for keyboard input
   glfwSetKeyCallback(window, keyCallback);
@@ -51,6 +49,8 @@ int main(int argc, char* argv[])
   glEnable(GL_CULL_FACE);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  game.init();
 
   // Time step
   GLfloat lastFrame = glfwGetTime(), lag = 0.0f;

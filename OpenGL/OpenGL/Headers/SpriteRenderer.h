@@ -1,29 +1,32 @@
 #pragma once
 
-#include "Component.h"
-#include "Texture.h"
-#include "Shader.h"
-
 #include <memory>
+#include <glm/glm.hpp>
 
-class SpriteRenderer : public Component
+#include "GLHeaders.h"
+
+class Shader;
+class Texture;
+
+class SpriteRenderer
 {
 
 public:
-  SpriteRenderer(const std::string& textureAsset);
+  SpriteRenderer(Shader* shader);
   ~SpriteRenderer();
 
-  /// \brief Initializes gl drawing data for the texture
-  void init() override;
-  void update() override { }
-  void draw(GLfloat percentageIntoFrame) const override;
+  void drawSprite(
+    const Texture &texture, 
+    const glm::vec2& position, 
+    const glm::vec2& size = glm::vec2(10, 10), 
+    GLfloat rotate = 0.0f, 
+    const glm::vec4& color = glm::vec4(1.0f));
 
 private:
-  std::unique_ptr<Shader> m_shader;
-  std::unique_ptr<Texture> m_texture;
-  std::unique_ptr<GLfloat> m_vertexAttributeData;
+  void initRenderData();
 
+  // Don't use smart pointer as this shader is managed by the ResourceManager
+  Shader* m_shader;
   GLuint m_vertexAttributeHandle;
-  GLuint m_vertexBufferHandle;
 };
 

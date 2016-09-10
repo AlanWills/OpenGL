@@ -57,6 +57,9 @@
     <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Component.h">
@@ -89,6 +92,9 @@
     <ClInclude Include="Headers\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Fragment\colour.frag">
@@ -118,13 +124,13 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\awesomeface.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Assets</Filter>
     </Image>
     <Image Include="Assets\container.jpg">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Assets</Filter>
     </Image>
     <Image Include="Assets\wall.jpg">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Assets</Filter>
     </Image>
   </ItemGroup>
 </Project>

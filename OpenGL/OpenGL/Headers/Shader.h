@@ -1,9 +1,6 @@
 #pragma once
 
 #include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
 
 #include <GL/glew.h> // Include to get all the required OpenGL headers
 #include <glm/gtc/matrix_transform.hpp>
@@ -14,6 +11,7 @@ class Texture;
 #define MODEL_MATRIX "model"
 #define VIEW_MATRIX "view"
 #define PROJECTION_MATRIX "projection"
+#define TEXTURE "objectTexture"
 #define COLOUR "objectColour"
 
 class Shader
@@ -26,15 +24,18 @@ public:
   void compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource = nullptr);
 
   // Use the program
-  Shader& use();
+  void use();
 
   /// brief Used to bind matrices to uniform sampler variables in the shader
-  void setMatrix(const glm::mat4& matrix, const std::string& shaderVariableName);
+  void setMatrix(const glm::mat4& matrix, const std::string& shaderVariableName) const;
+
+  /// \brief Used to bind vector4s to uniform sampler variables in the shader
+  void setVector4(const glm::vec4& vec, const std::string& shaderVariableName) const;
+
+  /// \brief Used to bind ints to uniform sampler variables in the shader 
+  void setInt(GLuint inputInt, const std::string& shaderVariableName) const;
 
 private:
-  // Wrapper function for opening the file and reading the contents into the input string
-  bool readShaderFile(const GLchar* vertexPath, std::string& shaderCode);
-
   // Wrapper function for creating a shader with the inputted code and returning a handle
   void createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType);
 

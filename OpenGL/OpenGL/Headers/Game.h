@@ -1,6 +1,9 @@
 #pragma once
 
 #include "GLHeaders.h"
+#include "SpriteRenderer.h"
+
+#include <memory.h>
 
 class Game
 {
@@ -25,6 +28,8 @@ public:
   void setKey(int key, bool keyStatus) { m_keys[key] = keyStatus; }
 
 private:
+  std::unique_ptr<SpriteRenderer> m_spriteRenderer;
+
   GameState m_state;
   bool m_keys[1024];
 

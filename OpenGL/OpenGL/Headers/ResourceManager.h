@@ -12,6 +12,7 @@
 #define VERTEX_DIR "Vertex\\"
 #define FRAGMENT_DIR "Fragment\\"
 #define GEOMETRY_DIR "Geometry\\"
+#define TEXTURE_DIR "C:\\Users\\Alan\\Documents\\Visual Studio 2015\\Projects\\OpenGL\\OpenGL\\OpenGL\\Assets\\"
 
 // A static singleton ResourceManager class that hosts several
 // functions to load Textures and Shaders. Each loaded texture
@@ -22,16 +23,16 @@ class ResourceManager
 {
 public:
   // Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
-  static Shader* loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name);
+  static Shader* loadShader(const std::string& name, const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile = nullptr);
 
   // Retrieves a stored shader
-  static Shader* getShader(std::string name);
+  static Shader* getShader(const std::string& name);
 
-  // Loads (and generates) a texture from file
-  static Texture* loadTexture(const GLchar *file, GLboolean alpha, std::string name);
+  // Loads (and generates) a texture from file using a filepath relative to the TEXTURE_DIR
+  static Texture* loadTexture(const GLchar *file, GLboolean alpha, const std::string& name);
 
   // Retrieves a stored texture
-  static Texture* getTexture(std::string name);
+  static Texture* getTexture(const std::string& name);
 
   /// \brief Properly deallocates all of the resources
   static void freeResources();
@@ -42,7 +43,7 @@ private:
 
   /// \brief Loads and generates a shader from a file
   static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
-  static bool readShaderFile(const GLchar* shaderFilePath, std::string& shaderCode);
+  static bool readShaderFile(const GLchar* shaderFilePath, std::string& shaderCodeOutput);
 
   /// \brief Loads a single texture from file
   static Texture* loadTextureFromFile(const GLchar* file, GLboolean alpha);

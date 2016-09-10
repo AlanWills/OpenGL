@@ -1,8 +1,10 @@
 #include "Shader.h"
 #include "Texture.h"
+#include "Debug.h"
 
 #include <glm/gtc/type_ptr.hpp>
 #include <assert.h>
+#include <iostream>
 
 //------------------------------------------------------------------------------------------------
 Shader::Shader()
@@ -56,6 +58,8 @@ void Shader::compile(const GLchar* vertexSource, const GLchar* fragmentSource, c
   {
     glDeleteShader(geometry);
   }
+
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------
@@ -66,6 +70,7 @@ void Shader::createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& s
   glCompileShader(shaderHandleOutput);
 
   checkCompileErrors(shaderHandleOutput, shaderErrorType);
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------
@@ -102,14 +107,29 @@ void Shader::checkCompileErrors(GLuint shaderHandle, const GLchar* shaderErrorTy
 }
 
 //------------------------------------------------------------------------------------------------
-Shader& Shader::use()
+void Shader::use()
 {
   glUseProgram(m_program);
-  return *this;
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------
-void Shader::setMatrix(const glm::mat4& matrix, const std::string& shaderVariableName)
+void Shader::setMatrix(const glm::mat4& matrix, const std::string& shaderVariableName) const
 {
   glUniformMatrix4fv(glGetUniformLocation(m_program, shaderVariableName.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+  glCheckError();
+}
+
+//------------------------------------------------------------------------------------------------
+void Shader::setVector4(const glm::vec4& vec, const std::string& shaderVariableName) const
+{
+  glUniform4f(glGetUniformLocation(m_program, shaderVariableName.c_str()), vec.x, vec.y, vec.z, vec.w);
+  glCheckError();
+}
+
+//------------------------------------------------------------------------------------------------
+void Shader::setInt(GLuint inputInt, const std::string& shaderVariableName) const
+{
+  glUniform1i(glGetUniformLocation(m_program, shaderVariableName.c_str()), inputInt);
+  glCheckError();
 }

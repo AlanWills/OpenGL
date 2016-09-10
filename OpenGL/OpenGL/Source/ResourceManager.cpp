@@ -1,32 +1,38 @@
 #include "ResourceManager.h"
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
 #include <SOIL/SOIL.h>
 
 std::unordered_map<std::string, Shader*> ResourceManager::m_shaders;
 std::unordered_map<std::string, Texture*> ResourceManager::m_textures;
 
 //------------------------------------------------------------------------------------------------
-Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
+Shader* ResourceManager::loadShader(const std::string& name, const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile)
 {
   m_shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
   return m_shaders[name];
 }
 
 //------------------------------------------------------------------------------------------------
-Shader* ResourceManager::getShader(std::string name)
+Shader* ResourceManager::getShader(const std::string& name)
 {
   return m_shaders[name];
 }
 
 //------------------------------------------------------------------------------------------------
-Texture* ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, std::string name)
+Texture* ResourceManager::loadTexture(const GLchar* file, GLboolean alpha, const std::string& name)
 {
-  m_textures[name] = loadTextureFromFile(file, alpha);
+  std::string fullPath(TEXTURE_DIR);
+  fullPath.append(file);
+
+  m_textures[name] = loadTextureFromFile(fullPath.c_str(), alpha);
   return m_textures[name];
 }
 
 //------------------------------------------------------------------------------------------------
-Texture* ResourceManager::getTexture(std::string name)
+Texture* ResourceManager::getTexture(const std::string& name)
 {
   return m_textures[name];
 }
@@ -74,7 +80,7 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLc
   std::cout << "ERROR::FRAGMENT::SHADER::FILE_NOT_SUCCESSFULLY_READ\n" << std::endl;
   }
 
-  if (!gShaderFile)
+  if (gShaderFile)
   {
     fullPath = SHADER_DIR;
     fullPath.append(GEOMETRY_DIR);
@@ -97,7 +103,7 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLc
 }
 
 //------------------------------------------------------------------------------------------------
-bool ResourceManager::readShaderFile(const GLchar* shaderFilePath, std::string& shaderCode)
+bool ResourceManager::readShaderFile(const GLchar* shaderFilePath, std::string& shaderCodeOutput)
 {
   std::ifstream shaderFile(shaderFilePath);
 
@@ -112,7 +118,7 @@ bool ResourceManager::readShaderFile(const GLchar* shaderFilePath, std::string& 
   shaderStream << shaderFile.rdbuf();
   shaderFile.close();
 
-  shaderCode = shaderStream.str();
+  shaderCodeOutput = shaderStream.str();
   return true;
 }
 
