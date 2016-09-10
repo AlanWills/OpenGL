@@ -18,8 +18,7 @@ class Camera
 {
 
 public:
-
-  Camera();
+  static Camera& getInstance();
 
   void getViewMatrix(glm::mat4& outputView) const;
   void getProjectionMatrix(GLuint viewportWidth, GLuint viewportHeight, glm::mat4& outputProj) const;
@@ -29,6 +28,8 @@ public:
   void zoom(GLfloat zoomDelta);
 
 private:
+  Camera();
+
   void updateCameraVectors();
 
   glm::vec3 m_cameraPos;

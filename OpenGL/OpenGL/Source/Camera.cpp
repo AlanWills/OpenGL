@@ -21,6 +21,14 @@ Camera::Camera()
 }
 
 //------------------------------------------------------------------------------------------------
+Camera& Camera::getInstance()
+{
+  static Camera camera;
+
+  return camera;
+}
+
+//------------------------------------------------------------------------------------------------
 void Camera::getViewMatrix(glm::mat4& outputView) const
 {
   outputView = glm::lookAt(m_cameraPos, m_cameraPos + m_lookDirection, m_up);

@@ -99,8 +99,8 @@ void Cube::beginDraw()
 //------------------------------------------------------------------------------------------------
 void Cube::drawInstance(Shader& shader, const glm::mat4& transform)
 {
-  shader.bindMatrix(transform, MODEL_MATRIX);
-  glDrawArrays(GL_TRIANGLES, 0, 36);
+  /*shader.bindUniformMatrix(transform, MODEL_MATRIX);
+  glDrawArrays(GL_TRIANGLES, 0, 36);*/
 }
 
 
