@@ -1,9 +1,7 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
+#include "GLHeaders.h"
 #include "Game.h"
 #include "ResourceManager.h"
+#include "Debug.h"
 
 
 // GLFW function declerations
@@ -11,10 +9,14 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
+
 // The height of the screen
 const GLuint SCREEN_HEIGHT = 600;
 
-Game Breakout(SCREEN_WIDTH, SCREEN_HEIGHT);
+// The amount of time we will allow per update
+const GLfloat MS_PER_UPDATE = 1000.0f / 16.0f;
+
+Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
 
 int main(int argc, char *argv[])
 {
@@ -39,35 +41,41 @@ int main(int argc, char *argv[])
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+  glCheckError();
+
   // Initialize game
-  Breakout.Init();
+  game.init();
 
   // DeltaTime variables
-  GLfloat deltaTime = 0.0f;
-  GLfloat lastFrame = 0.0f;
-
-  // Start Game within Menu State
-  Breakout.State = GAME_ACTIVE;
+  GLfloat elapsedGameTime = 0.0f;
+  GLfloat lastFrame = glfwGetTime();
+  GLfloat lag = 0.0f;
 
   while (!glfwWindowShouldClose(window))
   {
     // Calculate delta time
     GLfloat currentFrame = glfwGetTime();
-    deltaTime = currentFrame - lastFrame;
+    elapsedGameTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
+    lag += elapsedGameTime;
+
     glfwPollEvents();
 
-    //deltaTime = 0.001f;
     // Manage user input
-    Breakout.ProcessInput(deltaTime);
+    game.handleInput(elapsedGameTime);
 
     // Update Game state
-    Breakout.Update(deltaTime);
+    // We use a variable render fixed update loop
+    while (lag >= MS_PER_UPDATE)
+    {
+      game.update(elapsedGameTime);
+      lag -= MS_PER_UPDATE;
+    }
 
     // Render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    Breakout.Render();
+    game.render(lag / MS_PER_UPDATE);
 
     glfwSwapBuffers(window);
   }
@@ -87,8 +95,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
   if (key >= 0 && key < 1024)
   {
     if (action == GLFW_PRESS)
-      Breakout.Keys[key] = GL_TRUE;
+      game.Keys[key] = GL_TRUE;
     else if (action == GLFW_RELEASE)
-      Breakout.Keys[key] = GL_FALSE;
+      game.Keys[key] = GL_FALSE;
   }
 }

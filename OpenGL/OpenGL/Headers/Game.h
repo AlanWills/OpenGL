@@ -1,15 +1,10 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "GLHeaders.h"
+#include "SpriteRenderer.h"
 
+#include <memory>
 
-// Represents the current state of the game
-enum GameState {
-  GAME_ACTIVE,
-  GAME_MENU,
-  GAME_WIN
-};
 
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
@@ -17,6 +12,13 @@ enum GameState {
 class Game
 {
 public:
+  // Represents the current state of the game
+  enum GameState {
+    GAME_ACTIVE,
+    GAME_MENU,
+    GAME_WIN
+  };
+
   // Game state
   GameState              State;
   GLboolean              Keys[1024];
@@ -24,10 +26,15 @@ public:
   // Constructor/Destructor
   Game(GLuint width, GLuint height);
   ~Game();
+
   // Initialize game state (load all shaders/textures/levels)
-  void Init();
+  void init();
+
   // GameLoop
-  void ProcessInput(GLfloat dt);
-  void Update(GLfloat dt);
-  void Render();
+  void handleInput(GLfloat elapsedGameTime);
+  void update(GLfloat elapsedGameTime);
+  void render(GLfloat percentageIntoFrame);
+
+private:
+  std::unique_ptr<SpriteRenderer> m_spriteRenderer;
 };

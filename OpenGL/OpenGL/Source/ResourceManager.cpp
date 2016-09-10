@@ -81,6 +81,9 @@ Shader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLch
   const GLchar *vShaderCode = vertexCode.c_str();
   const GLchar *fShaderCode = fragmentCode.c_str();
   const GLchar *gShaderCode = geometryCode.c_str();
+
+  // TODO: Add asserts for empty strings
+
   // 2. Now create shader object from source code
   Shader shader;
   shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);

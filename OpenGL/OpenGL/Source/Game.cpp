@@ -3,22 +3,25 @@
 #include "SpriteRenderer.h"
 
 
-// Game-related State data
-SpriteRenderer  *Renderer;
-
-
+//------------------------------------------------------------------------------------------------
 Game::Game(GLuint width, GLuint height)
-  : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
+: State(GAME_ACTIVE), 
+  Keys(), 
+  Width(width), 
+  Height(height),
+  m_spriteRenderer(nullptr)
 {
 
 }
 
+//------------------------------------------------------------------------------------------------
 Game::~Game()
 {
-  delete Renderer;
+
 }
 
-void Game::Init()
+//------------------------------------------------------------------------------------------------
+void Game::init()
 {
   // Load shaders
   ResourceManager::LoadShader("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Vertex/sprite.vs", "C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Fragment/sprite.frag", nullptr, "sprite");
@@ -28,22 +31,24 @@ void Game::Init()
   ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
   // Load textures
   ResourceManager::LoadTexture("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Assets/awesomeface.png", GL_TRUE, "face");
-  // Set render-specific controls
-  Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
+  
+  m_spriteRenderer.reset(new SpriteRenderer(ResourceManager::GetShader("sprite")));
 }
 
-void Game::Update(GLfloat dt)
+//------------------------------------------------------------------------------------------------
+void Game::update(GLfloat elapsedGameTime)
 {
 
 }
 
-
-void Game::ProcessInput(GLfloat dt)
+//------------------------------------------------------------------------------------------------
+void Game::handleInput(GLfloat elapsedGameTime)
 {
 
 }
 
-void Game::Render()
+//------------------------------------------------------------------------------------------------
+void Game::render(GLfloat percentageIntoFrame)
 {
-  Renderer->DrawSprite(ResourceManager::GetTexture("face"), glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+  m_spriteRenderer->DrawSprite(ResourceManager::GetTexture("face"), glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }

@@ -16,9 +16,11 @@ public:
   // State
   GLuint ID;
   // Constructor
-  Shader() { }
+  Shader();
+
   // Sets the current shader as active
-  Shader  &Use();
+  void use();
+
   // Compiles the shader from given source code
   void    Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr); // Note: geometry source code is optional 
                                                                                                                      // Utility functions
