@@ -1,32 +1,26 @@
 #pragma once
 
-#include <memory>
+#include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-#include "GLHeaders.h"
+#include "texture.h"
+#include "shader.h"
 
-class Shader;
-class Texture;
 
 class SpriteRenderer
 {
-
 public:
-  SpriteRenderer(Shader* shader);
+  // Constructor (inits shaders/shapes)
+  SpriteRenderer(Shader &shader);
+  // Destructor
   ~SpriteRenderer();
-
-  void drawSprite(
-    const Texture &texture, 
-    const glm::vec2& position, 
-    const glm::vec2& size = glm::vec2(10, 10), 
-    GLfloat rotate = 0.0f, 
-    const glm::vec4& color = glm::vec4(1.0f));
-
+  // Renders a defined quad textured with given sprite
+  void DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size = glm::vec2(10, 10), GLfloat rotate = 0.0f, glm::vec3 color = glm::vec3(1.0f));
 private:
+  // Render state
+  Shader shader;
+  GLuint quadVAO;
+  // Initializes and configures the quad's buffer and vertex attributes
   void initRenderData();
-
-  // Don't use smart pointer as this shader is managed by the ResourceManager
-  Shader* m_shader;
-  GLuint m_vertexAttributeHandle;
 };
-

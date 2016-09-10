@@ -1,56 +1,49 @@
 #include "Game.h"
 #include "ResourceManager.h"
+#include "SpriteRenderer.h"
 
 
-//------------------------------------------------------------------------------------------------
+// Game-related State data
+SpriteRenderer  *Renderer;
+
+
 Game::Game(GLuint width, GLuint height)
-: m_state(GAME_ACTIVE),
-  m_keys(),
-  m_width(width),
-  m_height(height),
-  m_spriteRenderer(nullptr)
+  : State(GAME_ACTIVE), Keys(), Width(width), Height(height)
 {
+
 }
 
-//------------------------------------------------------------------------------------------------
 Game::~Game()
 {
+  delete Renderer;
 }
 
-//------------------------------------------------------------------------------------------------
-void Game::init()
+void Game::Init()
 {
   // Load shaders
-  Shader* shader = ResourceManager::loadShader("sprite", "sprite.vs", "sprite.frag");
-
-  glm::mat4 projection = glm::ortho(0.0f, (GLfloat)m_width, (GLfloat)m_height, 0.0f, -1.0f, 1.0f);
-  shader->use();
-  shader->setInt(0, TEXTURE);
-  shader->setMatrix(projection, PROJECTION_MATRIX);
-
-  m_spriteRenderer.reset(new SpriteRenderer(shader));
-
-  ResourceManager::loadTexture("awesomeface.png", GL_TRUE, "face");
+  ResourceManager::LoadShader("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Vertex/sprite.vs", "C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Fragment/sprite.frag", nullptr, "sprite");
+  // Configure shaders
+  glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
+  ResourceManager::GetShader("sprite").Use().SetInteger("image", 0);
+  ResourceManager::GetShader("sprite").SetMatrix4("projection", projection);
+  // Load textures
+  ResourceManager::LoadTexture("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Assets/awesomeface.png", GL_TRUE, "face");
+  // Set render-specific controls
+  Renderer = new SpriteRenderer(ResourceManager::GetShader("sprite"));
 }
 
-//------------------------------------------------------------------------------------------------
-void Game::handleInput(GLfloat elapsedTime)
+void Game::Update(GLfloat dt)
 {
 
 }
 
-//------------------------------------------------------------------------------------------------
-void Game::update(GLfloat elapsedTime)
+
+void Game::ProcessInput(GLfloat dt)
 {
 
 }
 
-//------------------------------------------------------------------------------------------------
-void Game::draw(GLfloat percentageIntoFrame)
+void Game::Render()
 {
-  m_spriteRenderer->drawSprite(
-    *ResourceManager::getTexture("face"), 
-    glm::vec2(200, 200), 
-    glm::vec2(300, 400), 45.0f, 
-    glm::vec4(0.0f, 1.0f, 0.0f, 1.0f));
+  Renderer->DrawSprite(ResourceManager::GetTexture("face"), glm::vec2(200, 200), glm::vec2(300, 400), 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
 }

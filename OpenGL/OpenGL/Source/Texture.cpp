@@ -1,46 +1,31 @@
+#include <iostream>
+
 #include "Texture.h"
 
 
-//------------------------------------------------------------------------------------------------
-Texture::Texture()
-  : m_glTextureHandle(0),
-  m_width(0),
-  m_height(0),
-  m_internalFormat(GL_RGB),
-  m_imageFormat(GL_RGB),
-  m_wrap_S(GL_REPEAT),
-  m_wrap_T(GL_REPEAT),
-  m_filter_Min(GL_LINEAR),
-  m_filter_Max(GL_LINEAR)
+Texture2D::Texture2D()
+  : Width(0), Height(0), Internal_Format(GL_RGB), Image_Format(GL_RGB), Wrap_S(GL_REPEAT), Wrap_T(GL_REPEAT), Filter_Min(GL_LINEAR), Filter_Max(GL_LINEAR)
 {
+  glGenTextures(1, &this->ID);
 }
 
-//------------------------------------------------------------------------------------------------
-Texture::~Texture()
+void Texture2D::Generate(GLuint width, GLuint height, unsigned char* data)
 {
-  glDeleteTextures(1, &m_glTextureHandle);
-}
-
-//------------------------------------------------------------------------------------------------
-void Texture::generate(GLuint width, GLuint height, unsigned char* data)
-{
-  m_width = width;
-  m_height = height;
-
-  glBindTexture(GL_TEXTURE_2D, m_glTextureHandle);
-  glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, m_width, m_height, 0, m_imageFormat, GL_UNSIGNED_BYTE, data);
-  glGenerateMipmap(GL_TEXTURE_2D);
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrap_S);	// Use GL_CLAMP_TO_EDGE to prevent semi-transparent borders. Due to interpolation it takes value from next repeat 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, m_wrap_T);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, m_filter_Min);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter_Max);
-
+  this->Width = width;
+  this->Height = height;
+  // Create Texture
+  glBindTexture(GL_TEXTURE_2D, this->ID);
+  glTexImage2D(GL_TEXTURE_2D, 0, this->Internal_Format, width, height, 0, this->Image_Format, GL_UNSIGNED_BYTE, data);
+  // Set Texture wrap and filter modes
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, this->Wrap_S);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, this->Wrap_T);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, this->Filter_Min);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, this->Filter_Max);
+  // Unbind texture
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-//------------------------------------------------------------------------------------------------
-void Texture::bind() const
+void Texture2D::Bind() const
 {
-  glBindTexture(GL_TEXTURE_2D, m_glTextureHandle);
+  glBindTexture(GL_TEXTURE_2D, this->ID);
 }

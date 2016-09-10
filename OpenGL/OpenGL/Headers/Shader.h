@@ -2,45 +2,36 @@
 
 #include <string>
 
-#include <GL/glew.h> // Include to get all the required OpenGL headers
-#include <glm/gtc/matrix_transform.hpp>
+#include <GL/glew.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
-class Texture;
 
-// Shader variable names
-#define MODEL_MATRIX "model"
-#define VIEW_MATRIX "view"
-#define PROJECTION_MATRIX "projection"
-#define TEXTURE "objectTexture"
-#define COLOUR "objectColour"
-
+// General purpsoe shader object. Compiles from file, generates
+// compile/link-time error messages and hosts several utility 
+// functions for easy management.
 class Shader
 {
 public:
-  // Constructor reads and builds the shader
-  Shader();
-  ~Shader();
-
-  void compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource = nullptr);
-
-  // Use the program
-  void use();
-
-  /// brief Used to bind matrices to uniform sampler variables in the shader
-  void setMatrix(const glm::mat4& matrix, const std::string& shaderVariableName) const;
-
-  /// \brief Used to bind vector4s to uniform sampler variables in the shader
-  void setVector4(const glm::vec4& vec, const std::string& shaderVariableName) const;
-
-  /// \brief Used to bind ints to uniform sampler variables in the shader 
-  void setInt(GLuint inputInt, const std::string& shaderVariableName) const;
-
+  // State
+  GLuint ID;
+  // Constructor
+  Shader() { }
+  // Sets the current shader as active
+  Shader  &Use();
+  // Compiles the shader from given source code
+  void    Compile(const GLchar *vertexSource, const GLchar *fragmentSource, const GLchar *geometrySource = nullptr); // Note: geometry source code is optional 
+                                                                                                                     // Utility functions
+  void    SetFloat(const GLchar *name, GLfloat value, GLboolean useShader = false);
+  void    SetInteger(const GLchar *name, GLint value, GLboolean useShader = false);
+  void    SetVector2f(const GLchar *name, GLfloat x, GLfloat y, GLboolean useShader = false);
+  void    SetVector2f(const GLchar *name, const glm::vec2 &value, GLboolean useShader = false);
+  void    SetVector3f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLboolean useShader = false);
+  void    SetVector3f(const GLchar *name, const glm::vec3 &value, GLboolean useShader = false);
+  void    SetVector4f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w, GLboolean useShader = false);
+  void    SetVector4f(const GLchar *name, const glm::vec4 &value, GLboolean useShader = false);
+  void    SetMatrix4(const GLchar *name, const glm::mat4 &matrix, GLboolean useShader = false);
 private:
-  // Wrapper function for creating a shader with the inputted code and returning a handle
-  void createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType);
-
-  void checkCompileErrors(GLuint shaderHandle, const GLchar* shaderErrorType);
-
-  // The program ID
-  GLuint m_program;
+  // Checks if compilation or linking failed and if so, print the error logs
+  void    checkCompileErrors(GLuint object, std::string type);
 };
