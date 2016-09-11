@@ -24,7 +24,7 @@ public:
   void getProjectionMatrix(GLuint viewportWidth, GLuint viewportHeight, glm::mat4& outputProj) const;
 
   void processMouseMovement(GLfloat xOffset, GLfloat yOffset);
-  void move(CameraMovement cameraMovement, GLfloat deltaTime);
+  void update(CameraMovement cameraMovement, GLfloat deltaTime);
   void zoom(GLfloat zoomDelta);
 
 private:

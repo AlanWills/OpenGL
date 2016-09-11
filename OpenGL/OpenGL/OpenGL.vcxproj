@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Ball.h" />
     <ClInclude Include="Headers\GameLevel.h" />
     <ClInclude Include="Headers\Debug.h" />
     <ClInclude Include="Headers\Game.h" />
@@ -25,6 +26,7 @@
     <ClInclude Include="Headers\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Ball.cpp" />
     <ClCompile Include="Source\GameLevel.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />

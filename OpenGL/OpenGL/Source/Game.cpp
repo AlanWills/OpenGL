@@ -50,8 +50,12 @@ void Game::init()
   loadLevel("Four.txt");
   
   m_spriteRenderer.reset(new SpriteRenderer(shader));
+
   glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
   m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture("paddle")));
+
+  glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f - m_ballRadius, playerPos.y - m_ballRadius * 0.5f);
+  m_ball.reset(new Ball(m_ballRadius, ballPos, ResourceManager::getTexture("face"), m_initialBallVelocity));
 
   glCheckError();
 }
@@ -92,14 +96,25 @@ void Game::handleInput(GLfloat elapsedGameTime)
       }
     }
 
-    m_player->translate(glm::vec2(velocity, 0));
+    if (m_keys[GLFW_KEY_SPACE])
+    {
+      m_ball->release();
+    }
+
+    glm::vec2 delta(velocity, 0);
+    m_player->translate(delta);
+
+    if (m_ball->isStuck())
+    {
+      m_ball->translate(delta);
+    }
   }
 }
 
 //------------------------------------------------------------------------------------------------
 void Game::update(GLfloat elapsedGameTime)
 {
-
+  m_ball->update(elapsedGameTime, m_width);
 }
 
 //------------------------------------------------------------------------------------------------
@@ -111,5 +126,6 @@ void Game::render(GLfloat percentageIntoFrame)
     m_spriteRenderer->drawSprite(ResourceManager::getTexture("background"), glm::vec2(0), glm::vec2(m_width, m_height));
     m_levels[m_currentLevel]->draw(*m_spriteRenderer);
     m_player->draw(*m_spriteRenderer);
+    m_ball->draw(*m_spriteRenderer);
   }
 }

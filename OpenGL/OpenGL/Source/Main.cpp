@@ -14,7 +14,7 @@ const GLuint SCREEN_WIDTH = 800;
 const GLuint SCREEN_HEIGHT = 600;
 
 // The amount of time we will allow per update
-const GLfloat MS_PER_UPDATE = 1000.0f / 16.0f;
+const GLfloat MS_PER_UPDATE = 1.0f / 60.0f;
 
 Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
 
@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
   return 0;
 }
 
+//------------------------------------------------------------------------------------------------
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
   // When a user presses the escape key, we set the WindowShouldClose property to true, closing the application

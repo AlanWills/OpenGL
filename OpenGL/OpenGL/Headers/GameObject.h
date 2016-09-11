@@ -28,9 +28,16 @@ public:
 
   const glm::vec2& getPosition() const { return m_position; }
   void setPosition(const glm::vec2& position) { m_position = position; }
+  void setPositionX(GLfloat xPosition) { m_position.x = xPosition; }
+  void setPositionY(GLfloat yPosition) { m_position.y = yPosition; }
   void translate(const glm::vec2& deltaPosition) { m_position += deltaPosition; }
 
-  const glm::vec2 getSize() const { return m_size; }
+  const glm::vec2& getSize() const { return m_size; }
+
+  const glm::vec2& getVelocity() const { return m_velocity; }
+  void setVelocity(const glm::vec2& velocity) { m_velocity = velocity; }
+  void reverseVelocityX() { m_velocity.x *= -1; }
+  void reverseVelocityY() { m_velocity.y *= -1; }
 
 private:
   glm::vec2 m_position;

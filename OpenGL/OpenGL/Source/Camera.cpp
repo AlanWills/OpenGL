@@ -62,7 +62,7 @@ void Camera::zoom(GLfloat zoomDelta)
 }
 
 //------------------------------------------------------------------------------------------------
-void Camera::move(CameraMovement cameraMovement, GLfloat deltaTime)
+void Camera::update(CameraMovement cameraMovement, GLfloat deltaTime)
 {
   GLfloat velocity = m_speed * deltaTime;
 

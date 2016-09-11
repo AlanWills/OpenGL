@@ -3,11 +3,15 @@
 #include "GLHeaders.h"
 #include "SpriteRenderer.h"
 #include "GameLevel.h"
+#include "Ball.h"
 
 #include <memory>
 
 const glm::vec2 m_playerSize(100.0f, 20.0f);
 const GLfloat m_playerVelocity(500.0f);
+
+const glm::vec2 m_initialBallVelocity(100, -1000);
+const GLfloat m_ballRadius = 12.5;
 
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
@@ -50,4 +54,5 @@ private:
   GLuint     m_height;
 
   std::unique_ptr<GameObject> m_player;
+  std::unique_ptr<Ball> m_ball;
 };
