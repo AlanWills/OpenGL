@@ -1,25 +1,43 @@
 #pragma once
 
-#include "Component.h"
-#include <vector>
-#include <memory>
+#include "SpriteRenderer.h"
+#include "glm/glm.hpp"
 
 class GameObject
 {
 
 public:
   GameObject();
+  GameObject(
+    const glm::vec2& pos, 
+    const glm::vec2& size, 
+    Texture2D* texture,
+    const glm::vec3& colour = glm::vec3(1.0f),
+    const glm::vec2& velocity = glm::vec2(0.0f));
+
   ~GameObject();
 
-  void update();
-  void draw(GLfloat elapsedTime);
+  virtual void draw(const SpriteRenderer& spriteRenderer) const;
 
-  /// \brief Add a component to this object
-  /// This object will always take ownership of the inputted component
-  void addComponent(const std::unique_ptr<Component>& component);
-  void addComponent(Component* component);
+  // State utility functions
+  void setSolid(GLboolean isSolid) { m_solid = isSolid; }
+  GLboolean isSolid() const { return m_solid; }
+
+  void setDestroyed(GLboolean isDestroyed) { m_destroyed = isDestroyed; }
+  GLboolean isDestroyed() const { return m_destroyed; }
 
 private:
-  std::vector<std::unique_ptr<Component>> m_components;
+  glm::vec2 m_position;
+  glm::vec2 m_size;
+  glm::vec2 m_velocity;
+
+  glm::vec3 m_colour;
+
+  GLfloat m_rotation;
+
+  GLboolean m_solid;
+  GLboolean m_destroyed;
+
+  Texture2D* m_texture;
 };
 

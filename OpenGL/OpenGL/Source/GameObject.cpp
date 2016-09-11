@@ -2,6 +2,31 @@
 
 //------------------------------------------------------------------------------------------------
 GameObject::GameObject()
+: m_position(0, 0),
+  m_size(1, 1),
+  m_velocity(0.0f),
+  m_colour(1.0f),
+  m_rotation(0.0f),
+  m_texture(nullptr),
+  m_solid(false),
+  m_destroyed(false)
+{
+}
+
+//------------------------------------------------------------------------------------------------
+GameObject::GameObject(
+  const glm::vec2& pos,
+  const glm::vec2& size,
+  Texture2D* texture,
+  const glm::vec3& colour,
+  const glm::vec2& velocity)
+: m_position(pos),
+  m_size(size),
+  m_texture(texture),
+  m_colour(colour),
+  m_velocity(velocity),
+  m_solid(false),
+  m_destroyed(false)
 {
 }
 
@@ -11,31 +36,7 @@ GameObject::~GameObject()
 }
 
 //------------------------------------------------------------------------------------------------
-void GameObject::update()
+void GameObject::draw(const SpriteRenderer& spriteRenderer) const
 {
-  for (const std::unique_ptr<Component>& component : m_components)
-  {
-    component->update();
-  }
-}
-
-//------------------------------------------------------------------------------------------------
-void GameObject::draw(GLfloat percentageIntoFrame)
-{
-  for (const std::unique_ptr<Component>& component : m_components)
-  {
-    component->draw(percentageIntoFrame);
-  }
-}
-
-//------------------------------------------------------------------------------------------------
-void GameObject::addComponent(const std::unique_ptr<Component>& component)
-{
-  //m_components.emplace_back(component);
-}
-
-//------------------------------------------------------------------------------------------------
-void GameObject::addComponent(Component* component)
-{
-  m_components.emplace_back(component);
+  spriteRenderer.drawSprite(m_texture, m_position, m_size, m_rotation, m_colour);
 }

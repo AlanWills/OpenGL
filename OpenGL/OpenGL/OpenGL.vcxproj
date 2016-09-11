@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\GameLevel.h" />
     <ClInclude Include="Headers\Debug.h" />
     <ClInclude Include="Headers\Game.h" />
     <ClInclude Include="Headers\GameObject.h" />
@@ -24,6 +25,7 @@
     <ClInclude Include="Headers\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\GameLevel.cpp" />
     <ClCompile Include="Source\Debug.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\Game.cpp" />
@@ -48,6 +50,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\awesomeface.png" />
+    <Image Include="Assets\block.png" />
+    <Image Include="Assets\block_solid.png" />
     <Image Include="Assets\container.jpg" />
     <Image Include="Assets\wall.jpg" />
   </ItemGroup>

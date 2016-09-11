@@ -60,6 +60,9 @@
     <ClCompile Include="Source\Texture2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Component.h">
@@ -93,6 +96,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Texture2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\GameLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -131,6 +137,12 @@
     </Image>
     <Image Include="Assets\wall.jpg">
       <Filter>Resource Files\Assets</Filter>
+    </Image>
+    <Image Include="Assets\block.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\block_solid.png">
+      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
 </Project>

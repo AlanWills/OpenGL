@@ -2,6 +2,7 @@
 
 #include "GLHeaders.h"
 #include "SpriteRenderer.h"
+#include "GameLevel.h"
 
 #include <memory>
 
@@ -37,4 +38,5 @@ public:
 
 private:
   std::unique_ptr<SpriteRenderer> m_spriteRenderer;
+  std::vector<std::unique_ptr<GameLevel>> m_levels;
 };
