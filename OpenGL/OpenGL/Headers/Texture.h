@@ -1,11 +1,6 @@
 #pragma once
 
-// GLEW
-#define GLEW_STATIC
-#include <GL/glew.h>
-
-// GLFW
-#include <GLFW/glfw3.h>
+#include "GLHeaders.h"
 
 #include <string>
 
@@ -14,23 +9,33 @@
 class Texture2D
 {
 public:
-  // Holds the ID of the texture object, used for all texture operations to reference to this particlar texture
-  GLuint ID;
-  // Texture image dimensions
-  GLuint Width, Height; // Width and height of loaded image in pixels
-                        // Texture Format
-  GLuint Internal_Format; // Format of texture object
-  GLuint Image_Format; // Format of loaded image
-                       // Texture configuration
-  GLuint Wrap_S; // Wrapping mode on S axis
-  GLuint Wrap_T; // Wrapping mode on T axis
-  GLuint Filter_Min; // Filtering mode if texture pixels < screen pixels
-  GLuint Filter_Max; // Filtering mode if texture pixels > screen pixels
-                     // Constructor (sets default texture modes)
+  // Constructor (sets default texture modes)
   Texture2D();
   ~Texture2D();
+
   // Generates texture from image data
-  void Generate(GLuint width, GLuint height, unsigned char* data);
+  void generate(GLuint width, GLuint height, unsigned char* data);
+
   // Binds the texture as the current active GL_TEXTURE_2D texture object
-  void Bind() const;
+  void bind() const;
+
+  void setInternalFormat(GLuint internalFormat) { m_internalFormat = internalFormat; }
+  void setImageFormat(GLuint imageFormat) { m_imageFormat = imageFormat; }
+
+private:
+  // Holds the ID of the texture object, used for all texture operations to reference to this particlar texture
+  GLuint m_textureHandle;
+
+  // Texture image dimensions
+  GLuint m_width, m_height;   // Width and height of loaded image in pixels
+
+  // Texture Format
+  GLuint m_internalFormat;     // Format of texture object
+  GLuint m_imageFormat;        // Format of loaded image
+
+  // Texture configuration
+  GLuint m_wrap_S;              // Wrapping mode on S axis
+  GLuint m_wrap_T;              // Wrapping mode on T axis
+  GLuint m_filter_Min;          // Filtering mode if texture pixels < screen pixels
+  GLuint m_filter_Max;          // Filtering mode if texture pixels > screen pixels
 };
