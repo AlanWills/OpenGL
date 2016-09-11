@@ -20,10 +20,6 @@ public:
     GAME_WIN
   };
 
-  // Game state
-  GameState              State;
-  GLboolean              Keys[1024];
-  GLuint                 Width, Height;
   // Constructor/Destructor
   Game(GLuint width, GLuint height);
   ~Game();
@@ -36,7 +32,15 @@ public:
   void update(GLfloat elapsedGameTime);
   void render(GLfloat percentageIntoFrame);
 
+  void setKeyState(int key, bool keyState) { m_keys[key] = keyState; }
+
 private:
   std::unique_ptr<SpriteRenderer> m_spriteRenderer;
   std::vector<std::unique_ptr<GameLevel>> m_levels;
+
+  // Game state
+  GameState  m_state;
+  GLboolean  m_keys[1024];
+  GLuint     m_width;
+  GLuint     m_height;
 };

@@ -18,37 +18,51 @@ Shader::~Shader()
 void Shader::compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
 {
   GLuint sVertex, sFragment, gShader;
+
   // Vertex Shader
   sVertex = glCreateShader(GL_VERTEX_SHADER);
   glShaderSource(sVertex, 1, &vertexSource, NULL);
   glCompileShader(sVertex);
   checkCompileErrors(sVertex, "VERTEX");
+
   // Fragment Shader
   sFragment = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(sFragment, 1, &fragmentSource, NULL);
   glCompileShader(sFragment);
   checkCompileErrors(sFragment, "FRAGMENT");
+
   // If geometry shader source code is given, also compile geometry shader
-  if (geometrySource != nullptr)
+  if (geometrySource)
   {
     gShader = glCreateShader(GL_GEOMETRY_SHADER);
     glShaderSource(gShader, 1, &geometrySource, NULL);
     glCompileShader(gShader);
     checkCompileErrors(gShader, "GEOMETRY");
   }
+
   // Shader Program
   m_program = glCreateProgram();
   glAttachShader(m_program, sVertex);
   glAttachShader(m_program, sFragment);
-  if (geometrySource != nullptr)
+
+  if (geometrySource)
+  {
     glAttachShader(m_program, gShader);
+  }
+
   glLinkProgram(m_program);
   checkCompileErrors(m_program, "PROGRAM");
+
   // Delete the shaders as they're linked into our program now and no longer necessery
   glDeleteShader(sVertex);
   glDeleteShader(sFragment);
-  if (geometrySource != nullptr)
+
+  if (geometrySource)
+  {
     glDeleteShader(gShader);
+  }
+
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------
@@ -93,6 +107,8 @@ void Shader::checkCompileErrors(GLuint shaderHandle, const GLchar* shaderErrorTy
     std::cout << "ERROR::SHADER::" << shaderErrorType << "::COMPILATION_FAILED\n" << infoLog << std::endl;
     assert(false);
   }
+
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------

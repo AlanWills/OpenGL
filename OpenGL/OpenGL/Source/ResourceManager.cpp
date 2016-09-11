@@ -47,12 +47,25 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLc
   std::string fragmentCode;
   std::string geometryCode;
 
-  readFile(vShaderFile, vertexCode);
-  readFile(fShaderFile, fragmentCode);
+  std::string fullPath(DIRECTORY);
+  fullPath.append(SHADER_DIR);
+  fullPath.append(VERTEX_SHADER_DIR);
+  fullPath.append(vShaderFile);
+  readFile(fullPath.c_str(), vertexCode);
+
+  fullPath = DIRECTORY;
+  fullPath.append(SHADER_DIR);
+  fullPath.append(FRAGMENT_SHADER_DIR);
+  fullPath.append(fShaderFile);
+  readFile(fullPath.c_str(), fragmentCode);
 
   if (gShaderFile)
   {
-    readFile(gShaderFile, geometryCode);
+    fullPath = DIRECTORY;
+    fullPath.append(SHADER_DIR);
+    fullPath.append(GEOMETRY_SHADER_DIR);
+    fullPath.append(gShaderFile);
+    readFile(fullPath.c_str(), geometryCode);
   }
 
   assert(!vertexCode.empty());
@@ -88,7 +101,7 @@ void ResourceManager::readFile(const GLchar* filePath, std::string& outputFileTe
 }
 
 //------------------------------------------------------------------------------------------------
-Texture2D* ResourceManager::loadTextureFromFile(const GLchar *file, GLboolean alpha)
+Texture2D* ResourceManager::loadTextureFromFile(const GLchar* file, GLboolean alpha)
 {
   // Create Texture object
   Texture2D* texture = new Texture2D();
@@ -99,8 +112,13 @@ Texture2D* ResourceManager::loadTextureFromFile(const GLchar *file, GLboolean al
   }
 
   // Load image
+  std::string fullPath(DIRECTORY);
+  fullPath.append(TEXTURE_DIR);
+  fullPath.append(file);
+
   int width, height;
-  unsigned char* image = SOIL_load_image(file, &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+  unsigned char* image = SOIL_load_image(fullPath.c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+  assert(image);
 
   // Now generate texture
   texture->generate(width, height, image);

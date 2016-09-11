@@ -6,10 +6,10 @@
 
 //------------------------------------------------------------------------------------------------
 Game::Game(GLuint width, GLuint height)
-: State(GAME_ACTIVE), 
-  Keys(), 
-  Width(width), 
-  Height(height),
+: m_state(GAME_ACTIVE), 
+  m_keys(), 
+  m_width(width), 
+  m_height(height),
   m_spriteRenderer(nullptr)
 {
 
@@ -27,15 +27,15 @@ void Game::init()
   glCheckError();
 
   // Load shaders
-  Shader* shader = ResourceManager::loadShader("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Vertex/sprite.vs", "C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Shaders/Fragment/sprite.frag", nullptr, "sprite");
+  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, "sprite");
 
   // Configure shaders
   shader->use(); 
   shader->setInteger("image", 0);
-  shader->setMatrix4("projection", glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f));
+  shader->setMatrix4("projection", glm::ortho(0.0f, (GLfloat)m_width, (GLfloat)m_height, 0.0f, -1.0f, 1.0f));
 
   // Load textures
-  ResourceManager::loadTexture("C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/Assets/awesomeface.png", GL_TRUE, "face");
+  ResourceManager::loadTexture("awesomeface.png", GL_TRUE, "face");
   
   m_spriteRenderer.reset(new SpriteRenderer(shader));
 

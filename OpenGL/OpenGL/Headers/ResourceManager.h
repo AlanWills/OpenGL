@@ -9,6 +9,13 @@
 #include "Texture2D.h"
 #include "Shader.h"
 
+#define DIRECTORY "C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/"
+#define TEXTURE_DIR "Assets/"
+#define SHADER_DIR "Shaders/"
+#define VERTEX_SHADER_DIR "Vertex/"
+#define FRAGMENT_SHADER_DIR "Fragment/"
+#define GEOMETRY_SHADER_DIR "Geometry/"
+
 typedef std::map<std::string, std::unique_ptr<Shader>>     ShaderMap;
 typedef std::map<std::string, std::unique_ptr<Texture2D>>  TextureMap;
 

@@ -92,8 +92,12 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
   if (key >= 0 && key < 1024)
   {
     if (action == GLFW_PRESS)
-      game.Keys[key] = GL_TRUE;
+    {
+      game.setKeyState(key, GL_TRUE);
+    }
     else if (action == GLFW_RELEASE)
-      game.Keys[key] = GL_FALSE;
+    {
+      game.setKeyState(key, GL_FALSE);
+    }
   }
 }
