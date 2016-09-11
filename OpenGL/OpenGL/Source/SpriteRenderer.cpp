@@ -1,17 +1,20 @@
 #include "SpriteRenderer.h"
 
 
+//------------------------------------------------------------------------------------------------
 SpriteRenderer::SpriteRenderer(Shader &shader)
 {
   this->shader = shader;
   this->initRenderData();
 }
 
+//------------------------------------------------------------------------------------------------
 SpriteRenderer::~SpriteRenderer()
 {
   glDeleteVertexArrays(1, &this->quadVAO);
 }
 
+//------------------------------------------------------------------------------------------------
 void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec2 size, GLfloat rotate, glm::vec3 color)
 {
   // TODO: Start profiling
@@ -40,6 +43,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec
   glBindVertexArray(0);
 }
 
+//------------------------------------------------------------------------------------------------
 void SpriteRenderer::initRenderData()
 {
   // Configure VAO/VBO

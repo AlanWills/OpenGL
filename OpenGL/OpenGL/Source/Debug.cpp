@@ -2,9 +2,13 @@
 
 #include <string>
 
+#define GL_FATAL_ERROR_NUMBER 3
+
 void checkGLError_(const char *file, int line)
 {
+  int count = 0;
   GLenum errorCode;
+
   while ((errorCode = glGetError()) != GL_NO_ERROR)
   {
     std::string error;
@@ -19,6 +23,11 @@ void checkGLError_(const char *file, int line)
     case GL_INVALID_FRAMEBUFFER_OPERATION: error = "INVALID_FRAMEBUFFER_OPERATION"; break;
     }
     std::cout << error << " | " << file << " (" << line << ")" << std::endl;
-    //assert(false);
+    
+    if (++count > GL_FATAL_ERROR_NUMBER)
+    {
+      // Assert if we have too many errors, otherwise just print them out
+      assert(false);
+    }
   }
 }

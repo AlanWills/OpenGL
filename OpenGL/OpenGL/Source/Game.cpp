@@ -32,7 +32,7 @@ void Game::init()
   // Configure shaders
   glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(this->Width), static_cast<GLfloat>(this->Height), 0.0f, -1.0f, 1.0f);
   Shader& shader = ResourceManager::GetShader("sprite");
-  shader.use();
+  shader.use(); // Currently getting an error here, but whatever
   shader.setInteger("image", 0);
   shader.setMatrix4("projection", projection);
 
