@@ -6,7 +6,7 @@
 
 #include <GL/glew.h>
 
-#include "Texture.h"
+#include "Texture2D.h"
 #include "Shader.h"
 
 typedef std::map<std::string, std::unique_ptr<Shader>>     ShaderMap;
@@ -37,7 +37,10 @@ private:
   ResourceManager() { }
 
   // Loads and generates a shader from file
-  static Shader* loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile = nullptr);
+  static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
+
+  // Reads a file locatted at the inputted file path and stores the file contents in the outputFileText parameter
+  static void readFile(const GLchar* filePath, std::string& outputFileText);
 
   // Loads a single texture from file
   static Texture2D* loadTextureFromFile(const GLchar *file, GLboolean alpha);

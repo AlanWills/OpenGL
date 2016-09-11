@@ -19,7 +19,7 @@
     <ClInclude Include="Headers\Cube.h" />
     <ClInclude Include="Headers\GLHeaders.h" />
     <ClInclude Include="Headers\Shader.h" />
-    <ClInclude Include="Headers\Texture.h" />
+    <ClInclude Include="Headers\Texture2D.h" />
     <ClInclude Include="Headers\SpriteRenderer.h" />
     <ClInclude Include="Headers\ResourceManager.h" />
   </ItemGroup>
@@ -33,7 +33,7 @@
     <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Shader.cpp" />
-    <ClCompile Include="Source\Texture.cpp" />
+    <ClCompile Include="Source\Texture2D.cpp" />
     <ClCompile Include="Source\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

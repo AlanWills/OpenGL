@@ -14,8 +14,9 @@ ShaderMap    ResourceManager::m_shaders;
 //------------------------------------------------------------------------------------------------
 Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const std::string& name)
 {
-  m_shaders[name] = std::unique_ptr<Shader>(loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile));
-  return m_shaders[name].get();
+  Shader* shader = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+  m_shaders[name] = std::unique_ptr<Shader>(shader);
+  return shader;
 }
 
 //------------------------------------------------------------------------------------------------
@@ -27,8 +28,9 @@ Shader* ResourceManager::getShader(const std::string& name)
 //------------------------------------------------------------------------------------------------
 Texture2D* ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, const std::string& name)
 {
-  m_textures[name] = std::unique_ptr<Texture2D>(loadTextureFromFile(file, alpha));
-  return m_textures[name].get();
+  Texture2D* texture = loadTextureFromFile(file, alpha);
+  m_textures[name] = std::unique_ptr<Texture2D>(texture);
+  return texture;
 }
 
 //------------------------------------------------------------------------------------------------
@@ -38,40 +40,19 @@ Texture2D* ResourceManager::getTexture(const std::string& name)
 }
 
 //------------------------------------------------------------------------------------------------
-Shader* ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile)
+Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile)
 {
   // 1. Retrieve the vertex/fragment source code from filePath
   std::string vertexCode;
   std::string fragmentCode;
   std::string geometryCode;
-  try
+
+  readFile(vShaderFile, vertexCode);
+  readFile(fShaderFile, fragmentCode);
+
+  if (gShaderFile)
   {
-    // Open files
-    std::ifstream vertexShaderFile(vShaderFile);
-    std::ifstream fragmentShaderFile(fShaderFile);
-    std::stringstream vShaderStream, fShaderStream;
-    // Read file's buffer contents into streams
-    vShaderStream << vertexShaderFile.rdbuf();
-    fShaderStream << fragmentShaderFile.rdbuf();
-    // close file handlers
-    vertexShaderFile.close();
-    fragmentShaderFile.close();
-    // Convert stream into string
-    vertexCode = vShaderStream.str();
-    fragmentCode = fShaderStream.str();
-    // If geometry shader path is present, also load a geometry shader
-    if (gShaderFile != nullptr)
-    {
-      std::ifstream geometryShaderFile(gShaderFile);
-      std::stringstream gShaderStream;
-      gShaderStream << geometryShaderFile.rdbuf();
-      geometryShaderFile.close();
-      geometryCode = gShaderStream.str();
-    }
-  }
-  catch (std::exception e)
-  {
-    std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
+    readFile(gShaderFile, geometryCode);
   }
 
   assert(!vertexCode.empty());
@@ -86,6 +67,24 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLc
   Shader* shader = new Shader();
   shader->compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
   return shader;
+}
+
+//------------------------------------------------------------------------------------------------
+void ResourceManager::readFile(const GLchar* filePath, std::string& outputFileText)
+{
+  std::ifstream file(filePath);
+  std::stringstream stream;
+
+  if (file.bad())
+  {
+    std::cout << "ERROR::Failed to read file" << filePath << std::endl;
+    return;
+  }
+
+  stream << file.rdbuf();
+  file.close();
+
+  outputFileText = stream.str();
 }
 
 //------------------------------------------------------------------------------------------------
