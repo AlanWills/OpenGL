@@ -7,42 +7,53 @@
 #include <SOIL/SOIL.h>
 
 // Instantiate static variables
-std::map<std::string, Texture2D>    ResourceManager::Textures;
-std::map<std::string, Shader>       ResourceManager::Shaders;
+std::map<std::string, Texture2D>    ResourceManager::m_textures;
+std::map<std::string, Shader>       ResourceManager::m_shaders;
 
 
-Shader& ResourceManager::LoadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
+//------------------------------------------------------------------------------------------------
+Shader& ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
 {
-  Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
-  return Shaders[name];
+  m_shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+  return m_shaders[name];
 }
 
-Shader& ResourceManager::GetShader(std::string name)
+//------------------------------------------------------------------------------------------------
+Shader& ResourceManager::getShader(std::string name)
 {
-  return Shaders[name];
+  return m_shaders[name];
 }
 
-Texture2D ResourceManager::LoadTexture(const GLchar *file, GLboolean alpha, std::string name)
+//------------------------------------------------------------------------------------------------
+Texture2D& ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, std::string name)
 {
-  Textures[name] = loadTextureFromFile(file, alpha);
-  return Textures[name];
+  m_textures[name] = loadTextureFromFile(file, alpha);
+  return m_textures[name];
 }
 
-Texture2D ResourceManager::GetTexture(std::string name)
+//------------------------------------------------------------------------------------------------
+Texture2D& ResourceManager::getTexture(std::string name)
 {
-  return Textures[name];
+  return m_textures[name];
 }
 
-void ResourceManager::Clear()
+//------------------------------------------------------------------------------------------------
+void ResourceManager::freeResources()
 {
   // (Properly) delete all shaders	
-  for (auto iter : Shaders)
+  for (auto iter : m_shaders)
+  {
     glDeleteProgram(iter.second.ID);
+  }
+
   // (Properly) delete all textures
-  for (auto iter : Textures)
+  for (auto iter : m_textures)
+  {
     glDeleteTextures(1, &iter.second.ID);
+  }
 }
 
+//------------------------------------------------------------------------------------------------
 Shader& ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile)
 {
   // 1. Retrieve the vertex/fragment source code from filePath
@@ -90,6 +101,7 @@ Shader& ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLc
   return shader;
 }
 
+//------------------------------------------------------------------------------------------------
 Texture2D ResourceManager::loadTextureFromFile(const GLchar *file, GLboolean alpha)
 {
   // Create Texture object
