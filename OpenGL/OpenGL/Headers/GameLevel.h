@@ -12,7 +12,7 @@ public:
   ~GameLevel();
 
   // Loads level from file
-  void load(const GLchar* file, GLuint levelWidth, GLuint levelHeight);
+  void load(const std::string& file, GLuint levelWidth, GLuint levelHeight);
 
   // Render the level
   void draw(const SpriteRenderer& renderer) const;

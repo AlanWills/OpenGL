@@ -35,8 +35,11 @@ public:
   void setKeyState(int key, bool keyState) { m_keys[key] = keyState; }
 
 private:
+  void loadLevel(const std::string& levelPath);
+
   std::unique_ptr<SpriteRenderer> m_spriteRenderer;
   std::vector<std::unique_ptr<GameLevel>> m_levels;
+  GLuint m_currentLevel;
 
   // Game state
   GameState  m_state;

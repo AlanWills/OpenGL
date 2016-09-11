@@ -16,7 +16,7 @@ GameLevel::~GameLevel()
 }
 
 //------------------------------------------------------------------------------------------------
-void GameLevel::load(const GLchar* file, GLuint levelWidth, GLuint levelHeight)
+void GameLevel::load(const std::string& file, GLuint levelWidth, GLuint levelHeight)
 {
   // Clear old data
   m_bricks.clear();
@@ -85,8 +85,6 @@ void GameLevel::init(
       }
       else if (tileData[y][x] > 1)
       {
-        glm::vec3 colour = glm::vec3(1.0f);
-
         switch (tileData[y][x])
         {
           case 2:
@@ -103,13 +101,14 @@ void GameLevel::init(
 
           case 5:
             colour = glm::vec3(1.0f, 0.5f, 0.0f);
+            break;
         }
       }
 
       GameObject* obj = new GameObject(pos,
-                                       size,
-                                       ResourceManager::getTexture(textureAsset),
-                                       colour);
+        size,
+        ResourceManager::getTexture(textureAsset),
+        colour);
       obj->setSolid(isSolid);
       m_bricks.push_back(std::unique_ptr<GameObject>(obj));
     }

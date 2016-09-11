@@ -144,5 +144,17 @@
     <Image Include="Assets\block_solid.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\background.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\paddle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\One.txt" />
+    <Text Include="Levels\Four.txt" />
+    <Text Include="Levels\Three.txt" />
+    <Text Include="Levels\Two.txt" />
   </ItemGroup>
 </Project>

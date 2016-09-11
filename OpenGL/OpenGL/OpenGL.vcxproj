@@ -50,10 +50,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\awesomeface.png" />
+    <Image Include="Assets\background.jpg" />
     <Image Include="Assets\block.png" />
     <Image Include="Assets\block_solid.png" />
     <Image Include="Assets\container.jpg" />
+    <Image Include="Assets\paddle.png" />
     <Image Include="Assets\wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Levels\Four.txt" />
+    <Text Include="Levels\One.txt" />
+    <Text Include="Levels\Three.txt" />
+    <Text Include="Levels\Two.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
