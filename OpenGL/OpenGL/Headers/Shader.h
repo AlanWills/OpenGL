@@ -18,24 +18,25 @@ public:
 
   // Constructor reads and builds the shader
   Shader();
+  ~Shader();
   
   // Note: geometry source code is optional
   // Compiles the shader from given source code
   void compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource = nullptr);
 
   // Sets the current shader as active
-  void use();
+  void use() const;
 
   // Utility functions
-  void setFloat(const GLchar *name, GLfloat value);
-  void setInteger(const GLchar *name, GLint value);
-  void setVector2f(const GLchar *name, GLfloat x, GLfloat y);
-  void setVector2f(const GLchar *name, const glm::vec2 &value);
-  void setVector3f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z);
-  void setVector3f(const GLchar *name, const glm::vec3 &value);
-  void setVector4f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-  void setVector4f(const GLchar *name, const glm::vec4 &value);
-  void setMatrix4(const GLchar *name, const glm::mat4 &matrix);
+  void setFloat(const GLchar *name, GLfloat value) const;
+  void setInteger(const GLchar *name, GLint value) const;
+  void setVector2f(const GLchar *name, GLfloat x, GLfloat y) const;
+  void setVector2f(const GLchar *name, const glm::vec2 &value) const;
+  void setVector3f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z) const;
+  void setVector3f(const GLchar *name, const glm::vec3 &value) const;
+  void setVector4f(const GLchar *name, GLfloat x, GLfloat y, GLfloat z, GLfloat w) const;
+  void setVector4f(const GLchar *name, const glm::vec4 &value) const;
+  void setMatrix4(const GLchar *name, const glm::mat4 &matrix) const;
 
 private:
   // Wrapper function for creating a shader with the inputted code and returning a handle
