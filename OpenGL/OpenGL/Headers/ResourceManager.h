@@ -32,9 +32,6 @@ public:
   // Retrieves a stored texture
   static Texture2D* getTexture(const std::string& name);
 
-  // Properly de-allocates all loaded resources
-  static void freeResources();
-
 private:
   // Private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
   ResourceManager() { }

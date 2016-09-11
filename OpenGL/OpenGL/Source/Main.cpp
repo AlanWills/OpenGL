@@ -80,9 +80,6 @@ int main(int argc, char *argv[])
     glfwSwapBuffers(window);
   }
 
-  // Delete all resources as loaded using the resource manager
-  ResourceManager::freeResources();
-
   glfwTerminate();
   return 0;
 }

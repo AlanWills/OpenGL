@@ -38,22 +38,6 @@ Texture2D* ResourceManager::getTexture(const std::string& name)
 }
 
 //------------------------------------------------------------------------------------------------
-void ResourceManager::freeResources()
-{
-  // (Properly) delete all shaders	
-  //for (auto iter : m_shaders)
-  //{
-  //  
-  //}
-
-  //// (Properly) delete all textures
-  //for (auto iter : m_textures)
-  //{
-  //  glDeleteTextures(1, &iter.second.ID);
-  //}
-}
-
-//------------------------------------------------------------------------------------------------
 Shader* ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile)
 {
   // 1. Retrieve the vertex/fragment source code from filePath
@@ -89,11 +73,14 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLc
   {
     std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
   }
+
+  assert(!vertexCode.empty());
+  assert(!fragmentCode.empty());
+  assert(!gShaderFile || !geometryCode.empty());
+
   const GLchar *vShaderCode = vertexCode.c_str();
   const GLchar *fShaderCode = fragmentCode.c_str();
   const GLchar *gShaderCode = geometryCode.c_str();
-
-  // TODO: Add asserts for empty strings
 
   // 2. Now create shader object from source code
   Shader* shader = new Shader();
