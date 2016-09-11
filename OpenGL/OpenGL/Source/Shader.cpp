@@ -1,20 +1,15 @@
 #include "Shader.h"
+#include "Debug.h"
 
 #include <iostream>
 
 //------------------------------------------------------------------------------------------------
 Shader::Shader()
 {
-
 }
 
 //------------------------------------------------------------------------------------------------
-void Shader::use()
-{
-  glUseProgram(this->ID);
-}
-
-void Shader::Compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
+void Shader::compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
 {
   GLuint sVertex, sFragment, gShader;
   // Vertex Shader
@@ -48,6 +43,56 @@ void Shader::Compile(const GLchar* vertexSource, const GLchar* fragmentSource, c
   glDeleteShader(sFragment);
   if (geometrySource != nullptr)
     glDeleteShader(gShader);
+}
+
+//------------------------------------------------------------------------------------------------
+void Shader::createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType)
+{
+  shaderHandleOutput = glCreateShader(shaderType);
+  glShaderSource(shaderHandleOutput, 1, &shaderCode, nullptr);
+  glCompileShader(shaderHandleOutput);
+  
+  checkCompileErrors(shaderHandleOutput, shaderErrorType);
+  glCheckError();
+}
+
+//------------------------------------------------------------------------------------------------
+void Shader::checkCompileErrors(GLuint shaderHandle, const GLchar* shaderErrorType)
+{
+  GLint success;
+  bool isProgram = shaderErrorType == "PROGRAM";
+  
+  if (isProgram)
+  {
+    glGetProgramiv(m_program, GL_LINK_STATUS, &success);
+  }
+  else
+  {
+    glGetShaderiv(shaderHandle, GL_COMPILE_STATUS, &success);
+  }
+  
+  if (!success)
+  {
+    GLchar infoLog[1024];
+   
+    if (isProgram)
+    {
+      glGetProgramInfoLog(m_program, 1024, nullptr, infoLog);
+    }
+    else
+    {
+      glGetShaderInfoLog(shaderHandle, 1024, nullptr, infoLog);
+    }
+   
+    std::cout << "ERROR::SHADER::" << shaderErrorType << "::COMPILATION_FAILED\n" << infoLog << std::endl;
+    assert(false);
+  }
+}
+
+//------------------------------------------------------------------------------------------------
+void Shader::use()
+{
+  glUseProgram(this->ID);
 }
 
 void Shader::SetFloat(const GLchar *name, GLfloat value, GLboolean useShader)
@@ -103,33 +148,4 @@ void Shader::SetMatrix4(const GLchar *name, const glm::mat4 &matrix, GLboolean u
   if (useShader)
     this->use();
   glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, GL_FALSE, glm::value_ptr(matrix));
-}
-
-
-void Shader::checkCompileErrors(GLuint object, std::string type)
-{
-  GLint success;
-  GLchar infoLog[1024];
-  if (type != "PROGRAM")
-  {
-    glGetShaderiv(object, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
-      glGetShaderInfoLog(object, 1024, NULL, infoLog);
-      std::cout << "| ERROR::SHADER: Compile-time error: Type: " << type << "\n"
-        << infoLog << "\n -- --------------------------------------------------- -- "
-        << std::endl;
-    }
-  }
-  else
-  {
-    glGetProgramiv(object, GL_LINK_STATUS, &success);
-    if (!success)
-    {
-      glGetProgramInfoLog(object, 1024, NULL, infoLog);
-      std::cout << "| ERROR::Shader: Link-time error: Type: " << type << "\n"
-        << infoLog << "\n -- --------------------------------------------------- -- "
-        << std::endl;
-    }
-  }
 }

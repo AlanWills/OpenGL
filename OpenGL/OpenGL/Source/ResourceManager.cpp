@@ -86,7 +86,7 @@ Shader ResourceManager::loadShaderFromFile(const GLchar *vShaderFile, const GLch
 
   // 2. Now create shader object from source code
   Shader shader;
-  shader.Compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+  shader.compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
   return shader;
 }
 

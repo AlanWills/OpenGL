@@ -17,7 +17,7 @@ void SpriteRenderer::DrawSprite(Texture2D &texture, glm::vec2 position, glm::vec
   // TODO: Start profiling
 
   // Prepare transformations
-  this->shader.Use();
+  this->shader.use();
   glm::mat4 model;
   model = glm::translate(model, glm::vec3(position, 0.0f));  // First translate (transformations are: scale happens first, then rotation and then finall translation happens; reversed order)
 
