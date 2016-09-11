@@ -12,27 +12,27 @@ ShaderMap    ResourceManager::m_shaders;
 
 
 //------------------------------------------------------------------------------------------------
-Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name)
+Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const std::string& name)
 {
   m_shaders[name] = std::unique_ptr<Shader>(loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile));
   return m_shaders[name].get();
 }
 
 //------------------------------------------------------------------------------------------------
-Shader* ResourceManager::getShader(std::string name)
+Shader* ResourceManager::getShader(const std::string& name)
 {
   return m_shaders[name].get();
 }
 
 //------------------------------------------------------------------------------------------------
-Texture2D* ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, std::string name)
+Texture2D* ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, const std::string& name)
 {
   m_textures[name] = std::unique_ptr<Texture2D>(loadTextureFromFile(file, alpha));
   return m_textures[name].get();
 }
 
 //------------------------------------------------------------------------------------------------
-Texture2D* ResourceManager::getTexture(std::string name)
+Texture2D* ResourceManager::getTexture(const std::string& name)
 {
   return m_textures[name].get();
 }

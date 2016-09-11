@@ -13,9 +13,6 @@
 class Shader
 {
 public:
-  // State
-  GLuint ID;
-
   // Constructor reads and builds the shader
   Shader();
   ~Shader();

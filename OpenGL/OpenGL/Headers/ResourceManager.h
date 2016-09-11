@@ -21,16 +21,16 @@ class ResourceManager
 {
 public:
   // Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
-  static Shader* loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, std::string name);
+  static Shader* loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const std::string& name);
 
-  // Retrieves a stored sader
-  static Shader* getShader(std::string name);
+  // Retrieves a stored shader
+  static Shader* getShader(const std::string& name);
 
   // Loads (and generates) a texture from file
-  static Texture2D* loadTexture(const GLchar *file, GLboolean alpha, std::string name);
+  static Texture2D* loadTexture(const GLchar *file, GLboolean alpha, const std::string& name);
 
   // Retrieves a stored texture
-  static Texture2D* getTexture(std::string name);
+  static Texture2D* getTexture(const std::string& name);
 
   // Properly de-allocates all loaded resources
   static void freeResources();
