@@ -26,6 +26,12 @@ public:
   void setDestroyed(GLboolean isDestroyed) { m_destroyed = isDestroyed; }
   GLboolean isDestroyed() const { return m_destroyed; }
 
+  const glm::vec2& getPosition() const { return m_position; }
+  void setPosition(const glm::vec2& position) { m_position = position; }
+  void translate(const glm::vec2& deltaPosition) { m_position += deltaPosition; }
+
+  const glm::vec2 getSize() const { return m_size; }
+
 private:
   glm::vec2 m_position;
   glm::vec2 m_size;

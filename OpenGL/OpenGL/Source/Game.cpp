@@ -11,7 +11,8 @@ Game::Game(GLuint width, GLuint height)
   m_width(width), 
   m_height(height),
   m_spriteRenderer(nullptr),
-  m_currentLevel(0)
+  m_currentLevel(0),
+  m_player(nullptr)
 {
 
 }
@@ -40,6 +41,7 @@ void Game::init()
   ResourceManager::loadTexture("awesomeface.png", GL_TRUE, "face");
   ResourceManager::loadTexture("block.png", GL_FALSE, "block");
   ResourceManager::loadTexture("block_solid.png", GL_FALSE, "block_solid");
+  ResourceManager::loadTexture("paddle.png", GL_TRUE, "paddle");
 
   // Load levels
   loadLevel("One.txt");
@@ -48,6 +50,8 @@ void Game::init()
   loadLevel("Four.txt");
   
   m_spriteRenderer.reset(new SpriteRenderer(shader));
+  glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
+  m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture("paddle")));
 
   glCheckError();
 }
@@ -65,13 +69,35 @@ void Game::loadLevel(const std::string& levelPath)
 }
 
 //------------------------------------------------------------------------------------------------
-void Game::update(GLfloat elapsedGameTime)
+void Game::handleInput(GLfloat elapsedGameTime)
 {
+  if (m_state == GAME_ACTIVE)
+  {
+    GLfloat velocity = 0;
 
+    // Move paddle
+    if (m_keys[GLFW_KEY_A])
+    {
+      if (m_player->getPosition().x >= 0)
+      {
+        velocity = -m_playerVelocity * elapsedGameTime;
+      }
+    }
+
+    if (m_keys[GLFW_KEY_D])
+    {
+      if (m_player->getPosition().x <= m_width - m_player->getSize().x)
+      {
+        velocity = m_playerVelocity * elapsedGameTime;
+      }
+    }
+
+    m_player->translate(glm::vec2(velocity, 0));
+  }
 }
 
 //------------------------------------------------------------------------------------------------
-void Game::handleInput(GLfloat elapsedGameTime)
+void Game::update(GLfloat elapsedGameTime)
 {
 
 }
@@ -84,5 +110,6 @@ void Game::render(GLfloat percentageIntoFrame)
     // Draw background
     m_spriteRenderer->drawSprite(ResourceManager::getTexture("background"), glm::vec2(0), glm::vec2(m_width, m_height));
     m_levels[m_currentLevel]->draw(*m_spriteRenderer);
+    m_player->draw(*m_spriteRenderer);
   }
 }

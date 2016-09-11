@@ -6,6 +6,8 @@
 
 #include <memory>
 
+const glm::vec2 m_playerSize(100.0f, 20.0f);
+const GLfloat m_playerVelocity(500.0f);
 
 // Game holds all game-related state and functionality.
 // Combines all game-related data into a single class for
@@ -46,4 +48,6 @@ private:
   GLboolean  m_keys[1024];
   GLuint     m_width;
   GLuint     m_height;
+
+  std::unique_ptr<GameObject> m_player;
 };
