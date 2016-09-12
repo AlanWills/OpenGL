@@ -44,18 +44,18 @@ void Game::init()
   ResourceManager::loadTexture("paddle.png", GL_TRUE, "paddle");
 
   // Load levels
-  loadLevel("One.txt");
-  loadLevel("Two.txt");
-  loadLevel("Three.txt");
-  loadLevel("Four.txt");
+  for (const std::pair<int, std::string>& levelPairs : m_levelFiles)
+  {
+    loadLevel(levelPairs.second);
+  }
   
   m_spriteRenderer.reset(new SpriteRenderer(shader));
 
   glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
   m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture("paddle")));
 
-  glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f - m_ballRadius, playerPos.y - m_ballRadius * 0.5f);
-  m_ball.reset(new Ball(m_ballRadius, ballPos, ResourceManager::getTexture("face"), m_initialBallVelocity));
+  glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f, playerPos.y);
+  m_ball.reset(new Ball(ballPos, ResourceManager::getTexture("face")));
 
   glCheckError();
 }
@@ -115,17 +115,44 @@ void Game::handleInput(GLfloat elapsedGameTime)
 void Game::update(GLfloat elapsedGameTime)
 {
   m_ball->update(elapsedGameTime, m_width);
+  m_levels[m_currentLevel]->doCollisions(m_ball.get(), m_player.get());
+
+  if (m_ball->getPosition().y >= m_height)
+  {
+    resetLevel();
+    resetPlayer();
+  }
 }
 
 //------------------------------------------------------------------------------------------------
-void Game::render(GLfloat percentageIntoFrame)
+void Game::resetLevel()
+{
+  std::string fullLevelPath(DIRECTORY);
+  fullLevelPath.append(LEVEL_DIR);
+  fullLevelPath.append(m_levelFiles.at(m_currentLevel));
+
+  m_levels[m_currentLevel]->load(fullLevelPath, m_width, m_height * 0.5f);
+}
+
+//------------------------------------------------------------------------------------------------
+void Game::resetPlayer()
+{
+  glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
+  m_player->setPosition(playerPos);
+
+  glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f, playerPos.y);
+  m_ball->reset(ballPos);
+}
+
+//------------------------------------------------------------------------------------------------
+void Game::render(GLfloat elapsedGameTime, GLfloat percentageIntoFrame)
 {
   if (m_state == GAME_ACTIVE)
   {
     // Draw background
     m_spriteRenderer->drawSprite(ResourceManager::getTexture("background"), glm::vec2(0), glm::vec2(m_width, m_height));
-    m_levels[m_currentLevel]->draw(*m_spriteRenderer);
-    m_player->draw(*m_spriteRenderer);
-    m_ball->draw(*m_spriteRenderer);
+    m_levels[m_currentLevel]->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
+    m_player->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
+    m_ball->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
   }
 }

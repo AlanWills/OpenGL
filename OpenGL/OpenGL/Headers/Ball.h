@@ -2,20 +2,31 @@
 
 #include "GameObject.h"
 
+
 class Ball : public GameObject
 {
 
 public:
-  Ball(GLfloat radius, const glm::vec2& position, Texture2D* texture, const glm::vec2& velocity);
+  Ball(const glm::vec2& playerPosition, Texture2D* texture);
   ~Ball();
 
   void update(GLfloat elapsedGameTime, GLuint windowWidth);
-  void reset(const glm::vec2& position, const glm::vec2& velocity);
+  void reset(const glm::vec2& position);
 
   GLboolean isStuck() const { return m_stuck; }
-  void release() { m_stuck = GL_FALSE; }
+  void release();
+
+  GLfloat getRadius() const { return getSize().x; }
+
+  // Init data
+  GLfloat getInitialBallRadius() { return 12.5f; }
+  const glm::vec2& getInitialBallVelocity() 
+  { 
+    static glm::vec2 initialVelocity(100, -1000);
+
+    return initialVelocity;
+  }
 
 private:
-  GLfloat m_radius;
   GLboolean m_stuck;
 };

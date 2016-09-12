@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SpriteRenderer.h"
+#include "GLHeaders.h"
 #include "glm/glm.hpp"
 
 class GameObject
@@ -17,13 +18,13 @@ public:
 
   ~GameObject();
 
-  virtual void draw(const SpriteRenderer& spriteRenderer) const;
+  virtual void draw(const SpriteRenderer& spriteRenderer, GLfloat elapsedGameTime, GLfloat percentageIntoFrame) const;
 
   // State utility functions
   void setSolid(GLboolean isSolid) { m_solid = isSolid; }
   GLboolean isSolid() const { return m_solid; }
 
-  void setDestroyed(GLboolean isDestroyed) { m_destroyed = isDestroyed; }
+  void destroy() { m_destroyed = GL_TRUE; }
   GLboolean isDestroyed() const { return m_destroyed; }
 
   const glm::vec2& getPosition() const { return m_position; }
