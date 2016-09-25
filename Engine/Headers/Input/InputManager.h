@@ -2,9 +2,7 @@
 
 #include "Keyboards/Keyboard.h"
 
-#include "stdafx.h"
-
-namespace Engine::Input
+namespace Engine
 {
   // A class which uses a service locator pattern to store and update various input modules
   // These can be obtained and set with static methods, but the logic of them is in the objects themselves rather than this class
@@ -28,6 +26,5 @@ namespace Engine::Input
   };
 
   // Initialise the static keyboard member here
-  std::unique_ptr<Keyboard> InputManager::m_keyboard(nullptr);
-
+  std::unique_ptr<Keyboard> InputManager::m_keyboard(new Keyboard());
 }

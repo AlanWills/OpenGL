@@ -1,12 +1,13 @@
 #pragma once
 
+#include "DllExport.h"
 #include <array>
 
-namespace Engine::Input
+namespace Engine
 {
   #define KEYBOARD_KEY_COUNT 1024
 
-class Keyboard
+class DllExport Keyboard
 {
   public:
     Keyboard();
@@ -23,7 +24,7 @@ class Keyboard
 protected:
   typedef std::array<int, KEYBOARD_KEY_COUNT> KeyArray;
 
-  private:
+private:
     KeyArray m_currentKeys;
     KeyArray m_previousKeys;
 };

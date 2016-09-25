@@ -2,7 +2,7 @@
 
 #include "Input/Keyboards/Keyboard.h"
 
-namespace Engine::Input
+namespace Engine
 {
   //------------------------------------------------------------------------------------------------
   Keyboard::Keyboard()

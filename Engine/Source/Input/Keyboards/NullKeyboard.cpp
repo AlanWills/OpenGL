@@ -1,37 +1,28 @@
 #include "stdafx.h"
 
-#include "Input/InputManager.h"
+#include "Input/Keyboards/NullKeyboard.h"
 
 namespace Engine
 {
-
   //------------------------------------------------------------------------------------------------
-  InputManager::InputManager()
+  NullKeyboard::NullKeyboard()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  InputManager::~InputManager()
+  NullKeyboard::~NullKeyboard()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::update(GLfloat elapsedGameTime)
+  GLboolean NullKeyboard::isKeyDown(int key) const
   {
-    m_keyboard->update(elapsedGameTime);
+    return GL_FALSE;
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::setKeyboard(Keyboard* keyboard)
+  GLboolean NullKeyboard::isKeyPressed(int key) const
   {
-    assert(keyboard);
-    m_keyboard.reset(keyboard);
+    return GL_FALSE;
   }
-
-  //------------------------------------------------------------------------------------------------
-  Keyboard* InputManager::getKeyboard()
-  {
-    return m_keyboard.get();
-  }
-
 }
