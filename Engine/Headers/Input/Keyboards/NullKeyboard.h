@@ -4,8 +4,9 @@
 
 namespace Engine
 {
-  class NullKeyboard : public Keyboard
+  class DllExport NullKeyboard : public Keyboard
   {
+  public:
     NullKeyboard();
     ~NullKeyboard();
 
