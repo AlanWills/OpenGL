@@ -3,3 +3,4 @@ Debug/
 *.db
 *.opendb
 *.TMP
+ipch/

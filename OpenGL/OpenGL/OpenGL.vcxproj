@@ -19,7 +19,6 @@
     <ClInclude Include="Headers\Camera.h" />
     <ClInclude Include="Headers\Component.h" />
     <ClInclude Include="Headers\Cube.h" />
-    <ClInclude Include="Headers\GLHeaders.h" />
     <ClInclude Include="Headers\Shader.h" />
     <ClInclude Include="Headers\Texture2D.h" />
     <ClInclude Include="Headers\SpriteRenderer.h" />
@@ -94,12 +93,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\Engine;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\Engine;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
