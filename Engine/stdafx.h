@@ -15,3 +15,5 @@
 
 // TODO: reference additional headers your program requires here
 #include "GLHeaders.h"
+#include <memory>
+#include <assert.h>
