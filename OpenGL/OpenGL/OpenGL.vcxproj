@@ -94,12 +94,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\OpenGL\OpenGL\Headers;C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\OpenGL\OpenGL\Headers;C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\Alan\Documents\Visual Studio 2015\Projects\OpenGL\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
