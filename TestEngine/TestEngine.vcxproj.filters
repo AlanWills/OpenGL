@@ -25,13 +25,19 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Tests\Input\TestKeyboard.cpp">
-      <Filter>Source Files\Tests\Input</Filter>
-    </ClCompile>
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\Input\TestNullKeyboard.cpp">
+    <ClCompile Include="Source\Tests\Input\Keyboard\TestKeyboard.cpp">
+      <Filter>Source Files\Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

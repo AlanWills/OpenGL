@@ -66,6 +66,9 @@
     <ClInclude Include="Headers\Memory\Allocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Input\Mouse\NullMouse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\dllmain.cpp">
@@ -77,16 +80,16 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Input\Keyboards\Keyboard.cpp">
-      <Filter>Source Files\Input\Keyboard</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Input\InputManager.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Input\Keyboards\NullKeyboard.cpp">
+    <ClCompile Include="Source\Memory\Allocator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\Keyboard\Keyboard.cpp">
       <Filter>Source Files\Input\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Memory\Allocator.cpp">
+    <ClCompile Include="Source\Input\Mouse\Mouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
