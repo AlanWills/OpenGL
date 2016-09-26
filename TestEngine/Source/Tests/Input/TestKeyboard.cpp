@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "CppUnitTest.h"
-#include "Input/Keyboards/Keyboard.h"
+#include "Input/Keyboard/Keyboard.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Engine;
@@ -57,6 +57,28 @@ namespace TestEngine
 
       Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_B));
       Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_C));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Keyboard_Flush)
+    {
+      Keyboard keyboard;
+      keyboard.setKeyDown(GLFW_KEY_A);
+      keyboard.setKeyDown(GLFW_KEY_SPACE);
+
+      // Sanity check
+      Assert::IsTrue(keyboard.isKeyPressed(GLFW_KEY_A));
+      Assert::IsTrue(keyboard.isKeyPressed(GLFW_KEY_SPACE));
+      Assert::IsTrue(keyboard.isKeyDown(GLFW_KEY_A));
+      Assert::IsTrue(keyboard.isKeyDown(GLFW_KEY_SPACE));
+
+      // Flush now so that all the above calls should now fail
+      keyboard.flush();
+
+      Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_B));
+      Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_C));
+      Assert::IsFalse(keyboard.isKeyDown(GLFW_KEY_B));
+      Assert::IsFalse(keyboard.isKeyDown(GLFW_KEY_C));
     }
 	};
 }

@@ -1,16 +1,20 @@
 #include "stdafx.h"
 
-#include "Input/Keyboards/Keyboard.h"
+#include "Input/Keyboard/Keyboard.h"
 
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
   Keyboard::Keyboard()
-    : m_currentKeys(),
-      m_previousKeys()
   {
-    m_currentKeys.fill(GL_FALSE);
-    m_previousKeys.fill(GL_FALSE);
+    // I think it is quicker to iterate over each contiguous array separately rather than at the same time
+    // However I could be wrong - profile this maybe?
+    flush();
+
+    for (int i = 0; i < KEYBOARD_KEY_COUNT; ++i)
+    {
+      m_previousKeys[i] = 0;
+    }
   }
 
   //------------------------------------------------------------------------------------------------
@@ -22,8 +26,10 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Keyboard::update(GLfloat elapsedGameTime)
   {
-    m_previousKeys.swap(m_currentKeys);
-    m_currentKeys.fill(GL_FALSE);
+    // Update the previous frame's keys with the contents of the current keys buffer
+    // and flush the current keys buffer ready for more input
+    std::swap(m_previousKeys, m_currentKeys);
+    flush();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -50,5 +56,14 @@ namespace Engine
   GLboolean Keyboard::isKeyPressed(int key) const
   {
     return m_currentKeys[key] && !m_previousKeys[key];
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Keyboard::flush()
+  {
+    for (int i = 0; i < KEYBOARD_KEY_COUNT; ++i)
+    {
+      m_currentKeys[i] = GL_FALSE;
+    }
   }
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Keyboards/Keyboard.h"
+#include "Keyboard/Keyboard.h"
 
 namespace Engine
 {

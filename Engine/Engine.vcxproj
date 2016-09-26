@@ -162,8 +162,12 @@
     <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboards\NullKeyboard.h" />
+    <ClInclude Include="Headers\Input\Keyboard\Keyboard.h" />
+    <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
+    <ClInclude Include="Headers\Memory\Allocator.h" />
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
+    <ClInclude Include="Headers\Input\Mouse\Mouse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\dllmain.cpp">
@@ -184,6 +188,7 @@
     <ClCompile Include="Source\Input\InputManager.cpp" />
     <ClCompile Include="Source\Input\Keyboards\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Keyboards\NullKeyboard.cpp" />
+    <ClCompile Include="Source\Memory\Allocator.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

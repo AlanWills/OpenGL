@@ -4,7 +4,6 @@
 
 namespace Engine
 {
-
   //------------------------------------------------------------------------------------------------
   InputManager::InputManager()
   {
@@ -33,5 +32,4 @@ namespace Engine
   {
     return m_keyboard.get();
   }
-
 }
