@@ -4,9 +4,6 @@
 #include "Debug.h"
 
 
-// GLFW function declerations
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-
 // The Width of the screen
 const GLuint SCREEN_WIDTH = 800;
 
@@ -33,8 +30,6 @@ int main(int argc, char *argv[])
   glewInit();
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-  glfwSetKeyCallback(window, key_callback);
-
   // OpenGL configuration
   glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
   glEnable(GL_CULL_FACE);
@@ -44,7 +39,7 @@ int main(int argc, char *argv[])
   glCheckError();
 
   // Initialize game
-  game.init();
+  game.init(window);
 
   // DeltaTime variables
   GLfloat elapsedGameTime = 0.0f;
@@ -82,23 +77,4 @@ int main(int argc, char *argv[])
 
   glfwTerminate();
   return 0;
-}
-
-//------------------------------------------------------------------------------------------------
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-  // When a user presses the escape key, we set the WindowShouldClose property to true, closing the application
-  if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-    glfwSetWindowShouldClose(window, GL_TRUE);
-  if (key >= 0 && key < 1024)
-  {
-    if (action == GLFW_PRESS)
-    {
-      game.setKeyState(key, GL_TRUE);
-    }
-    else if (action == GLFW_RELEASE)
-    {
-      game.setKeyState(key, GL_FALSE);
-    }
-  }
 }

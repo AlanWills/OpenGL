@@ -2,6 +2,7 @@
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
 #include "Debug.h"
+#include "Input/InputManager.h"
 
 
 //------------------------------------------------------------------------------------------------
@@ -24,8 +25,10 @@ Game::~Game()
 }
 
 //------------------------------------------------------------------------------------------------
-void Game::init()
+void Game::init(GLFWwindow* window)
 {
+  Engine::InputManager::init(window);
+
   glCheckError();
 
   // Load shaders
