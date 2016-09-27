@@ -34,11 +34,11 @@ namespace Engine
     InputManager();
     ~InputManager();
 
-    static std::unique_ptr<Keyboard> m_keyboard;
-    static std::unique_ptr<Mouse> m_mouse;
+    static std::unique_ptr<Keyboard> s_keyboard;
+    static std::unique_ptr<Mouse> s_mouse;
   };
 
   // Initialise the static members here
-  std::unique_ptr<Keyboard> InputManager::m_keyboard(nullptr);
-  std::unique_ptr<Mouse> InputManager::m_mouse(nullptr);
+  std::unique_ptr<Keyboard> InputManager::s_keyboard(nullptr);
+  std::unique_ptr<Mouse> InputManager::s_mouse(nullptr);
 }

@@ -94,7 +94,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\..\Engine\Debug;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;$(IncludePath)</IncludePath>

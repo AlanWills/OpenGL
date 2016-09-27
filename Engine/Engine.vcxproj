@@ -73,15 +73,11 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir);$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)Debug</OutDir>
-    <IntDir>$(ProjectDir)Debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir);$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)Debug</OutDir>
-    <IntDir>$(ProjectDir)Debug</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -173,6 +169,7 @@
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
     <ClInclude Include="Headers\Input\Mouse\Mouse.h" />
+    <ClInclude Include="Headers\Time\Clock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\dllmain.cpp">
@@ -200,6 +197,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Source\Time\Clock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

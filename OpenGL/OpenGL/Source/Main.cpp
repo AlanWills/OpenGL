@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include "Debug.h"
+#include "Time/Clock.h"
 
 
 // The Width of the screen
@@ -15,6 +16,8 @@ const GLfloat MS_PER_UPDATE = 1.0f / 60.0f;
 
 Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
 
+using namespace Engine;
+
 int main(int argc, char *argv[])
 { 
   glfwInit();
@@ -25,6 +28,9 @@ int main(int argc, char *argv[])
 
   GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Breakout", nullptr, nullptr);
   glfwMakeContextCurrent(window);
+
+  Clock::init(glfwGetTimerFrequency());
+  Clock clock;
 
   glewExperimental = GL_TRUE;
   glewInit();
@@ -40,7 +46,7 @@ int main(int argc, char *argv[])
 
   // Initialize game
   game.init(window);
-
+    
   // DeltaTime variables
   GLfloat elapsedGameTime = 0.0f;
   GLfloat lastFrame = glfwGetTime();

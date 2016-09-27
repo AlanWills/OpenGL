@@ -76,12 +76,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\Engine\Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)..\Engine\Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -176,11 +176,6 @@
     <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Engine\Engine.vcxproj">
-      <Project>{a9fc9d74-fad8-4c85-8d7a-44feb1f0e559}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

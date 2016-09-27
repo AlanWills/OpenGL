@@ -48,35 +48,35 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void InputManager::update(GLfloat elapsedGameTime)
   {
-    m_keyboard->update(elapsedGameTime);
-    m_mouse->update(elapsedGameTime);
+    s_keyboard->update(elapsedGameTime);
+    s_mouse->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::setKeyboard(Keyboard* keyboard)
   {
     assert(keyboard);
-    m_keyboard.reset(keyboard);
+    s_keyboard.reset(keyboard);
   }
 
   //------------------------------------------------------------------------------------------------
   Keyboard* InputManager::getKeyboard()
   {
-    assert(m_keyboard.get());
-    return m_keyboard.get();
+    assert(s_keyboard.get());
+    return s_keyboard.get();
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::setMouse(Mouse* mouse)
   {
     assert(mouse);
-    m_mouse.reset(mouse);
+    s_mouse.reset(mouse);
   }
 
   //------------------------------------------------------------------------------------------------
   Mouse* InputManager::getMouse()
   {
-    assert(m_mouse.get());
-    return m_mouse.get();
+    assert(s_mouse.get());
+    return s_mouse.get();
   }
 }

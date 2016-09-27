@@ -69,6 +69,9 @@
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Time\Clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\dllmain.cpp">
@@ -90,6 +93,9 @@
       <Filter>Source Files\Input\Keyboard</Filter>
     </ClCompile>
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Time\Clock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
