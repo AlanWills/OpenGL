@@ -15,6 +15,9 @@
     <Filter Include="Source Files\Tests\Input">
       <UniqueIdentifier>{9e1ac6bc-2875-4e81-9c23-2be9ada20ebd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Tests\Time">
+      <UniqueIdentifier>{d8a042c5-1a6e-4686-8d14-c4c407d2c108}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\stdafx.h">
@@ -31,13 +34,16 @@
     <ClCompile Include="Source\Tests\Input\Keyboard\TestKeyboard.cpp">
       <Filter>Source Files\Tests\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp">
+      <Filter>Source Files\Tests\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp">
+      <Filter>Source Files\Tests\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Time\TestClock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

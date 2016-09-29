@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   glfwMakeContextCurrent(window);
 
   Clock::init(glfwGetTimerFrequency());
-  Clock clock;
+  Clock realtimeClock, gameClock;
 
   glewExperimental = GL_TRUE;
   glewInit();

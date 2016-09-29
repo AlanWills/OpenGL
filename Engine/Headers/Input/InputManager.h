@@ -38,7 +38,4 @@ namespace Engine
     static std::unique_ptr<Mouse> s_mouse;
   };
 
-  // Initialise the static members here
-  std::unique_ptr<Keyboard> InputManager::s_keyboard(nullptr);
-  std::unique_ptr<Mouse> InputManager::s_mouse(nullptr);
 }
