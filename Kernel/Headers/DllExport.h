@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef BUILDING
+#ifdef BUILDING_DLL
 #define DllExport __declspec(dllexport)
 #elif TESTING
 #define DllExport 

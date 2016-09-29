@@ -7,12 +7,6 @@
 
 #include "targetver.h"
 
-// Headers for CppUnitTest
-#include "CppUnitTest.h"
+#include "TestUtils.h"
 
-// TODO: reference additional headers your program requires here
-#include "GLHeaders.h"
-#include "Testing/TestUtils.h"
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-using namespace Engine;
+using namespace TestKernel;

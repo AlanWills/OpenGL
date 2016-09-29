@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
-#include "Testing/TestUtils.h"
+#include "TestUtils.h"
 
-namespace Engine
+namespace TestKernel
 {
   //------------------------------------------------------------------------------------------------
   void TestUtils::assertAreAlmostEqual(float expected, float actual, float epsilon)

@@ -5,7 +5,7 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace Engine
+namespace TestKernel
 {
 
 #define DEFAULT_FLOAT_EPSILON 0.0000001f

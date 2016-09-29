@@ -4,6 +4,8 @@
 #include "Keyboard/Keyboard.h"
 #include "Mouse/Mouse.h"
 
+#include <memory.h>
+
 namespace Engine
 {
   // A class which uses a service locator pattern to store and update various input modules

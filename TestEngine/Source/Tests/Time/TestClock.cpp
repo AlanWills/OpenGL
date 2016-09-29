@@ -2,6 +2,8 @@
 
 #include "Time/Clock.h"
 
+using namespace Engine;
+
 namespace TestEngine
 {
   TEST_CLASS(TestClock)
