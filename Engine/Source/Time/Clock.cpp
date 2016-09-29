@@ -14,7 +14,7 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  Clock::Clock(float startTimeSeconds, float targetFramesPerSecond) :
+  Clock::Clock(float targetFramesPerSecond, float startTimeSeconds) :
     m_cycles(secondsToCycles(startTimeSeconds)),
     m_timeScale(1.0f),  // Default to unscaled
     m_targetSecondsPerFrame(1.0f / targetFramesPerSecond),
@@ -49,6 +49,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   float Clock::calculateDeltaSeconds(const Clock& otherClock) const
   {
-    return cyclesToSeconds(m_timeScale - otherClock.getElapsedCycles());
+    return cyclesToSeconds(m_cycles - otherClock.getElapsedCycles());
   }
 }
