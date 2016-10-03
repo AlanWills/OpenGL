@@ -1,27 +1,27 @@
 #include "stdafx.h"
 
-#include "Memory/Allocator.h"
+#include "Memory/AlignedAllocator.h"
 
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
-  Allocator::Allocator()
+  AlignedAllocator::AlignedAllocator()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  Allocator::~Allocator()
+  AlignedAllocator::~AlignedAllocator()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  void* Allocator::allocateUnaligned(size_t numberOfBytes) const
+  void* AlignedAllocator::allocateUnaligned(size_t numberOfBytes) const
   {
     return malloc(numberOfBytes);
   }
 
   //------------------------------------------------------------------------------------------------
-  void* Allocator::allocateAligned(size_t numberOfBytes, size_t alignment) const
+  void* AlignedAllocator::allocateAligned(size_t numberOfBytes, size_t alignment) const
   {
     // Clients must call allocateUnaligned and freeAligned if alignment is 1
     assert(alignment > 1);

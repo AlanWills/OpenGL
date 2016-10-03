@@ -3,11 +3,11 @@
 namespace Engine
 {
 
-class Allocator
+class AlignedAllocator
 {
   public:
-    Allocator();
-    ~Allocator();
+    AlignedAllocator();
+    ~AlignedAllocator();
 
     // Have templated version too?
     void* allocateUnaligned(unsigned int numberOfBytes) const;

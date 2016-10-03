@@ -167,7 +167,10 @@
     <ClInclude Include="Headers\Input\Keyboard\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
-    <ClInclude Include="Headers\Memory\Allocator.h" />
+    <ClInclude Include="Headers\Logging\Logger.h" />
+    <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
+    <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
+    <ClInclude Include="Headers\Memory\PoolAllocator.h" />
     <ClInclude Include="Headers\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
@@ -193,7 +196,7 @@
     <ClCompile Include="Source\Input\InputManager.cpp" />
     <ClCompile Include="Source\Input\Keyboard\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
-    <ClCompile Include="Source\Memory\Allocator.cpp" />
+    <ClCompile Include="Source\Memory\AlignedAllocator.cpp" />
     <ClCompile Include="Source\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

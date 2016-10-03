@@ -27,7 +27,7 @@ void checkGLError_(const char *file, int line)
     if (++count > GL_FATAL_ERROR_NUMBER)
     {
       // Assert if we have too many errors, otherwise just print them out
-      assert(false);
+      ASSERT(false);
     }
   }
 }
