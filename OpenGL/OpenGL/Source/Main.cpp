@@ -32,7 +32,6 @@ int main(int argc, char *argv[])
   game.init(window);
     
   Clock realtimeClock, gameClock;
-  //gameClock.setTimeScale(0.1f);
 
   // DeltaTime variables
   GLfloat current = glfwGetTime(), previous = 0;
@@ -67,15 +66,9 @@ int main(int argc, char *argv[])
     // Render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    game.render(elapsedGameTime, lag / gameSecondsPerUpdate);
+    game.render(lag);
 
     glfwSwapBuffers(window);
-
-    GLfloat elapsed = glfwGetTime() - current;
-    if (elapsed < (1.0f / gameClock.getTargetFramesPerSecond()))
-    {
-      std::this_thread::sleep_for(std::chrono::milliseconds((long)(elapsed * 1000)));
-    }
   }
 
   glfwTerminate();

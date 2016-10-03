@@ -18,7 +18,7 @@ public:
 
   ~GameObject();
 
-  virtual void draw(const SpriteRenderer& spriteRenderer, GLfloat elapsedGameTime, GLfloat percentageIntoFrame) const;
+  virtual void draw(const SpriteRenderer& spriteRenderer, GLfloat timeFromLastUpdate) const;
 
   // State utility functions
   void setSolid(GLboolean isSolid) { m_solid = isSolid; }

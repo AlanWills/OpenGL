@@ -29,7 +29,7 @@ public:
   void doCollisions(Ball* ball, GameObject* player);
 
   // Render the level
-  void draw(const SpriteRenderer& renderer, GLfloat elapsedGameTime, GLfloat percentageIntoFrame) const;
+  void draw(const SpriteRenderer& renderer, GLfloat timeFromLastUpdate) const;
 
   // Check if the level is completed (all non-solid tiles are destroyed)
   GLboolean isCompleted() const;

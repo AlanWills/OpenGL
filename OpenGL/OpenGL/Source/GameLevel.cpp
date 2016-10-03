@@ -237,13 +237,13 @@ Direction GameLevel::vectorDirection(const glm::vec2& target)
 }
 
 //------------------------------------------------------------------------------------------------
-void GameLevel::draw(const SpriteRenderer& renderer, GLfloat elapsedGameTime, GLfloat percentageIntoFrame) const
+void GameLevel::draw(const SpriteRenderer& renderer, GLfloat timeFromLastUpdate) const
 {
   for (const std::unique_ptr<GameObject>& brick : m_bricks)
   {
     if (!brick->isDestroyed())
     {
-      brick->draw(renderer, elapsedGameTime, percentageIntoFrame);
+      brick->draw(renderer, timeFromLastUpdate);
     }
   }
 }

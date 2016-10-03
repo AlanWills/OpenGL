@@ -34,7 +34,7 @@ public:
   // GameLoop
   void handleInput(GLfloat elapsedGameTime);
   void update(GLfloat elapsedGameTime);
-  void render(GLfloat elapsedGameTime, GLfloat percentageIntoFrame);
+  void render(GLfloat timeFromLastUpdate);
 
   void setKeyState(int key, bool keyState) { m_keys[key] = keyState; }
 

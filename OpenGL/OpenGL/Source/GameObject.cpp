@@ -36,9 +36,9 @@ GameObject::~GameObject()
 }
 
 //------------------------------------------------------------------------------------------------
-void GameObject::draw(const SpriteRenderer& spriteRenderer, GLfloat elapsedGameTime, GLfloat percentageIntoFrame) const
+void GameObject::draw(const SpriteRenderer& spriteRenderer, GLfloat timeFromLastUpdate) const
 {
   glm::vec2 interpolatedPos(m_position);
-  interpolatedPos += m_velocity * percentageIntoFrame * elapsedGameTime;
+  interpolatedPos += m_velocity * timeFromLastUpdate;
   spriteRenderer.drawSprite(m_texture, interpolatedPos, m_size, m_rotation, m_colour);
 }

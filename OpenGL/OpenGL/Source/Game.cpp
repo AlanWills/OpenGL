@@ -150,14 +150,14 @@ void Game::resetPlayer()
 }
 
 //------------------------------------------------------------------------------------------------
-void Game::render(GLfloat elapsedGameTime, GLfloat percentageIntoFrame)
+void Game::render(GLfloat timeFromLastUpdate)
 {
   if (m_state == GAME_ACTIVE)
   {
     // Draw background
     m_spriteRenderer->drawSprite(ResourceManager::getTexture("background"), glm::vec2(0), glm::vec2(m_width, m_height));
-    m_levels[m_currentLevel]->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
-    m_player->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
-    m_ball->draw(*m_spriteRenderer, elapsedGameTime, percentageIntoFrame);
+    m_levels[m_currentLevel]->draw(*m_spriteRenderer, timeFromLastUpdate);
+    m_player->draw(*m_spriteRenderer, timeFromLastUpdate);
+    m_ball->draw(*m_spriteRenderer, timeFromLastUpdate);
   }
 }
