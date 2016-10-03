@@ -8,5 +8,6 @@
 #include "targetver.h"
 
 #include "TestUtils.h"
+#include "GLHeaders.h"
 
 using namespace TestKernel;

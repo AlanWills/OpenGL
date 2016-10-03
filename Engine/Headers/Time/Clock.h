@@ -16,7 +16,7 @@ class DllExport Clock
     static void init();
 
     // Constructor & Destructor
-    Clock(float targetFramesPerSecond = DEFAULT_TARGET_FPS, float startTimeSeconds = 0.0f);
+    Clock(float targetFramesPerSecond = DEFAULT_TARGET_FPS, float startTimeSeconds = glfwGetTime());
     ~Clock();
 
     static uint64_t secondsToCycles(float timeSeconds);
@@ -25,7 +25,7 @@ class DllExport Clock
     static float cyclesToSeconds(uint64_t timeCycles);
 
     /// \brief This function should be called once per frame with the real measured frame time delta in seconds.
-    void update(float elapsedGameTime);
+    void update();
 
     /// \brief Advance the clock by the time scale dictated by our desired FPS
     void singleStep();
@@ -35,11 +35,14 @@ class DllExport Clock
     float calculateDeltaSeconds(const Clock& otherClock) const;
 
     /// \brief Reset the clock cycles counter to zero
-    void reset() { m_cycles = 0; }
+    void reset();
 
     /// \brief Return the total cycles since the last reset rather than the time in seconds
     /// as a float does not have enough accuracy
     uint64_t getElapsedCycles() const { return m_cycles; }
+
+    /// \brief Returns the amount of time that passed since last updating the clock
+    float getElapsedDeltaTime() const { return cyclesToSeconds(m_cycles - m_lastFrameCycles); }
 
     void setTimeScale(float timeScale) { m_timeScale = timeScale; }
     float getTimeScale() const { return m_timeScale; }
@@ -54,6 +57,7 @@ class DllExport Clock
     static uint64_t s_cyclesPerSecond;
 
     uint64_t m_cycles;
+    uint64_t m_lastFrameCycles;
     float m_timeScale;
     float m_targetSecondsPerFrame;
     bool m_isPaused;

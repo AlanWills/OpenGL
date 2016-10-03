@@ -5,6 +5,7 @@
 using namespace Engine;
 
 uint64_t Clock::s_cyclesPerSecond = 2;
+uint64_t cyclesPerSecond = 0;
 
 namespace TestEngine
 {
@@ -14,13 +15,33 @@ namespace TestEngine
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD_INITIALIZE(TestClock_Setup)
+    TEST_CLASS_INITIALIZE(TestClock_Setup)
     {
+      // Set up glfw so we can create our window without problems
+      glfwInit();
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+      glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
       // Init the clock with a non trivial cycles per second
       // Do test initialize rather than test class initialize because we do not know in which order the
       // static variables etc. will be resolved
       // We also wish to reset any changes made by tests to the clock
-      Clock::init(2);
+      Clock::init();
+      cyclesPerSecond = glfwGetTimerFrequency();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_CLASS_CLEANUP(TestClock_Cleanup)
+    {
+      glfwTerminate();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD_INITIALIZE(TestClock_MethodSetup)
+    {
+      glfwSetTime(0.0);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -29,9 +50,10 @@ namespace TestEngine
       Clock clock(10, 20);
 
       Assert::AreEqual(10, clock.getTargetFramesPerSecond());
-      Assert::AreEqual((uint64_t)40, clock.getElapsedCycles());
+      Assert::AreEqual((uint64_t)(20 * cyclesPerSecond), clock.getElapsedCycles());
       Assert::IsFalse(clock.getPaused());
       Assert::AreEqual(1.0f, clock.getTimeScale());
+      Assert::AreEqual(0.0f, clock.getElapsedDeltaTime());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -54,14 +76,14 @@ namespace TestEngine
     {
       Clock clock;
 
-      clock.update(1);
-      Assert::AreEqual((uint64_t)2, clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)10, clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
 
-      clock.update(0);
-      Assert::AreEqual((uint64_t)10, clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -70,13 +92,13 @@ namespace TestEngine
       Clock clock;
       clock.setTimeScale(0.5f);
 
-      clock.update(1);
-      Assert::AreEqual((uint64_t)1, clock.getElapsedCycles());
+      clock.update();
+      Assert::AreEqual((uint64_t)glfwGetTime(), clock.getElapsedCycles());
 
-      clock.update(4);
+      clock.update();
       Assert::AreEqual((uint64_t)5, clock.getElapsedCycles());
 
-      clock.update(0);
+      clock.update();
       Assert::AreEqual((uint64_t)5, clock.getElapsedCycles());
     }
 
@@ -86,13 +108,13 @@ namespace TestEngine
       Clock clock;
       clock.setTimeScale(2.0f);
 
-      clock.update(1);
+      clock.update();
       Assert::AreEqual((uint64_t)4, clock.getElapsedCycles());
 
-      clock.update(4);
+      clock.update();
       Assert::AreEqual((uint64_t)20, clock.getElapsedCycles());
 
-      clock.update(0);
+      clock.update();
       Assert::AreEqual((uint64_t)20, clock.getElapsedCycles());
     }
 
@@ -102,13 +124,13 @@ namespace TestEngine
       Clock clock;
       clock.setPaused(true);
 
-      clock.update(1);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
 
-      clock.update(4);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
 
-      clock.update(0);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
     }
 
@@ -131,7 +153,7 @@ namespace TestEngine
     TEST_METHOD(Test_Clock_SingleStepSlowerThanNormalTimeScale)
     {
       // Bump up the cpu cycles a little for this test (it will be reset)
-      Clock::init(20);
+      Clock::init();
       Clock clock(4);
       clock.setTimeScale(0.5f);
 
@@ -187,7 +209,7 @@ namespace TestEngine
 
       Assert::AreEqual(1.0f, clock2.calculateDeltaSeconds(clock1));
 
-      clock1.update(1);
+      clock1.update();
       Assert::AreEqual(0.0f, clock2.calculateDeltaSeconds(clock1));
     }
 
@@ -205,8 +227,8 @@ namespace TestEngine
     {
       Clock clock;
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)8, clock.getElapsedCycles());
+      clock.update();
+      Assert::AreNotEqual((uint64_t)0, clock.getElapsedCycles());
 
       clock.reset();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());

@@ -6,9 +6,6 @@
 
 using namespace Engine;
 
-// The amount of time we will allow per update
-const GLfloat MS_PER_UPDATE = 1.0f / 60.0f;
-
 int main(int argc, char *argv[])
 {
   glfwInit();
@@ -27,41 +24,47 @@ int main(int argc, char *argv[])
   Game game;
 
   Clock::init();
-  Clock realtimeClock, gameClock;
 
   // Initialize game
   game.init(window);
     
   // DeltaTime variables
   GLfloat elapsedGameTime = 0.0f;
-  GLfloat lastFrame = glfwGetTime();
   GLfloat lag = 0.0f;
+
+  Clock realtimeClock, gameClock;
+  gameClock.setTimeScale(0.05f);
 
   while (!glfwWindowShouldClose(window))
   {
+    // We have a problem - the longer the catch up loop takes the longer the next frame delta will be because glfwTimer runs separately to our game
+    // We will need to pause the gameClock or something during this loop
+
+    // Single step for now cos weird stuff is happening with timers
+    realtimeClock.singleStep();
+    gameClock.singleStep();
+
     // Calculate delta time
-    GLfloat currentFrame = glfwGetTime() * gameClock.getTimeScale();
-    elapsedGameTime = currentFrame - lastFrame;
-    lastFrame = currentFrame;
+    elapsedGameTime = gameClock.getElapsedDeltaTime();
     lag += elapsedGameTime;
 
     glfwPollEvents();
 
     // Manage user input
     game.handleInput(elapsedGameTime);
-
+    
     // Update Game state
     // We use a variable render fixed update loop
-    while (lag >= MS_PER_UPDATE * gameClock.getTimeScale())
+    // while (lag >= S_PER_UPDATE * gameClock.getTimeScale())
     {
       game.update(elapsedGameTime);
-      lag -= MS_PER_UPDATE;
+      //lag -= S_PER_UPDATE;
     }
 
     // Render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    game.render(elapsedGameTime, lag / (MS_PER_UPDATE * gameClock.getTimeScale()));
+    game.render(elapsedGameTime, 0 /*lag / (S_PER_UPDATE * gameClock.getTimeScale())*/);
 
     glfwSwapBuffers(window);
   }

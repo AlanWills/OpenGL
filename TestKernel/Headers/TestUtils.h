@@ -14,8 +14,8 @@ namespace TestKernel
 class DllExport TestUtils
 {
 public:
-  /// \brief Check whether the two inputted float values differ by less than the inputted epsilon
-  /// Asserts if expected and actual are equal to or more than epsilon apart
+  /// \brief Check whether the two inputted float values differ by less than or equal to the inputted epsilon
+  /// Asserts if expected and actual are more than epsilon apart
   static void assertAreAlmostEqual(float expected, float actual, float epsilon = DEFAULT_FLOAT_EPSILON);
 
 private:
