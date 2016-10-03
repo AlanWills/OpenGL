@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -117,7 +117,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -168,7 +168,6 @@
     <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
     <ClInclude Include="Headers\Memory\Allocator.h" />
-    <ClInclude Include="Headers\OpenGL\OpenGLContext.h" />
     <ClInclude Include="Headers\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
@@ -195,7 +194,6 @@
     <ClCompile Include="Source\Input\Keyboard\Keyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
     <ClCompile Include="Source\Memory\Allocator.cpp" />
-    <ClCompile Include="Source\OpenGL\OpenGLContext.cpp" />
     <ClCompile Include="Source\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

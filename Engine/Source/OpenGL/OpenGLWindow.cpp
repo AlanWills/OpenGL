@@ -40,6 +40,15 @@ namespace Engine
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glCheckError();
+
+    // Seems like this is tied to the window somehow because if this code goes in the OpenGLContext we get an error
+    glewExperimental = GL_TRUE;
+    glewInit();
+
+    glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
+
+    // See if there are any other errors on the stack
+    glCheckError();
   }
 
   //------------------------------------------------------------------------------------------------
