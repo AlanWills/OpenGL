@@ -2,6 +2,7 @@
 
 #include "DllExport.h"
 #include "GLHeaders.h"
+#include "Debug.h"
 
 namespace Engine
 {
@@ -10,8 +11,14 @@ namespace Engine
 class DllExport OpenGLWindow
 {
   public:
-    OpenGLWindow(GLfloat windowWidth, GLfloat windowHeight);
-    OpenGLWindow();
+    enum ScreenMode
+    {
+      kWindowed,
+      kFullScreen
+    };
+
+    OpenGLWindow(GLfloat windowWidth, GLfloat windowHeight, ScreenMode screenMode = kWindowed);
+    OpenGLWindow(ScreenMode screenMode = kWindowed);
 
     ~OpenGLWindow();
 
@@ -21,11 +28,11 @@ class DllExport OpenGLWindow
 
     inline void enableViewportFlag(GLenum flag) { glEnable(flag); }
 
+    void setScreenMode(ScreenMode screenMode);
+    bool isFullScreen() const { return glfwGetWindowMonitor(m_window) ? true : false; }
+
   private:
-    /// Must be called in this order:
-    void initGLFW();
-    void initWindow();
-    void initGLEW();
+    void initWindow(ScreenMode screenMode);
 
     int m_width;
     int m_height;

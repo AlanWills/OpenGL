@@ -176,6 +176,7 @@
     <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp" />
+    <ClCompile Include="Source\Tests\OpenGL\TestOpenGLWindow.cpp" />
     <ClCompile Include="Source\Tests\Time\TestClock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
