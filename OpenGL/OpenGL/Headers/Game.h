@@ -25,7 +25,7 @@ public:
   };
 
   // Constructor/Destructor
-  Game(GLuint width, GLuint height);
+  Game();
   ~Game();
 
   // Initialize game state (load all shaders/textures/levels)

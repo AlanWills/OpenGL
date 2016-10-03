@@ -1,16 +1,14 @@
 #include "Game.h"
 #include "ResourceManager.h"
 #include "SpriteRenderer.h"
-#include "Debug.h"
 #include "Input/InputManager.h"
 
+using namespace Engine;
 
 //------------------------------------------------------------------------------------------------
-Game::Game(GLuint width, GLuint height)
+Game::Game()
 : m_state(GAME_ACTIVE), 
   m_keys(), 
-  m_width(width), 
-  m_height(height),
   m_spriteRenderer(nullptr),
   m_currentLevel(0),
   m_player(nullptr)
@@ -27,9 +25,12 @@ Game::~Game()
 //------------------------------------------------------------------------------------------------
 void Game::init(GLFWwindow* window)
 {
-  Engine::InputManager::init(window);
+  InputManager::init(window);
 
-  glCheckError();
+  m_width = 800;
+  m_height = 600;
+
+  //glCheckError();
 
   // Load shaders
   Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, "sprite");
@@ -60,7 +61,7 @@ void Game::init(GLFWwindow* window)
   glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f, playerPos.y);
   m_ball.reset(new Ball(ballPos, ResourceManager::getTexture("face")));
 
-  glCheckError();
+  //glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------

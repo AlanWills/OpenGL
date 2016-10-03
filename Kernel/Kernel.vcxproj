@@ -151,8 +151,12 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Debug.h" />
     <ClInclude Include="Headers\DllExport.h" />
     <ClInclude Include="Headers\GLHeaders.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\Debug.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

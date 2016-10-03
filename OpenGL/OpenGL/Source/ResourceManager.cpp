@@ -79,6 +79,7 @@ Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLc
   // 2. Now create shader object from source code
   Shader* shader = new Shader();
   shader->compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+
   return shader;
 }
 
