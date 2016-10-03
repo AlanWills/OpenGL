@@ -4,6 +4,9 @@
 #include "Time/Clock.h"
 #include "OpenGL/OpenGLWindow.h"
 
+#include <thread>
+#include <chrono>
+
 using namespace Engine;
 
 int main(int argc, char *argv[])
@@ -28,25 +31,25 @@ int main(int argc, char *argv[])
   // Initialize game
   game.init(window);
     
-  // DeltaTime variables
-  GLfloat elapsedGameTime = 0.0f;
-  GLfloat lag = 0.0f;
-
   Clock realtimeClock, gameClock;
-  gameClock.setTimeScale(0.05f);
+  //gameClock.setTimeScale(0.1f);
+
+  // DeltaTime variables
+  GLfloat current = glfwGetTime(), previous = 0;
+  GLfloat lag = 0.0f;
 
   while (!glfwWindowShouldClose(window))
   {
-    // We have a problem - the longer the catch up loop takes the longer the next frame delta will be because glfwTimer runs separately to our game
-    // We will need to pause the gameClock or something during this loop
+    previous = current;
+    current = glfwGetTime();
 
-    // Single step for now cos weird stuff is happening with timers
-    realtimeClock.singleStep();
-    gameClock.singleStep();
-
-    // Calculate delta time
-    elapsedGameTime = gameClock.getElapsedDeltaTime();
+    GLfloat elapsedGameTime = (current - previous) * gameClock.getTimeScale();
     lag += elapsedGameTime;
+
+    GLfloat gameSecondsPerUpdate = gameClock.getTimeScale() / gameClock.getTargetFramesPerSecond();
+
+    realtimeClock.update(current - previous);
+    gameClock.update(elapsedGameTime);
 
     glfwPollEvents();
 
@@ -55,18 +58,24 @@ int main(int argc, char *argv[])
     
     // Update Game state
     // We use a variable render fixed update loop
-    // while (lag >= S_PER_UPDATE * gameClock.getTimeScale())
+    while (lag >= gameSecondsPerUpdate)
     {
-      game.update(elapsedGameTime);
-      //lag -= S_PER_UPDATE;
+      game.update(gameSecondsPerUpdate);
+      lag -= gameSecondsPerUpdate;
     }
 
     // Render
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-    game.render(elapsedGameTime, 0 /*lag / (S_PER_UPDATE * gameClock.getTimeScale())*/);
+    game.render(elapsedGameTime, lag / gameSecondsPerUpdate);
 
     glfwSwapBuffers(window);
+
+    GLfloat elapsed = glfwGetTime() - current;
+    if (elapsed < (1.0f / gameClock.getTargetFramesPerSecond()))
+    {
+      std::this_thread::sleep_for(std::chrono::milliseconds((long)(elapsed * 1000)));
+    }
   }
 
   glfwTerminate();

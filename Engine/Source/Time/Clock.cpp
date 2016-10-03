@@ -16,7 +16,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Clock::Clock(float targetFramesPerSecond, float startTimeSeconds) :
     m_cycles(secondsToCycles(startTimeSeconds)),
-    m_lastFrameCycles(secondsToCycles(startTimeSeconds)),
     m_timeScale(1.0f),  // Default to unscaled
     m_targetSecondsPerFrame(1.0f / targetFramesPerSecond),
     m_isPaused(false)   // Default to running
@@ -29,12 +28,11 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Clock::update()
+  void Clock::update(float elapsedGameTime)
   {
     if (!m_isPaused)
     {
-      m_lastFrameCycles = m_cycles;
-      m_cycles += secondsToCycles(glfwGetTime() * m_timeScale);
+      m_cycles += secondsToCycles(elapsedGameTime * m_timeScale);
     }
   }
 
@@ -43,23 +41,14 @@ namespace Engine
   {
     if (!m_isPaused)
     {
-      m_lastFrameCycles = m_cycles;
-
       // Add one target frame interval and scale by our current time scale
       m_cycles += secondsToCycles(m_targetSecondsPerFrame * m_timeScale);
     }
   }
 
   //------------------------------------------------------------------------------------------------
-  float Clock::calculateDeltaSeconds(const Clock& otherClock) const
-  {
-    return cyclesToSeconds(m_cycles - otherClock.getElapsedCycles());
-  }
-
-  //------------------------------------------------------------------------------------------------
   void Clock::reset()
   {
     m_cycles = 0;
-    m_lastFrameCycles = 0;
   }
 }
