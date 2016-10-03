@@ -23,10 +23,11 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Mouse::update(GLfloat elapsedGameTime)
   {
-    // Swap the mouse button state buffers
-    std::swap(m_previousButtons, m_currentButtons);
-
-    flush();
+    // Set the previous mouse button states to be the current mouse button states
+    for (int i = 0; i < MouseButton::kNumButtons; ++i)
+    {
+      m_previousButtons[i] = m_currentButtons[i];
+    }
   }
 
   //------------------------------------------------------------------------------------------------

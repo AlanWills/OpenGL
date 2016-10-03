@@ -75,19 +75,22 @@ namespace TestEngine
     {
       Mouse mouse;
       mouse.setButtonDown(Mouse::kLeft);
-      mouse.setButtonDown(Mouse::kRight);
+      mouse.setButtonUp(Mouse::kRight);
 
       Assert::IsTrue(mouse.isButtonPressed(Mouse::kLeft));
-      Assert::IsTrue(mouse.isButtonPressed(Mouse::kRight));
+      Assert::IsFalse(mouse.isButtonPressed(Mouse::kRight));
       Assert::IsTrue(mouse.isButtonDown(Mouse::kLeft));
-      Assert::IsTrue(mouse.isButtonDown(Mouse::kRight));
+      Assert::IsFalse(mouse.isButtonDown(Mouse::kRight));
 
       mouse.update(0);
 
+      mouse.setButtonUp(Mouse::kLeft);
+      mouse.setButtonDown(Mouse::kRight);
+
       Assert::IsFalse(mouse.isButtonPressed(Mouse::kLeft));
-      Assert::IsFalse(mouse.isButtonPressed(Mouse::kRight));
+      Assert::IsTrue(mouse.isButtonPressed(Mouse::kRight));
       Assert::IsFalse(mouse.isButtonDown(Mouse::kLeft));
-      Assert::IsFalse(mouse.isButtonDown(Mouse::kRight));
+      Assert::IsTrue(mouse.isButtonDown(Mouse::kRight));
     }
   };
 }

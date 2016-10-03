@@ -86,19 +86,22 @@ namespace TestEngine
     {
       Keyboard keyboard;
       keyboard.setKeyDown(GLFW_KEY_A);
-      keyboard.setKeyDown(GLFW_KEY_SPACE);
+      keyboard.setKeyUp(GLFW_KEY_SPACE);
 
       Assert::IsTrue(keyboard.isKeyPressed(GLFW_KEY_A));
-      Assert::IsTrue(keyboard.isKeyPressed(GLFW_KEY_SPACE));
+      Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_SPACE));
       Assert::IsTrue(keyboard.isKeyDown(GLFW_KEY_A));
-      Assert::IsTrue(keyboard.isKeyDown(GLFW_KEY_SPACE));
+      Assert::IsFalse(keyboard.isKeyDown(GLFW_KEY_SPACE));
 
       keyboard.update(0);
 
+      keyboard.setKeyUp(GLFW_KEY_A);
+      keyboard.setKeyDown(GLFW_KEY_SPACE);
+
       Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_A));
-      Assert::IsFalse(keyboard.isKeyPressed(GLFW_KEY_SPACE));
+      Assert::IsTrue(keyboard.isKeyPressed(GLFW_KEY_SPACE));
       Assert::IsFalse(keyboard.isKeyDown(GLFW_KEY_A));
-      Assert::IsFalse(keyboard.isKeyDown(GLFW_KEY_SPACE));
+      Assert::IsTrue(keyboard.isKeyDown(GLFW_KEY_SPACE));
     }
 	};
 }

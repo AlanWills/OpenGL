@@ -13,13 +13,11 @@ Game::Game()
   m_currentLevel(0),
   m_player(nullptr)
 {
-
 }
 
 //------------------------------------------------------------------------------------------------
 Game::~Game()
 {
-
 }
 
 //------------------------------------------------------------------------------------------------
@@ -79,12 +77,15 @@ void Game::loadLevel(const std::string& levelPath)
 //------------------------------------------------------------------------------------------------
 void Game::handleInput(GLfloat elapsedGameTime)
 {
+  InputManager::update(elapsedGameTime);
+  Keyboard* keyboard = InputManager::getKeyboard();
+
   if (m_state == GAME_ACTIVE)
   {
     GLfloat velocity = 0;
 
     // Move paddle
-    if (m_keys[GLFW_KEY_A])
+    if (keyboard->isKeyDown(GLFW_KEY_A))
     {
       if (m_player->getPosition().x >= 0)
       {
@@ -92,7 +93,7 @@ void Game::handleInput(GLfloat elapsedGameTime)
       }
     }
 
-    if (m_keys[GLFW_KEY_D])
+    if (keyboard->isKeyDown(GLFW_KEY_D))
     {
       if (m_player->getPosition().x <= m_width - m_player->getSize().x)
       {
@@ -100,7 +101,7 @@ void Game::handleInput(GLfloat elapsedGameTime)
       }
     }
 
-    if (m_keys[GLFW_KEY_SPACE])
+    if (keyboard->isKeyDown(GLFW_KEY_SPACE))
     {
       m_ball->release();
     }

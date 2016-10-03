@@ -13,8 +13,7 @@ class DllExport Clock
 {
   public:
     /// \brief This should be called before the clock class is used at the beginning of the program
-    /// We have to pass in the cpuSpeed because apparently glfwGetTimerFrequency returns zero in this project
-    static void init(uint64_t cpuSpeed);
+    static void init();
 
     // Constructor & Destructor
     Clock(float targetFramesPerSecond = DEFAULT_TARGET_FPS, float startTimeSeconds = 0.0f);

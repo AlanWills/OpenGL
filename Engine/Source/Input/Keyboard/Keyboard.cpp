@@ -26,9 +26,10 @@ namespace Engine
   void Keyboard::update(GLfloat elapsedGameTime)
   {
     // Update the previous frame's keys with the contents of the current keys buffer
-    // and flush the current keys buffer ready for more input
-    std::swap(m_previousKeys, m_currentKeys);
-    flush();
+    for (int i = 0; i < KEYBOARD_KEY_COUNT; ++i)
+    {
+      m_previousKeys[i] = m_currentKeys[i];
+    }
   }
 
   //------------------------------------------------------------------------------------------------

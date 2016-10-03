@@ -8,9 +8,9 @@ namespace Engine
   uint64_t Clock::s_cyclesPerSecond = 0;
 
   //------------------------------------------------------------------------------------------------
-  void Clock::init(uint64_t cpuSpeed)
+  void Clock::init()
   {
-    s_cyclesPerSecond = cpuSpeed;
+    s_cyclesPerSecond = glfwGetTimerFrequency();
   }
 
   //------------------------------------------------------------------------------------------------
