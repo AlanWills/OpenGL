@@ -6,7 +6,10 @@ using namespace Engine;
 
 namespace TestEngine
 {
-
+  /*
+    In this class we use ints specifically and do not test other types
+    Should the need arise, extra types may need to be tested, but functionally I currently believe these tests provide enough coverage
+  */
   TEST_CLASS(TestDoubleBufferAllocator)
   {
   public:
@@ -20,22 +23,26 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_CanAllocate)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_CanAllocate)
     {
-      DoubleBufferAllocator<int, 1024> intAllocator;
+      DoubleBufferAllocator<void*, 1024> allocator;
       
-      Assert::IsTrue(intAllocator.canAllocate(1));
-      Assert::IsTrue(intAllocator.canAllocate(10));
-      Assert::IsTrue(intAllocator.canAllocate(1024));
+      std::vector<int> validAllocs = { 1, 10, 1024 };
+      std::vector<int> invalidAllocs = { 1025, -1, 0, INT_MAX };
 
-      Assert::IsFalse(intAllocator.canAllocate(1025));
-      Assert::IsFalse(intAllocator.canAllocate(-1));
-      Assert::IsFalse(intAllocator.canAllocate(0));
-      Assert::IsFalse(intAllocator.canAllocate(INT_MAX));
+      for (int validSize : validAllocs)
+      {
+        Assert::IsTrue(allocator.canAllocate(validSize));
+      }
+
+      for (int invalidSize : invalidAllocs)
+      {
+        Assert::IsFalse(allocator.canAllocate(invalidSize));
+      }
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_CopyAllocate_NoSwapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_CopyAllocate_NoSwapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
       std::vector<int> data = { 0, 5, 10, 15, 20 };
@@ -52,7 +59,7 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_CopyAllocate_Swapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_CopyAllocate_Swapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
       std::vector<int> offsetData(1023);
@@ -73,7 +80,7 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_CopyAllocate_Offsetted_NoSwapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_CopyAllocate_Offsetted_NoSwapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
       std::vector<int> offsetData = { 0, 0, 0, 0, 0 };
@@ -93,7 +100,7 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_PointerAllocate_NoSwapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_PointerAllocate_NoSwapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
       int* data = intAllocator.pointerAllocate(5);
@@ -114,7 +121,7 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_PointerAllocate_Swapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_PointerAllocate_Swapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
 
@@ -139,7 +146,7 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_DoubleBufferAllocator_IntAllocator_PointerAllocate_Offsetted_NoSwapping)
+    TEST_METHOD(Test_DoubleBufferAllocator_Allocator_PointerAllocate_Offsetted_NoSwapping)
     {
       DoubleBufferAllocator<int, 1024> intAllocator;
       int offset = 5;

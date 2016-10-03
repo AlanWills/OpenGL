@@ -19,7 +19,7 @@ DllExport void checkGLError_(const char *file, int line);
         } \
     } while (false)
 #else
-#define ASSERT_MSG(condition, message) do { } while (false)
+#define ASSERT_MSG(condition, message)
 #endif
 
 #define ASSERT(condition) \
