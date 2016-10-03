@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
   while (!glfwWindowShouldClose(window))
   {
     // Calculate delta time
-    GLfloat currentFrame = glfwGetTime();
+    GLfloat currentFrame = glfwGetTime() * gameClock.getTimeScale();
     elapsedGameTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
     lag += elapsedGameTime;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 
     // Update Game state
     // We use a variable render fixed update loop
-    while (lag >= MS_PER_UPDATE)
+    while (lag >= MS_PER_UPDATE * gameClock.getTimeScale())
     {
       game.update(elapsedGameTime);
       lag -= MS_PER_UPDATE;
