@@ -17,40 +17,27 @@ int main(int argc, char *argv[])
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-  const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-  GLuint m_width = mode->width;
-  GLuint m_height = mode->height;
-
-  GLFWwindow* m_window = glfwCreateWindow(m_width, m_height, "Breakout", nullptr, nullptr);
-  glfwMakeContextCurrent(m_window);
-
-  // OpenGL configuration
-  glViewport(0, 0, m_width, m_height);
-  glEnable(GL_CULL_FACE);
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  OpenGLWindow glWindow;
+  GLFWwindow* window = glWindow.getGLWindow();
 
   glewExperimental = GL_TRUE;
-  GLenum err = glewInit();
-
+  glewInit();
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-  //OpenGLWindow glWindow;
   Game game;
 
   Clock::init(glfwGetTimerFrequency());
   Clock realtimeClock, gameClock;
 
   // Initialize game
-  game.init(m_window);
+  game.init(window);
     
   // DeltaTime variables
   GLfloat elapsedGameTime = 0.0f;
   GLfloat lastFrame = glfwGetTime();
   GLfloat lag = 0.0f;
 
-  while (!glfwWindowShouldClose(m_window))
+  while (!glfwWindowShouldClose(window))
   {
     // Calculate delta time
     GLfloat currentFrame = glfwGetTime();
@@ -76,7 +63,7 @@ int main(int argc, char *argv[])
     glClear(GL_COLOR_BUFFER_BIT);
     game.render(elapsedGameTime, lag / MS_PER_UPDATE);
 
-    glfwSwapBuffers(m_window);
+    glfwSwapBuffers(window);
   }
 
   return 0;

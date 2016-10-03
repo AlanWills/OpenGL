@@ -22,7 +22,10 @@ class DllExport OpenGLWindow
     inline void enableViewportFlag(GLenum flag) { glEnable(flag); }
 
   private:
+    /// Must be called in this order:
+    void initGLFW();
     void initWindow();
+    void initGLEW();
 
     int m_width;
     int m_height;
