@@ -29,6 +29,12 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD_INITIALIZE(TestClock_MethodSetup)
+    {
+      glfwSetTime(0);
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_CLASS_CLEANUP(TestClock_Cleanup)
     {
       glfwTerminate();
@@ -65,14 +71,14 @@ namespace TestEngine
     {
       Clock clock;
 
-      clock.update(1);
-      Assert::AreEqual((uint64_t)cyclesPerSecond, clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)(5 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2); // Compound errors
 
-      clock.update(0);
-      Assert::AreEqual((uint64_t)(5 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 3); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -81,14 +87,14 @@ namespace TestEngine
       Clock clock;
       clock.setTimeScale(0.5f);
 
-      clock.update(1);
-      Assert::AreEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 1);
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)(2.5f * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 2); // Compound errors
 
-      clock.update(0);
-      Assert::AreEqual((uint64_t)(2.5f* cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 3); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -97,14 +103,14 @@ namespace TestEngine
       Clock clock;
       clock.setTimeScale(2.0f);
 
-      clock.update(1);
-      Assert::AreEqual((uint64_t)(2 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 2);
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)(10 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4); // Compound errors
 
-      clock.update(0);
-      Assert::AreEqual((uint64_t)(10 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 6); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -113,13 +119,13 @@ namespace TestEngine
       Clock clock;
       clock.setPaused(true);
 
-      clock.update(1);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
 
-      clock.update(4);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
 
-      clock.update(0);
+      clock.update();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());
     }
 
@@ -195,8 +201,8 @@ namespace TestEngine
     {
       Clock clock;
 
-      clock.update(4);
-      Assert::AreEqual((uint64_t)(4 * cyclesPerSecond), clock.getElapsedCycles());
+      clock.update();
+      Assert::AreNotEqual((uint64_t)0, clock.getElapsedCycles());
 
       clock.reset();
       Assert::AreEqual((uint64_t)0, clock.getElapsedCycles());

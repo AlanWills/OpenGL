@@ -161,13 +161,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Debugging\DebugManager.h" />
+    <ClInclude Include="Headers\Debugging\Profiler.h" />
     <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboards\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Keyboard\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
-    <ClInclude Include="Headers\Logging\Logger.h" />
+    <ClInclude Include="Headers\Debugging\Logger.h" />
     <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
     <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />

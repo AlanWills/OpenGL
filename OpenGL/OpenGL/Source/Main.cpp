@@ -34,21 +34,17 @@ int main(int argc, char *argv[])
   Clock realtimeClock, gameClock;
 
   // DeltaTime variables
-  GLfloat current = glfwGetTime(), previous = 0;
   GLfloat lag = 0.0f;
 
   while (!glfwWindowShouldClose(window))
   {
-    previous = current;
-    current = glfwGetTime();
+    realtimeClock.update();
+    gameClock.update();
 
-    GLfloat elapsedGameTime = (current - previous) * gameClock.getTimeScale();
+    GLfloat elapsedGameTime = gameClock.getElapsedDeltaTime();
     lag += elapsedGameTime;
 
     GLfloat gameSecondsPerUpdate = gameClock.getTimeScale() / gameClock.getTargetFramesPerSecond();
-
-    realtimeClock.update(current - previous);
-    gameClock.update(elapsedGameTime);
 
     glfwPollEvents();
 

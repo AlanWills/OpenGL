@@ -66,9 +66,6 @@
     <ClInclude Include="Headers\OpenGL\OpenGLWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Logging\Logger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Memory\PoolAllocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -76,6 +73,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Memory\AlignedAllocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Debugging\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Debugging\DebugManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Debugging\Profiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
