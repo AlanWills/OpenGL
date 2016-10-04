@@ -24,6 +24,11 @@ class DllExport Logger
     /// Will write to the log file if the buffer needs to be flushed
     void log(const std::string& message, Verbosity verbosity);
 
+    /// \brief By default the logger buffers messages into bacthes before logging
+    /// However, if we wish to log every message immediately then set this to true
+    /// Be wary of using this in performance sensitive code
+    void shouldFlushAfterEveryLog(bool shouldFlushAfterEveryLog) { m_shouldFlushAfterEveryLog = shouldFlushAfterEveryLog; }
+
     Logger();
     ~Logger();
 
@@ -31,6 +36,8 @@ class DllExport Logger
     // The memory we will write to and use to write to the log file
     DoubleBufferAllocator<char, 2048> m_logBuffer;
     Verbosity m_verbosity;
+
+    bool m_shouldFlushAfterEveryLog;
 };
 
 };

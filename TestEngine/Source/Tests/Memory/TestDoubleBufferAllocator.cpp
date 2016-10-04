@@ -27,8 +27,8 @@ namespace TestEngine
     {
       DoubleBufferAllocator<void*, 1024> allocator;
       
-      std::vector<int> validAllocs = { 1, 10, 1024 };
-      std::vector<int> invalidAllocs = { 1025, -1, 0, INT_MAX };
+      std::vector<size_t> validAllocs = { 1, 10, 1024 };
+      std::vector<size_t> invalidAllocs = { 1025, 0, INT_MAX };
 
       for (int validSize : validAllocs)
       {
@@ -50,7 +50,11 @@ namespace TestEngine
       Assert::AreEqual(AllocateResult::kNoFlushRequired, intAllocator.copyAllocate(data.size(), &data.front()));
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array
+      Assert::AreEqual(data.size(), bufferUsage);
 
       for (int i = 0; i < data.size(); ++i)
       {
@@ -70,7 +74,11 @@ namespace TestEngine
       Assert::AreEqual(AllocateResult::kFlushRequired, intAllocator.copyAllocate(data.size(), &data.front()));
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array
+      Assert::AreEqual(data.size(), bufferUsage);
 
       for (int i = 0; i < data.size(); ++i)
       {
@@ -92,7 +100,11 @@ namespace TestEngine
       Assert::AreEqual(AllocateResult::kNoFlushRequired, intAllocator.copyAllocate(data.size(), &data.front()));
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array and offset data array
+      Assert::AreEqual(data.size() + offsetData.size(), bufferUsage);
 
       for (int i = 0; i < data.size(); ++i)
       {
@@ -114,7 +126,11 @@ namespace TestEngine
 
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array
+      Assert::AreEqual((size_t)5, bufferUsage);
 
       for (int i = 0; i < 5; ++i)
       {
@@ -140,7 +156,11 @@ namespace TestEngine
 
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array
+      Assert::AreEqual((size_t)5, bufferUsage);
 
       for (int i = 0; i < 5; ++i)
       {
@@ -167,7 +187,11 @@ namespace TestEngine
 
       intAllocator.swapBuffers();
 
-      const int* bufferStart = intAllocator.getBufferedData();
+      const int* bufferStart = nullptr;
+      size_t bufferUsage = intAllocator.getBufferedData(&bufferStart);
+
+      // Check we have used the amount of space in the back buffer as our data array and offset
+      Assert::AreEqual((size_t)10, bufferUsage);
 
       for (int i = 0; i < 5; ++i)
       {
