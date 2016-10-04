@@ -8,10 +8,10 @@
 
 namespace Engine
 {
-  // A class which uses a service locator pattern to store and update various input modules
-  // These can be obtained and set with static methods, but the logic of them is in the objects themselves rather than this class
-  class DllExport InputManager
-  {
+// A class which uses a service locator pattern to store and update various input modules
+// These can be obtained and set with static methods, but the logic of them is in the objects themselves rather than this class
+class DllExport InputManager
+{
 
   public:
     /// \brief Set up the keyboard and mouse objects and also set up the global window callback
@@ -38,6 +38,6 @@ namespace Engine
 
     static std::unique_ptr<Keyboard> s_keyboard;
     static std::unique_ptr<Mouse> s_mouse;
-  };
+};
 
 }

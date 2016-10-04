@@ -162,14 +162,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
-    <ClInclude Include="Headers\Debugging\Profiler.h" />
+    <ClInclude Include="Headers\Debugging\Profiling\Profiler.h" />
     <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboards\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Keyboard\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
-    <ClInclude Include="Headers\Debugging\Logger.h" />
+    <ClInclude Include="Headers\Debugging\Logging\Logger.h" />
     <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
     <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />
@@ -180,6 +180,9 @@
     <ClInclude Include="Headers\Time\Clock.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Debugging\DebugManager.cpp" />
+    <ClCompile Include="Source\Debugging\Logging\Logger.cpp" />
+    <ClCompile Include="Source\Debugging\Profiling\Profiler.cpp" />
     <ClCompile Include="Source\dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

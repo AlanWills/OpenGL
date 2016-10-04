@@ -6,6 +6,14 @@
 
 namespace Engine
 {
+/// \brief An enum which can be used when allocating to determine if we had to flush our buffers
+/// This can be used after an allocation to process the buffered data
+enum AllocateResult
+{
+  kFlushRequired,
+  kNoFlushRequired
+};
+
 // This class allocates two arrays of the inputted type
 // It then fills one until there is not enough room left for new allocations
 // It then swaps to fill the other array whilst the first is cleared
@@ -26,13 +34,13 @@ class DllExport DoubleBufferAllocator
     /// \brief Take a pointer to the start of a chunk of inputted data and copy the values into the current in use buffer
     /// Will swap the buffers before copying if required to
     /// Safer than pointerAllocate, but less efficient as we are copying
-    void copyAllocate(T* data, int space);
+    AllocateResult copyAllocate(int space, const T* data);
 
     /// \brief Retrieve a pointer to the head of the current in use buffer
     /// Will swap the buffers before returning the pointer in case the current buffer does not have enough room
     /// Use when you are about to create an array of T and you know an upper bound for it's size
     /// No copying is required as you are returning the memory to assign your values to so faster than the copyAllocate
-    T* pointerAllocate(int desiredSpace);
+    AllocateResult pointerAllocate(int desiredSpace, T** outputData);
 
     /// \brief Changes around the current in use buffer and resets our element index
     void swapBuffers();
@@ -42,7 +50,7 @@ class DllExport DoubleBufferAllocator
 
   private:
     /// \brief Utility function to swap buffers if we do not have enough to allocate the requested amount
-    void checkSpaceAndSwapBuffersIfNecessary(int requestedSpace);
+    AllocateResult checkSpaceAndSwapBuffersIfNecessary(int requestedSpace);
 
     T m_bufferOne[BufferSize];
     T m_bufferTwo[BufferSize];
@@ -78,40 +86,48 @@ bool DoubleBufferAllocator<T, BufferSize>::canAllocate(int desiredBufferSpace) c
 
 //------------------------------------------------------------------------------------------------
 template <typename T, int BufferSize>
-void DoubleBufferAllocator<T, BufferSize>::copyAllocate(T* data, int count)
+AllocateResult DoubleBufferAllocator<T, BufferSize>::copyAllocate(int count, const T* data)
 {
-  checkSpaceAndSwapBuffersIfNecessary(count);
+  AllocateResult result = checkSpaceAndSwapBuffersIfNecessary(count);
 
   for (int i = 0; i < count; i++)
   {
     m_currentBuffer[m_index] = data[i];
     m_index++;
   }
+
+  return result;
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T, int BufferSize>
-T* DoubleBufferAllocator<T, BufferSize>::pointerAllocate(int desiredSpace)
+AllocateResult DoubleBufferAllocator<T, BufferSize>::pointerAllocate(int desiredSpace, T** outputData)
 {
-  checkSpaceAndSwapBuffersIfNecessary(desiredSpace);
+  AllocateResult result = checkSpaceAndSwapBuffersIfNecessary(desiredSpace);
 
-  T* element = &m_currentBuffer[m_index];
+  *outputData = &m_currentBuffer[m_index];
   m_index += desiredSpace;
 
-  return element;
+  return result;
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T, int BufferSize>
-void DoubleBufferAllocator<T, BufferSize>::checkSpaceAndSwapBuffersIfNecessary(int requestedSpace)
+AllocateResult DoubleBufferAllocator<T, BufferSize>::checkSpaceAndSwapBuffersIfNecessary(int requestedSpace)
 {
+  AllocateResult result = AllocateResult::kNoFlushRequired;
+
   if (!canAllocate(requestedSpace))
   {
     swapBuffers();
 
     // Our buffers should be large enough now we have swapped to allocate room for the data - otherwise we are screwed
     ASSERT(canAllocate(requestedSpace));
+
+    result = AllocateResult::kFlushRequired;
   }
+
+  return result;
 }
 
 //------------------------------------------------------------------------------------------------
