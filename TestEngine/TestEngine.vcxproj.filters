@@ -52,5 +52,8 @@
     <ClCompile Include="Source\Tests\Memory\TestDoubleBufferAllocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tests\Debugging\TestLogger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,9 +1,7 @@
 #include "stdafx.h"
 
-#include "CppUnitTest.h"
 #include "Input/Keyboard/Keyboard.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Engine;
 
 namespace TestEngine

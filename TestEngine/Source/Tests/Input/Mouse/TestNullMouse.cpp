@@ -1,9 +1,7 @@
 #include "stdafx.h"
 
-#include "CppUnitTest.h"
 #include "Input/Mouse/NullMouse.h"
 
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace Engine;
 
 namespace TestEngine

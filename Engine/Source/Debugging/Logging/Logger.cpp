@@ -1,14 +1,25 @@
 #include "stdafx.h"
 
 #include "Debugging/Logging/Logger.h"
+#include "FileSystem/Directory.h"
+#include "FileSystem/File.h"
+
+#include <thread>
+
+using namespace Kernel;
 
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
-  Logger::Logger() :
+  Logger::Logger(const std::string& logRelativePath) :
     m_verbosity(kAll),
     m_shouldFlushAfterEveryLog(false)
   {
+    m_backLogBufferStr.reserve(LOGGER_BUFFER_SIZE);
+    m_backLogBufferStr.clear();
+
+    Directory::getExecutingAppDirectory(m_logFileFullPath);
+    File::combinePaths(m_logFileFullPath, logRelativePath);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -17,8 +28,21 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Logger::log(const std::string& message, Verbosity verbosity)
+  /*void asyncWriteToLogFile(const std::string& logFileFullPath, const std::string& bufferedLog)
   {
+    File::appendToFile(logFileFullPath, bufferedLog);
+  }*/
+
+  //------------------------------------------------------------------------------------------------
+  void Logger::logMessage(const std::string& message, Verbosity verbosity)
+  {
+    // If we have not indicated that the logger should log messages of the inputted verbosity
+    // Then we do not log the message
+    if (m_verbosity & verbosity == 0)
+    {
+      return;
+    }
+
     // Store the message into our buffer
     AllocateResult allocResult = m_logBuffer.copyAllocate(message.length(), message.c_str());
 
@@ -36,5 +60,20 @@ namespace Engine
     }
     
     // Since our log buffers have been flushed, we should write the contents of the back buffer to the log file
+    // TODO: Make this async
+    File::appendToFile(m_logFileFullPath, getBufferedLog());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  const std::string& Logger::getBufferedLog()
+  {
+    m_backLogBufferStr.clear();
+
+    const char* bufferedMessages = nullptr;
+    m_logBuffer.getBufferedData(&bufferedMessages);
+
+    m_backLogBufferStr.append(bufferedMessages);
+
+    return m_backLogBufferStr;
   }
 }

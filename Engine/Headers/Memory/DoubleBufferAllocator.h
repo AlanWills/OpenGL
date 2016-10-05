@@ -52,6 +52,8 @@ class DllExport DoubleBufferAllocator
     /// \brief Utility function to swap buffers if we do not have enough to allocate the requested amount
     AllocateResult checkSpaceAndSwapBuffersIfNecessary(size_t requestedSpace);
 
+    void flushCurrentBuffer();
+
     T m_bufferOne[BufferSize];
     T m_bufferTwo[BufferSize];
 
@@ -65,10 +67,10 @@ template <typename T, size_t BufferSize>
 DoubleBufferAllocator<T, BufferSize>::DoubleBufferAllocator() :
   m_index(0),
   m_backBufferSpaceUsage(0),
-  m_currentBuffer(m_bufferOne)
+  m_currentBuffer(m_bufferOne),
+  m_bufferOne(),
+  m_bufferTwo()
 {
-  // Set the index to be zero - it will track the index of the next space available
-  // Don't need to initialise arrays - we are writing into them so don't care what their values are
 }
 
 //------------------------------------------------------------------------------------------------
@@ -132,7 +134,7 @@ AllocateResult DoubleBufferAllocator<T, BufferSize>::checkSpaceAndSwapBuffersIfN
     swapBuffers();
 
     // Our buffers should be large enough now we have swapped to allocate room for the data - otherwise we are screwed
-    ASSERT(canAllocate(requestedSpace));
+    ASSERT_MSG(canAllocate(requestedSpace), "Requested space is too large for a full buffer");
 
     result = AllocateResult::kFlushRequired;
   }
@@ -146,8 +148,20 @@ void DoubleBufferAllocator<T, BufferSize>::swapBuffers()
 {
   // Swap the current buffer head over and set the head to the start of the new buffer array
   m_currentBuffer = m_currentBuffer == m_bufferOne ? m_bufferTwo : m_bufferOne;
+  //flushCurrentBuffer();
+
   m_backBufferSpaceUsage = m_index;
   m_index = 0;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t BufferSize>
+void DoubleBufferAllocator<T, BufferSize>::flushCurrentBuffer()
+{
+  for (size_t i = 0; i < BufferSize; ++i)
+  {
+    m_currentBuffer[i] = 0;
+  }
 }
 
 };
