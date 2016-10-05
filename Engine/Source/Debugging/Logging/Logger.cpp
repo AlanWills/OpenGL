@@ -20,6 +20,7 @@ namespace Engine
 
     Directory::getExecutingAppDirectory(m_logFileFullPath);
     File::combinePaths(m_logFileFullPath, logRelativePath);
+    File::createFile(m_logFileFullPath);  // Clears the log file if it already exists
   }
 
   //------------------------------------------------------------------------------------------------
@@ -61,11 +62,25 @@ namespace Engine
     
     // Since our log buffers have been flushed, we should write the contents of the back buffer to the log file
     // TODO: Make this async
-    File::appendToFile(m_logFileFullPath, getBufferedLog());
+    writeLogBackBufferToFile();
   }
 
   //------------------------------------------------------------------------------------------------
-  const std::string& Logger::getBufferedLog()
+  void Logger::flush()
+  {
+    m_logBuffer.swapBuffers();
+
+    writeLogBackBufferToFile();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Logger::writeLogBackBufferToFile()
+  {
+    File::appendToFile(m_logFileFullPath, getLog());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  const std::string& Logger::getLog()
   {
     m_backLogBufferStr.clear();
 

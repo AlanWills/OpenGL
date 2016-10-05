@@ -3,6 +3,7 @@
 #include "DllExport.h"
 
 #include <string>
+#include <vector>
 
 namespace Kernel
 {
@@ -27,7 +28,13 @@ class DllExport File
 
     /// \brief Creates a file if it does not exist.
     /// Does nothing if it does exist
-    static void createFile(const std::string& fullFilePath);
+    static void createFile(const std::string& fullFilePath, bool clearIfAlreadyExists = true);
+
+    /// \brief Opens a file if it exists and stores the contents in the outFileContents parameter
+    static void readFile(const std::string& fullFilePath, std::string& outFileContents);
+
+    /// \brief Adds all the lines for the file onto the end of the inputted vector, without altering any contents that might already be inside it
+    static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);
 };
 
 };

@@ -9,6 +9,8 @@ namespace Engine
 
 // A class used to log debug information
 // Also writes to a file when it's buffer becomes too large
+// Any messages in the front buffer of the log are considered 'untouchable'
+// If you wish to obtain them, call flush() and then call getLog() or read from the log file
 class DllExport Logger
 {
   public:
@@ -30,10 +32,11 @@ class DllExport Logger
     void logMessage(const std::string& message, Verbosity verbosity);
 
     /// \brief Returns the string in the back log buffer
-    const std::string& getBufferedLog();
+    const std::string& getLog();
 
-    /// \brief Swaps the front log buffer with the back log buffer
-    void flushBufferedLog() { m_logBuffer.swapBuffers(); }
+    /// \brief Swaps the front log buffer with the back log buffer and writes the new back log buffer contents to the file
+    /// Call when you have logged messages and you now wish to write them to file and then discard them
+    void flush();
 
     /// \brief By default the logger buffers messages into batches before logging
     /// However, if we wish to log every message immediately then set this to true
@@ -41,6 +44,8 @@ class DllExport Logger
     void shouldFlushAfterEveryLog(bool shouldFlushAfterEveryLog) { m_shouldFlushAfterEveryLog = shouldFlushAfterEveryLog; }
 
   private:
+    void writeLogBackBufferToFile();
+
     // The memory we will write to and use to write to the log file
     DoubleBufferAllocator<char, LOGGER_BUFFER_SIZE> m_logBuffer;
     Verbosity m_verbosity;

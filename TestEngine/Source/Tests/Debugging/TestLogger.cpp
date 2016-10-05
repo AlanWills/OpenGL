@@ -1,15 +1,28 @@
 #include "stdafx.h"
 
 #include "Debugging/Logging/Logger.h"
+#include "FileSystem/File.h"
+#include "FileSystem/Directory.h"
 
 // There is ambiguity in naming with the unit test logger here
 // So we qualify with namespaces
 
+using namespace Kernel;
+
 namespace TestEngine
 {
+  static std::string logFilePath;
+
   TEST_CLASS(TestLogger)
   {
   public:
+
+    //------------------------------------------------------------------------------------------------
+    TEST_CLASS_INITIALIZE(TestLogger_Initialize)
+    {
+      Directory::getExecutingAppDirectory(logFilePath);
+      File::combinePaths(logFilePath, "Log.txt");
+    }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Logger_Constructor_NoErrors)
@@ -25,9 +38,11 @@ namespace TestEngine
 
       Engine::Logger logger;
       logger.logMessage(message, Engine::Logger::kWarning);
-      logger.flushBufferedLog();
+      logger.flush();
 
-      Assert::AreEqual(message, logger.getBufferedLog());
+      Assert::AreEqual(message, logger.getLog());
+
+      checkLogFile(message);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -40,9 +55,11 @@ namespace TestEngine
       logger.logMessage(message, Engine::Logger::kWarning);
       logger.logMessage(message, Engine::Logger::kWarning);
 
-      logger.flushBufferedLog();
+      logger.flush();
 
-      Assert::AreEqual(message + message + message, logger.getBufferedLog());
+      Assert::AreEqual(message + message + message, logger.getLog());
+
+      checkLogFile(message + message + message);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -62,7 +79,18 @@ namespace TestEngine
       logger.logMessage(message, Engine::Logger::kWarning);
 
       // The first two messages should now be back in the back buffer
-      Assert::AreEqual(message + message, logger.getBufferedLog());
+      Assert::AreEqual(message + message, logger.getLog());
+
+      checkLogFile(message + message);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    void checkLogFile(const std::string& logFileContents)
+    {
+      std::string fileContents;
+      File::readFile(logFilePath, fileContents);
+
+      Assert::AreEqual(fileContents, logFileContents);
     }
   };
 }
