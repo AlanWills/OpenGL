@@ -162,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
+    <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h" />
     <ClInclude Include="Headers\Debugging\Profiling\Profiler.h" />
     <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Debugging\DebugManager.cpp" />
+    <ClCompile Include="Source\Debugging\Logging\ErrorLogger.cpp" />
     <ClCompile Include="Source\Debugging\Logging\Logger.cpp" />
     <ClCompile Include="Source\Debugging\Profiling\Profiler.cpp" />
     <ClCompile Include="Source\dllmain.cpp">

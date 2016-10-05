@@ -32,12 +32,12 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Logger_Log_Warning_Simple)
+    TEST_METHOD(Test_Logger_Log_Simple)
     {
       std::string message("Simple Log");
 
       Engine::Logger logger;
-      logger.logMessage(message, Engine::Logger::kWarning);
+      logger.log(message);
       logger.flush();
 
       Assert::AreEqual(message, logger.getLog());
@@ -51,9 +51,9 @@ namespace TestEngine
       std::string message("Simple Log");
 
       Engine::Logger logger;
-      logger.logMessage(message, Engine::Logger::kWarning);
-      logger.logMessage(message, Engine::Logger::kWarning);
-      logger.logMessage(message, Engine::Logger::kWarning);
+      logger.log(message);
+      logger.log(message);
+      logger.log(message);
 
       logger.flush();
 
@@ -72,11 +72,11 @@ namespace TestEngine
       }
 
       Engine::Logger logger;
-      logger.logMessage(message, Engine::Logger::kWarning);
-      logger.logMessage(message, Engine::Logger::kWarning);
+      logger.log(message);
+      logger.log(message);
 
       // Logger will flush when writing this message
-      logger.logMessage(message, Engine::Logger::kWarning);
+      logger.log(message);
 
       // The first two messages should now be back in the back buffer
       Assert::AreEqual(message + message, logger.getLog());

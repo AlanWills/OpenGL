@@ -12,7 +12,6 @@ namespace Engine
 {
   //------------------------------------------------------------------------------------------------
   Logger::Logger(const std::string& logRelativePath) :
-    m_verbosity(kAll),
     m_shouldFlushAfterEveryLog(false)
   {
     m_backLogBufferStr.reserve(LOGGER_BUFFER_SIZE);
@@ -35,15 +34,8 @@ namespace Engine
   }*/
 
   //------------------------------------------------------------------------------------------------
-  void Logger::logMessage(const std::string& message, Verbosity verbosity)
+  void Logger::log(const std::string& message)
   {
-    // If we have not indicated that the logger should log messages of the inputted verbosity
-    // Then we do not log the message
-    if (m_verbosity & verbosity == 0)
-    {
-      return;
-    }
-
     // Store the message into our buffer
     AllocateResult allocResult = m_logBuffer.copyAllocate(message.length(), message.c_str());
 
