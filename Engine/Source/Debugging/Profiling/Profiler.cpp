@@ -5,7 +5,8 @@
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
-  Profiler::Profiler()
+  Profiler::Profiler(const std::string& profilingLogFileRelativePath) :
+    m_logger(profilingLogFileRelativePath)
   {
   }
 

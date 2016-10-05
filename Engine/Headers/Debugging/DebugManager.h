@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DllExport.h"
-#include "Logging/Logger.h"
+#include "Logging/ErrorLogger.h"
 #include "Profiling/Profiler.h"
 
 #include <memory>

@@ -23,7 +23,7 @@ namespace Engine
   void DebugManager::init()
   {
     setProfiler(new Profiler());
-    setLogger(new Logger());
+    setLogger(new ErrorLogger());
   }
 
   //------------------------------------------------------------------------------------------------
