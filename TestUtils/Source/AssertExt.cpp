@@ -1,11 +1,11 @@
 #include "stdafx.h"
 
-#include "TestUtils.h"
+#include "AssertExt.h"
 
-namespace TestKernel
+namespace TestUtils
 {
   //------------------------------------------------------------------------------------------------
-  void TestUtils::assertAreAlmostEqual(float expected, float actual, float epsilon)
+  void AssertExt::assertAreAlmostEqual(float expected, float actual, float epsilon)
   {
     Assert::IsTrue(abs(expected - actual) <= epsilon);
   }

@@ -1,6 +1,9 @@
 #include "stdafx.h"
 
 #include "Debugging/Profiling/Profiler.h"
+#include "StringInterning/StringId.h"
+
+using namespace Kernel;
 
 namespace Engine
 {

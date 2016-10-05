@@ -72,13 +72,13 @@ namespace TestEngine
       Clock clock;
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2); // Compound errors
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 3); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 3); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -88,13 +88,13 @@ namespace TestEngine
       clock.setTimeScale(0.5f);
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 1);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 1);
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 2); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 2); // Compound errors
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 3); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 0.5f), clock.getElapsedCycles(), 3); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -104,13 +104,13 @@ namespace TestEngine
       clock.setTimeScale(2.0f);
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 2);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 2);
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4); // Compound errors
 
       clock.update();
-      TestUtils::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 6); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 6); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------

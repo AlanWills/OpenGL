@@ -159,6 +159,7 @@
     <ClInclude Include="Headers\FileSystem\File.h" />
     <ClInclude Include="Headers\GLHeaders.h" />
     <ClInclude Include="Headers\pempek_assert.h" />
+    <ClInclude Include="Headers\StringInterning\StringId.h" />
     <ClInclude Include="Headers\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +167,7 @@
     <ClCompile Include="Source\FileSystem\Directory.cpp" />
     <ClCompile Include="Source\FileSystem\File.cpp" />
     <ClCompile Include="Source\pempek_assert.cpp" />
+    <ClCompile Include="Source\StringInterning\StringId.cpp" />
     <ClCompile Include="Source\Utils\StringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
