@@ -16,3 +16,5 @@ DllExport void checkGLError_(const char *file, int line);
 #endif
 
 #define ASSERT_MSG(condition, message) ASSERT(condition && message)
+
+#define ASSERT_FAIL() ASSERT(false)

@@ -75,12 +75,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\TestKernel\Headers;$(ProjectDir)..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\TestKernel\Headers;$(ProjectDir)..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(IncludePath)</IncludePath>
+    <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -98,7 +98,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\TestKernel\Headers;$(ProjectDir)..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>TESTING;WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -113,7 +113,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\TestKernel\Headers;$(ProjectDir)..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\3rd Party\Include;$(ProjectDir)..\Engine\Headers;$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>TESTING;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -172,7 +172,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\Tests\Debugging\TestLogger.cpp" />
+    <ClCompile Include="Source\Tests\Debugging\Logging\TestErrorLogger.cpp" />
+    <ClCompile Include="Source\Tests\Debugging\Logging\TestLogger.cpp" />
     <ClCompile Include="Source\Tests\Input\Keyboard\TestKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />

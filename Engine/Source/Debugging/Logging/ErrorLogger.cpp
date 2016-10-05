@@ -2,11 +2,14 @@
 
 #include "Debugging/Logging/ErrorLogger.h"
 
+#include <string>
+
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
   ErrorLogger::ErrorLogger(const std::string& logFileRelativePath) :
-    m_verbosity(kAll)
+    Logger(logFileRelativePath),
+    m_verbosity(kWarning | kError | kCriticalError)
   {
   }
 
@@ -16,7 +19,12 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void ErrorLogger::logError(const std::string& message, Verbosity verbosity)
+  void ErrorLogger::logError(
+    const std::string& message, 
+    Verbosity verbosity,
+    const char* function,
+    const char* file,
+    int line)
   {
     // If we have not indicated that the logger should log messages of the inputted verbosity
     // Then we do not log the message
@@ -25,6 +33,39 @@ namespace Engine
       return;
     }
 
-    log(message);
+    std::string fullMessage;
+    fullMessage.reserve(1024);
+
+    fullMessage.append(getVerbosityString(verbosity));
+    fullMessage.append(": ");
+    fullMessage.append(message);
+    fullMessage.append(" in function: ");
+    fullMessage.append(function);
+    fullMessage.append(", in file: ");
+    fullMessage.append(file);
+    fullMessage.append(", on line: ");
+    fullMessage.append(std::to_string(line));
+
+    log(fullMessage);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  const char* ErrorLogger::getVerbosityString(Verbosity verbosity)
+  {
+    switch (verbosity)
+    {
+      case kWarning:
+        return WARNING_STRING;
+
+      case kError:
+        return ERROR_STRING;
+
+      case kCriticalError:
+        return CRITICAL_ERROR_STRING;
+
+      default:
+        ASSERT_FAIL();
+        return "";
+    }
   }
 }

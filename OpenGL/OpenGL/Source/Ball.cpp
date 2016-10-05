@@ -1,6 +1,5 @@
 #include "Ball.h"
 
-
 //------------------------------------------------------------------------------------------------
 Ball::Ball(const glm::vec2& playerPosition, Texture2D* texture)
 : GameObject(playerPosition - glm::vec2(getInitialBallRadius() * 0.5f), glm::vec2(getInitialBallRadius()), texture),
