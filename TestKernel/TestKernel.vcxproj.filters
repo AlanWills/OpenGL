@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Tests">
+      <UniqueIdentifier>{4702d46d-8130-4b82-9a70-042a541368e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\FileSystem">
+      <UniqueIdentifier>{af6190f8-4ed9-4da7-b793-dcf32c417372}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\Utils">
+      <UniqueIdentifier>{5b04be61-5c0e-4d83-8270-e0b390933f3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Tests\StringInterning">
+      <UniqueIdentifier>{6b2e0f83-7089-4471-9298-f8b37781e808}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\stdafx.h">
@@ -21,19 +33,27 @@
     <ClInclude Include="Headers\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp">
+      <Filter>Source Files\Tests\FileSystem</Filter>
     </ClCompile>
     <ClCompile Include="Source\Tests\Utils\TestStringUtils.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Tests\Utils</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp">
+      <Filter>Source Files\Tests\StringInterning</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="TestKernel.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

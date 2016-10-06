@@ -85,6 +85,20 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Logger_Destructor_WritesBothBuffersToFile)
+    {
+      std::string expected("Test");
+
+      // Scope the logger so it is destroyed in this test rather than at the end
+      {
+        Engine::Logger logger;
+        logger.log(expected);
+      }
+
+      checkLogFile(expected);
+    }
+
+    //------------------------------------------------------------------------------------------------
     void checkLogFile(const std::string& logFileContents)
     {
       std::string fileContents;

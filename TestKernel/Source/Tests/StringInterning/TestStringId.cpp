@@ -31,5 +31,18 @@ namespace TestKernel
 
       Assert::AreNotEqual(firstStringId, secondStringId);
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_StringId_DeinternString)
+    {
+      const char* firstString = "First String";
+      const char* secondString = "Second String";
+
+      StringId firstStringId = internString(firstString);
+      StringId secondStringId = internString(secondString);
+
+      Assert::AreEqual(firstString, deinternString(firstStringId));
+      Assert::AreEqual(secondString, deinternString(secondStringId));
+    }
 	};
 }

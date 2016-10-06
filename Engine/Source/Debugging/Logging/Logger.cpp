@@ -25,6 +25,9 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Logger::~Logger()
   {
+    // When this is destroyed, we write the contents of the front buffer to the log file
+    // Anything in the back buffer will have already been written
+    flush();
   }
 
   //------------------------------------------------------------------------------------------------

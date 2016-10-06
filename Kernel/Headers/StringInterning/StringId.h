@@ -11,9 +11,8 @@ namespace Kernel
 {
   typedef uint32_t StringId;
 
-  std::unordered_map<StringId, const char*> g_stringIdTable;
-
-  StringId DllExport internString(const char* str);
+  StringId DllExport _cdecl internString(const char* str);
+  DllExport const char* deinternString(StringId strId); // Don't know why these DllExports have to be this way round but it works so who cares!
 
   //------------------------------------------------------------------------------------------------
   // Hashing implementation
