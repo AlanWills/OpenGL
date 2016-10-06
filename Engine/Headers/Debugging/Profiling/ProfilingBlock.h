@@ -16,23 +16,23 @@ class DllExport ProfilingBlock
     // TODO: Need to make the constructors private so this class can't be constructed except with the Profiler
     
     /// Getters for data - no public setters though (we want this class to be only be useful through using the Profiler)
-    int getAverageTimeTaken() const { return m_averageTimeTaken; }
-    int getLastCallTimeTaken() const { return m_lastCallTimeTaken; }
+    float getAverageTimeTaken() const { return m_averageTimeTaken; }
+    float getLastCallTimeTaken() const { return m_lastCallTimeTaken; }
     int getNumCalls() const { return m_numCalls; }
-    int getStartTime() const { return m_startTime; }
+    float getStartTime() const { return m_startTime; }
 
   private:
     /// An average of the time taken to run the block
-    int m_averageTimeTaken;
+    float m_averageTimeTaken;
 
     /// The time taken for the last call
-    int m_lastCallTimeTaken;
+    float m_lastCallTimeTaken;
 
     /// The number of times this profiling block has been entered
     int m_numCalls;
 
     /// The amount of time elapsed over the current call
-    int m_startTime;
+    float m_startTime;
 
     friend class Profiler;
 };

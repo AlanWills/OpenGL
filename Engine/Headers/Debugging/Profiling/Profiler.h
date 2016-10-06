@@ -24,12 +24,16 @@ class DllExport Profiler
     Profiler(const std::string& profilingFileRelativePath = "Profiling.txt");
     ~Profiler();
 
-    /// Begin a profiling block
+    /// \brief Begin a profiling block
     /// Will create a new block if one for the inputted profiling name does not exist
     void startProfilingBlock(StringId profilingBlockName);
 
-    /// Close off the profiling block and check the input matches the current block running
+    /// \brief Close off the profiling block and check the input matches the current block running
     void endProfilingBlock(StringId profilingBlockName);
+
+    /// \brief Return a profiling block corresponding to the inputted name to inspect the current profiling results
+    /// Returns null if profiling block does not exist
+    const ProfilingBlock* getProfilingBlock(StringId profilingBlockName);
 
   private:
     /// \brief Build our profiling information into a string and write it to our log

@@ -303,11 +303,7 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     void checkTestFileContents(const std::string& expected)
     {
-      std::ifstream file(testFilePath);
-      std::string actual;
-      file >> actual;
-
-      Assert::AreEqual(expected, actual);
+      AssertExt::assertFileContents(testFilePath, expected);
     }
   };
 }

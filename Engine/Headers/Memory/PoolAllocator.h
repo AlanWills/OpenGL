@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DllExport.h"
+#include "Debug.h"
 
 namespace Engine
 {
@@ -13,6 +14,9 @@ class DllExport PoolAllocator
   public:
     PoolAllocator();
     ~PoolAllocator();
+
+    /// \brief Returns true if we have free objects in the pool to allocate
+    bool canAllocate() { return m_head != PoolSize; }
 
     /// \brief Obtain a pointer to a free object from this pool
     /// The object will have already been constructed
@@ -49,13 +53,15 @@ PoolAllocator<T, PoolSize>::~PoolAllocator()
 template <typename T, size_t PoolSize>
 T* PoolAllocator<T, PoolSize>::allocate()
 {
-  return m_pool[m_head++];
+  ASSERT(canAllocate());
+  return &m_pool[m_head++];
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
 void PoolAllocator<T, PoolSize>::free(T* objectToFree)
 {
+  // TODO
   ASSERT_FAIL();
 }
 

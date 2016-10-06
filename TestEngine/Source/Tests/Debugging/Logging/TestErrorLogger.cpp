@@ -28,8 +28,10 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ErrorLogger_Constructor_NoErrors)
     {
-      // Sanity check to catch any errors in constructor
+      // Sanity check to catch any errors in constructor and check log file is cleared
       ErrorLogger logger;
+
+      checkLogFile("");
     }
 
     //------------------------------------------------------------------------------------------------
@@ -101,10 +103,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     void checkLogFile(const std::string& logFileContents)
     {
-      std::string fileContents;
-      File::readFile(logFilePath, fileContents);
-
-      Assert::AreEqual(fileContents, logFileContents);
+      AssertExt::assertFileContents(logFilePath, logFileContents);
     }
   };
 }

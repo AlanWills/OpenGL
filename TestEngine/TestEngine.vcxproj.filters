@@ -61,5 +61,8 @@
     <ClCompile Include="Source\Tests\Memory\TestPoolAllocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tests\Debugging\Profiling\TestProfiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 #include "Debugging/Profiling/Profiler.h"
 #include "StringInterning/StringId.h"
 
+#include <chrono>
+
 using namespace Kernel;
 
 namespace Engine
@@ -35,7 +37,7 @@ namespace Engine
     // Write in chunks so we do not overflow the buffer
 
     std::string logString;
-    logString.reserve(100);
+    logString.reserve(200);
 
     // Block name
     {
@@ -55,19 +57,19 @@ namespace Engine
       logString.clear();
     }
 
-    // Last call time
+    // Average time
     {
-      logString.append("Last call time: ");
-      StringUtils::numericToStringAppend(profilingInfo.second.m_lastCallTimeTaken, logString);
+      logString.append("Average time: ");
+      StringUtils::numericToStringAppend(profilingInfo.second.m_averageTimeTaken, logString);
 
       m_logger.log(logString);
       logString.clear();
     }
 
-    // Average time
+    // Last call time
     {
-      logString.append("Average time: ");
-      StringUtils::numericToStringAppend(profilingInfo.second.m_averageTimeTaken, logString);
+      logString.append("Last call time: ");
+      StringUtils::numericToStringAppend(profilingInfo.second.m_lastCallTimeTaken, logString);
 
       m_logger.log(logString);
       logString.clear();
@@ -77,17 +79,24 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Profiler::startProfilingBlock(StringId profilingBlockName)
   {
+    if (!m_profilingBlockPool.canAllocate())
+    {
+      // If we have run out of profiling blocks to allocate we should not create a new one
+      ASSERT_FAIL_MSG("Reached max profiling block count.  Consider increasing MAX_PROFILING_BLOCKS");
+      return;
+    }
+
     m_currentBlockName = profilingBlockName;
 
     // If we do not have a profiling block for the inputted name we must add one from our pool
     if (m_profilingInfo.find(profilingBlockName) == m_profilingInfo.end())
     {
-      // TODO: Add one from pool
-      ASSERT_FAIL();
+      // Obtain free object from pool and add it to map
+      m_profilingInfo.emplace(profilingBlockName, *m_profilingBlockPool.allocate());
     }
 
     ProfilingBlock& profilingBlock = m_profilingInfo[profilingBlockName];
-    profilingBlock.m_startTime = glfwGetTime(); // Use realtime clock here?
+    profilingBlock.m_startTime = glfwGetTime(); // Use our clock here?
   }
 
   //------------------------------------------------------------------------------------------------
@@ -106,5 +115,17 @@ namespace Engine
     profilingBlock.m_lastCallTimeTaken = timeTaken;
     profilingBlock.m_averageTimeTaken = (averageTimeTake * numCalls + timeTaken) / (++numCalls);
     profilingBlock.m_numCalls = numCalls;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  const ProfilingBlock* Profiler::getProfilingBlock(StringId profilingBlockName)
+  {
+    if (m_profilingInfo.find(profilingBlockName) == m_profilingInfo.end())
+    {
+      ASSERT_FAIL_MSG("Profiling block does not exist");
+      return nullptr;
+    }
+
+    return &m_profilingInfo[profilingBlockName];
   }
 }

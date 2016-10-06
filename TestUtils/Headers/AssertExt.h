@@ -25,6 +25,12 @@ public:
   template <typename T>
   static void assertVectorContentsEqual(const std::vector<T>& expected, const std::vector<T>& actual);
 
+  /// \brief Checks that the file with the inputted filepath exists
+  static void assertFileExists(const std::string& fullFilePath);
+
+  /// \brief Checks that the contents of the file with the inputted filepath matches the inputted expected string
+  static void assertFileContents(const std::string& fullFilePath, const std::string& expectedFileContents);
+
 private:
   // Set up the appropriate constructors and assignment operators so that an instance of this class is impossible to create
   AssertExt() = default;

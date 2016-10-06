@@ -21,5 +21,24 @@ namespace TestEngine
       PoolAllocator<char, 10> charPool;
       PoolAllocator<void*, 10> pointerPool;
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_PoolAllocator_Allocate)
+    {
+      PoolAllocator<int, 1> intPool;
+      int* intObject = intPool.allocate();
+
+      Assert::IsNotNull(intObject);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_PoolAllocator_CanAllocate)
+    {
+      PoolAllocator<int, 1> intPool;
+      Assert::IsTrue(intPool.canAllocate());
+
+      intPool.allocate();
+      Assert::IsFalse(intPool.canAllocate());
+    }
   };
 }
