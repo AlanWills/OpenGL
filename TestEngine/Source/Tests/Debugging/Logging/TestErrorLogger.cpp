@@ -47,6 +47,7 @@ namespace TestEngine
       expected.append(message);
       expected.append(" in function: Test_ErrorLogger_LogWarning, in file: testerrorlogger.cpp, on line: ");
       expected.append(std::to_string(line));
+      expected.append("\n");
 
       Assert::AreEqual(expected, logger.getLog());
 
@@ -68,6 +69,7 @@ namespace TestEngine
       expected.append(message);
       expected.append(" in function: Test_ErrorLogger_LogError, in file: testerrorlogger.cpp, on line: ");
       expected.append(std::to_string(line));
+      expected.append("\n");
 
       Assert::AreEqual(expected, logger.getLog());
 
@@ -89,6 +91,7 @@ namespace TestEngine
       expected.append(message);
       expected.append(" in function: Test_ErrorLogger_LogCriticalError, in file: testerrorlogger.cpp, on line: ");
       expected.append(std::to_string(line));
+      expected.append("\n");
 
       Assert::AreEqual(expected, logger.getLog());
 

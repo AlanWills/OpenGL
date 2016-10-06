@@ -18,7 +18,7 @@ class DllExport Logger
     Logger(const std::string& logRelativePath = "Log.txt");
     ~Logger();
 
-    /// \brief Log the inputted message to the log buffer
+    /// \brief Log the inputted message to the log buffer onto a new line
     /// Will write to the log file if the buffer needs to be flushed
     void log(const std::string& message);
 

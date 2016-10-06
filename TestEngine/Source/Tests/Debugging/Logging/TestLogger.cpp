@@ -40,9 +40,9 @@ namespace TestEngine
       logger.log(message);
       logger.flush();
 
-      Assert::AreEqual(message, logger.getLog());
+      Assert::AreEqual(message + "\n", logger.getLog());
 
-      checkLogFile(message);
+      checkLogFile(message + "\n");
     }
 
     //------------------------------------------------------------------------------------------------
@@ -57,9 +57,9 @@ namespace TestEngine
 
       logger.flush();
 
-      Assert::AreEqual(message + message + message, logger.getLog());
+      Assert::AreEqual(message + "\n" + message + "\n" + message + "\n", logger.getLog());
 
-      checkLogFile(message + message + message);
+      checkLogFile(message + "\n" + message + "\n" + message + "\n");
     }
 
     //------------------------------------------------------------------------------------------------
@@ -79,9 +79,9 @@ namespace TestEngine
       logger.log(message);
 
       // The first two messages should now be back in the back buffer
-      Assert::AreEqual(message + message, logger.getLog());
+      Assert::AreEqual(message + "\n" + message + "\n", logger.getLog());
 
-      checkLogFile(message + message);
+      checkLogFile(message + "\n" + message + "\n");
     }
 
     //------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ namespace TestEngine
         logger.log(expected);
       }
 
-      checkLogFile(expected);
+      checkLogFile(expected + "\n");
     }
 
     //------------------------------------------------------------------------------------------------

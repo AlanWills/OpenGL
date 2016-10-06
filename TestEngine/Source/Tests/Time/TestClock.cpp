@@ -72,13 +72,13 @@ namespace TestEngine
       Clock clock;
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 1);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 4); // Compound errors
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 3); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 6); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -104,13 +104,13 @@ namespace TestEngine
       clock.setTimeScale(2.0f);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 2);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 8); // Compound errors
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 6); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 12); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------

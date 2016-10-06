@@ -83,7 +83,11 @@ namespace Kernel
     while (std::getline(file, buffer))
     {
       outFileContents.append(buffer);
+      outFileContents.append("\n");
     }
+
+    // Remove the final \n
+    outFileContents.pop_back();
   }
 
   //------------------------------------------------------------------------------------------------

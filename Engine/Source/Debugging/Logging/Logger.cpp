@@ -39,8 +39,8 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Logger::log(const std::string& message)
   {
-    // Store the message into our buffer
-    AllocateResult allocResult = m_logBuffer.copyAllocate(message.length(), message.c_str());
+    // Store the message into our buffer and add a new line to the end of it
+    AllocateResult allocResult = m_logBuffer.copyAllocate(message.length() + 1, (message + "\n").c_str());
 
     if (allocResult == AllocateResult::kNoFlushRequired)
     {
