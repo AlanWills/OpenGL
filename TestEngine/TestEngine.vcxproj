@@ -179,6 +179,7 @@
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp" />
     <ClCompile Include="Source\Tests\Memory\TestDoubleBufferAllocator.cpp" />
+    <ClCompile Include="Source\Tests\Memory\TestPoolAllocator.cpp" />
     <ClCompile Include="Source\Tests\OpenGL\TestOpenGLWindow.cpp" />
     <ClCompile Include="Source\Tests\Time\TestClock.cpp" />
   </ItemGroup>
