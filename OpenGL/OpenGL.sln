@@ -28,6 +28,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUtils", "..\TestUtils\TestUtils.vcxproj", "{7F06E53E-178C-4E7E-8F24-061F18AA402A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestKernel", "..\TestKernel\TestKernel.vcxproj", "{5EF3B49F-A65D-4997-B857-433E84DCD36A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F06E53E-178C-4E7E-8F24-061F18AA402A} = {7F06E53E-178C-4E7E-8F24-061F18AA402A}
+		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3} = {7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

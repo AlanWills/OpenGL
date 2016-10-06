@@ -4,9 +4,11 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
-  void StringUtils::wcharToChar(const wchar_t* input, char* output, size_t size)
+  size_t StringUtils::wcharToChar(const wchar_t* input, char* output, size_t sizeOfOutputBuffer)
   {
     size_t numConverted = 0;
-    wcstombs_s(&numConverted, output, size, input, size);
+    wcstombs_s(&numConverted, output, sizeOfOutputBuffer, input, sizeOfOutputBuffer);
+
+    return numConverted;
   }
 }

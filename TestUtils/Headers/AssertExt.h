@@ -3,6 +3,8 @@
 #include "DllExport.h"
 #include "CppUnitTest.h"
 
+#include <vector>
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace TestUtils
@@ -18,11 +20,28 @@ public:
   /// Asserts if expected and actual are more than epsilon apart
   static void assertAreAlmostEqual(float expected, float actual, float epsilon = DEFAULT_FLOAT_EPSILON);
 
+  /// \brief Checks each element in turn to see if they satisfy the Assert::AreEqual condition
+  /// Will also fail if the vectors are not the same length
+  template <typename T>
+  static void assertVectorContentsEqual(const std::vector<T>& expected, const std::vector<T>& actual);
+
 private:
   // Set up the appropriate constructors and assignment operators so that an instance of this class is impossible to create
   AssertExt() = default;
   AssertExt(const AssertExt& testUtils) = delete;
   AssertExt& operator=(const AssertExt&) = delete;
 };
+
+//------------------------------------------------------------------------------------------------
+template <typename T>
+void AssertExt::assertVectorContentsEqual(const std::vector<T>& expected, const std::vector<T>& actual)
+{
+  Assert::AreEqual(expected.size(), actual.size());
+
+  for (size_t i = 0, n = expected.size(); i < n; ++i)
+  {
+    Assert::AreEqual(expected[i], actual[i]);
+  }
+}
 
 }

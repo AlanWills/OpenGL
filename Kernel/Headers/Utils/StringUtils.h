@@ -9,7 +9,8 @@ namespace Kernel
 class DllExport StringUtils
 {
   public:
-    static void wcharToChar(const wchar_t* input, char* output, size_t size);
+    /// \brief Convert a long string to a normal string and returns the number of characters in the converted string
+    static size_t wcharToChar(const wchar_t* input, char* output, size_t sizeOfOutputBuffer);
 };
 
 }

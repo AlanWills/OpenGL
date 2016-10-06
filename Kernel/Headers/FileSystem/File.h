@@ -22,7 +22,11 @@ class DllExport File
     /// e.g. combinePaths(first, second) would change firstPath to "first\\path\\second\\path";
     static void combinePaths(std::string& firstPath, const std::string& secondPath);
 
-    /// \brief Opens a file and adds the inputted string to the end of it
+    /// \brief Returns true if the file exists
+    static bool exists(const std::string& fullFilePath);
+
+    /// \brief Opens a file and adds the inputted string to the end of it followed by std::endl
+    /// Therefore, every call to this function will append the input onto a new line
     /// Will create the file if it does not exist
     static void appendToFile(const std::string& fullFilePath, const std::string& stringToAppend);
 
@@ -30,11 +34,17 @@ class DllExport File
     /// Does nothing if it does exist
     static void createFile(const std::string& fullFilePath, bool clearIfAlreadyExists = true);
 
+    /// \brief Deletes a file if it exists
+    static void deleteFile(const std::string& fullFilePath);
+
     /// \brief Opens a file if it exists and stores the contents in the outFileContents parameter
     static void readFile(const std::string& fullFilePath, std::string& outFileContents);
 
     /// \brief Adds all the lines for the file onto the end of the inputted vector, without altering any contents that might already be inside it
     static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);
+
+
+    // TODO: Add instance versions of all of these functions
 };
 
 };

@@ -26,7 +26,13 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\TestStringId.cpp">
+    <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\Utils\TestStringUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
