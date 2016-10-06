@@ -99,6 +99,37 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Constructor)
+    {
+      File file(testFilePath);
+      std::string expected("TestString");
+
+      // Check the file exists
+      {
+        std::ofstream fStream(testFilePath);
+        Assert::IsTrue(fStream.good());
+
+        // Write something to the file
+        fStream << expected;
+        fStream.close();
+      }
+
+      // Now check that the contents of the file is preserved by the constructor
+      {
+        file = File(testFilePath);
+
+        checkTestFileContents(expected);
+      }
+
+      // Now check that the contents of the file is cleared by the constructor
+      {
+        file = File(testFilePath, true);
+
+        checkTestFileContents("");
+      }
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_Exists)
     {
       std::remove(testFilePath.c_str());
@@ -111,18 +142,28 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Append)
+    TEST_METHOD(Test_File_Append_Static)
     {
       // Write one word so we do not have to do any complex manual retrieval
       std::string expected("TestString");
       File::appendToFile(testFilePath, expected);
       Assert::IsTrue(File::exists(testFilePath));
 
-      std::ifstream file(testFilePath);
-      std::string actual;
-      file >> actual;
+      checkTestFileContents(expected);
+    }
 
-      Assert::AreEqual(expected, actual);
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Append_Instance)
+    {
+      // Write one word so we do not have to do any complex manual retrieval
+      std::string expected("TestString");
+
+      File file(testFilePath);
+      Assert::IsTrue(File::exists(testFilePath));
+
+      file.appendToFile(expected);
+
+      checkTestFileContents(expected);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -154,46 +195,41 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_CreateFile_ClearsOnCreation)
     {
-      // Write something just to create the file
-      File::createFile(testFilePath);
-      Assert::IsTrue(File::exists(testFilePath));
-      
       std::string expected("TestString");
-      File::appendToFile(testFilePath, expected);
-      Assert::IsTrue(File::exists(testFilePath));
 
-      std::ifstream file(testFilePath);
-      std::string actual;
-      file >> actual;
+      // Write something just to create the file
+      {
+        File::createFile(testFilePath);
+        Assert::IsTrue(File::exists(testFilePath));
 
-      Assert::AreEqual(expected, actual);
+        File::appendToFile(testFilePath, expected);
+        Assert::IsTrue(File::exists(testFilePath));
+
+        checkTestFileContents(expected);
+      }
 
       // Now recreate the file, but don't clear it and check the contents is the same
-      File::createFile(testFilePath, false);
-      Assert::IsTrue(File::exists(testFilePath));
+      {
+        File::createFile(testFilePath, false);
+        Assert::IsTrue(File::exists(testFilePath));
 
-      File::appendToFile(testFilePath, expected);
-      Assert::IsTrue(File::exists(testFilePath));
-      
-      file = std::ifstream(testFilePath);
-      actual.clear();
-      file >> actual;
+        File::appendToFile(testFilePath, expected);
+        Assert::IsTrue(File::exists(testFilePath));
 
-      Assert::AreEqual(expected, actual);
+        checkTestFileContents(expected);
+      }
 
       // Now recreate the file, but clear it and check it is now empty
-      File::createFile(testFilePath);
-      Assert::IsTrue(File::exists(testFilePath));
+      {
+        File::createFile(testFilePath);
+        Assert::IsTrue(File::exists(testFilePath));
 
-      file = std::ifstream(testFilePath);
-      actual.clear();
-      file >> actual;
-
-      Assert::AreEqual("", actual.c_str());
+        checkTestFileContents("");
+      }
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadFile)
+    TEST_METHOD(Test_File_ReadFile_Static)
     {
       std::string expected("This is a test string");
       File::appendToFile(testFilePath, expected);
@@ -205,7 +241,21 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadLines)
+    TEST_METHOD(Test_File_ReadFile_Instance)
+    {
+      std::string expected("This is a test string");
+
+      File file(testFilePath);
+      file.appendToFile(expected);
+
+      std::string actual;
+      file.readFile(actual);
+
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_ReadLines_Static)
     {
       std::vector<std::string> expected = 
       {
@@ -224,6 +274,40 @@ namespace TestKernel
       File::readLines(testFilePath, actual);
 
       AssertExt::assertVectorContentsEqual<std::string>(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_ReadLines_Instance)
+    {
+      std::vector<std::string> expected =
+      {
+        "This",
+        "is",
+        "a",
+        "test"
+      };
+
+      File file(testFilePath);
+
+      for (const std::string& str : expected)
+      {
+        file.appendToFile(str);
+      }
+
+      std::vector<std::string> actual;
+      file.readLines(actual);
+
+      AssertExt::assertVectorContentsEqual<std::string>(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    void checkTestFileContents(const std::string& expected)
+    {
+      std::ifstream file(testFilePath);
+      std::string actual;
+      file >> actual;
+
+      Assert::AreEqual(expected, actual);
     }
   };
 }

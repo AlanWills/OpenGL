@@ -6,6 +6,18 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
+  File::File(const std::string& fullFilePath, bool clearIfAlreadyExists) :
+    m_fullFilePath(fullFilePath)
+  {
+    createFile(fullFilePath, clearIfAlreadyExists);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  File::~File()
+  {
+  }
+
+  //------------------------------------------------------------------------------------------------
   void File::combinePaths(std::string& firstPath, const std::string& secondPath)
   {
     // If the first path doesn't end in the delimiter and the second doesn't begin with the delimiter we should append the delimiter to the first path
@@ -25,9 +37,8 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   bool File::exists(const std::string& fullFilePath)
   {
-    std::fstream file(fullFilePath);
-
-    return file.good();
+    struct stat buf;
+    return stat(fullFilePath.c_str(), &buf) != -1;
   }
 
   //------------------------------------------------------------------------------------------------
@@ -44,17 +55,15 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   void File::createFile(const std::string& fullFilePath, bool clearIfAlreadyExists)
   {
-    // Automatically creates the file if it does not exist
-    std::ofstream file(fullFilePath);
-    ASSERT(file.good());
-
-    if (clearIfAlreadyExists)
+    if (!clearIfAlreadyExists && exists(fullFilePath))
     {
-      file.clear();
+      // If it exists already and we do not need to clear it, we are done
+      return;
     }
 
-    // Write to file so it is created
-    file << "";
+    // Automatically creates the file if it does not exist - this also seems to clear it
+    std::ofstream file(fullFilePath);
+    ASSERT(file.good());
   }
 
   //------------------------------------------------------------------------------------------------
