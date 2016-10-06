@@ -49,7 +49,7 @@ namespace Engine
     // Num calls
     {
       logString.append("Number of calls: ");
-      StringUtils::intToStringAppend(profilingInfo.second.m_numCalls, logString);
+      StringUtils::numericToStringAppend(profilingInfo.second.m_numCalls, logString);
 
       m_logger.log(logString);
       logString.clear();
@@ -58,7 +58,7 @@ namespace Engine
     // Last call time
     {
       logString.append("Last call time: ");
-      StringUtils::intToStringAppend(profilingInfo.second.m_lastCallTimeTaken, logString);
+      StringUtils::numericToStringAppend(profilingInfo.second.m_lastCallTimeTaken, logString);
 
       m_logger.log(logString);
       logString.clear();
@@ -67,7 +67,7 @@ namespace Engine
     // Average time
     {
       logString.append("Average time: ");
-      StringUtils::intToStringAppend(profilingInfo.second.m_averageTimeTaken, logString);
+      StringUtils::numericToStringAppend(profilingInfo.second.m_averageTimeTaken, logString);
 
       m_logger.log(logString);
       logString.clear();
