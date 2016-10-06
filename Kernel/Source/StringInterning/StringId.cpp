@@ -4,7 +4,7 @@
 namespace Kernel
 {
   static std::unordered_map<StringId, const char*> g_stringIdTable;
-  // Maybe have a reverse map so we can look to see if the string exists before hashing?
+  static std::unordered_map<const char*, StringId> g_idStringTable;   // Used for quick interning
 
   //------------------------------------------------------------------------------------------------
   StringId internString(const char* str)
@@ -15,9 +15,19 @@ namespace Kernel
     {
       // If our string does not exist in the lookup table, we should add it
       g_stringIdTable.emplace(strId, str);
+
+      // Add it to our reverse map too
+      g_idStringTable.emplace(str, strId);
     }
 
     return strId;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  StringId internStringFast(const char* str)
+  {
+    ASSERT(g_idStringTable.find(str) != g_idStringTable.end());
+    return g_idStringTable[str];
   }
 
   //------------------------------------------------------------------------------------------------

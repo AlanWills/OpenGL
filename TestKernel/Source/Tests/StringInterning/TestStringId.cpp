@@ -10,7 +10,7 @@ namespace TestKernel
 	public:
 		
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_StringId_SameStringsEqualId)
+    TEST_METHOD(Test_StringId_InternString_SameStringsEqualId)
 		{
       const char* string = "Test String";
 
@@ -21,7 +21,7 @@ namespace TestKernel
 		}
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_StringId_DifferentStringsNotEqualId)
+    TEST_METHOD(Test_StringId_InternString_DifferentStringsNotEqualId)
     {
       const char* firstString = "First String";
       const char* secondString = "Second String";
@@ -30,6 +30,19 @@ namespace TestKernel
       StringId secondStringId = internString(secondString);
 
       Assert::AreNotEqual(firstStringId, secondStringId);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_StringId_InternStringFast)
+    {
+      const char* string = "Test String";
+
+      StringId firstStringId = internString(string);
+
+      // Lookup the same string to see if internStringFast finds the same StringId
+      StringId secondStringId = internStringFast(string);
+
+      Assert::AreEqual(firstStringId, secondStringId);
     }
 
     //------------------------------------------------------------------------------------------------

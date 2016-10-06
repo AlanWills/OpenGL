@@ -31,14 +31,13 @@ int main(int argc, char *argv[])
   // Initialize game
   game.init(window);
     
-  Clock realtimeClock, gameClock;
+  Clock gameClock;
 
   // DeltaTime variables
   GLfloat lag = 0.0f;
 
   while (!glfwWindowShouldClose(window))
   {
-    realtimeClock.update();
     gameClock.update();
 
     GLfloat elapsedGameTime = gameClock.getElapsedDeltaTime();

@@ -15,5 +15,6 @@
 #include "GLHeaders.h"
 #include "Debug.h"
 #include "StringInterning/StringId.h"
+#include "Utils/StringUtils.h"
 #include <memory>
 #include <assert.h>

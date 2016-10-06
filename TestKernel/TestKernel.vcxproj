@@ -156,7 +156,6 @@
   <ItemGroup>
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
-    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -168,9 +167,6 @@
     <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp" />
     <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp" />
     <ClCompile Include="Source\Tests\Utils\TestStringUtils.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="TestKernel.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

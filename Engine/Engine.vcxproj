@@ -164,6 +164,7 @@
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h" />
     <ClInclude Include="Headers\Debugging\Profiling\Profiler.h" />
+    <ClInclude Include="Headers\Debugging\Profiling\ProfilingBlock.h" />
     <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboards\NullKeyboard.h" />

@@ -11,4 +11,10 @@ namespace Kernel
 
     return numConverted;
   }
+
+  //------------------------------------------------------------------------------------------------
+  void StringUtils::intToStringAppend(int input, std::string& outputStr)
+  {
+    outputStr.append(std::to_string(input));
+  }
 }
