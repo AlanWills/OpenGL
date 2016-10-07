@@ -23,21 +23,21 @@ class DllExport File
     /// \brief Opens a file and adds the inputted string to the end of it followed by std::endl
     /// Therefore, every call to this function will append the input onto a new line
     /// Will create the file if it does not exist
-    static void appendToFile(const std::string& fullFilePath, const std::string& stringToAppend);
-    void appendToFile(const std::string& stringToAppend) const { appendToFile(m_fullFilePath, stringToAppend); }
+    static void append(const std::string& fullFilePath, const std::string& stringToAppend);
+    void append(const std::string& stringToAppend) const { append(m_fullFilePath, stringToAppend); }
 
     /// \brief Creates a file if it does not exist.
     /// Does nothing if it does exist
-    static void createFile(const std::string& fullFilePath, bool clearIfAlreadyExists = true);
-    void createFile(bool clearIfAlreadyExists = true) const { createFile(m_fullFilePath, clearIfAlreadyExists); }
+    static void create(const std::string& fullFilePath, bool clearIfAlreadyExists = true);
+    void create(bool clearIfAlreadyExists = true) const { create(m_fullFilePath, clearIfAlreadyExists); }
 
     /// \brief Deletes a file if it exists
-    static void deleteFile(const std::string& fullFilePath);
-    void deleteFile() const { deleteFile(m_fullFilePath); }
+    static void remove(const std::string& fullFilePath);
+    void remove() const { remove(m_fullFilePath); }
 
     /// \brief Opens a file if it exists and stores the contents in the outFileContents parameter
-    static void readFile(const std::string& fullFilePath, std::string& outFileContents);
-    void readFile(std::string& outFileContents) const { readFile(m_fullFilePath, outFileContents); }
+    static void read(const std::string& fullFilePath, std::string& outFileContents);
+    void read(std::string& outFileContents) const { read(m_fullFilePath, outFileContents); }
 
     /// \brief Adds all the lines for the file onto the end of the inputted vector, without altering any contents that might already be inside it
     static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);

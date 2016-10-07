@@ -25,7 +25,7 @@ namespace TestKernel
       // Create some test files and directories
       std::string file(testDirectory);
       Path::combine(file, "TestFile1.txt");
-      File::createFile(file);
+      File::create(file);
     }
 
     //------------------------------------------------------------------------------------------------

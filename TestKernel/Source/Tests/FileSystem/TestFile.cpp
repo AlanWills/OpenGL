@@ -94,7 +94,7 @@ namespace TestKernel
     {
       // Write one word so we do not have to do any complex manual retrieval
       std::string expected("TestString");
-      File::appendToFile(testFilePath, expected);
+      File::append(testFilePath, expected);
       Assert::IsTrue(File::exists(testFilePath));
 
       checkTestFileContents(expected);
@@ -109,64 +109,64 @@ namespace TestKernel
       File file(testFilePath);
       Assert::IsTrue(File::exists(testFilePath));
 
-      file.appendToFile(expected);
+      file.append(expected);
 
       checkTestFileContents(expected);
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_DeleteFile_Static)
+    TEST_METHOD(Test_File_Remove_Static)
     {
       // Write something just to create the file
-      File::appendToFile(testFilePath, "");
+      File::append(testFilePath, "");
       Assert::IsTrue(File::exists(testFilePath));
 
-      File::deleteFile(testFilePath);
+      File::remove(testFilePath);
       Assert::IsFalse(File::exists(testFilePath));
 
       // Make sure that deleting a file that is already deleted does not cause any problems
-      File::deleteFile(testFilePath);
+      File::remove(testFilePath);
       Assert::IsFalse(File::exists(testFilePath));
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_DeleteFile_Instance)
+    TEST_METHOD(Test_File_Remove_Instance)
     {
       File file(testFilePath);
 
       // Write something just to create the file
-      file.appendToFile("");
+      file.append("");
       Assert::IsTrue(file.exists());
 
-      file.deleteFile();
+      file.remove();
       Assert::IsFalse(file.exists());
 
       // Make sure that deleting a file that is already deleted does not cause any problems
-      file.deleteFile();
+      file.remove();
       Assert::IsFalse(file.exists());
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateFile_Static)
+    TEST_METHOD(Test_File_Create_Static)
     {
-      File::deleteFile(testFilePath);
+      File::remove(testFilePath);
       Assert::IsFalse(File::exists(testFilePath));
 
       // Write something just to create the file
-      File::createFile(testFilePath);
+      File::create(testFilePath);
       Assert::IsTrue(File::exists(testFilePath));
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateFile_Instance)
+    TEST_METHOD(Test_File_Create_Instance)
     {
       File file(testFilePath);
 
-      file.deleteFile();
+      file.remove();
       Assert::IsFalse(file.exists());
 
       // Write something just to create the file
-      file.createFile();
+      file.create();
       Assert::IsTrue(file.exists());
     }
 
@@ -177,10 +177,10 @@ namespace TestKernel
 
       // Write something just to create the file
       {
-        File::createFile(testFilePath);
+        File::create(testFilePath);
         Assert::IsTrue(File::exists(testFilePath));
 
-        File::appendToFile(testFilePath, expected);
+        File::append(testFilePath, expected);
         Assert::IsTrue(File::exists(testFilePath));
 
         checkTestFileContents(expected);
@@ -188,7 +188,7 @@ namespace TestKernel
 
       // Now recreate the file, but don't clear it and check the contents is the same
       {
-        File::createFile(testFilePath, false);
+        File::create(testFilePath, false);
         Assert::IsTrue(File::exists(testFilePath));
 
         checkTestFileContents(expected);
@@ -196,7 +196,7 @@ namespace TestKernel
 
       // Now recreate the file, but clear it and check it is now empty
       {
-        File::createFile(testFilePath);
+        File::create(testFilePath);
         Assert::IsTrue(File::exists(testFilePath));
 
         checkTestFileContents("");
@@ -207,10 +207,10 @@ namespace TestKernel
     TEST_METHOD(Test_File_ReadFile_Static)
     {
       std::string expected("This is a test string");
-      File::appendToFile(testFilePath, expected);
+      File::append(testFilePath, expected);
 
       std::string actual;
-      File::readFile(testFilePath, actual);
+      File::read(testFilePath, actual);
 
       Assert::AreEqual(expected, actual);
     }
@@ -221,10 +221,10 @@ namespace TestKernel
       std::string expected("This is a test string");
 
       File file(testFilePath);
-      file.appendToFile(expected);
+      file.append(expected);
 
       std::string actual;
-      file.readFile(actual);
+      file.read(actual);
 
       Assert::AreEqual(expected, actual);
     }
@@ -242,7 +242,7 @@ namespace TestKernel
 
       for (const std::string& str : expected)
       {
-        File::appendToFile(testFilePath, str);
+        File::append(testFilePath, str);
       }
 
       std::vector<std::string> actual;
@@ -266,7 +266,7 @@ namespace TestKernel
 
       for (const std::string& str : expected)
       {
-        file.appendToFile(str);
+        file.append(str);
       }
 
       std::vector<std::string> actual;

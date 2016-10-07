@@ -20,7 +20,7 @@ namespace Engine
 
     Directory::getExecutingAppDirectory(m_logFileFullPath);
     Path::combine(m_logFileFullPath, logRelativePath);
-    File::createFile(m_logFileFullPath);  // Clears the log file if it already exists
+    File::create(m_logFileFullPath);  // Clears the log file if it already exists
   }
 
   //------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Logger::writeLogBackBufferToFile()
   {
-    File::appendToFile(m_logFileFullPath, getLog());
+    File::append(m_logFileFullPath, getLog());
   }
 
   //------------------------------------------------------------------------------------------------

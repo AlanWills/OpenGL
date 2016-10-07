@@ -10,7 +10,7 @@ namespace Kernel
   File::File(const std::string& fullFilePath, bool clearIfAlreadyExists) :
     m_fullFilePath(fullFilePath)
   {
-    createFile(fullFilePath, clearIfAlreadyExists);
+    create(fullFilePath, clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void File::appendToFile(const std::string& fullFilePath, const std::string& stringToAppend)
+  void File::append(const std::string& fullFilePath, const std::string& stringToAppend)
   {
     // Automatically creates the file if it does not exist
     std::ofstream file(fullFilePath, std::ios_base::app);
@@ -37,7 +37,7 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void File::createFile(const std::string& fullFilePath, bool clearIfAlreadyExists)
+  void File::create(const std::string& fullFilePath, bool clearIfAlreadyExists)
   {
     if (!clearIfAlreadyExists && exists(fullFilePath))
     {
@@ -45,7 +45,7 @@ namespace Kernel
       return;
     }
 
-    // TODO: Create all the directories necessary too
+    // TODO: Create the parent directory if necessary (can use the directory create which will create all necessary directories)
     //ASSERT_FAIL_MSG("TODO");
 
     // Automatically creates the file if it does not exist
@@ -59,13 +59,13 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void File::deleteFile(const std::string& fullFilePath)
+  void File::remove(const std::string& fullFilePath)
   {
     std::remove(fullFilePath.c_str());
   }
 
   //------------------------------------------------------------------------------------------------
-  void File::readFile(const std::string& fullFilePath, std::string& outFileContents)
+  void File::read(const std::string& fullFilePath, std::string& outFileContents)
   {
     std::ifstream file(fullFilePath);
     ASSERT(file.good());
