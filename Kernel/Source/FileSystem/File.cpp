@@ -1,4 +1,5 @@
 #include "FileSystem/File.h"
+#include "FileSystem/Path.h"
 #include "Debug.h"
 
 #include <fstream>
@@ -7,10 +8,10 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
-  File::File(const std::string& fullFilePath, bool clearIfAlreadyExists) :
-    m_fullFilePath(fullFilePath)
+  File::File(const std::string& filePath, bool clearIfAlreadyExists) :
+    m_filePath(filePath)
   {
-    create(fullFilePath, clearIfAlreadyExists);
+    create(filePath, clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -56,6 +57,15 @@ namespace Kernel
     }
 
     ASSERT(file.good());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void File::createInDirectory(const std::string& directoryFullPath, const std::string& relativeFilePath, bool clearIfAlreadyExists)
+  {
+    std::string fullFilePath(directoryFullPath);
+    Path::combine(fullFilePath, relativeFilePath);
+
+    create(fullFilePath, clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------

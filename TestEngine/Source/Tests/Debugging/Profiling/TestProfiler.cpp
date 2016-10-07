@@ -57,8 +57,8 @@ namespace TestEngine
 
       Assert::IsNotNull(profilingBlock);
       Assert::AreEqual(1, profilingBlock->getNumCalls());
-      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getAverageTimeTaken(), 0.01f);
-      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getLastCallTimeTaken(), 0.01f);
+      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getAverageTimeTaken(), 0.1f);
+      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getLastCallTimeTaken(), 0.1f);
     }
 
     //------------------------------------------------------------------------------------------------

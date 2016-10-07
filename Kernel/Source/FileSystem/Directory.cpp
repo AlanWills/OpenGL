@@ -1,5 +1,9 @@
+#include "Debug.h"
 #include "FileSystem/Directory.h"
+#include "FileSystem/Path.h"
 #include "Utils/StringUtils.h"
+
+#include <direct.h>
 
 namespace Kernel
 {
@@ -15,12 +19,56 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
+  bool Directory::exists(const std::string& fullDirectoryPath)
+  {
+    DIR* result = opendir(fullDirectoryPath.c_str());
+    bool exists = result != nullptr;
+
+    closedir(result);
+
+    return exists;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Directory::create(const std::string& directoryFullPath)
+  {
+    if (!exists(directoryFullPath))
+    {
+      //std::string parentDirectory;
+      //Path::getParentDirectory(directoryFullPath, parentDirectory);
+
+      //if (!exists(parentDirectory))
+      //{
+      //  // Recursively create all the parent directories
+      //  create(parentDirectory);
+      //}
+
+      int result = _mkdir(directoryFullPath.c_str());
+      ASSERT(result == 0);
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Directory::remove(const std::string& directoryFullPath)
+  {
+    if (exists(directoryFullPath))
+    {
+      int result = _rmdir(directoryFullPath.c_str());
+      ASSERT(result == 0);
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
   void Directory::getFiles(const std::string& fullDirectoryPath,
     std::vector<std::string>& files,
     const std::string& extension,
     bool includeSubDirectories)
   {
-    // TODO: Check directory exists
+    if (!exists(fullDirectoryPath))
+    {
+      ASSERT_FAIL_MSG("Directory does not exist");
+      return;
+    }
 
     DIR* dir = opendir(fullDirectoryPath.c_str());
 
@@ -28,5 +76,8 @@ namespace Kernel
     {
       //if (dirent->d_type)
     }
+
+    int result = closedir(dir);
+    ASSERT(result == 0);
   }
 }

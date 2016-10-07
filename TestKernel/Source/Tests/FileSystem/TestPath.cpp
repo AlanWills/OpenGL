@@ -8,12 +8,12 @@ using namespace Kernel;
 
 namespace TestKernel
 {
-  TEST_CLASS(TestDirectory)
+  TEST_CLASS(TestPath)
   {
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_NeitherHaveDelimiter)
+    TEST_METHOD(Test_Path_CombinePaths_NeitherHaveDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -27,7 +27,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_FirstHasDelimiter)
+    TEST_METHOD(Test_Path_CombinePaths_FirstHasDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -42,7 +42,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_SecondHasDelimiter)
+    TEST_METHOD(Test_Path_CombinePaths_SecondHasDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -61,7 +61,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_BothHaveDelimiter)
+    TEST_METHOD(Test_Path_CombinePaths_BothHaveDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -76,6 +76,51 @@ namespace TestKernel
       Path::combine(actual, second);
 
       // Test neither has delim
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_GetParentDirectory_File)
+    {
+      std::string actual, expected("Root"), path;
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory");
+
+      path = expected;
+      path.push_back(PATH_DELIMITER);
+      path.append("File.txt");
+
+      Path::getParentDirectory(path, actual);
+
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_GetParentDirectory_Directory_NoDelimiterEnding)
+    {
+      std::string actual, expected("Root"), path;
+
+      path = expected;
+      path.push_back(PATH_DELIMITER);
+      path.append("Directory");
+
+      Path::getParentDirectory(path, actual);
+
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_GetParentDirectory_Directory_DelimiterEnding)
+    {
+      std::string actual, expected("Root"), path;
+
+      path = expected;
+      path.push_back(PATH_DELIMITER);
+      path.append("Directory");
+      path.push_back(PATH_DELIMITER);
+
+      Path::getParentDirectory(path, actual);
+
       Assert::AreEqual(expected, actual);
     }
   };

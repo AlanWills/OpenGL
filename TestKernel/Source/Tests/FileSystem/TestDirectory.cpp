@@ -5,6 +5,7 @@
 #include "FileSystem/Path.h"
 
 #include <vector>
+#include <direct.h>
 
 using namespace Kernel;
 
@@ -17,26 +18,74 @@ namespace TestKernel
   public:
 
     //------------------------------------------------------------------------------------------------
+    // Can't have this as test method initialize because it doesn't seem to like creating the same folder over and over
     TEST_CLASS_INITIALIZE(TestDirectory_Initialize)
     {
       Directory::getExecutingAppDirectory(testDirectory);
       Path::combine(testDirectory, "TestDirectory");
 
-      // Create some test files and directories
-      std::string file(testDirectory);
-      Path::combine(file, "TestFile1.txt");
-      File::create(file);
+      Assert::AreEqual(0, _mkdir(testDirectory.c_str()));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_CLEANUP(TestDirectory_Cleanup)
     {
-      // TODO: Delete the test directory - add a function in directory
+      // Clean up the test directory
+      Assert::AreEqual(0, _rmdir(testDirectory.c_str()));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Exists)
+    {
+      Assert::IsTrue(Directory::exists(testDirectory));
+
+      std::string nonExistentDirectory(testDirectory + "NonExistent");
+      Assert::IsFalse(Directory::exists(nonExistentDirectory));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Remove)
+    {
+      std::string directory(testDirectory);
+      directory.push_back(PATH_DELIMITER);
+      directory.append("TestRemove");
+
+      Assert::IsFalse(Directory::exists(directory));
+      Assert::AreEqual(0, _mkdir(directory.c_str()));
+
+      Assert::IsTrue(Directory::exists(directory));
+      Directory::remove(directory);
+
+      Assert::IsFalse(Directory::exists(directory));
+
+      // Now try to remove it again to see we do not get any errors
+      Directory::remove(directory);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Create)
+    {
+      std::string directory(testDirectory);
+      directory.push_back(PATH_DELIMITER);
+      directory.append("TestCreate");
+
+      Assert::IsFalse(Directory::exists(directory));
+      Directory::create(directory);
+
+      Assert::IsTrue(Directory::exists(directory));
+
+      // Now try creating it again
+      Directory::create(directory);
+
+      // Cleanup
+      Directory::remove(directory);
+      Assert::IsFalse(Directory::exists(directory));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
     {
+      // Create some files
       std::vector<std::string> actualFiles, expectedFiles = 
       {
         "TestFile1.txt"

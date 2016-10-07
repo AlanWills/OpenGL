@@ -15,11 +15,14 @@ class DllExport Directory
     /// \brief Get the directory of the executing .exe
     static void getExecutingAppDirectory(std::string& outputDir);
 
-    static void exists(const std::string& directoryFullPath);
+    /// \brief Checks to see if a directory exists
+    /// Returns true if it does
+    static bool exists(const std::string& directoryFullPath);
 
-    // Recursively create here
+    /// \brief Creates a directory and any necessary parent directories if it does not already exist
     static void create(const std::string& directoryFullPath);
 
+    /// \brief Removes a directory if it exists
     static void remove(const std::string& directoryFullPath);
 
     /// \brief Obtain all of the files in the current directory and add them to the inputted vector

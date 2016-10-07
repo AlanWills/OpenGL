@@ -10,6 +10,7 @@
 using namespace Kernel;
 
 static std::string testFilePath = "";
+static std::string testFileName = "TestFile.txt";
 
 namespace TestKernel
 {
@@ -22,7 +23,7 @@ namespace TestKernel
     {
       Directory::getExecutingAppDirectory(testFilePath);
       testFilePath.push_back(PATH_DELIMITER);
-      testFilePath.append("TestFile.txt");
+      testFilePath.append(testFileName);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -165,8 +166,29 @@ namespace TestKernel
       file.remove();
       Assert::IsFalse(file.exists());
 
-      // Write something just to create the file
       file.create();
+      Assert::IsTrue(file.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_CreateInDirectory_Static)
+    {
+      std::string directory;
+      Directory::getExecutingAppDirectory(directory);
+
+      File::createInDirectory(directory, testFileName);
+      Assert::IsTrue(File::exists(testFilePath));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_CreateInDirectory_Instance)
+    {
+      std::string directory;
+      Directory::getExecutingAppDirectory(directory);
+
+      File file(testFileName);
+
+      file.createInDirectory(directory);
       Assert::IsTrue(file.exists());
     }
 
