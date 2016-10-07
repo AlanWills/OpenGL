@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "Debugging/Profiling/Profiler.h"
-#include "FileSystem/File.h"
+#include "FileSystem/Path.h"
 #include "FileSystem/Directory.h"
 
 #include <chrono>
@@ -30,7 +30,7 @@ namespace TestEngine
       glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
       Directory::getExecutingAppDirectory(resultsFilePath);
-      File::combinePaths(resultsFilePath, "Profiling.txt");
+      Path::combine(resultsFilePath, "Profiling.txt");
     }
 
     //------------------------------------------------------------------------------------------------

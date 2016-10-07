@@ -18,23 +18,23 @@
     <ClInclude Include="Headers\Camera.h" />
     <ClInclude Include="Headers\Component.h" />
     <ClInclude Include="Headers\Cube.h" />
-    <ClInclude Include="Headers\Shader.h" />
-    <ClInclude Include="Headers\Texture2D.h" />
+    <ClInclude Include="Headers\Resources\Shader.h" />
+    <ClInclude Include="Headers\Resources\Texture2D.h" />
     <ClInclude Include="Headers\SpriteRenderer.h" />
-    <ClInclude Include="Headers\ResourceManager.h" />
+    <ClInclude Include="Headers\Resources\ResourceManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Ball.cpp" />
     <ClCompile Include="Source\GameLevel.cpp" />
-    <ClCompile Include="Source\ResourceManager.cpp" />
+    <ClCompile Include="Source\Resources\ResourceManager.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Shader.cpp" />
-    <ClCompile Include="Source\Texture2D.cpp" />
+    <ClCompile Include="Source\Resources\Shader.cpp" />
+    <ClCompile Include="Source\Resources\Texture2D.cpp" />
     <ClCompile Include="Source\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>

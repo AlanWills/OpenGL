@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "Debugging/Logging/Logger.h"
-#include "FileSystem/File.h"
+#include "FileSystem/Path.h"
 #include "FileSystem/Directory.h"
 
 // There is ambiguity in naming with the unit test logger here
@@ -21,7 +21,7 @@ namespace TestEngine
     TEST_CLASS_INITIALIZE(TestLogger_Initialize)
     {
       Directory::getExecutingAppDirectory(logFilePath);
-      File::combinePaths(logFilePath, "Log.txt");
+      Path::combine(logFilePath, "Log.txt");
     }
 
     //------------------------------------------------------------------------------------------------

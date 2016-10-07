@@ -34,8 +34,11 @@ namespace TestUtils
       actual.append("\n");
     }
 
-    // Remove the final new line
-    actual.pop_back();
+    // Remove the final new line if it exists
+    if ((actual.length() > 0) && (actual.back() == '\n'))
+    {
+      actual.pop_back();
+    }
 
     Assert::AreEqual(expectedFileContents, actual);
   }

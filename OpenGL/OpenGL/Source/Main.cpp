@@ -1,6 +1,7 @@
 #include "GLHeaders.h"
 #include "Game.h"
-#include "ResourceManager.h"
+#include "Debugging/DebugManager.h"
+#include "Input/InputManager.h"
 #include "Time/Clock.h"
 #include "OpenGL/OpenGLWindow.h"
 
@@ -17,6 +18,7 @@ int main(int argc, char *argv[])
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
+  // TODO: Move to screen manager class
   OpenGLWindow glWindow;
   GLFWwindow* window = glWindow.getGLWindow();
 
@@ -24,15 +26,16 @@ int main(int argc, char *argv[])
   glewInit();
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-  Game game;
-
+  DebugManager::init();
+  InputManager::init(window);
   Clock::init();
+
+  Clock gameClock;
+  Game game;
 
   // Initialize game
   game.init(window);
     
-  Clock gameClock;
-
   // DeltaTime variables
   GLfloat lag = 0.0f;
 

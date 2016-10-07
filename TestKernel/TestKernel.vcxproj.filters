@@ -47,5 +47,11 @@
     <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp">
       <Filter>Source Files\Tests\StringInterning</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestDirectory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestPath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

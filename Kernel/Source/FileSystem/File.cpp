@@ -2,6 +2,7 @@
 #include "Debug.h"
 
 #include <fstream>
+#include <direct.h>
 
 namespace Kernel
 {
@@ -15,23 +16,6 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   File::~File()
   {
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void File::combinePaths(std::string& firstPath, const std::string& secondPath)
-  {
-    // If the first path doesn't end in the delimiter and the second doesn't begin with the delimiter we should append the delimiter to the first path
-    if ((firstPath.back() != PATH_DELIMITER) && (secondPath.front() != PATH_DELIMITER))
-    {
-      firstPath.push_back(PATH_DELIMITER);
-    }
-    // If the first path ends in the delimiter and the second beings with the delimiter we remove it from the end of the first path
-    else if ((firstPath.back() == PATH_DELIMITER) && (secondPath.front() == PATH_DELIMITER))
-    {
-      firstPath.pop_back();
-    }
-
-    firstPath.append(secondPath);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -61,8 +45,16 @@ namespace Kernel
       return;
     }
 
-    // Automatically creates the file if it does not exist - this also seems to clear it
+    // TODO: Create all the directories necessary too
+    //ASSERT_FAIL_MSG("TODO");
+
+    // Automatically creates the file if it does not exist
     std::ofstream file(fullFilePath);
+    if (clearIfAlreadyExists)
+    {
+      file.clear();
+    }
+
     ASSERT(file.good());
   }
 

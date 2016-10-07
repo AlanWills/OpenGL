@@ -9,7 +9,7 @@ namespace Engine
 /// A memory allocator which creates a large pool of objects in a contiguous array
 /// Allocating from this consists of obtaining a pointer to an object in the pool not currently used
 template <typename T, size_t PoolSize>
-class DllExport PoolAllocator
+class PoolAllocator
 {
   public:
     PoolAllocator();

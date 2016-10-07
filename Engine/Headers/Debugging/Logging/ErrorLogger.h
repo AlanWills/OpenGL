@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Logger.h"
-#include "FileSystem/File.h"
+#include "FileSystem/Path.h"
 
 #include <string.h>
 

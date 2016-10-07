@@ -1,7 +1,8 @@
 #include "Game.h"
-#include "ResourceManager.h"
+#include "Resources/ResourceManager.h"
 #include "SpriteRenderer.h"
 #include "Input/InputManager.h"
+#include "Input/Keyboard/Keyboard.h"
 
 using namespace Engine;
 
@@ -23,8 +24,6 @@ Game::~Game()
 //------------------------------------------------------------------------------------------------
 void Game::init(GLFWwindow* window)
 {
-  InputManager::init(window);
-
   m_width = 800;
   m_height = 600;
 

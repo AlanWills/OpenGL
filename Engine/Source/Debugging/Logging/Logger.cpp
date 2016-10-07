@@ -3,6 +3,7 @@
 #include "Debugging/Logging/Logger.h"
 #include "FileSystem/Directory.h"
 #include "FileSystem/File.h"
+#include "FileSystem/Path.h"
 
 #include <thread>
 
@@ -18,7 +19,7 @@ namespace Engine
     m_backLogBufferStr.clear();
 
     Directory::getExecutingAppDirectory(m_logFileFullPath);
-    File::combinePaths(m_logFileFullPath, logRelativePath);
+    Path::combine(m_logFileFullPath, logRelativePath);
     File::createFile(m_logFileFullPath);  // Clears the log file if it already exists
   }
 

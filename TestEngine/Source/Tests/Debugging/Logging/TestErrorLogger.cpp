@@ -3,6 +3,7 @@
 #include "Debugging/Logging/ErrorLogger.h"
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
+#include "FileSystem/Path.h"
 
 // There is ambiguity in naming with the unit test logger here
 // So we qualify with namespaces
@@ -22,7 +23,7 @@ namespace TestEngine
     TEST_CLASS_INITIALIZE(TestErrorLogger_Initialize)
     {
       Directory::getExecutingAppDirectory(logFilePath);
-      File::combinePaths(logFilePath, "ErrorLog.txt");
+      Path::combine(logFilePath, "ErrorLog.txt");
     }
 
     //------------------------------------------------------------------------------------------------

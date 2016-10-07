@@ -13,16 +13,17 @@ namespace Engine
 // Contains: logger, profiler
 class DllExport DebugManager
 {
-  /// \brief Set up a default logger and profiler
-  static void init();
+  public:
+    /// \brief Set up a default logger and profiler
+    static void init();
 
-  /// \brief Set the logger to be used for debugging.  The DebugManager takes ownership and responsibility of the logger after using this function.
-  static void setLogger(Logger* logger);
-  static Logger* getLogger();
+    /// \brief Set the logger to be used for debugging.  The DebugManager takes ownership and responsibility of the logger after using this function.
+    static void setLogger(Logger* logger);
+    static Logger* getLogger();
 
-  /// \brief Set the profiler to be used for debugging.  The DebugManager takes ownership and responsibility of the profiler after using this function.
-  static void setProfiler(Profiler* profiler);
-  static Profiler* getProfiler();
+    /// \brief Set the profiler to be used for debugging.  The DebugManager takes ownership and responsibility of the profiler after using this function.
+    static void setProfiler(Profiler* profiler);
+    static Profiler* getProfiler();
 
   private:
     DebugManager();

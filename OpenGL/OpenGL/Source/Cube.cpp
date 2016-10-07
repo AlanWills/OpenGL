@@ -1,5 +1,5 @@
 #include "Cube.h"
-#include "Shader.h"
+#include "Resources/Shader.h"
 
 #include <assert.h>
 

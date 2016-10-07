@@ -21,7 +21,7 @@ enum AllocateResult
 // Therefore, if a filled array is likely to be kept around for a while before being emptied, either make the array sizes large enough
 // to not require an overwrite, or use a different allocator
 template <typename T, size_t BufferSize>
-class DllExport DoubleBufferAllocator
+class DoubleBufferAllocator
 {
   public:
     DoubleBufferAllocator();

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+#include "FileSystem/Path.h"
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
 
@@ -29,73 +30,6 @@ namespace TestKernel
     {
       // Remove our test file so that we have a fresh file for each test
       std::remove(testFilePath.c_str());
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_NeitherHaveDelimiter)
-    {
-      std::string expected("Test");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Path");
-
-      std::string actual("Test");
-      File::combinePaths(actual, "Path");
-
-      // Test neither has delim
-      Assert::AreEqual(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_FirstHasDelimiter)
-    {
-      std::string expected("Test");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Path");
-
-      std::string actual("Test");
-      actual.push_back(PATH_DELIMITER);
-      File::combinePaths(actual, "Path");
-
-      // Test neither has delim
-      Assert::AreEqual(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_SecondHasDelimiter)
-    {
-      std::string expected("Test");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Path");
-
-      std::string actual("Test"), second;
-      actual.push_back(PATH_DELIMITER);
-
-      second.push_back(PATH_DELIMITER);
-      second.append("Path");
-
-      File::combinePaths(actual, second);
-
-      // Test neither has delim
-      Assert::AreEqual(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CombinePaths_BothHaveDelimiter)
-    {
-      std::string expected("Test");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Path");
-
-      std::string actual("Test"), second;
-      actual.push_back(PATH_DELIMITER);
-
-      second.push_back(PATH_DELIMITER);
-      second.append("Path");
-
-      File::combinePaths(actual, second);
-
-      // Test neither has delim
-      Assert::AreEqual(expected, actual);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -130,7 +64,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Exists)
+    TEST_METHOD(Test_File_Exists_Static)
     {
       std::remove(testFilePath.c_str());
       Assert::IsFalse(File::exists(testFilePath));
@@ -139,6 +73,20 @@ namespace TestKernel
       std::ofstream file(testFilePath);
       file << "";
       Assert::IsTrue(File::exists(testFilePath));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Exists_Instance)
+    {
+      File file(testFilePath);
+
+      std::remove(testFilePath.c_str());
+      Assert::IsFalse(file.exists());
+
+      // Write something just to create the file
+      std::ofstream fileStream(testFilePath);
+      fileStream << "";
+      Assert::IsTrue(file.exists());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -167,7 +115,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_DeleteFile)
+    TEST_METHOD(Test_File_DeleteFile_Static)
     {
       // Write something just to create the file
       File::appendToFile(testFilePath, "");
@@ -182,7 +130,24 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateFile)
+    TEST_METHOD(Test_File_DeleteFile_Instance)
+    {
+      File file(testFilePath);
+
+      // Write something just to create the file
+      file.appendToFile("");
+      Assert::IsTrue(file.exists());
+
+      file.deleteFile();
+      Assert::IsFalse(file.exists());
+
+      // Make sure that deleting a file that is already deleted does not cause any problems
+      file.deleteFile();
+      Assert::IsFalse(file.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_CreateFile_Static)
     {
       File::deleteFile(testFilePath);
       Assert::IsFalse(File::exists(testFilePath));
@@ -190,6 +155,19 @@ namespace TestKernel
       // Write something just to create the file
       File::createFile(testFilePath);
       Assert::IsTrue(File::exists(testFilePath));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_CreateFile_Instance)
+    {
+      File file(testFilePath);
+
+      file.deleteFile();
+      Assert::IsFalse(file.exists());
+
+      // Write something just to create the file
+      file.createFile();
+      Assert::IsTrue(file.exists());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -211,9 +189,6 @@ namespace TestKernel
       // Now recreate the file, but don't clear it and check the contents is the same
       {
         File::createFile(testFilePath, false);
-        Assert::IsTrue(File::exists(testFilePath));
-
-        File::appendToFile(testFilePath, expected);
         Assert::IsTrue(File::exists(testFilePath));
 
         checkTestFileContents(expected);
