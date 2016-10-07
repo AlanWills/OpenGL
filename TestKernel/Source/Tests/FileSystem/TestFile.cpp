@@ -70,7 +70,7 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_Constructor_RelativeToDirectory)
     {
-      File file(parentDirectory, testFilePath);
+      File file(parentDirectory, testFileName);
       std::string expected("TestString");
 
       // Check the file exists

@@ -31,7 +31,8 @@ namespace TestKernel
     TEST_CLASS_CLEANUP(TestDirectory_Cleanup)
     {
       // Clean up the test directory
-      Assert::AreEqual(0, _rmdir(testDirectory.c_str()));
+      Directory::remove(testDirectory);
+      Assert::IsFalse(Directory::exists(testDirectory));
     }
 
     //------------------------------------------------------------------------------------------------
@@ -47,12 +48,13 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
     {
       // Create some files
-      File file(testDirectory, "TestFile1.txt");
+      std::string filename("TestFile1.txt");
+      File file(testDirectory, filename);
       Assert::IsTrue(file.exists());
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        "TestFile1.txt"
+        testDirectory + PATH_DELIMITER + "TestFile1.txt"
       };
 
       Directory::getFiles(testDirectory, actualFiles);
@@ -60,7 +62,6 @@ namespace TestKernel
 
       file.remove();
     }
-
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_GetDirectories_AllDirectoriesInDirectoryOnly)

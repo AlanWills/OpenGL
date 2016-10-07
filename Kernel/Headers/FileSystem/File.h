@@ -14,6 +14,9 @@ class DllExport File
     /// \brief Automatically creates the file in the constructor and can optionally clear it too if specified.
     /// By default it does not clear the file if it exists already
     File(const std::string& filePath, bool clearIfAlreadyExists = false);
+
+    // Be careful passing string literals as the second arg to this constructor as it will convert it to a bool rather than a const std::string&
+    // and so call the first constructor
     File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = false);
     ~File();
 
