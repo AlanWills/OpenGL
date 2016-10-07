@@ -14,6 +14,7 @@ class DllExport File
     /// \brief Automatically creates the file in the constructor and can optionally clear it too if specified.
     /// By default it does not clear the file if it exists already
     File(const std::string& filePath, bool clearIfAlreadyExists = false);
+    File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = false);
     ~File();
 
     /// \brief Returns true if the file exists
@@ -34,7 +35,6 @@ class DllExport File
     /// \brief Creates a file within the inputted directory
     /// Does nothing if it does exist
     static void createInDirectory(const std::string& directoryFullPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = true);
-    void createInDirectory(const std::string& directoryFullPath, bool clearIfAlreadyExists = true) { createInDirectory(directoryFullPath, m_filePath, clearIfAlreadyExists); }
 
     /// \brief Deletes a file if it exists
     static void remove(const std::string& fullFilePath);

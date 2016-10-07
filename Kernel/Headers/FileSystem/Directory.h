@@ -22,7 +22,7 @@ class DllExport Directory
     /// \brief Creates a directory and any necessary parent directories if it does not already exist
     static void create(const std::string& directoryFullPath);
 
-    /// \brief Removes a directory if it exists
+    /// \brief Removes a directory and all of the contents inside it if it exists
     static void remove(const std::string& directoryFullPath);
 
     /// \brief Obtain all of the files in the current directory and add them to the inputted vector
@@ -32,6 +32,13 @@ class DllExport Directory
       const std::string& fullDirectoryPath, 
       std::vector<std::string>& files, 
       const std::string& extension = ".", 
+      bool includeSubDirectories = false);
+
+    /// \brief Obtain all of the directories in the current directory and add them to the inputted vector
+    /// Can provide a flag to search recursively through subdirectories too - by default will not search recursively
+    static void getDirectories(
+      const std::string& fullDirectoryPath,
+      std::vector<std::string>& directories,
       bool includeSubDirectories = false);
 };
 

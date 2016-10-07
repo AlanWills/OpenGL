@@ -10,6 +10,7 @@
 using namespace Kernel;
 
 static std::string testFilePath = "";
+static std::string parentDirectory = "";
 static std::string testFileName = "TestFile.txt";
 
 namespace TestKernel
@@ -21,7 +22,9 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestFile_Initialize)
     {
-      Directory::getExecutingAppDirectory(testFilePath);
+      Directory::getExecutingAppDirectory(parentDirectory);
+
+      testFilePath = parentDirectory;
       testFilePath.push_back(PATH_DELIMITER);
       testFilePath.append(testFileName);
     }
@@ -34,9 +37,40 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Constructor)
+    TEST_METHOD(Test_File_Constructor_FullPath)
     {
       File file(testFilePath);
+      std::string expected("TestString");
+
+      // Check the file exists
+      {
+        std::ofstream fStream(testFilePath);
+        Assert::IsTrue(fStream.good());
+
+        // Write something to the file
+        fStream << expected;
+        fStream.close();
+      }
+
+      // Now check that the contents of the file is preserved by the constructor
+      {
+        file = File(testFilePath);
+
+        checkTestFileContents(expected);
+      }
+
+      // Now check that the contents of the file is cleared by the constructor
+      {
+        file = File(testFilePath, true);
+
+        checkTestFileContents("");
+      }
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Constructor_RelativeToDirectory)
+    {
+      File file(parentDirectory, testFilePath);
       std::string expected("TestString");
 
       // Check the file exists
@@ -178,18 +212,6 @@ namespace TestKernel
 
       File::createInDirectory(directory, testFileName);
       Assert::IsTrue(File::exists(testFilePath));
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateInDirectory_Instance)
-    {
-      std::string directory;
-      Directory::getExecutingAppDirectory(directory);
-
-      File file(testFileName);
-      file.createInDirectory(directory);
-
-      Assert::IsTrue(file.exists());
     }
 
     //------------------------------------------------------------------------------------------------

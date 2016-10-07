@@ -53,6 +53,8 @@ namespace Kernel
   {
     if (exists(directoryFullPath))
     {
+
+
       int result = _rmdir(directoryFullPath.c_str());
       ASSERT(result == 0);
     }
@@ -74,7 +76,38 @@ namespace Kernel
 
     while (dirent* dirent = readdir(dir))
     {
-      //if (dirent->d_type)
+      if (dirent->d_type == DT_REG)
+      {
+        std::string buffer(fullDirectoryPath);
+        Path::combine(buffer, dirent->d_name);
+        files.push_back(buffer);
+      }
+    }
+
+    int result = closedir(dir);
+    ASSERT(result == 0);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Directory::getDirectories(
+    const std::string& fullDirectoryPath,
+    std::vector<std::string>& directories,
+    bool includeSubDirectories)
+  {
+    if (!exists(fullDirectoryPath))
+    {
+      ASSERT_FAIL_MSG("Directory does not exist");
+      return;
+    }
+
+    DIR* dir = opendir(fullDirectoryPath.c_str());
+
+    while (dirent* dirent = readdir(dir))
+    {
+      if (dirent->d_type == DT_DIR)
+      {
+
+      }
     }
 
     int result = closedir(dir);

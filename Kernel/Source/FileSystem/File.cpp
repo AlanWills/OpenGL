@@ -16,6 +16,14 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
+  File::File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists) :
+    m_filePath(fullParentDirectoryPath)
+  {
+    Path::combine(m_filePath, relativeFilePath);
+    create(m_filePath, clearIfAlreadyExists);
+  }
+
+  //------------------------------------------------------------------------------------------------
   File::~File()
   {
   }
@@ -68,7 +76,7 @@ namespace Kernel
     std::string fullFilePath(directoryFullPath);
     Path::combine(fullFilePath, relativeFilePath);
 
-    File::create(fullFilePath, clearIfAlreadyExists);
+    create(fullFilePath, clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------

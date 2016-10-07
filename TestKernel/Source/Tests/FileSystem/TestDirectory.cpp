@@ -44,6 +44,31 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
+    {
+      // Create some files
+      File file(testDirectory, "TestFile1.txt");
+      Assert::IsTrue(file.exists());
+
+      std::vector<std::string> actualFiles, expectedFiles =
+      {
+        "TestFile1.txt"
+      };
+
+      Directory::getFiles(testDirectory, actualFiles);
+      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
+
+      file.remove();
+    }
+
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_GetDirectories_AllDirectoriesInDirectoryOnly)
+    {
+      
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Remove)
     {
       std::string directory(testDirectory);
@@ -85,15 +110,19 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_CreateParentToo)
     {
-      std::string directory(testDirectory);
-      directory.push_back(PATH_DELIMITER);
-      directory.append("TestCreate");
+      std::string directory, parentDirectory(testDirectory);
+      parentDirectory.push_back(PATH_DELIMITER);
+      parentDirectory.append("TestCreate");
+
+      directory = parentDirectory;
       directory.push_back(PATH_DELIMITER);
       directory.append("TestNested");
 
+      Assert::IsFalse(Directory::exists(parentDirectory));
       Assert::IsFalse(Directory::exists(directory));
       Directory::create(directory);
 
+      Assert::IsTrue(Directory::exists(parentDirectory));
       Assert::IsTrue(Directory::exists(directory));
 
       // Now try creating it again
@@ -102,23 +131,9 @@ namespace TestKernel
       // Cleanup
       Directory::remove(directory);
       Assert::IsFalse(Directory::exists(directory));
-    }
 
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
-    {
-      // Create some files
-      File file("TestFile1.txt");
-      file.createInDirectory(testDirectory);
-      //Kernel::File::createInDirectory(testDirectory, "TestFile1.txt");
-
-      std::vector<std::string> actualFiles, expectedFiles = 
-      {
-        "TestFile1.txt"
-      };
-
-      Directory::getFiles(testDirectory, actualFiles);
-      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
+      Directory::remove(parentDirectory);
+      Assert::IsFalse(Directory::exists(parentDirectory));
     }
   };
 }
