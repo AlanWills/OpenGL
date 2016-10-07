@@ -9,6 +9,13 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
+  Path::Path(const std::string& parentPath, const std::string& relativePath) :
+    m_path(parentPath)
+  {
+    combine(m_path, relativePath);
+  }
+
+  //------------------------------------------------------------------------------------------------
   Path::~Path()
   {
   }

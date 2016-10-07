@@ -1,12 +1,33 @@
 #include "Debug.h"
 #include "FileSystem/Directory.h"
 #include "FileSystem/Path.h"
+#include "FileSystem/File.h"
 #include "Utils/StringUtils.h"
 
 #include <direct.h>
 
 namespace Kernel
 {
+  //------------------------------------------------------------------------------------------------
+  Directory::Directory(const std::string& fullDirectoryPath) :
+    m_dirPath(fullDirectoryPath)
+  {
+    create(m_dirPath);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Directory::Directory(const std::string& parentDirectoryPath, const std::string& relativePathFromParent) :
+    m_dirPath(parentDirectoryPath)
+  {
+    Path::combine(m_dirPath, relativePathFromParent);
+    create(m_dirPath);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Directory::~Directory()
+  {
+  }
+
   //------------------------------------------------------------------------------------------------
   void Directory::getExecutingAppDirectory(std::string& outputDir)
   {
@@ -53,7 +74,21 @@ namespace Kernel
   {
     if (exists(directoryFullPath))
     {
+      std::vector<std::string> files;
+      getFiles(directoryFullPath, files);
 
+      for (const std::string& file : files)
+      {
+        File::remove(file);
+      }
+
+      std::vector<std::string> dirs;
+      getDirectories(directoryFullPath, dirs);
+
+      for (const std::string& dir : dirs)
+      {
+        Directory::remove(dir);
+      }
 
       int result = _rmdir(directoryFullPath.c_str());
       ASSERT(result == 0);
@@ -74,6 +109,10 @@ namespace Kernel
 
     DIR* dir = opendir(fullDirectoryPath.c_str());
 
+    // There are default folders (windows thing I guess).  Don't include these
+    readdir(dir);
+    readdir(dir);
+
     while (dirent* dirent = readdir(dir))
     {
       if (dirent->d_type == DT_REG)
@@ -81,6 +120,13 @@ namespace Kernel
         std::string buffer(fullDirectoryPath);
         Path::combine(buffer, dirent->d_name);
         files.push_back(buffer);
+      }
+      else if (includeSubDirectories && dirent->d_type == DT_DIR)
+      {
+        std::string subDirPath(fullDirectoryPath);
+        Path::combine(subDirPath, dirent->d_name);
+        
+        getFiles(subDirPath, files, extension, includeSubDirectories);
       }
     }
 
@@ -102,11 +148,17 @@ namespace Kernel
 
     DIR* dir = opendir(fullDirectoryPath.c_str());
 
+    // There are default folders (windows thing I guess).  Don't include these
+    readdir(dir);
+    readdir(dir);
+
     while (dirent* dirent = readdir(dir))
     {
       if (dirent->d_type == DT_DIR)
       {
-
+        std::string buffer(fullDirectoryPath);
+        Path::combine(buffer, dirent->d_name);
+        directories.push_back(buffer);
       }
     }
 

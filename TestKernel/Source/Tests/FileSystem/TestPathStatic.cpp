@@ -8,12 +8,12 @@ using namespace Kernel;
 
 namespace TestKernel
 {
-  TEST_CLASS(TestPath)
+  TEST_CLASS(TestPathStatic)
   {
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_CombinePaths_NeitherHaveDelimiter)
+    TEST_METHOD(Test_Path_Static_CombinePaths_NeitherHaveDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -27,7 +27,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_CombinePaths_FirstHasDelimiter)
+    TEST_METHOD(Test_Path_Static_CombinePaths_FirstHasDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -42,7 +42,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_CombinePaths_SecondHasDelimiter)
+    TEST_METHOD(Test_Path_Static_CombinePaths_SecondHasDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -61,7 +61,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_CombinePaths_BothHaveDelimiter)
+    TEST_METHOD(Test_Path_Static_CombinePaths_BothHaveDelimiter)
     {
       std::string expected("Test");
       expected.push_back(PATH_DELIMITER);
@@ -80,7 +80,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_GetParentDirectory_File)
+    TEST_METHOD(Test_Path_Static_GetParentDirectory_File)
     {
       std::string actual, expected("Root"), path;
       expected.push_back(PATH_DELIMITER);
@@ -96,7 +96,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_GetParentDirectory_Directory_NoDelimiterEnding)
+    TEST_METHOD(Test_Path_Static_GetParentDirectory_Directory_NoDelimiterEnding)
     {
       std::string actual, expected("Root"), path;
 
@@ -110,7 +110,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_GetParentDirectory_Directory_DelimiterEnding)
+    TEST_METHOD(Test_Path_Static_GetParentDirectory_Directory_DelimiterEnding)
     {
       std::string actual, expected("Root"), path;
 

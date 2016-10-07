@@ -38,19 +38,28 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp">
-      <Filter>Source Files\Tests\FileSystem</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Tests\Utils\TestStringUtils.cpp">
       <Filter>Source Files\Tests\Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp">
       <Filter>Source Files\Tests\StringInterning</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\FileSystem\TestDirectory.cpp">
+    <ClCompile Include="Source\Tests\FileSystem\TestFileStatic.cpp">
+      <Filter>Source Files\Tests\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestDirectoryStatic.cpp">
+      <Filter>Source Files\Tests\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestPathStatic.cpp">
+      <Filter>Source Files\Tests\FileSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestPathInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Tests\FileSystem\TestPath.cpp">
+    <ClCompile Include="Source\Tests\FileSystem\TestDirectoryInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Tests\FileSystem\TestFileInstance.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

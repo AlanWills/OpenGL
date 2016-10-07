@@ -17,6 +17,7 @@ class DllExport Path
 {
   public:
     Path(const std::string& path);
+    Path(const std::string& parentPath, const std::string& relativePath);
     ~Path();
 
     /// \brief Appends a PATH_DELIMITER and the secondPath onto the firstPath

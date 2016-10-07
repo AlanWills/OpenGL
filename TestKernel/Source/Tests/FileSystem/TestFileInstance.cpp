@@ -15,12 +15,12 @@ static std::string testFileName = "TestFile.txt";
 
 namespace TestKernel
 {
-  TEST_CLASS(TestFile)
+  TEST_CLASS(TestFileInstance)
   {
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestFile_Initialize)
+    TEST_CLASS_INITIALIZE(TestFileInstance_Initialize)
     {
       Directory::getExecutingAppDirectory(parentDirectory);
 
@@ -30,14 +30,14 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD_CLEANUP(TestFile_MethodCleanup)
+    TEST_METHOD_CLEANUP(TestFileInstance_MethodCleanup)
     {
       // Remove our test file so that we have a fresh file for each test
       std::remove(testFilePath.c_str());
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Constructor_FullPath)
+    TEST_METHOD(Test_File_Instance_Constructor_FullPath)
     {
       File file(testFilePath);
       std::string expected("TestString");
@@ -68,7 +68,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Constructor_RelativeToDirectory)
+    TEST_METHOD(Test_File_Constructor_Instance_RelativeToDirectory)
     {
       File file(parentDirectory, testFileName);
       std::string expected("TestString");
@@ -99,19 +99,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Exists_Static)
-    {
-      std::remove(testFilePath.c_str());
-      Assert::IsFalse(File::exists(testFilePath));
-
-      // Write something just to create the file
-      std::ofstream file(testFilePath);
-      file << "";
-      Assert::IsTrue(File::exists(testFilePath));
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Exists_Instance)
+    TEST_METHOD(Test_File_Instance_Exists)
     {
       File file(testFilePath);
 
@@ -125,18 +113,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Append_Static)
-    {
-      // Write one word so we do not have to do any complex manual retrieval
-      std::string expected("TestString");
-      File::append(testFilePath, expected);
-      Assert::IsTrue(File::exists(testFilePath));
-
-      checkTestFileContents(expected);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Append_Instance)
+    TEST_METHOD(Test_File_Instance_Append)
     {
       // Write one word so we do not have to do any complex manual retrieval
       std::string expected("TestString");
@@ -150,22 +127,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Remove_Static)
-    {
-      // Write something just to create the file
-      File::append(testFilePath, "");
-      Assert::IsTrue(File::exists(testFilePath));
-
-      File::remove(testFilePath);
-      Assert::IsFalse(File::exists(testFilePath));
-
-      // Make sure that deleting a file that is already deleted does not cause any problems
-      File::remove(testFilePath);
-      Assert::IsFalse(File::exists(testFilePath));
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Remove_Instance)
+    TEST_METHOD(Test_File_Instance_Remove)
     {
       File file(testFilePath);
 
@@ -182,18 +144,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Create_Static)
-    {
-      File::remove(testFilePath);
-      Assert::IsFalse(File::exists(testFilePath));
-
-      // Write something just to create the file
-      File::create(testFilePath);
-      Assert::IsTrue(File::exists(testFilePath));
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Create_Instance)
+    TEST_METHOD(Test_File_Instance_Create)
     {
       File file(testFilePath);
 
@@ -205,17 +156,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateInDirectory_Static)
-    {
-      std::string directory;
-      Directory::getExecutingAppDirectory(directory);
-
-      File::createInDirectory(directory, testFileName);
-      Assert::IsTrue(File::exists(testFilePath));
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_CreateFile_ClearsOnCreation)
+    TEST_METHOD(Test_File_Instance_CreateFile_ClearsOnCreation)
     {
       std::string expected("TestString");
 
@@ -248,19 +189,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadFile_Static)
-    {
-      std::string expected("This is a test string");
-      File::append(testFilePath, expected);
-
-      std::string actual;
-      File::read(testFilePath, actual);
-
-      Assert::AreEqual(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadFile_Instance)
+    TEST_METHOD(Test_File_Instance_ReadFile)
     {
       std::string expected("This is a test string");
 
@@ -274,29 +203,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadLines_Static)
-    {
-      std::vector<std::string> expected = 
-      {
-        "This",
-        "is",
-        "a",
-        "test"
-      };
-
-      for (const std::string& str : expected)
-      {
-        File::append(testFilePath, str);
-      }
-
-      std::vector<std::string> actual;
-      File::readLines(testFilePath, actual);
-
-      AssertExt::assertVectorContentsEqual<std::string>(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_ReadLines_Instance)
+    TEST_METHOD(Test_File_Instance_ReadLines)
     {
       std::vector<std::string> expected =
       {

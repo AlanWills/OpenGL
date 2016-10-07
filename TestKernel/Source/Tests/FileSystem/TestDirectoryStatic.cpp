@@ -13,13 +13,13 @@ static std::string testDirectory = "";
 
 namespace TestKernel
 {
-  TEST_CLASS(TestDirectory)
+  TEST_CLASS(TestDirectoryStatic)
   {
   public:
 
     //------------------------------------------------------------------------------------------------
     // Can't have this as test method initialize because it doesn't seem to like creating the same folder over and over
-    TEST_CLASS_INITIALIZE(TestDirectory_Initialize)
+    TEST_CLASS_INITIALIZE(TestDirectoryStatic_Initialize)
     {
       Directory::getExecutingAppDirectory(testDirectory);
       Path::combine(testDirectory, "TestDirectory");
@@ -28,7 +28,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestDirectory_Cleanup)
+    TEST_CLASS_CLEANUP(TestDirectoryStatic_Cleanup)
     {
       // Clean up the test directory
       Directory::remove(testDirectory);
@@ -36,7 +36,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Exists)
+    TEST_METHOD(Test_Directory_Static_Exists)
     {
       Assert::IsTrue(Directory::exists(testDirectory));
 
@@ -45,32 +45,76 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
+    TEST_METHOD(Test_Directory_Static_GetFiles_AllFilesInDirectoryOnly)
     {
       // Create some files
-      std::string filename("TestFile1.txt");
-      File file(testDirectory, filename);
-      Assert::IsTrue(file.exists());
+      std::string filename1("TestFile1.txt");
+      File file1(testDirectory, filename1);
+      Assert::IsTrue(file1.exists());
+
+      std::string filename2("TestFile2.txt");
+
+      File file2(testDirectory, filename2);
+      Assert::IsTrue(file2.exists());
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        testDirectory + PATH_DELIMITER + "TestFile1.txt"
+        testDirectory + PATH_DELIMITER + filename1,
+        testDirectory + PATH_DELIMITER + filename2
       };
 
       Directory::getFiles(testDirectory, actualFiles);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
-      file.remove();
+      file1.remove();
+      file2.remove();
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_GetDirectories_AllDirectoriesInDirectoryOnly)
+    TEST_METHOD(Test_Directory_Static_GetFiles_AllFilesInSubDirectoriesToo)
     {
-      
+      // Create some files
+      std::string filename1("TestFile1.txt");
+      File file1(testDirectory, filename1);
+      Assert::IsTrue(file1.exists());
+
+      std::string filename2("TestFile2.txt");
+      File file2(testDirectory, filename2);
+      Assert::IsTrue(file2.exists());
+
+      std::string nestedDir(testDirectory);
+      Path::combine(nestedDir, "NestedDirectory");
+      Directory::create(nestedDir);
+
+      std::string filename3("TestFile3.txt");
+      File file3(nestedDir, filename3);
+      Assert::IsTrue(file3.exists());
+
+      std::vector<std::string> actualFiles, expectedFiles =
+      {
+        nestedDir + PATH_DELIMITER + filename3,
+        testDirectory + PATH_DELIMITER + filename1,
+        testDirectory + PATH_DELIMITER + filename2,
+      };
+
+      Directory::getFiles(testDirectory, actualFiles, ".", true);
+      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
+
+      file1.remove();
+      file2.remove();
+      file3.remove();
+
+      Assert::AreEqual(0, _rmdir(nestedDir.c_str()));
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Remove)
+    TEST_METHOD(Test_Directory_Static_GetDirectories_AllDirectoriesInDirectoryOnly)
+    {
+      //Assert::Fail();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Static_Remove)
     {
       std::string directory(testDirectory);
       directory.push_back(PATH_DELIMITER);
@@ -89,7 +133,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Create)
+    TEST_METHOD(Test_Directory_Static_Create)
     {
       std::string directory(testDirectory);
       directory.push_back(PATH_DELIMITER);
@@ -109,7 +153,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_CreateParentToo)
+    TEST_METHOD(Test_Directory_Static_CreateParentToo)
     {
       std::string directory, parentDirectory(testDirectory);
       parentDirectory.push_back(PATH_DELIMITER);

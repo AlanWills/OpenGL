@@ -164,10 +164,13 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Source\Tests\FileSystem\TestDirectory.cpp" />
-    <ClCompile Include="Source\Tests\FileSystem\TestFile.cpp" />
-    <ClCompile Include="Source\Tests\FileSystem\TestPath.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestDirectoryStatic.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestFileStatic.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestPathStatic.cpp" />
     <ClCompile Include="Source\Tests\StringInterning\TestStringId.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestDirectoryInstance.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestFileInstance.cpp" />
+    <ClCompile Include="Source\Tests\FileSystem\TestPathInstance.cpp" />
     <ClCompile Include="Source\Tests\Utils\TestStringUtils.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
