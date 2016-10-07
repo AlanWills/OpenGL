@@ -24,7 +24,15 @@ namespace TestKernel
       Directory::getExecutingAppDirectory(testDirectory);
       Path::combine(testDirectory, "TestDirectory");
 
-      Assert::AreEqual(0, _mkdir(testDirectory.c_str()));
+      DIR* testDir = opendir(testDirectory.c_str());
+
+      if (!testDir)
+      {
+        // Create the test directory if necessary - be careful with the Instance tests for Directory
+        Assert::AreEqual(0, _mkdir(testDirectory.c_str()));
+      }
+
+      closedir(testDir);
     }
 
     //------------------------------------------------------------------------------------------------
