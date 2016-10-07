@@ -83,15 +83,42 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_CreateParentToo)
+    {
+      std::string directory(testDirectory);
+      directory.push_back(PATH_DELIMITER);
+      directory.append("TestCreate");
+      directory.push_back(PATH_DELIMITER);
+      directory.append("TestNested");
+
+      Assert::IsFalse(Directory::exists(directory));
+      Directory::create(directory);
+
+      Assert::IsTrue(Directory::exists(directory));
+
+      // Now try creating it again
+      Directory::create(directory);
+
+      // Cleanup
+      Directory::remove(directory);
+      Assert::IsFalse(Directory::exists(directory));
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_GetFiles_AllFilesInDirectoryOnly)
     {
       // Create some files
+      File file("TestFile1.txt");
+      file.createInDirectory(testDirectory);
+      //Kernel::File::createInDirectory(testDirectory, "TestFile1.txt");
+
       std::vector<std::string> actualFiles, expectedFiles = 
       {
         "TestFile1.txt"
       };
 
       Directory::getFiles(testDirectory, actualFiles);
+      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
     }
   };
 }

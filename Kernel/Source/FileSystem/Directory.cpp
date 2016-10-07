@@ -34,14 +34,14 @@ namespace Kernel
   {
     if (!exists(directoryFullPath))
     {
-      //std::string parentDirectory;
-      //Path::getParentDirectory(directoryFullPath, parentDirectory);
+      std::string parentDirectory;
+      Path::getParentDirectory(directoryFullPath, parentDirectory);
 
-      //if (!exists(parentDirectory))
-      //{
-      //  // Recursively create all the parent directories
-      //  create(parentDirectory);
-      //}
+      if (!exists(parentDirectory))
+      {
+        // Recursively create all the parent directories
+        create(parentDirectory);
+      }
 
       int result = _mkdir(directoryFullPath.c_str());
       ASSERT(result == 0);

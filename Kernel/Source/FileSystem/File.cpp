@@ -1,5 +1,6 @@
 #include "FileSystem/File.h"
 #include "FileSystem/Path.h"
+#include "FileSystem/Directory.h"
 #include "Debug.h"
 
 #include <fstream>
@@ -46,8 +47,10 @@ namespace Kernel
       return;
     }
 
-    // TODO: Create the parent directory if necessary (can use the directory create which will create all necessary directories)
-    //ASSERT_FAIL_MSG("TODO");
+    // Create the parent directory
+    std::string parentDir;
+    Path::getParentDirectory(fullFilePath, parentDir);
+    Directory::create(parentDir);
 
     // Automatically creates the file if it does not exist
     std::ofstream file(fullFilePath);
@@ -65,7 +68,7 @@ namespace Kernel
     std::string fullFilePath(directoryFullPath);
     Path::combine(fullFilePath, relativeFilePath);
 
-    create(fullFilePath, clearIfAlreadyExists);
+    File::create(fullFilePath, clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------

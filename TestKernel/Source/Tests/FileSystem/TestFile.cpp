@@ -187,8 +187,8 @@ namespace TestKernel
       Directory::getExecutingAppDirectory(directory);
 
       File file(testFileName);
-
       file.createInDirectory(directory);
+
       Assert::IsTrue(file.exists());
     }
 
