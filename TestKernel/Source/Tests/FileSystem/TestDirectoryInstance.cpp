@@ -79,7 +79,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesInDirectoryOnly)
+    TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnly)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -107,7 +107,13 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesInSubDirectoriesToo)
+    TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnlyWithPattern)
+    {
+      Assert::Fail();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFiles)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -146,9 +152,21 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectoriesInDirectoryOnly)
+    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesWithPattern)
     {
-      //Assert::Fail();
+      Assert::Fail();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_GetDirectories_InDirectoryOnly)
+    {
+      Assert::Fail();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectories)
+    {
+      Assert::Fail();
     }
 
     //------------------------------------------------------------------------------------------------
