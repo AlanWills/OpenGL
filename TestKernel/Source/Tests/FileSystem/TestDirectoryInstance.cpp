@@ -18,6 +18,26 @@ namespace TestKernel
   public:
 
     //------------------------------------------------------------------------------------------------
+    template <typename T>
+    T create(const std::string& fullPath)
+    {
+      T obj(fullPath);
+      Assert::IsTrue(obj.exists());
+
+      return obj;
+    }
+
+    //------------------------------------------------------------------------------------------------
+    template <typename T>
+    T create(const std::string& parentPath, const std::string& relativePath)
+    {
+      T obj(parentPath, relativePath);
+      Assert::IsTrue(obj.exists());
+
+      return obj;
+    }
+
+    //------------------------------------------------------------------------------------------------
     // Can't have this as test method initialize because it doesn't seem to like creating the same folder over and over
     TEST_CLASS_INITIALIZE(TestDirectoryInstance_Initialize)
     {
@@ -49,32 +69,28 @@ namespace TestKernel
       std::string dirPath(testDirectory);
       Path::combine(dirPath, "Test");
 
-      Directory dir(dirPath);
-      Assert::IsTrue(dir.exists());
+      create<Directory>(dirPath);
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Constructor_RelativePath)
     {
-      std::string dirPath(testDirectory);
-      Path::combine(dirPath, "Test");
-
-      Directory dir(dirPath, "Test");
-      Assert::IsTrue(dir.exists());
+      create<Directory>(testDirectory, "Test");
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Exists)
     {
-      Directory dir(testDirectory);
-      Assert::IsTrue(dir.exists());
-
+      // Create and check the test directory
+      create<Directory>(testDirectory);
+      
       std::string nonExistentDirPath(testDirectory + "NonExistent");
       Directory nonExistentDir(nonExistentDirPath);
 
       // Delete the directory created by Directory
       _rmdir(nonExistentDirPath.c_str());
 
+      // Check the directory we deleted doesn't exist
       Assert::IsFalse(nonExistentDir.exists());
     }
 
@@ -82,19 +98,13 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnly)
     {
       // Create some files
-      std::string filename1("TestFile1.txt");
-      File file1(testDirectory, filename1);
-      Assert::IsTrue(file1.exists());
-
-      std::string filename2("TestFile2.txt");
-
-      File file2(testDirectory, filename2);
-      Assert::IsTrue(file2.exists());
+      File file1 = create<File>(testDirectory, "TestFile1.txt");
+      File file2 = create<File>(testDirectory, "TestFile2.txt");
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        testDirectory + PATH_DELIMITER + filename1,
-        testDirectory + PATH_DELIMITER + filename2
+        testDirectory + PATH_DELIMITER + "TestFile1.txt",
+        testDirectory + PATH_DELIMITER + "TestFile2.txt"
       };
 
       Directory dir(testDirectory);
@@ -110,18 +120,12 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnlyWithPattern)
     {
       // Create some files
-      std::string filename1("TestFile1.txt");
-      File file1(testDirectory, filename1);
-      Assert::IsTrue(file1.exists());
-
-      std::string filename2("TestFile2.html");
-
-      File file2(testDirectory, filename2);
-      Assert::IsTrue(file2.exists());
+      File file1 = create<File>(testDirectory, "TestFile1.txt");
+      File file2 = create<File>(testDirectory, "TestFile2.html");
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        testDirectory + PATH_DELIMITER + filename1,
+        testDirectory + PATH_DELIMITER + "TestFile1.txt",
       };
 
       Directory dir(testDirectory);
@@ -137,31 +141,23 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetFiles_AllFiles)
     {
       // Create some files
-      std::string filename1("TestFile1.txt");
-      File file1(testDirectory, filename1);
-      Assert::IsTrue(file1.exists());
-
-      std::string filename2("TestFile2.txt");
-      File file2(testDirectory, filename2);
-      Assert::IsTrue(file2.exists());
+      File file1 = create<File>(testDirectory, "TestFile1.txt");
+      File file2 = create<File>(testDirectory, "TestFile2.txt");
 
       std::string nestedDir(testDirectory);
       Path::combine(nestedDir, "NestedDirectory");
       Directory::create(nestedDir);
 
-      std::string filename3("TestFile3.txt");
-      File file3(nestedDir, filename3);
-      Assert::IsTrue(file3.exists());
+      File file3 = create<File>(nestedDir, "TestFile3.txt");
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        nestedDir + PATH_DELIMITER + filename3,
-        testDirectory + PATH_DELIMITER + filename1,
-        testDirectory + PATH_DELIMITER + filename2,
+        nestedDir + PATH_DELIMITER + "TestFile3.txt",
+        testDirectory + PATH_DELIMITER + "TestFile1.txt",
+        testDirectory + PATH_DELIMITER + "TestFile2.txt",
       };
 
-      Directory dir(testDirectory);
-
+      Directory dir = create<Directory>(testDirectory);
       dir.getFiles(actualFiles, ".", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
@@ -176,30 +172,22 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesWithPattern)
     {
       // Create some files
-      std::string filename1("TestFile1.txt");
-      File file1(testDirectory, filename1);
-      Assert::IsTrue(file1.exists());
-
-      std::string filename2("TestFile2.html");
-      File file2(testDirectory, filename2);
-      Assert::IsTrue(file2.exists());
+      File file1 = create<File>(testDirectory, "TestFile1.txt");
+      File file2 = create<File>(testDirectory, "TestFile2.html");
 
       std::string nestedDir(testDirectory);
       Path::combine(nestedDir, "NestedDirectory");
       Directory::create(nestedDir);
 
-      std::string filename3("TestFile3.txt");
-      File file3(nestedDir, filename3);
-      Assert::IsTrue(file3.exists());
+      File file3 = create<File>(nestedDir, "TestFile3.txt");
 
       std::vector<std::string> actualFiles, expectedFiles =
       {
-        nestedDir + PATH_DELIMITER + filename3,
-        testDirectory + PATH_DELIMITER + filename1,
+        nestedDir + PATH_DELIMITER + "TestFile3.txt",
+        testDirectory + PATH_DELIMITER + "TestFile1.txt",
       };
 
-      Directory dir(testDirectory);
-
+      Directory dir = create<Directory>(testDirectory);
       dir.getFiles(actualFiles, ".txt", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
@@ -214,20 +202,15 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetDirectories_InDirectoryOnly)
     {
       std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
-      Directory enclosingDirectory(enclosingDirectoryPath);
+      Directory enclosingDirectory = create<Directory>(enclosingDirectoryPath);
 
-      std::string directory1("TestDirectory1");
-      Directory dir1(enclosingDirectoryPath, directory1);
-      Assert::IsTrue(dir1.exists());
-
-      std::string directory2("TestDirectory2");
-      Directory dir2(enclosingDirectoryPath, directory2);
-      Assert::IsTrue(dir2.exists());
+      Directory dir1 = create<Directory>(enclosingDirectoryPath, "TestDirectory1");
+      Directory dir2 = create<Directory>(enclosingDirectoryPath, "TestDirectory2");
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        enclosingDirectoryPath + PATH_DELIMITER + directory1,
-        enclosingDirectoryPath + PATH_DELIMITER + directory2,
+        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory1",
+        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory2",
       };
 
       enclosingDirectory.getDirectories(actualDirectories);
@@ -242,28 +225,21 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectories)
     {
       std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
-      Directory enclosingDirectory(enclosingDirectoryPath);
+      Directory enclosingDirectory = create<Directory>(enclosingDirectoryPath);
 
-      std::string directory1("TestDirectory1");
-      Directory dir1(enclosingDirectoryPath, directory1);
-      Assert::IsTrue(dir1.exists());
-
-      std::string directory2("TestDirectory2");
-      Directory dir2(enclosingDirectoryPath, directory2);
-      Assert::IsTrue(dir2.exists());
+      Directory dir1 = create<Directory>(enclosingDirectoryPath, "TestDirectory1");
+      Directory dir2 = create<Directory>(enclosingDirectoryPath, "TestDirectory2");
 
       std::string nestedParent(enclosingDirectoryPath);
-      Path::combine(nestedParent, directory2);
+      Path::combine(nestedParent, "TestDirectory2");
 
-      std::string directory3("TestDirectory3");
-      Directory dir3(nestedParent, directory3);
-      Assert::IsTrue(dir3.exists());
+      Directory dir3 = create<Directory>(nestedParent, "TestDirectory3");
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        enclosingDirectoryPath + PATH_DELIMITER + directory1,
-        enclosingDirectoryPath + PATH_DELIMITER + directory2,
-        nestedParent + PATH_DELIMITER + directory3,
+        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory1",
+        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory2",
+        nestedParent + PATH_DELIMITER + "TestDirectory3",
       };
 
       enclosingDirectory.getDirectories(actualDirectories);
@@ -278,10 +254,7 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Remove)
     {
-      std::string directory("TestRemove");
-      Directory dir(testDirectory, directory);
-
-      Assert::IsTrue(dir.exists());
+      Directory dir = create<Directory>(testDirectory, "TestRemove");
       dir.remove();
 
       Assert::IsFalse(dir.exists());
@@ -293,14 +266,10 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Create)
     {
-      std::string directory("TestCreate"), fullDirPath;
-      Directory dir(testDirectory, directory);
-
-      fullDirPath = testDirectory;
-      Path::combine(fullDirPath, directory);
+      Directory dir = create<Directory>(testDirectory, "TestCreate");
 
       // Have to remove the dir created by the constructor so we can run create
-      Assert::AreEqual(0, _rmdir(fullDirPath.c_str()));
+      dir.remove();
 
       Assert::IsFalse(dir.exists());
       dir.create();
@@ -318,14 +287,12 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_CreateParentToo)
     {
-      std::string directory("TestNested"), parentDirectory("TestCreate"), parentDirectoryFull(testDirectory);
+      std::string parentDirectoryFull(testDirectory);
       parentDirectoryFull.push_back(PATH_DELIMITER);
-      parentDirectoryFull.append(parentDirectory);
+      parentDirectoryFull.append("TestCreate");
 
-      Directory dir(parentDirectoryFull, directory), parentDir(testDirectory, parentDirectory);
-
-      Assert::IsTrue(parentDir.exists());
-      Assert::IsTrue(dir.exists());
+      Directory dir = create<Directory>(parentDirectoryFull, "TestCreate");
+      Directory parentDir = create<Directory>(testDirectory, "TestNested");
 
       // Safe cleanup - don't rely on recursive delete in Directory
       dir.remove();
