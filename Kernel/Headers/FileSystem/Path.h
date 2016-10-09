@@ -24,6 +24,7 @@ class DllExport Path
     /// std::string first("first\\path"), second("second\\path");
     /// e.g. combine(first, second) would change firstPath to "first\\path\\second\\path";
     static void combine(std::string& firstPath, const std::string& secondPath);
+    Path& combine(const std::string& secondPath) { combine(m_path, secondPath); return *this; }   // Return a reference to this so we can use builder pattern for combining
 
     /// \brief Returns the directory the object represented by the inputted path is in.
     /// e.g. for Root\\Directory\\File.txt this would return Root\\Directory

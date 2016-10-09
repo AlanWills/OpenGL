@@ -18,3 +18,5 @@
 #include "Utils/StringUtils.h"
 #include <memory>
 #include <assert.h>
+
+using namespace Kernel;

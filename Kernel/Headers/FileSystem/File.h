@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DllExport.h"
+#include "Path.h"
 
 #include <string>
 #include <vector>
@@ -15,10 +16,12 @@ class DllExport File
     /// By default it does not clear the file if it exists already
     File(const std::string& filePath, bool clearIfAlreadyExists = false);
 
-    // Be careful passing string literals as the second arg to this constructor as it will convert it to a bool rather than a const std::string&
-    // and so call the first constructor
+    /// Be careful passing string literals as the second arg to this constructor as it will convert it to a bool rather than a const std::string&
+    /// and so call the first constructor
     File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = false);
     ~File();
+
+    File(const Path& path);
 
     /// \brief Returns true if the file exists
     static bool exists(const std::string& fullFilePath);

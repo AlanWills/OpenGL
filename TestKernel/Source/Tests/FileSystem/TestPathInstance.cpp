@@ -13,6 +13,99 @@ namespace TestKernel
   public:
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_Directory_AsString)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory");
+
+      Path path(expected);
+
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_File_AsString)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      Path path(expected);
+
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_CombinePaths_NeitherHaveDelimiter)
+    {
+      std::string expected("Test");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Path");
+
+      Path path("Test");
+      path.combine("Path");
+
+      // Test neither has delim
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_CombinePaths_FirstHasDelimiter)
+    {
+      std::string expected("Test");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Path");
+
+      std::string actual("Test");
+      actual.push_back(PATH_DELIMITER);
+
+      Path path(actual);
+      path.combine("Path");
+
+      // Test neither has delim
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_CombinePaths_SecondHasDelimiter)
+    {
+      std::string expected("Test");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Path");
+
+      std::string second;
+      second.push_back(PATH_DELIMITER);
+      second.append("Path");
+
+      Path path("Test");
+      path.combine(second);
+
+      // Test neither has delim
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_CombinePaths_BothHaveDelimiter)
+    {
+      std::string expected("Test");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Path");
+
+      std::string actual("Test"), second;
+      actual.push_back(PATH_DELIMITER);
+
+      second.push_back(PATH_DELIMITER);
+      second.append("Path");
+
+      Path path(actual);
+      path.combine(second);
+
+      // Test neither has delim
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Instance_GetParentDirectory_File)
     {
       std::string expected("Root"), actual;
@@ -51,30 +144,6 @@ namespace TestKernel
       path.getParentDirectory(actual);
 
       Assert::AreEqual(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_Instance_Directory_AsString)
-    {
-      std::string expected("Root");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Directory");
-
-      Path path(expected);
-
-      Assert::AreEqual(expected, path.asString());
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Path_Instance_File_AsString)
-    {
-      std::string expected("Root");
-      expected.push_back(PATH_DELIMITER);
-      expected.append("Directory.txt");
-
-      Path path(expected);
-
-      Assert::AreEqual(expected, path.asString());
     }
   };
 }

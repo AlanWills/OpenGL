@@ -20,6 +20,30 @@ namespace TestKernel
   public:
 
     //------------------------------------------------------------------------------------------------
+    void checkTestFileExists()
+    {
+      std::ofstream fStream(testFilePath);
+      Assert::IsTrue(fStream.good());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    void writeToTestFile(const std::string& output)
+    {
+      std::ofstream fStream(testFilePath);
+      Assert::IsTrue(fStream.good());
+
+      // Write something to the file
+      fStream << output;
+      fStream.close();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    void checkTestFileContents(const std::string& expected)
+    {
+      AssertExt::assertFileContents(testFilePath, expected);
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestFileInstance_Initialize)
     {
       Directory::getExecutingAppDirectory(parentDirectory);
@@ -42,14 +66,10 @@ namespace TestKernel
       File file(testFilePath);
       std::string expected("TestString");
 
-      // Check the file exists
+      // Check the file exists and write to it
       {
-        std::ofstream fStream(testFilePath);
-        Assert::IsTrue(fStream.good());
-
-        // Write something to the file
-        fStream << expected;
-        fStream.close();
+        checkTestFileExists();
+        writeToTestFile(expected);
       }
 
       // Now check that the contents of the file is preserved by the constructor
@@ -73,14 +93,10 @@ namespace TestKernel
       File file(parentDirectory, testFileName);
       std::string expected("TestString");
 
-      // Check the file exists
+      // Check the file exists and write to it
       {
-        std::ofstream fStream(testFilePath);
-        Assert::IsTrue(fStream.good());
-
-        // Write something to the file
-        fStream << expected;
-        fStream.close();
+        checkTestFileExists();
+        writeToTestFile(expected);
       }
 
       // Now check that the contents of the file is preserved by the constructor
@@ -99,6 +115,15 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Constructor_Path)
+    {
+      Path path(testFilePath);
+      File file(path);
+
+      checkTestFileExists();
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_Instance_Exists)
     {
       File file(testFilePath);
@@ -107,9 +132,8 @@ namespace TestKernel
       Assert::IsFalse(file.exists());
 
       // Write something just to create the file
-      std::ofstream fileStream(testFilePath);
-      fileStream << "";
-      Assert::IsTrue(file.exists());
+      writeToTestFile("");
+      checkTestFileExists();
     }
 
     //------------------------------------------------------------------------------------------------
@@ -119,7 +143,7 @@ namespace TestKernel
       std::string expected("TestString");
 
       File file(testFilePath);
-      Assert::IsTrue(File::exists(testFilePath));
+      Assert::IsTrue(file.exists());
 
       file.append(expected);
 
@@ -158,31 +182,28 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_Instance_CreateFile_ClearsOnCreation)
     {
+      File file(testFilePath);
       std::string expected("TestString");
 
       // Write something just to create the file
       {
-        File::create(testFilePath);
-        Assert::IsTrue(File::exists(testFilePath));
-
-        File::append(testFilePath, expected);
-        Assert::IsTrue(File::exists(testFilePath));
-
+        checkTestFileExists();
+        writeToTestFile(expected);
         checkTestFileContents(expected);
       }
 
       // Now recreate the file, but don't clear it and check the contents is the same
       {
-        File::create(testFilePath, false);
-        Assert::IsTrue(File::exists(testFilePath));
+        file.create(false);
+        Assert::IsTrue(file.exists());
 
         checkTestFileContents(expected);
       }
 
       // Now recreate the file, but clear it and check it is now empty
       {
-        File::create(testFilePath);
-        Assert::IsTrue(File::exists(testFilePath));
+        file.create();
+        Assert::IsTrue(file.exists());
 
         checkTestFileContents("");
       }
@@ -224,12 +245,6 @@ namespace TestKernel
       file.readLines(actual);
 
       AssertExt::assertVectorContentsEqual<std::string>(expected, actual);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    void checkTestFileContents(const std::string& expected)
-    {
-      AssertExt::assertFileContents(testFilePath, expected);
     }
   };
 }

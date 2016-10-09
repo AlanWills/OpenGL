@@ -1,12 +1,10 @@
 #include "stdafx.h"
 #include "Resources/ResourceManager.h"
-
-#include <iostream>
-#include <sstream>
-#include <fstream>
+#include "FileSystem/File.h"
+#include "FileSystem/Directory.h"
+#include "FileSystem/Path.h"
 
 #include <SOIL/SOIL.h>
-
 
 namespace Engine
 {
@@ -52,11 +50,10 @@ namespace Engine
     std::string fragmentCode;
     std::string geometryCode;
 
-    std::string fullPath(DIRECTORY);
-    fullPath.append(SHADER_DIR);
-    fullPath.append(VERTEX_SHADER_DIR);
-    fullPath.append(vShaderFile);
-    readFile(fullPath.c_str(), vertexCode);
+    Path path(DIRECTORY);
+    path.combine(SHADER_DIR).combine(VERTEX_SHADER_DIR).combine(vShaderFile);
+    File file(path);
+    //readFile(fullPath.c_str(), vertexCode);
 
     fullPath = DIRECTORY;
     fullPath.append(SHADER_DIR);
@@ -86,24 +83,6 @@ namespace Engine
     shader->compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
 
     return shader;
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void ResourceManager::readFile(const GLchar* filePath, std::string& outputFileText)
-  {
-    std::ifstream file(filePath);
-    std::stringstream stream;
-
-    if (file.bad())
-    {
-      std::cout << "ERROR::Failed to read file" << filePath << std::endl;
-      return;
-    }
-
-    stream << file.rdbuf();
-    file.close();
-
-    outputFileText = stream.str();
   }
 
   //------------------------------------------------------------------------------------------------

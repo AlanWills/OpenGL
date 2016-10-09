@@ -49,8 +49,6 @@ namespace TestKernel
       expected.append("Path");
 
       std::string actual("Test"), second;
-      actual.push_back(PATH_DELIMITER);
-
       second.push_back(PATH_DELIMITER);
       second.append("Path");
 

@@ -1,5 +1,4 @@
 #include "FileSystem/File.h"
-#include "FileSystem/Path.h"
 #include "FileSystem/Directory.h"
 #include "Debug.h"
 
@@ -21,6 +20,12 @@ namespace Kernel
   {
     Path::combine(m_filePath, relativeFilePath);
     create(m_filePath, clearIfAlreadyExists);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  File::File(const Path& path) :
+    File(path.asString())
+  {
   }
 
   //------------------------------------------------------------------------------------------------

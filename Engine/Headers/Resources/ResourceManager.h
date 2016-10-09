@@ -14,12 +14,12 @@
 namespace Engine
 {
 #define DIRECTORY "C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/OpenGL/OpenGL/"
-#define TEXTURE_DIR "Assets/"
-#define SHADER_DIR "Shaders/"
-#define LEVEL_DIR "Levels/"
-#define VERTEX_SHADER_DIR "Vertex/"
-#define FRAGMENT_SHADER_DIR "Fragment/"
-#define GEOMETRY_SHADER_DIR "Geometry/"
+#define TEXTURE_DIR "Assets"
+#define SHADER_DIR "Shaders"
+#define LEVEL_DIR "Levels"
+#define VERTEX_SHADER_DIR "Vertex"
+#define FRAGMENT_SHADER_DIR "Fragment"
+#define GEOMETRY_SHADER_DIR "Geometry"
 
 typedef std::map<std::string, std::unique_ptr<Shader>>     ShaderMap;
 typedef std::map<std::string, std::unique_ptr<Texture2D>>  TextureMap;
@@ -50,9 +50,6 @@ class DllExport ResourceManager
 
     // Loads and generates a shader from file
     static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
-
-    // Reads a file locatted at the inputted file path and stores the file contents in the outputFileText parameter
-    static void readFile(const GLchar* filePath, std::string& outputFileText);
 
     // Loads a single texture from file
     static Texture2D* loadTextureFromFile(const GLchar *file, GLboolean alpha);
