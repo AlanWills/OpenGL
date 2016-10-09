@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Resources/Shader.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 #include <iostream>
 

@@ -1,5 +1,5 @@
 #include "StringInterning/StringId.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 namespace Kernel
 {

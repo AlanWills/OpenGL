@@ -1,6 +1,6 @@
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 #include <fstream>
 #include <direct.h>

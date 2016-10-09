@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DllExport.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 namespace Engine
 {

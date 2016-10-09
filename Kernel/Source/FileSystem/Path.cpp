@@ -1,5 +1,5 @@
 #include "FileSystem/Path.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 namespace Kernel
 {

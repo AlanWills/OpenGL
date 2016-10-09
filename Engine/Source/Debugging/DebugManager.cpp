@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 #include "Debugging/DebugManager.h"
 
 namespace Engine

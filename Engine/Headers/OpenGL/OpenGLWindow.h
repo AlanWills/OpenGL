@@ -2,7 +2,7 @@
 
 #include "DllExport.h"
 #include "GLHeaders.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 
 namespace Engine
 {

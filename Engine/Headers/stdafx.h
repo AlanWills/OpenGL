@@ -13,7 +13,7 @@
 
 // TODO: reference additional headers your program requires here
 #include "GLHeaders.h"
-#include "Debug.h"
+#include "DebugUtils/Debug.h"
 #include "StringInterning/StringId.h"
 #include "Utils/StringUtils.h"
 #include <memory>
