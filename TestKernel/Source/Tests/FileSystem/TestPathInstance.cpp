@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "FileSystem/Path.h"
+#include "Debug.h"
 
 #include <vector>
 

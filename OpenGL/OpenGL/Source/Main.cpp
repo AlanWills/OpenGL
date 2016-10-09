@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
   // Initialize game
   game.init(window);
-    
+
   // DeltaTime variables
   GLfloat lag = 0.0f;
 

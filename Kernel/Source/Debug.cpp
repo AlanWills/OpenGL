@@ -31,3 +31,10 @@ void checkGLError_(const char *file, int line)
     }
   }
 }
+
+Debug& Debug::getInstance()
+{
+  static Debug instance;
+
+  return instance;
+}
