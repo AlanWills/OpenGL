@@ -205,7 +205,8 @@ GameLevel::Collision GameLevel::checkCollision(const Ball* ball, const GameObjec
 
   if ((delta.x * delta.x + delta.y * delta.y) < (ballRadius * ballRadius))
   {
-    return std::make_tuple(GL_TRUE, vectorDirection(delta), delta);
+    // Stop doing collisions right now
+    return std::make_tuple(GL_FALSE, vectorDirection(delta), delta);
   }
 
   return std::make_tuple(GL_FALSE, kUp, glm::vec2(0));

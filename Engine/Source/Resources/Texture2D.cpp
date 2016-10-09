@@ -17,7 +17,6 @@ namespace Engine
     m_filter_Min(GL_LINEAR),
     m_filter_Max(GL_LINEAR)
   {
-    glGenTextures(1, &m_textureHandle);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -31,6 +30,8 @@ namespace Engine
   {
     m_width = width;
     m_height = height;
+
+    glGenTextures(1, &m_textureHandle);
 
     // Create Texture
     glBindTexture(GL_TEXTURE_2D, m_textureHandle);
