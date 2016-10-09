@@ -6,11 +6,12 @@
 #include <iostream>
 #include <assert.h>
 
+
 DllExport void checkGLError_(const char *file, int line);
 #define glCheckError()  checkGLError_(__FILE__, __LINE__)
 
-#if defined(_DEBUG) && !defined(TESTING)
-#define ASSERT(condition) assert(condition)
+#ifdef _DEBUG
+#define ASSERT(condition) assert(condition);
 #else
 #define ASSERT(condition)
 #endif

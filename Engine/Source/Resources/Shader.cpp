@@ -20,27 +20,32 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Shader::compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource)
+  void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource, const std::string& geometrySource)
   {
+    // TODO: Refactor this using createShader()
     GLuint sVertex, sFragment, gShader;
+
+    const char* vertexCSource = vertexSource.c_str();
+    const char* fragmentCSource = fragmentSource.c_str();
+    const char* geometryCSource = geometrySource.c_str();
 
     // Vertex Shader
     sVertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(sVertex, 1, &vertexSource, NULL);
+    glShaderSource(sVertex, 1, &vertexCSource, NULL);
     glCompileShader(sVertex);
     checkCompileErrors(sVertex, "VERTEX");
 
     // Fragment Shader
     sFragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(sFragment, 1, &fragmentSource, NULL);
+    glShaderSource(sFragment, 1, &fragmentCSource, NULL);
     glCompileShader(sFragment);
     checkCompileErrors(sFragment, "FRAGMENT");
 
     // If geometry shader source code is given, also compile geometry shader
-    if (geometrySource)
+    if (!geometrySource.empty())
     {
       gShader = glCreateShader(GL_GEOMETRY_SHADER);
-      glShaderSource(gShader, 1, &geometrySource, NULL);
+      glShaderSource(gShader, 1, &geometryCSource, NULL);
       glCompileShader(gShader);
       checkCompileErrors(gShader, "GEOMETRY");
     }
@@ -50,7 +55,7 @@ namespace Engine
     glAttachShader(m_program, sVertex);
     glAttachShader(m_program, sFragment);
 
-    if (geometrySource)
+    if (!geometrySource.empty())
     {
       glAttachShader(m_program, gShader);
     }
@@ -62,7 +67,7 @@ namespace Engine
     glDeleteShader(sVertex);
     glDeleteShader(sFragment);
 
-    if (geometrySource)
+    if (!geometrySource.empty())
     {
       glDeleteShader(gShader);
     }
@@ -71,10 +76,12 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Shader::createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType)
+  void Shader::createShader(const std::string& shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType)
   {
+    const char* shaderSource = shaderCode.c_str();
+
     shaderHandleOutput = glCreateShader(shaderType);
-    glShaderSource(shaderHandleOutput, 1, &shaderCode, nullptr);
+    glShaderSource(shaderHandleOutput, 1, &shaderSource, nullptr);
     glCompileShader(shaderHandleOutput);
 
     checkCompileErrors(shaderHandleOutput, shaderErrorType);

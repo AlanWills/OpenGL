@@ -60,7 +60,11 @@ class DllExport ResourceManager
     static void init();
 
     // Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
-    static Shader* loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, StringId name);
+    static Shader* loadShader(
+      const std::string& vShaderRelativeFilePath, 
+      const std::string& fShaderRelativeFilePath, 
+      const std::string& gShaderRelativeFilePath, 
+      StringId name);
 
     // Retrieves a stored shader
     static Shader* getShader(StringId name);
@@ -77,7 +81,10 @@ class DllExport ResourceManager
     ResourceManager() { }
 
     // Loads and generates a shader from file
-    static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
+    static Shader* loadShaderFromFile(
+      const std::string& vShaderRelativePathPath,
+      const std::string& fShaderRelativeFilePath,
+      const std::string& gShaderRelativeFilePath = "");
 
     /// \brief Loads a single texture from file - requires the full texture file path as input
     static Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
@@ -98,6 +105,9 @@ class DllExport ResourceManager
     static const Path     m_resourceDirectoryPath;
     static const Path     m_textureDirectoryPath;
     static const Path     m_shaderDirectoryPath;
+    static const Path     m_vertexShaderDirectoryPath;
+    static const Path     m_fragmentShaderDirectoryPath;
+    static const Path     m_geometryShaderDirectoryPath;
 };
 
 }

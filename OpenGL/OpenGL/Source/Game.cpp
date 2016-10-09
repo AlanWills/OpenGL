@@ -30,7 +30,7 @@ void Game::init(GLFWwindow* window)
   glCheckError();
   
   // Load shaders
-  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, ResourceStringIds::SpriteShader);
+  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "", ResourceStringIds::SpriteShader);
 
   // Configure shaders
   shader->use(); 

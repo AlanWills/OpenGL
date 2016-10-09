@@ -23,7 +23,7 @@ class DllExport Shader
 
     // Note: geometry source code is optional
     // Compiles the shader from given source code
-    void compile(const GLchar* vertexSource, const GLchar* fragmentSource, const GLchar* geometrySource = nullptr);
+    void compile(const std::string& vertexSource, const std::string& fragmentSource, const std::string& geometrySource = "");
 
     // Sets the current shader as active
     void use() const;
@@ -41,7 +41,7 @@ class DllExport Shader
 
   private:
     // Wrapper function for creating a shader with the inputted code and returning a handle
-    void createShader(const GLchar* shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType);
+    void createShader(const std::string& shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType);
 
     void checkCompileErrors(GLuint shaderHandle, const GLchar* shaderErrorType);
 

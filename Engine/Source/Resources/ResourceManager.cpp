@@ -19,6 +19,9 @@ namespace Engine
   const Path            ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory(), DIRECTORY);
   const Path            ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
   const Path            ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
+  const Path            ResourceManager::m_vertexShaderDirectoryPath(m_resourceDirectoryPath.asString(), VERTEX_SHADER_DIR);
+  const Path            ResourceManager::m_fragmentShaderDirectoryPath(m_resourceDirectoryPath.asString(), FRAGMENT_SHADER_DIR);
+  const Path            ResourceManager::m_geometryShaderDirectoryPath(m_resourceDirectoryPath.asString(), GEOMETRY_SHADER_DIR);
 
 
   //------------------------------------------------------------------------------------------------
@@ -29,9 +32,18 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, StringId name)
+  Shader* ResourceManager::loadShader(
+    const std::string& vShaderRelativeFilePath,
+    const std::string& fShaderRelativeFilePath,
+    const std::string& gShaderRelativeFilePath,
+    StringId name)
   {
-    Shader* shader = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+    Path vertexShader(m_vertexShaderDirectoryPath), fragmentShader(m_fragmentShaderDirectoryPath), geometryShader(m_geometryShaderDirectoryPath);
+    vertexShader.combine(vShaderRelativeFilePath);
+    fragmentShader.combine(fShaderRelativeFilePath);
+    geometryShader.combine(gShaderRelativeFilePath);
+
+    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString(), geometryShader.asString());
     m_shaders[name] = shader;
     return shader;
   }
@@ -53,10 +65,10 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Texture2D* ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
   {
-    Path path(DIRECTORY, TEXTURE_DIR);
-    path.combine(relativeFilePath);
+    Path fullPath(m_textureDirectoryPath);
+    fullPath.combine(relativeFilePath);
 
-    Texture2D* texture = loadTextureFromFile(path.asString(), alpha);
+    Texture2D* texture = loadTextureFromFile(fullPath.asString(), alpha);
     m_textures[name] = texture;
     return texture;
   }
@@ -76,7 +88,10 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile)
+  Shader* ResourceManager::loadShaderFromFile(
+    const std::string& vShaderRelativeFilePath,
+    const std::string& fShaderRelativeFilePath,
+    const std::string& gShaderRelativeFilePath)
   {
     // Create shader object
     Shader* shader = nullptr;
@@ -99,40 +114,27 @@ namespace Engine
     std::string fragmentCode;
     std::string geometryCode;
 
-    Path path(m_shaderDirectoryPath);
-    path.combine(VERTEX_SHADER_DIR).combine(vShaderFile);
-
-    File file(path);
+    File file(vShaderRelativeFilePath);
     ASSERT(file.exists());
     file.read(vertexCode);
 
-    path = m_shaderDirectoryPath;
-    path.combine(FRAGMENT_SHADER_DIR).combine(fShaderFile);
-
-    file = File(path);
+    file = File(fShaderRelativeFilePath);
     ASSERT(file.exists());
     file.read(fragmentCode);
 
-    if (gShaderFile)
+    if (!gShaderRelativeFilePath.empty())
     {
-      path = m_shaderDirectoryPath;
-      path.combine(GEOMETRY_SHADER_DIR).combine(gShaderFile);
-
-      file = File(path);
+      file = File(gShaderRelativeFilePath);
       ASSERT(file.exists());
       file.read(geometryCode);
     }
 
-    assert(!vertexCode.empty());
-    assert(!fragmentCode.empty());
-    assert(!gShaderFile || !geometryCode.empty());
-
-    const GLchar *vShaderCode = vertexCode.c_str();
-    const GLchar *fShaderCode = fragmentCode.c_str();
-    const GLchar *gShaderCode = geometryCode.c_str();
+    ASSERT(!vertexCode.empty());
+    ASSERT(!fragmentCode.empty());
+    ASSERT(gShaderRelativeFilePath.empty() || !geometryCode.empty());
 
     // Compile into the graphics card
-    shader->compile(vShaderCode, fShaderCode, gShaderFile != nullptr ? gShaderCode : nullptr);
+    shader->compile(vertexCode, fragmentCode, !gShaderRelativeFilePath.empty() ? geometryCode : "");
 
     return shader;
   }

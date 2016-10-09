@@ -1,4 +1,5 @@
 #include "FileSystem/Path.h"
+#include "Debug.h"
 
 namespace Kernel
 {
@@ -6,12 +7,16 @@ namespace Kernel
   Path::Path(const std::string& path) :
     m_path(path)
   {
+    // Creating an empty path is a little odd
+    ASSERT(!m_path.empty());
   }
 
   //------------------------------------------------------------------------------------------------
   Path::Path(const std::string& parentPath, const std::string& relativePath) :
     m_path(parentPath)
   {
+    // Creating an empty path is a little odd and calling the constructor with an empty path is odd too (though still valid)
+    ASSERT(!m_path.empty() && !relativePath.empty());
     combine(m_path, relativePath);
   }
 
@@ -23,6 +28,22 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   void Path::combine(std::string& firstPath, const std::string& secondPath)
   {
+    if (secondPath.empty())
+    {
+      // Check that the first path is not empty - if it is, this is a weird situation (although still valid)
+      // Appending nothing to a non-empty path seems ok, but appending two empty paths is odd
+      ASSERT(!firstPath.empty());
+      return;
+    }
+
+    if (firstPath.empty())
+    {
+      // I don't feel like this is a good situation to be in - it is valid, but odd
+      ASSERT_FAIL();
+      firstPath.append(secondPath);
+      return;
+    }
+
     // If the first path doesn't end in the delimiter and the second doesn't begin with the delimiter we should append the delimiter to the first path
     if ((firstPath.back() != PATH_DELIMITER) && (secondPath.front() != PATH_DELIMITER))
     {

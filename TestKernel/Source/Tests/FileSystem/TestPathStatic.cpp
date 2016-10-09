@@ -78,6 +78,42 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Static_CombinePaths_FirstEmpty)
+    {
+      std::string expected("Test");
+
+      std::string actual;
+      Path::combine(actual, "Test");
+
+      // Test this didn't crash with an empty string and just squelched the empty one
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Static_CombinePaths_SecondEmpty)
+    {
+      std::string expected("Test");
+
+      std::string actual("Test");
+      Path::combine(actual, "");
+
+      // Test this didn't crash with an empty string and just squelched the empty one
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Static_CombinePaths_BothEmpty)
+    {
+      std::string expected;
+
+      std::string actual;
+      Path::combine(actual, "");
+
+      // Test this didn't crash with an empty string and just squelched the empty one
+      Assert::AreEqual(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Static_GetParentDirectory_File)
     {
       std::string actual, expected("Root"), path;
