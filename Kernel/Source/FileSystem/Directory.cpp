@@ -109,9 +109,11 @@ namespace Kernel
 
     DIR* dir = opendir(fullDirectoryPath.c_str());
 
+#ifdef WIN32
     // There are default folders (windows thing I guess).  Don't include these
     readdir(dir);
     readdir(dir);
+#endif
 
     while (dirent* dirent = readdir(dir))
     {
@@ -119,7 +121,22 @@ namespace Kernel
       {
         std::string buffer(fullDirectoryPath);
         Path::combine(buffer, dirent->d_name);
-        files.push_back(buffer);
+
+        // Check the extension here
+        if (extension != ".")
+        {
+          std::string thisExtension(dirent->d_name);
+          thisExtension = thisExtension.substr(thisExtension.find_first_of('.'));
+
+          if (extension == thisExtension)
+          {
+            files.push_back(buffer);
+          }
+        }
+        else
+        {
+          files.push_back(buffer);
+        }
       }
       else if (includeSubDirectories && dirent->d_type == DT_DIR)
       {
@@ -148,9 +165,11 @@ namespace Kernel
 
     DIR* dir = opendir(fullDirectoryPath.c_str());
 
+#ifdef WIN32
     // There are default folders (windows thing I guess).  Don't include these
     readdir(dir);
     readdir(dir);
+#endif
 
     while (dirent* dirent = readdir(dir))
     {
@@ -159,6 +178,8 @@ namespace Kernel
         std::string buffer(fullDirectoryPath);
         Path::combine(buffer, dirent->d_name);
         directories.push_back(buffer);
+
+        getDirectories(buffer, directories, includeSubDirectories);
       }
     }
 

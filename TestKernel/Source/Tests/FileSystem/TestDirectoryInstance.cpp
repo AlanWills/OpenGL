@@ -109,7 +109,28 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnlyWithPattern)
     {
-      Assert::Fail();
+      // Create some files
+      std::string filename1("TestFile1.txt");
+      File file1(testDirectory, filename1);
+      Assert::IsTrue(file1.exists());
+
+      std::string filename2("TestFile2.html");
+
+      File file2(testDirectory, filename2);
+      Assert::IsTrue(file2.exists());
+
+      std::vector<std::string> actualFiles, expectedFiles =
+      {
+        testDirectory + PATH_DELIMITER + filename1,
+      };
+
+      Directory dir(testDirectory);
+      dir.getFiles(actualFiles, ".txt");
+
+      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
+
+      file1.remove();
+      file2.remove();
     }
 
     //------------------------------------------------------------------------------------------------
@@ -154,19 +175,100 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesWithPattern)
     {
-      Assert::Fail();
+      // Create some files
+      std::string filename1("TestFile1.txt");
+      File file1(testDirectory, filename1);
+      Assert::IsTrue(file1.exists());
+
+      std::string filename2("TestFile2.html");
+      File file2(testDirectory, filename2);
+      Assert::IsTrue(file2.exists());
+
+      std::string nestedDir(testDirectory);
+      Path::combine(nestedDir, "NestedDirectory");
+      Directory::create(nestedDir);
+
+      std::string filename3("TestFile3.txt");
+      File file3(nestedDir, filename3);
+      Assert::IsTrue(file3.exists());
+
+      std::vector<std::string> actualFiles, expectedFiles =
+      {
+        nestedDir + PATH_DELIMITER + filename3,
+        testDirectory + PATH_DELIMITER + filename1,
+      };
+
+      Directory dir(testDirectory);
+
+      dir.getFiles(actualFiles, ".txt", true);
+      AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
+
+      file1.remove();
+      file2.remove();
+      file3.remove();
+
+      Assert::AreEqual(0, _rmdir(nestedDir.c_str()));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetDirectories_InDirectoryOnly)
     {
-      Assert::Fail();
+      Directory testDir(testDirectory);
+
+      std::string directory1("TestDirectory1");
+      Directory dir1(testDirectory, directory1);
+      Assert::IsTrue(dir1.exists());
+
+      std::string directory2("TestDirectory2");
+      Directory dir2(testDirectory, directory2);
+      Assert::IsTrue(dir2.exists());
+
+      std::vector<std::string> actualDirectories, expectedDirectories =
+      {
+        testDirectory + PATH_DELIMITER + directory1,
+        testDirectory + PATH_DELIMITER + directory2,
+      };
+
+      testDir.getDirectories(actualDirectories);
+      AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
+
+      dir1.remove();
+      dir2.remove();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectories)
     {
-      Assert::Fail();
+      Directory testDir(testDirectory);
+
+      std::string directory1("TestDirectory1");
+      Directory dir1(testDirectory, directory1);
+      Assert::IsTrue(dir1.exists());
+
+      std::string directory2("TestDirectory2");
+      Directory dir2(testDirectory, directory2);
+      Assert::IsTrue(dir2.exists());
+
+      std::string nestedParent(testDirectory);
+      Path::combine(nestedParent, directory2);
+
+      std::string directory3("TestDirectory3");
+      Directory dir3(nestedParent, directory3);
+      Assert::IsTrue(dir3.exists());
+
+      std::vector<std::string> actualDirectories, expectedDirectories =
+      {
+        testDirectory + PATH_DELIMITER + directory1,
+        testDirectory + PATH_DELIMITER + directory2,
+        nestedParent + PATH_DELIMITER + directory3,
+      };
+
+      testDir.getDirectories(actualDirectories);
+      AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
+
+      dir1.remove();
+      dir2.remove();
+      dir3.remove();
     }
 
     //------------------------------------------------------------------------------------------------
