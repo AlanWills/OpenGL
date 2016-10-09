@@ -48,6 +48,9 @@
     <ClInclude Include="Headers\DebugUtils\DebugAssert.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\DebugUtils\AssertDisabler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utils\StringUtils.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\DebugUtils\DebugAssert.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DebugUtils\AssertDisabler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

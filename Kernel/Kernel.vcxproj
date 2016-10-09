@@ -153,6 +153,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\DebugUtils\AssertDisabler.h" />
     <ClInclude Include="Headers\DebugUtils\Debug.h" />
     <ClInclude Include="Headers\DebugUtils\DebugAssert.h" />
     <ClInclude Include="Headers\DebugUtils\NullAssert.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Headers\Utils\StringUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\DebugUtils\AssertDisabler.cpp" />
     <ClCompile Include="Source\DebugUtils\DebugAssert.cpp" />
     <ClCompile Include="Source\DebugUtils\Debug.cpp" />
     <ClCompile Include="Source\FileSystem\Directory.cpp" />

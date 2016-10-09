@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GLHeaders.h"
 #include "DllExport.h"
 #include "DebugAssert.h"
 #include "NullAssert.h"

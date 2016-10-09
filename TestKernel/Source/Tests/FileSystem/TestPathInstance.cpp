@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "FileSystem/Path.h"
-#include "DebugUtils/Debug.h"
+#include "DebugUtils/AssertDisabler.h"
 
 #include <vector>
 
@@ -109,6 +109,9 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Instance_CombinePaths_FirstEmpty)
     {
+      // Don't fire asserts
+      AssertDisabler assertDisabler;
+
       std::string expected("Test");
       Path actual("");
       actual.combine("Test");
@@ -120,6 +123,8 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Instance_CombinePaths_SecondEmpty)
     {
+      // Don't fire asserts
+      AssertDisabler assertDisabler;
       std::string expected("Test");
 
       Path actual("Test");
@@ -132,6 +137,8 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Instance_CombinePaths_BothEmpty)
     {
+      // Don't fire asserts
+      AssertDisabler assertDisabler;
       std::string expected;
 
       Path actual("");

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "FileSystem/Path.h"
+#include "DebugUtils/AssertDisabler.h"
 
 #include <vector>
 
@@ -80,9 +81,10 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Static_CombinePaths_FirstEmpty)
     {
-      std::string expected("Test");
+      // Disable Asserts for this test
+      AssertDisabler assertDisabler;
 
-      std::string actual;
+      std::string expected("Test"), actual;
       Path::combine(actual, "Test");
 
       // Test this didn't crash with an empty string and just squelched the empty one
@@ -92,9 +94,10 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Static_CombinePaths_SecondEmpty)
     {
-      std::string expected("Test");
+      // Disable Asserts for this test
+      AssertDisabler assertDisabler;
 
-      std::string actual("Test");
+      std::string expected("Test"), actual("Test");
       Path::combine(actual, "");
 
       // Test this didn't crash with an empty string and just squelched the empty one
@@ -104,9 +107,10 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Static_CombinePaths_BothEmpty)
     {
-      std::string expected;
+      // Disable Asserts for this test
+      AssertDisabler assertDisabler;
 
-      std::string actual;
+      std::string expected, actual;
       Path::combine(actual, "");
 
       // Test this didn't crash with an empty string and just squelched the empty one
