@@ -45,29 +45,30 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile)
   {
-    // 1. Retrieve the vertex/fragment source code from filePath
+    // 1. Retrieve the vertex/fragment/geometry source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
     std::string geometryCode;
 
     Path path(DIRECTORY);
     path.combine(SHADER_DIR).combine(VERTEX_SHADER_DIR).combine(vShaderFile);
-    File file(path);
-    //readFile(fullPath.c_str(), vertexCode);
 
-    fullPath = DIRECTORY;
-    fullPath.append(SHADER_DIR);
-    fullPath.append(FRAGMENT_SHADER_DIR);
-    fullPath.append(fShaderFile);
-    readFile(fullPath.c_str(), fragmentCode);
+    File file(path);
+    file.read(vertexCode);
+
+    path = Path(DIRECTORY);
+    path.combine(SHADER_DIR).combine(FRAGMENT_SHADER_DIR).combine(fShaderFile);
+
+    file = File(path);
+    file.read(fragmentCode);
 
     if (gShaderFile)
     {
-      fullPath = DIRECTORY;
-      fullPath.append(SHADER_DIR);
-      fullPath.append(GEOMETRY_SHADER_DIR);
-      fullPath.append(gShaderFile);
-      readFile(fullPath.c_str(), geometryCode);
+      path = Path(DIRECTORY);
+      path.combine(SHADER_DIR).combine(GEOMETRY_SHADER_DIR).combine(gShaderFile);
+
+      file = File(path);
+      file.read(geometryCode);
     }
 
     assert(!vertexCode.empty());
