@@ -16,12 +16,12 @@ namespace Engine
   ShaderPoolOverflow    ResourceManager::m_shaderOverflow;
   TexturePoolOverflow   ResourceManager::m_textureOverflow;
 
-  const Path            ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory(), DIRECTORY);
-  const Path            ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
-  const Path            ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
-  const Path            ResourceManager::m_vertexShaderDirectoryPath(m_resourceDirectoryPath.asString(), VERTEX_SHADER_DIR);
-  const Path            ResourceManager::m_fragmentShaderDirectoryPath(m_resourceDirectoryPath.asString(), FRAGMENT_SHADER_DIR);
-  const Path            ResourceManager::m_geometryShaderDirectoryPath(m_resourceDirectoryPath.asString(), GEOMETRY_SHADER_DIR);
+  Path                  ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory(), DIRECTORY);
+  Path                  ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
+  Path                  ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
+  Path                  ResourceManager::m_vertexShaderDirectoryPath(m_shaderDirectoryPath.asString(), VERTEX_SHADER_DIR);
+  Path                  ResourceManager::m_fragmentShaderDirectoryPath(m_shaderDirectoryPath.asString(), FRAGMENT_SHADER_DIR);
+  Path                  ResourceManager::m_geometryShaderDirectoryPath(m_shaderDirectoryPath.asString(), GEOMETRY_SHADER_DIR);
 
 
   //------------------------------------------------------------------------------------------------
@@ -29,6 +29,10 @@ namespace Engine
   {
     glewExperimental = GL_TRUE;
     glewInit();
+
+    // TODO: Bit of debug checking on the directory paths
+    // TODO: Maybe actually change them to directories?
+    // TODO: Auto find resource files
   }
 
   //------------------------------------------------------------------------------------------------
@@ -41,9 +45,14 @@ namespace Engine
     Path vertexShader(m_vertexShaderDirectoryPath), fragmentShader(m_fragmentShaderDirectoryPath), geometryShader(m_geometryShaderDirectoryPath);
     vertexShader.combine(vShaderRelativeFilePath);
     fragmentShader.combine(fShaderRelativeFilePath);
-    geometryShader.combine(gShaderRelativeFilePath);
 
-    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString(), geometryShader.asString());
+    if (!gShaderRelativeFilePath.empty())
+    {
+      // Only set up the geometry shader path if we are using one
+      geometryShader.combine(gShaderRelativeFilePath);
+    }
+
+    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString(), !gShaderRelativeFilePath.empty() ? geometryShader.asString() : "");
     m_shaders[name] = shader;
     return shader;
   }
@@ -164,11 +173,8 @@ namespace Engine
       texture->setImageFormat(GL_RGBA);
     }
 
-#ifdef _DEBUG
     // Do some debug checking on the image path to make sure it exists
-    File file(fullFilePath);
-    ASSERT(file.exists());
-#endif
+    ASSERT(File::exists(fullFilePath));
 
     // Load the image
 
@@ -182,5 +188,52 @@ namespace Engine
     // And finally free image data
     SOIL_free_image_data(image);
     return texture;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  // Utility setters for the asset directory paths
+  //------------------------------------------------------------------------------------------------
+  
+
+
+  // NOTE TO FUTURE ALAN - WITH THESE WE CAN CALL THE CHILD DIRECTORY FUNCTIONS
+  // E.G. IN SET SHADER DIRECTORY - SET THE SHADER DIRECTORY AND THEN CALL SET__X__SHADERDIRECTORY() WITH AN APPROPRIATE PATH
+  // This should save a bit of time
+
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setResourceDirectoryPath(const Path& resourceDirectoryPath)
+  {
+    
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setTextureDirectoryPath(const Path& textureDirectoryPath)
+  {
+
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setShaderDirectoryPath(const Path& shaderDirectoryPath)
+  {
+
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath)
+  {
+
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath)
+  {
+
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath)
+  {
+
   }
 }

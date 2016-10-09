@@ -38,32 +38,32 @@ class DllExport Directory
     /// \brief Obtain all of the files in the current directory and add them to the inputted vector
     /// Can provide a file extension filter to limit the files we are considering - by default considers all files
     /// Can provide a flag to search recursively through subdirectories too - by default will not search recursively
-    static void getFiles(
+    static void findFiles(
       const std::string& fullDirectoryPath, 
       std::vector<std::string>& files, 
       const std::string& extension = ".", 
       bool includeSubDirectories = false);
 
-    void getFiles(
+    void findFiles(
       std::vector<std::string>& files,
       const std::string& extension = ".",
       bool includeSubDirectories = false) const 
     {
-      getFiles(m_dirPath.asString(), files, extension, includeSubDirectories);
+      findFiles(m_dirPath.asString(), files, extension, includeSubDirectories);
     }
 
     /// \brief Obtain all of the directories in the current directory and add them to the inputted vector
     /// Can provide a flag to search recursively through subdirectories too - by default will not search recursively
-    static void getDirectories(
+    static void findDirectories(
       const std::string& fullDirectoryPath,
       std::vector<std::string>& directories,
       bool includeSubDirectories = false);
 
-    void getDirectories(
+    void findDirectories(
       std::vector<std::string>& directories,
       bool includeSubDirectories = false)
     {
-      getDirectories(m_dirPath.asString(), directories, includeSubDirectories);
+      findDirectories(m_dirPath.asString(), directories, includeSubDirectories);
     }
 
   private:

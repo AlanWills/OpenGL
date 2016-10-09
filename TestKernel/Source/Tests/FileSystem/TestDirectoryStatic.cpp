@@ -53,7 +53,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetFiles_InDirectoryOnly)
+    TEST_METHOD(Test_Directory_Static_FindFiles_InDirectoryOnly)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -71,7 +71,7 @@ namespace TestKernel
         testDirectory + PATH_DELIMITER + filename2
       };
 
-      Directory::getFiles(testDirectory, actualFiles);
+      Directory::findFiles(testDirectory, actualFiles);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -79,7 +79,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetDirectories_InDirectoryOnlyWithPattern)
+    TEST_METHOD(Test_Directory_Static_FindFiles_InDirectoryOnlyWithPattern)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -96,7 +96,7 @@ namespace TestKernel
         testDirectory + PATH_DELIMITER + filename1,
       };
 
-      Directory::getFiles(testDirectory, actualFiles, ".txt");
+      Directory::findFiles(testDirectory, actualFiles, ".txt");
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -104,7 +104,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetFiles_AllFiles)
+    TEST_METHOD(Test_Directory_Static_FindFiles_AllFiles)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -130,7 +130,7 @@ namespace TestKernel
         testDirectory + PATH_DELIMITER + filename2,
       };
 
-      Directory::getFiles(testDirectory, actualFiles, ".", true);
+      Directory::findFiles(testDirectory, actualFiles, ".", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -141,7 +141,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetFiles_AllFilesWithPattern)
+    TEST_METHOD(Test_Directory_Static_FindFiles_AllFilesWithPattern)
     {
       // Create some files
       std::string filename1("TestFile1.txt");
@@ -166,7 +166,7 @@ namespace TestKernel
         testDirectory + PATH_DELIMITER + filename1,
       };
 
-      Directory::getFiles(testDirectory, actualFiles, ".txt", true);
+      Directory::findFiles(testDirectory, actualFiles, ".txt", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -177,7 +177,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetDirectories_InDirectoryOnly)
+    TEST_METHOD(Test_Directory_Static_FindDirectories_InDirectoryOnly)
     {
       std::string enclosingDirectory(testDirectory);
       Path::combine(enclosingDirectory, "Enclosing");
@@ -200,7 +200,7 @@ namespace TestKernel
         enclosingDirectory + PATH_DELIMITER + directory2,
       };
 
-      Directory::getDirectories(enclosingDirectory, actualDirectories);
+      Directory::findDirectories(enclosingDirectory, actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       Assert::AreEqual(0, _rmdir(directory1FullPath.c_str()));
@@ -209,7 +209,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Static_GetDirectories_AllDirectories)
+    TEST_METHOD(Test_Directory_Static_FindDirectories_AllDirectories)
     {
       std::string enclosingDirectory(testDirectory);
       Path::combine(enclosingDirectory, "Enclosing");
@@ -241,7 +241,7 @@ namespace TestKernel
         nestedParent + PATH_DELIMITER + directory3,
       };
 
-      Directory::getDirectories(enclosingDirectory, actualDirectories);
+      Directory::findDirectories(enclosingDirectory, actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       Assert::AreEqual(0, _rmdir(directory1FullPath.c_str()));

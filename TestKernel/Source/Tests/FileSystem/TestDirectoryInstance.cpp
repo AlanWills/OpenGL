@@ -104,7 +104,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnly)
+    TEST_METHOD(Test_Directory_Instance_FindFiles_InDirectoryOnly)
     {
       // Create some files
       File file1 = create<File>(testDirectory, "TestFile1.txt");
@@ -117,7 +117,7 @@ namespace TestKernel
       };
 
       Directory dir(testDirectory);
-      dir.getFiles(actualFiles);
+      dir.findFiles(actualFiles);
 
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
@@ -126,7 +126,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_InDirectoryOnlyWithPattern)
+    TEST_METHOD(Test_Directory_Instance_FindFiles_InDirectoryOnlyWithPattern)
     {
       // Create some files
       File file1 = create<File>(testDirectory, "TestFile1.txt");
@@ -138,7 +138,7 @@ namespace TestKernel
       };
 
       Directory dir(testDirectory);
-      dir.getFiles(actualFiles, ".txt");
+      dir.findFiles(actualFiles, ".txt");
 
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
@@ -147,7 +147,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFiles)
+    TEST_METHOD(Test_Directory_Instance_FindFiles_AllFiles)
     {
       // Create some files
       File file1 = create<File>(testDirectory, "TestFile1.txt");
@@ -167,7 +167,7 @@ namespace TestKernel
       };
 
       Directory dir = create<Directory>(testDirectory);
-      dir.getFiles(actualFiles, ".", true);
+      dir.findFiles(actualFiles, ".", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -178,7 +178,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetFiles_AllFilesWithPattern)
+    TEST_METHOD(Test_Directory_Instance_FindFiles_AllFilesWithPattern)
     {
       // Create some files
       File file1 = create<File>(testDirectory, "TestFile1.txt");
@@ -197,7 +197,7 @@ namespace TestKernel
       };
 
       Directory dir = create<Directory>(testDirectory);
-      dir.getFiles(actualFiles, ".txt", true);
+      dir.findFiles(actualFiles, ".txt", true);
       AssertExt::assertVectorContentsEqual(expectedFiles, actualFiles);
 
       file1.remove();
@@ -208,7 +208,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetDirectories_InDirectoryOnly)
+    TEST_METHOD(Test_Directory_Instance_FindDirectories_InDirectoryOnly)
     {
       std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
       Directory enclosingDirectory = create<Directory>(enclosingDirectoryPath);
@@ -222,7 +222,7 @@ namespace TestKernel
         enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory2",
       };
 
-      enclosingDirectory.getDirectories(actualDirectories);
+      enclosingDirectory.findDirectories(actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       dir1.remove();
@@ -231,7 +231,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectories)
+    TEST_METHOD(Test_Directory_Instance_FindDirectories_AllDirectories)
     {
       std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
       Directory enclosingDirectory = create<Directory>(enclosingDirectoryPath);
@@ -251,7 +251,7 @@ namespace TestKernel
         nestedParent + PATH_DELIMITER + "TestDirectory3",
       };
 
-      enclosingDirectory.getDirectories(actualDirectories);
+      enclosingDirectory.findDirectories(actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       dir1.remove();

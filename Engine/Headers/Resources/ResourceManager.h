@@ -20,6 +20,7 @@ using namespace Kernel;
 
 namespace Engine
 {
+
 #ifdef WIN32
 #define DIRECTORY "..\\OpenGL"
 #else
@@ -59,22 +60,32 @@ class DllExport ResourceManager
     /// \brief Initialises resource specific data including glew and file paths and loads all resources that will last the lifetime of the game
     static void init();
 
-    // Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
+    /// \brief Loads (and generates) a shader program from file by loading vertex, fragment (and geometry) shader source code. If gShaderFile is not nullptr, it also loads a geometry shader
     static Shader* loadShader(
       const std::string& vShaderRelativeFilePath, 
       const std::string& fShaderRelativeFilePath, 
       const std::string& gShaderRelativeFilePath, 
       StringId name);
 
-    // Retrieves a stored shader
+    /// \brief Retrieves a stored shader
     static Shader* getShader(StringId name);
 
     /// \brief Loads (and generates) a texture from a file
     /// The inputted path should be relative to the texture directory
     static Texture2D* loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name);
 
-    // Retrieves a stored texture
+    /// \brief Retrieves a stored texture
     static Texture2D* getTexture(StringId name);
+
+    /// \brief These setters allow changing the location of the common asset folders on disc
+    /// However, since the static variables representing these locations form a tree, changing certain ones requires changing others - these functions take care of this
+    /// As a result, these are non-trivial and we cannot simplify by exposing the variables globally for fear of invalidating the others on change
+    static void setResourceDirectoryPath(const Path& resourceDirectoryPath);
+    static void setTextureDirectoryPath(const Path& textureDirectoryPath);
+    static void setShaderDirectoryPath(const Path& shaderDirectoryPath);
+    static void setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath);
+    static void setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath);
+    static void setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath);
 
   private:
     // Private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
@@ -102,12 +113,16 @@ class DllExport ResourceManager
     static ShaderPoolOverflow   m_shaderOverflow;
     static TexturePoolOverflow  m_textureOverflow;
 
-    static const Path     m_resourceDirectoryPath;
-    static const Path     m_textureDirectoryPath;
-    static const Path     m_shaderDirectoryPath;
-    static const Path     m_vertexShaderDirectoryPath;
-    static const Path     m_fragmentShaderDirectoryPath;
-    static const Path     m_geometryShaderDirectoryPath;
+    // Static variables representing the paths to commonly used resource directories
+    // They can be changed by the appropriate set functions, but since they represent a directory tree, updating a hifher level directory
+    // Requires updating lower level directory paths too
+    // As a result, the setters are not trivial and we cannot just expose these as global variables for risk of invalidating some variables by changing others
+    static Path     m_resourceDirectoryPath;
+    static Path     m_textureDirectoryPath;
+    static Path     m_shaderDirectoryPath;
+    static Path     m_vertexShaderDirectoryPath;
+    static Path     m_fragmentShaderDirectoryPath;
+    static Path     m_geometryShaderDirectoryPath;
 };
 
 }

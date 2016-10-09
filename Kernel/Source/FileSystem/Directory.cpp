@@ -90,7 +90,7 @@ namespace Kernel
     if (exists(directoryFullPath))
     {
       std::vector<std::string> files;
-      getFiles(directoryFullPath, files);
+      findFiles(directoryFullPath, files);
 
       for (const std::string& file : files)
       {
@@ -98,7 +98,7 @@ namespace Kernel
       }
 
       std::vector<std::string> dirs;
-      getDirectories(directoryFullPath, dirs);
+      findDirectories(directoryFullPath, dirs);
 
       for (const std::string& dir : dirs)
       {
@@ -111,7 +111,7 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void Directory::getFiles(const std::string& fullDirectoryPath,
+  void Directory::findFiles(const std::string& fullDirectoryPath,
     std::vector<std::string>& files,
     const std::string& extension,
     bool includeSubDirectories)
@@ -158,7 +158,7 @@ namespace Kernel
         std::string subDirPath(fullDirectoryPath);
         Path::combine(subDirPath, dirent->d_name);
         
-        getFiles(subDirPath, files, extension, includeSubDirectories);
+        findFiles(subDirPath, files, extension, includeSubDirectories);
       }
     }
 
@@ -167,7 +167,7 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void Directory::getDirectories(
+  void Directory::findDirectories(
     const std::string& fullDirectoryPath,
     std::vector<std::string>& directories,
     bool includeSubDirectories)
@@ -194,7 +194,7 @@ namespace Kernel
         Path::combine(buffer, dirent->d_name);
         directories.push_back(buffer);
 
-        getDirectories(buffer, directories, includeSubDirectories);
+        findDirectories(buffer, directories, includeSubDirectories);
       }
     }
 
