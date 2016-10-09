@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "Resources/ResourceManager.h"
-#include "FileSystem/File.h"
-#include "FileSystem/Directory.h"
-#include "FileSystem/Path.h"
 
 #include <SOIL/SOIL.h>
 
@@ -98,12 +95,11 @@ namespace Engine
     }
 
     // Load image
-    std::string fullPath(DIRECTORY);
-    fullPath.append(TEXTURE_DIR);
-    fullPath.append(file);
+    Path path(DIRECTORY);
+    path.combine(TEXTURE_DIR).combine(file);
 
     int width, height;
-    unsigned char* image = SOIL_load_image(fullPath.c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+    unsigned char* image = SOIL_load_image(path.asString().c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
     assert(image);
 
     // Now generate texture

@@ -64,12 +64,11 @@ void Game::init(GLFWwindow* window)
 //------------------------------------------------------------------------------------------------
 void Game::loadLevel(const std::string& levelPath)
 {
-  std::string fullPath(DIRECTORY);
-  fullPath.append(LEVEL_DIR);
-  fullPath += levelPath;
+  Path path(DIRECTORY);
+  path.combine(LEVEL_DIR).combine(levelPath);
 
   GameLevel* level = new GameLevel();
-  level->load(fullPath, m_width, m_height * 0.5f);
+  level->load(path.asString(), m_width, m_height * 0.5f);
   m_levels.push_back(std::unique_ptr<GameLevel>(level));
 }
 
@@ -123,8 +122,8 @@ void Game::update(GLfloat elapsedGameTime)
 
   if (m_ball->getPosition().y >= m_height)
   {
-    resetLevel();
-    resetPlayer();
+    /*resetLevel();
+    resetPlayer();*/
   }
 }
 

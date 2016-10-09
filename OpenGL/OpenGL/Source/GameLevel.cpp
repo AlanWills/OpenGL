@@ -201,7 +201,7 @@ GameLevel::Collision GameLevel::checkCollision(const Ball* ball, const GameObjec
   GLfloat ballRadius = ball->getRadius();
   const glm::vec2& brickSize = gameObject->getSize();
 
-  glm::vec2 delta = ballPosition - glm::max(brickPosition, glm::min(ballPosition, brickPosition + brickSize));
+  glm::vec2 delta = glm::vec2(0); //ballPosition - glm::max(brickPosition, glm::min(ballPosition, brickPosition + brickSize));
 
   if ((delta.x * delta.x + delta.y * delta.y) < (ballRadius * ballRadius))
   {

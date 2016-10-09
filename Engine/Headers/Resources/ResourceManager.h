@@ -9,7 +9,11 @@
 #include "Texture2D.h"
 #include "Shader.h"
 #include "DllExport.h"
+#include "FileSystem/File.h"
+#include "FileSystem/Directory.h"
+#include "FileSystem/Path.h"
 
+using namespace Kernel;
 
 namespace Engine
 {
