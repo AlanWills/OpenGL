@@ -32,9 +32,23 @@ void checkGLError_(const char *file, int line)
   }
 }
 
-Debug& Debug::getInstance()
-{
-  static Debug instance;
 
-  return instance;
+namespace Kernel
+{
+  //------------------------------------------------------------------------------------------------
+  Debug& Debug::getInstance()
+  {
+    static Debug instance;
+
+    return instance;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Debug::debugAssert(bool condition)
+  {
+    if (!m_assertsDisabled)
+    { 
+      assert(condition); 
+    }
+  }
 }
