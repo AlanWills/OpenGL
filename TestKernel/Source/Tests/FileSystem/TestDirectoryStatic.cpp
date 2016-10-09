@@ -179,43 +179,54 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Static_GetDirectories_InDirectoryOnly)
     {
-      std::string directory1("TestDirectory1"), directory1FullPath(testDirectory);
+      std::string enclosingDirectory(testDirectory);
+      Path::combine(enclosingDirectory, "Enclosing");
+      Directory::create(enclosingDirectory);
+      Assert::IsTrue(Directory::exists(enclosingDirectory));
+
+      std::string directory1("TestDirectory1"), directory1FullPath(enclosingDirectory);
       Path::combine(directory1FullPath, directory1);
       Directory::create(directory1FullPath);
       Assert::IsTrue(Directory::exists(directory1FullPath));
 
-      std::string directory2("TestDirectory2"), directory2FullPath(testDirectory);
+      std::string directory2("TestDirectory2"), directory2FullPath(enclosingDirectory);
       Path::combine(directory2FullPath, directory2);
       Directory::create(directory2FullPath);
       Assert::IsTrue(Directory::exists(directory2FullPath));
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        testDirectory + PATH_DELIMITER + directory1,
-        testDirectory + PATH_DELIMITER + directory2,
+        enclosingDirectory + PATH_DELIMITER + directory1,
+        enclosingDirectory + PATH_DELIMITER + directory2,
       };
 
-      Directory::getDirectories(testDirectory, actualDirectories);
+      Directory::getDirectories(enclosingDirectory, actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       Assert::AreEqual(0, _rmdir(directory1FullPath.c_str()));
       Assert::AreEqual(0, _rmdir(directory2FullPath.c_str()));
+      Assert::AreEqual(0, _rmdir(enclosingDirectory.c_str()));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Static_GetDirectories_AllDirectories)
     {
-      std::string directory1("TestDirectory1"), directory1FullPath(testDirectory);
+      std::string enclosingDirectory(testDirectory);
+      Path::combine(enclosingDirectory, "Enclosing");
+      Directory::create(enclosingDirectory);
+      Assert::IsTrue(Directory::exists(enclosingDirectory));
+
+      std::string directory1("TestDirectory1"), directory1FullPath(enclosingDirectory);
       Path::combine(directory1FullPath, directory1);
       Directory::create(directory1FullPath);
       Assert::IsTrue(Directory::exists(directory1FullPath));
 
-      std::string directory2("TestDirectory2"), directory2FullPath(testDirectory);
+      std::string directory2("TestDirectory2"), directory2FullPath(enclosingDirectory);
       Path::combine(directory2FullPath, directory2);
       Directory::create(directory2FullPath);
       Assert::IsTrue(Directory::exists(directory2FullPath));
 
-      std::string nestedParent(testDirectory);
+      std::string nestedParent(enclosingDirectory);
       Path::combine(nestedParent, directory2);
 
       std::string directory3("TestDirectory3"), directory3FullPath(nestedParent);
@@ -225,17 +236,18 @@ namespace TestKernel
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        testDirectory + PATH_DELIMITER + directory1,
-        testDirectory + PATH_DELIMITER + directory2,
+        enclosingDirectory + PATH_DELIMITER + directory1,
+        enclosingDirectory + PATH_DELIMITER + directory2,
         nestedParent + PATH_DELIMITER + directory3,
       };
 
-      Directory::getDirectories(testDirectory, actualDirectories);
+      Directory::getDirectories(enclosingDirectory, actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       Assert::AreEqual(0, _rmdir(directory1FullPath.c_str()));
       Assert::AreEqual(0, _rmdir(directory3FullPath.c_str()));
       Assert::AreEqual(0, _rmdir(directory2FullPath.c_str()));
+      Assert::AreEqual(0, _rmdir(enclosingDirectory.c_str()));
     }
 
     //------------------------------------------------------------------------------------------------

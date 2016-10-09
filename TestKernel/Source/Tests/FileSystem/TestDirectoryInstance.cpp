@@ -213,43 +213,46 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetDirectories_InDirectoryOnly)
     {
-      Directory testDir(testDirectory);
+      std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
+      Directory enclosingDirectory(enclosingDirectoryPath);
 
       std::string directory1("TestDirectory1");
-      Directory dir1(testDirectory, directory1);
+      Directory dir1(enclosingDirectoryPath, directory1);
       Assert::IsTrue(dir1.exists());
 
       std::string directory2("TestDirectory2");
-      Directory dir2(testDirectory, directory2);
+      Directory dir2(enclosingDirectoryPath, directory2);
       Assert::IsTrue(dir2.exists());
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        testDirectory + PATH_DELIMITER + directory1,
-        testDirectory + PATH_DELIMITER + directory2,
+        enclosingDirectoryPath + PATH_DELIMITER + directory1,
+        enclosingDirectoryPath + PATH_DELIMITER + directory2,
       };
 
-      testDir.getDirectories(actualDirectories);
+      enclosingDirectory.getDirectories(actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       dir1.remove();
       dir2.remove();
+      enclosingDirectory.remove();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetDirectories_AllDirectories)
     {
-      Directory testDir(testDirectory);
+      std::string enclosingDirectoryPath(testDirectory + "EnclosingDirectory");
+      Directory enclosingDirectory(enclosingDirectoryPath);
 
       std::string directory1("TestDirectory1");
-      Directory dir1(testDirectory, directory1);
+      Directory dir1(enclosingDirectoryPath, directory1);
       Assert::IsTrue(dir1.exists());
 
       std::string directory2("TestDirectory2");
-      Directory dir2(testDirectory, directory2);
+      Directory dir2(enclosingDirectoryPath, directory2);
       Assert::IsTrue(dir2.exists());
 
-      std::string nestedParent(testDirectory);
+      std::string nestedParent(enclosingDirectoryPath);
       Path::combine(nestedParent, directory2);
 
       std::string directory3("TestDirectory3");
@@ -258,17 +261,18 @@ namespace TestKernel
 
       std::vector<std::string> actualDirectories, expectedDirectories =
       {
-        testDirectory + PATH_DELIMITER + directory1,
-        testDirectory + PATH_DELIMITER + directory2,
+        enclosingDirectoryPath + PATH_DELIMITER + directory1,
+        enclosingDirectoryPath + PATH_DELIMITER + directory2,
         nestedParent + PATH_DELIMITER + directory3,
       };
 
-      testDir.getDirectories(actualDirectories);
+      enclosingDirectory.getDirectories(actualDirectories);
       AssertExt::assertVectorContentsEqual(expectedDirectories, actualDirectories);
 
       dir1.remove();
       dir2.remove();
       dir3.remove();
+      enclosingDirectory.remove();
     }
 
     //------------------------------------------------------------------------------------------------
