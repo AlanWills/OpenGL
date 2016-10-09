@@ -32,6 +32,9 @@ class DllExport Path
     static void getParentDirectory(const std::string& fullPath, std::string& outParentDirectory);
     void getParentDirectory(std::string& outParentDirectory) const { getParentDirectory(m_path, outParentDirectory); }
 
+    /// \brief Returns the path represented by this object as a string
+    const std::string& asString() const { return m_path; }
+
   private:
     std::string m_path;
 };

@@ -52,5 +52,29 @@ namespace TestKernel
 
       Assert::AreEqual(expected, actual);
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_Directory_AsString)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory");
+
+      Path path(expected);
+
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_File_AsString)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      Path path(expected);
+
+      Assert::AreEqual(expected, path.asString());
+    }
   };
 }
