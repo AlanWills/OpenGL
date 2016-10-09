@@ -56,8 +56,9 @@ class DllExport ResourceManager
     // Retrieves a stored shader
     static Shader* getShader(StringId name);
 
-    // Loads (and generates) a texture from file
-    static Texture2D* loadTexture(const GLchar *file, GLboolean alpha, StringId name);
+    /// \brief Loads (and generates) a texture from a file
+    /// The inputted path should be relative to the texture directory
+    static Texture2D* loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name);
 
     // Retrieves a stored texture
     static Texture2D* getTexture(StringId name);
@@ -70,7 +71,7 @@ class DllExport ResourceManager
     static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
 
     // Loads a single texture from file
-    static Texture2D* loadTextureFromFile(const GLchar *file, GLboolean alpha);
+    static Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
 
     // Resource storage
     static ShaderMap   m_shaders;

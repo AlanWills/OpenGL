@@ -47,9 +47,12 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  Texture2D* ResourceManager::loadTexture(const GLchar *file, GLboolean alpha, StringId name)
+  Texture2D* ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
   {
-    Texture2D* texture = loadTextureFromFile(file, alpha);
+    Path path(DIRECTORY, TEXTURE_DIR);
+    path.combine(relativeFilePath);
+
+    Texture2D* texture = loadTextureFromFile(path.asString(), alpha);
     m_textures[name] = texture;
     return texture;
   }
@@ -126,7 +129,7 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  Texture2D* ResourceManager::loadTextureFromFile(const GLchar* file, GLboolean alpha)
+  Texture2D* ResourceManager::loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha)
   {
     // Create Texture object
     Texture2D* texture;
@@ -150,7 +153,7 @@ namespace Engine
 
     // Load image
     Path path(DIRECTORY);
-    path.combine(TEXTURE_DIR).combine(file);
+    path.combine(TEXTURE_DIR).combine(fullFilePath);
 
     int width, height;
     unsigned char* image = SOIL_load_image(path.asString().c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
