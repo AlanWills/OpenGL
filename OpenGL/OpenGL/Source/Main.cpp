@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Debugging/DebugManager.h"
 #include "Input/InputManager.h"
+#include "Resources/ResourceManager.h"
 #include "Time/Clock.h"
 #include "OpenGL/OpenGLWindow.h"
 
@@ -28,6 +29,7 @@ int main(int argc, char *argv[])
 
   DebugManager::init();
   InputManager::init(window);
+  ResourceManager::init();
   Clock::init();
 
   Clock gameClock;

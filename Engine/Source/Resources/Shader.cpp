@@ -23,9 +23,6 @@ namespace Engine
   {
     GLuint sVertex, sFragment, gShader;
 
-    glewExperimental = GL_TRUE;
-    glewInit();
-
     // Vertex Shader
     sVertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(sVertex, 1, &vertexSource, NULL);

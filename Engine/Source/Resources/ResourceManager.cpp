@@ -12,6 +12,13 @@ namespace Engine
 
 
   //------------------------------------------------------------------------------------------------
+  void ResourceManager::init()
+  {
+    glewExperimental = GL_TRUE;
+    glewInit();
+  }
+
+  //------------------------------------------------------------------------------------------------
   Shader* ResourceManager::loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const std::string& name)
   {
     Shader* shader = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);

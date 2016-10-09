@@ -36,6 +36,9 @@ typedef std::map<std::string, std::unique_ptr<Texture2D>>  TextureMap;
 class DllExport ResourceManager
 {
   public:
+    /// \brief Initialises resource specific data including glew and file paths
+    static void init();
+
     // Loads (and generates) a shader program from file loading vertex, fragment (and geometry) shader's source code. If gShaderFile is not nullptr, it also loads a geometry shader
     static Shader* loadShader(const GLchar *vShaderFile, const GLchar *fShaderFile, const GLchar *gShaderFile, const std::string& name);
 
