@@ -10,6 +10,7 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Shader::Shader()
   {
+    // Keep the constructor clear of runtime initialization - if we are using a Pool Allocator it may fail
   }
 
   //------------------------------------------------------------------------------------------------

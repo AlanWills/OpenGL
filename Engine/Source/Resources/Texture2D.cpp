@@ -17,6 +17,7 @@ namespace Engine
     m_filter_Min(GL_LINEAR),
     m_filter_Max(GL_LINEAR)
   {
+    // Keep the constructor clear of runtime initialization - if we are using a Pool Allocator it may fail
   }
 
   //------------------------------------------------------------------------------------------------
