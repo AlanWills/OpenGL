@@ -3,6 +3,9 @@
 #include "SpriteRenderer.h"
 #include "GLHeaders.h"
 #include "glm/glm.hpp"
+#include "Resources/Texture2D.h"
+
+using namespace Engine;
 
 class GameObject
 {

@@ -7,6 +7,7 @@
 #include "Resources/Texture2D.h"
 #include "Resources/Shader.h"
 
+using namespace Engine;
 
 class SpriteRenderer
 {
