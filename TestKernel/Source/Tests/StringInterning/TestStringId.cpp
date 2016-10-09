@@ -12,7 +12,7 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_StringId_InternString_SameStringsEqualId)
 		{
-      const char* string = "Test String";
+      std::string string("Test String");
 
       StringId firstStringId = internString(string);
       StringId secondStringId = internString(string);
@@ -23,8 +23,8 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_StringId_InternString_DifferentStringsNotEqualId)
     {
-      const char* firstString = "First String";
-      const char* secondString = "Second String";
+      std::string firstString("First String");
+      std::string secondString("Second String");
 
       StringId firstStringId = internString(firstString);
       StringId secondStringId = internString(secondString);
@@ -35,7 +35,7 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_StringId_InternStringFast)
     {
-      const char* string = "Test String";
+      std::string string("Test String") ;
 
       StringId firstStringId = internString(string);
 
@@ -48,8 +48,8 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_StringId_DeinternString)
     {
-      const char* firstString = "First String";
-      const char* secondString = "Second String";
+      std::string firstString("First String");
+      std::string secondString("Second String");
 
       StringId firstStringId = internString(firstString);
       StringId secondStringId = internString(secondString);

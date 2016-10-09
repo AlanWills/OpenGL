@@ -39,6 +39,11 @@ typedef std::map<StringId, Texture2D*>                  TextureMap;
 typedef PoolAllocator<Texture2D, TEXTURE_POOL_SIZE>     TexturePool;
 typedef std::vector<std::unique_ptr<Texture2D>>         TexturePoolOverflow;
 
+namespace ResourceStringIds
+{
+  static const StringId SpriteShader = internString("sprite");
+}
+
 // A static singleton ResourceManager class that hosts several
 // functions to load Textures and Shaders. Each loaded texture
 // and/or shader is also stored for future reference by string

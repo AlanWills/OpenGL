@@ -108,7 +108,7 @@ void GameLevel::init(
 
       GameObject* obj = new GameObject(pos,
         size,
-        ResourceManager::getTexture(textureAsset),
+        ResourceManager::getTexture(internString(textureAsset)),
         colour);
       obj->setSolid(isSolid);
       m_bricks.push_back(std::unique_ptr<GameObject>(obj));

@@ -3,13 +3,13 @@
 
 namespace Kernel
 {
-  static std::unordered_map<StringId, const char*> g_stringIdTable;
-  static std::unordered_map<const char*, StringId> g_idStringTable;   // Used for quick interning
+  static std::unordered_map<StringId, std::string> g_stringIdTable;
+  static std::unordered_map<std::string, StringId> g_idStringTable;   // Used for quick interning
 
   //------------------------------------------------------------------------------------------------
-  StringId internString(const char* str)
+  StringId internString(const std::string& str)
   {
-    StringId strId = stringToStringId(str);
+    StringId strId = stringToStringId(str.c_str());
 
     if (g_stringIdTable.find(strId) == g_stringIdTable.end())
     {
@@ -24,14 +24,14 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  StringId internStringFast(const char* str)
+  StringId internStringFast(const std::string& str)
   {
     ASSERT(g_idStringTable.find(str) != g_idStringTable.end());
     return g_idStringTable[str];
   }
 
   //------------------------------------------------------------------------------------------------
-  const char* deinternString(StringId strId)
+  const std::string& deinternString(StringId strId)
   {
     ASSERT(g_stringIdTable.find(strId) != g_stringIdTable.end());
 

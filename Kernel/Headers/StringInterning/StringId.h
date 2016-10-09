@@ -11,11 +11,11 @@ namespace Kernel
 {
   typedef uint32_t StringId;
 
-  StringId DllExport _cdecl internString(const char* str);
+  StringId DllExport _cdecl internString(const std::string& str);
   /// \brief Uses a reverse map to find the string and get it's stored StringId - this will not set up the string if it does not exist
   /// Only use if you are confident the string is in the map
-  StringId DllExport _cdecl internStringFast(const char* str);
-  DllExport const char* deinternString(StringId strId); // Don't know why these DllExports have to be this way round but it works so who cares!
+  StringId DllExport _cdecl internStringFast(const std::string& str);
+  DllExport const std::string& deinternString(StringId strId); // Don't know why these DllExports have to be this way round but it works so who cares!
 
   //------------------------------------------------------------------------------------------------
   // Hashing implementation

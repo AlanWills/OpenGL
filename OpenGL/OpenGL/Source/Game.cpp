@@ -28,9 +28,9 @@ void Game::init(GLFWwindow* window)
   m_height = 600;
 
   //glCheckError();
-
+  
   // Load shaders
-  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, "sprite");
+  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, ResourceStringIds::SpriteShader);
 
   // Configure shaders
   shader->use(); 
@@ -38,11 +38,12 @@ void Game::init(GLFWwindow* window)
   shader->setMatrix4("projection", glm::ortho(0.0f, (GLfloat)m_width, (GLfloat)m_height, 0.0f, -1.0f, 1.0f));
 
   // Load textures
-  ResourceManager::loadTexture("background.jpg", GL_FALSE, "background");
-  ResourceManager::loadTexture("awesomeface.png", GL_TRUE, "face");
-  ResourceManager::loadTexture("block.png", GL_FALSE, "block");
-  ResourceManager::loadTexture("block_solid.png", GL_FALSE, "block_solid");
-  ResourceManager::loadTexture("paddle.png", GL_TRUE, "paddle");
+  /// TODO: Ouch - move these string interns
+  ResourceManager::loadTexture("background.jpg", GL_FALSE, internString("background"));
+  ResourceManager::loadTexture("awesomeface.png", GL_TRUE, internString("face"));
+  ResourceManager::loadTexture("block.png", GL_FALSE, internString("block"));
+  ResourceManager::loadTexture("block_solid.png", GL_FALSE, internString("block_solid"));
+  ResourceManager::loadTexture("paddle.png", GL_TRUE, internString("paddle"));
 
   // Load levels
   for (const std::pair<int, std::string>& levelPairs : m_levelFiles)
@@ -53,10 +54,10 @@ void Game::init(GLFWwindow* window)
   m_spriteRenderer.reset(new SpriteRenderer(shader));
 
   glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
-  m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture("paddle")));
+  m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture(internString("paddle"))));
 
   glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f, playerPos.y);
-  m_ball.reset(new Ball(ballPos, ResourceManager::getTexture("face")));
+  m_ball.reset(new Ball(ballPos, ResourceManager::getTexture(internString("face"))));
 
   //glCheckError();
 }
@@ -153,7 +154,7 @@ void Game::render(GLfloat timeFromLastUpdate)
   if (m_state == GAME_ACTIVE)
   {
     // Draw background
-    m_spriteRenderer->drawSprite(ResourceManager::getTexture("background"), glm::vec2(0), glm::vec2(m_width, m_height));
+    m_spriteRenderer->drawSprite(ResourceManager::getTexture(internStringFast("background")), glm::vec2(0), glm::vec2(m_width, m_height));
     m_levels[m_currentLevel]->draw(*m_spriteRenderer, timeFromLastUpdate);
     m_player->draw(*m_spriteRenderer, timeFromLastUpdate);
     m_ball->draw(*m_spriteRenderer, timeFromLastUpdate);
