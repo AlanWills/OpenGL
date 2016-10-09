@@ -1,6 +1,5 @@
 #include "Debug.h"
 #include "FileSystem/Directory.h"
-#include "FileSystem/Path.h"
 #include "FileSystem/File.h"
 #include "Utils/StringUtils.h"
 
@@ -12,15 +11,22 @@ namespace Kernel
   Directory::Directory(const std::string& fullDirectoryPath) :
     m_dirPath(fullDirectoryPath)
   {
-    create(m_dirPath);
+    create(m_dirPath.asString());
   }
 
   //------------------------------------------------------------------------------------------------
   Directory::Directory(const std::string& parentDirectoryPath, const std::string& relativePathFromParent) :
     m_dirPath(parentDirectoryPath)
   {
-    Path::combine(m_dirPath, relativePathFromParent);
-    create(m_dirPath);
+    m_dirPath.combine(relativePathFromParent);
+    create(m_dirPath.asString());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Directory::Directory(const Path& path) :
+    m_dirPath(path)
+  {
+
   }
 
   //------------------------------------------------------------------------------------------------
@@ -37,6 +43,15 @@ namespace Kernel
     char c_buffer[1024];
     StringUtils::wcharToChar(w_buffer, c_buffer, 1024);
     outputDir.append(c_buffer);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  std::string Directory::getExecutingAppDirectory()
+  {
+    std::string buffer;
+    getExecutingAppDirectory(buffer);
+
+    return buffer;
   }
 
   //------------------------------------------------------------------------------------------------

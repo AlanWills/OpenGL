@@ -16,6 +16,10 @@ namespace Engine
   ShaderPoolOverflow    ResourceManager::m_shaderOverflow;
   TexturePoolOverflow   ResourceManager::m_textureOverflow;
 
+  const Path            ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory(), DIRECTORY);
+  const Path            ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
+  const Path            ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
+
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::init()
@@ -75,7 +79,7 @@ namespace Engine
   Shader* ResourceManager::loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile)
   {
     // Create shader object
-    Shader* shader;
+    Shader* shader = nullptr;
     if (m_shaderPool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
@@ -88,29 +92,34 @@ namespace Engine
       m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader));
     }
 
+    ASSERT(shader);
+
     // Retrieve the vertex/fragment/geometry source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
     std::string geometryCode;
 
-    Path path(DIRECTORY);
-    path.combine(SHADER_DIR).combine(VERTEX_SHADER_DIR).combine(vShaderFile);
+    Path path(m_shaderDirectoryPath);
+    path.combine(VERTEX_SHADER_DIR).combine(vShaderFile);
 
     File file(path);
+    ASSERT(file.exists());
     file.read(vertexCode);
 
-    path = Path(DIRECTORY);
-    path.combine(SHADER_DIR).combine(FRAGMENT_SHADER_DIR).combine(fShaderFile);
+    path = m_shaderDirectoryPath;
+    path.combine(FRAGMENT_SHADER_DIR).combine(fShaderFile);
 
     file = File(path);
+    ASSERT(file.exists());
     file.read(fragmentCode);
 
     if (gShaderFile)
     {
-      path = Path(DIRECTORY);
-      path.combine(SHADER_DIR).combine(GEOMETRY_SHADER_DIR).combine(gShaderFile);
+      path = m_shaderDirectoryPath;
+      path.combine(GEOMETRY_SHADER_DIR).combine(gShaderFile);
 
       file = File(path);
+      ASSERT(file.exists());
       file.read(geometryCode);
     }
 
@@ -132,7 +141,7 @@ namespace Engine
   Texture2D* ResourceManager::loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha)
   {
     // Create Texture object
-    Texture2D* texture;
+    Texture2D* texture = nullptr;
     if (m_texturePool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
@@ -145,19 +154,25 @@ namespace Engine
       m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture));
     }
 
+    ASSERT(texture);
+
     if (alpha)
     {
       texture->setInternalFormat(GL_RGBA);
       texture->setImageFormat(GL_RGBA);
     }
 
-    // Load image
-    Path path(DIRECTORY);
-    path.combine(TEXTURE_DIR).combine(fullFilePath);
+#ifdef _DEBUG
+    // Do some debug checking on the image path to make sure it exists
+    File file(fullFilePath);
+    ASSERT(file.exists());
+#endif
+
+    // Load the image
 
     int width, height;
-    unsigned char* image = SOIL_load_image(path.asString().c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
-    assert(image);
+    unsigned char* image = SOIL_load_image(fullFilePath.c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
+    ASSERT(image);
 
     // Now generate texture
     texture->generate(width, height, image);

@@ -11,20 +11,20 @@ namespace Kernel
   File::File(const std::string& filePath, bool clearIfAlreadyExists) :
     m_filePath(filePath)
   {
-    create(filePath, clearIfAlreadyExists);
+    create(m_filePath.asString(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
   File::File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists) :
     m_filePath(fullParentDirectoryPath)
   {
-    Path::combine(m_filePath, relativeFilePath);
-    create(m_filePath, clearIfAlreadyExists);
+    m_filePath.combine(relativeFilePath);
+    create(m_filePath.asString(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
   File::File(const Path& path) :
-    File(path.asString())
+    m_filePath(path)
   {
   }
 

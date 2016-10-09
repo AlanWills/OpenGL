@@ -27,7 +27,7 @@ void Game::init(GLFWwindow* window)
   m_width = 800;
   m_height = 600;
 
-  //glCheckError();
+  glCheckError();
   
   // Load shaders
   Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", nullptr, ResourceStringIds::SpriteShader);
@@ -38,7 +38,7 @@ void Game::init(GLFWwindow* window)
   shader->setMatrix4("projection", glm::ortho(0.0f, (GLfloat)m_width, (GLfloat)m_height, 0.0f, -1.0f, 1.0f));
 
   // Load textures
-  /// TODO: Ouch - move these string interns
+  /// TODO: Ouch - move these string interns to somewhere static - maybe in resource loading?
   ResourceManager::loadTexture("background.jpg", GL_FALSE, internString("background"));
   ResourceManager::loadTexture("awesomeface.png", GL_TRUE, internString("face"));
   ResourceManager::loadTexture("block.png", GL_FALSE, internString("block"));
@@ -54,12 +54,12 @@ void Game::init(GLFWwindow* window)
   m_spriteRenderer.reset(new SpriteRenderer(shader));
 
   glm::vec2 playerPos((m_width - m_playerSize.x) * 0.5f, m_height - m_playerSize.y);
-  m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture(internString("paddle"))));
+  m_player.reset(new GameObject(playerPos, m_playerSize, ResourceManager::getTexture(internStringFast("paddle"))));
 
   glm::vec2 ballPos(playerPos.x + m_playerSize.x * 0.5f, playerPos.y);
-  m_ball.reset(new Ball(ballPos, ResourceManager::getTexture(internString("face"))));
+  m_ball.reset(new Ball(ballPos, ResourceManager::getTexture(internStringFast("face"))));
 
-  //glCheckError();
+  glCheckError();
 }
 
 //------------------------------------------------------------------------------------------------

@@ -20,7 +20,11 @@ using namespace Kernel;
 
 namespace Engine
 {
-#define DIRECTORY "../OpenGL"
+#ifdef WIN32
+#define DIRECTORY "..\\OpenGL"
+#else
+#define DIRECTORY"../OpenGL"
+#endif
 #define TEXTURE_DIR "Assets"
 #define SHADER_DIR "Shaders"
 #define LEVEL_DIR "Levels"
@@ -75,7 +79,7 @@ class DllExport ResourceManager
     // Loads and generates a shader from file
     static Shader* loadShaderFromFile(const GLchar* vShaderFile, const GLchar* fShaderFile, const GLchar* gShaderFile = nullptr);
 
-    // Loads a single texture from file
+    /// \brief Loads a single texture from file - requires the full texture file path as input
     static Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
 
     // Resource storage
@@ -90,6 +94,10 @@ class DllExport ResourceManager
     // Ideally we want the X_POOL_SIZE to be large enough to never use these, but unexpected things may happen that we should account for
     static ShaderPoolOverflow   m_shaderOverflow;
     static TexturePoolOverflow  m_textureOverflow;
+
+    static const Path     m_resourceDirectoryPath;
+    static const Path     m_textureDirectoryPath;
+    static const Path     m_shaderDirectoryPath;
 };
 
 }

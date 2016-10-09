@@ -79,6 +79,15 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_Constructor_Path)
+    {
+      Path path(testDirectory, "Test");
+      Directory dir(path);
+
+      Assert::IsTrue(dir.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Exists)
     {
       // Create and check the test directory

@@ -36,10 +36,10 @@ template <typename T, size_t PoolSize>
 PoolAllocator<T, PoolSize>::PoolAllocator() :
   m_head(0)
 {
-  // Construct all the objects
+  // Construct all the objects - I think this is necessary
   for (size_t i = 0; i < PoolSize; ++i)
   {
-    m_pool[i] = T();
+    new (&m_pool[i]) T();
   }
 }
 
