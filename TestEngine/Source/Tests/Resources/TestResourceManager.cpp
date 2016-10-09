@@ -7,11 +7,11 @@ using namespace Engine;
 
 namespace TestEngine
 {
+  static Directory testResourceDir(Directory::getExecutingAppDirectory());
+
   TEST_CLASS(TestResourceManager)
   {
   public:
-
-    static Directory testResourceDir;
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestResourceManager_Setup)
