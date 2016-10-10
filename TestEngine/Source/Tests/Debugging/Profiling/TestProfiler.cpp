@@ -11,7 +11,7 @@ using namespace Engine;
 
 namespace TestEngine
 {
-  static std::string resultsFilePath;
+  static Path resultsFilePath(Directory::getExecutingAppDirectory());
   static StringId codeBlockStringId = internString("Profile Code Block");
   static StringId functionBlockStringId = internString("Profile Function Block");
 
@@ -29,15 +29,14 @@ namespace TestEngine
       glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
       glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-      Directory::getExecutingAppDirectory(resultsFilePath);
-      Path::combine(resultsFilePath, "Profiling.txt");
+      resultsFilePath.combine("Profiling.txt");
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Profiler_Constructor)
     {
       Profiler profiler;
-      AssertExt::assertFileExists(resultsFilePath);
+      AssertExt::assertFileExists(resultsFilePath.asString());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -46,7 +45,7 @@ namespace TestEngine
       Profiler profiler;
       int expectedTime = 1;
 
-      profiler.startProfilingBlock(codeBlockStringId);
+      profiler.beginProfilingBlock(codeBlockStringId);
 
       // Simulate some work
       std::this_thread::sleep_for(std::chrono::seconds(expectedTime));
@@ -57,8 +56,8 @@ namespace TestEngine
 
       Assert::IsNotNull(profilingBlock);
       Assert::AreEqual(1, profilingBlock->getNumCalls());
-      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getAverageTimeTaken(), 0.1f);
-      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getLastCallTimeTaken(), 0.1f);
+      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getAverageTimeTaken(), 0.5f);
+      AssertExt::assertAreAlmostEqual(expectedTime, profilingBlock->getLastCallTimeTaken(), 0.5f);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -69,7 +68,7 @@ namespace TestEngine
 
       for (int i = 0; i < numCalls; ++i)
       {
-        profiler.startProfilingBlock(codeBlockStringId);
+        profiler.beginProfilingBlock(codeBlockStringId);
 
         testFunction();
 
@@ -96,7 +95,7 @@ namespace TestEngine
         Profiler profiler;
         int expectedTime = 1;
 
-        profiler.startProfilingBlock(codeBlockStringId);
+        profiler.beginProfilingBlock(codeBlockStringId);
 
         // Simulate some work
         std::this_thread::sleep_for(std::chrono::seconds(expectedTime));
@@ -127,7 +126,7 @@ namespace TestEngine
 
         for (int i = 0; i < numCalls; ++i)
         {
-          profiler.startProfilingBlock(codeBlockStringId);
+          profiler.beginProfilingBlock(codeBlockStringId);
 
           testFunction();
 
@@ -164,7 +163,7 @@ namespace TestEngine
       StringUtils::numericToStringAppend(lastTime, expectedFileContents);
       expectedFileContents.append("\n");
 
-      AssertExt::assertFileContents(resultsFilePath, expectedFileContents);
+      AssertExt::assertFileContents(resultsFilePath.asString(), expectedFileContents);
     }
 
     //------------------------------------------------------------------------------------------------

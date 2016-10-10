@@ -77,7 +77,7 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Profiler::startProfilingBlock(StringId profilingBlockName)
+  void Profiler::beginProfilingBlock(StringId profilingBlockName)
   {
     if (!m_profilingBlockPool.canAllocate())
     {

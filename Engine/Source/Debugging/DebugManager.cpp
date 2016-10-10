@@ -6,8 +6,8 @@
 namespace Engine
 {
   // Initialise the static members here
-  std::unique_ptr<Profiler> DebugManager::s_profiler(nullptr);
-  std::unique_ptr<Logger> DebugManager::s_logger(nullptr);
+  std::unique_ptr<Profiler> DebugManager::s_profiler(new Profiler());
+  std::unique_ptr<Logger> DebugManager::s_logger(new ErrorLogger());
 
   //------------------------------------------------------------------------------------------------
   DebugManager::DebugManager()
@@ -17,13 +17,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   DebugManager::~DebugManager()
   {
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void DebugManager::init()
-  {
-    setProfiler(new Profiler());
-    setLogger(new ErrorLogger());
   }
 
   //------------------------------------------------------------------------------------------------

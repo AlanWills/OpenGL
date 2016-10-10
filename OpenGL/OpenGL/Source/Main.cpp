@@ -27,7 +27,6 @@ int main(int argc, char *argv[])
   glewInit();
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-  DebugManager::init();
   InputManager::init(window);
   ResourceManager::init();
   Clock::init();

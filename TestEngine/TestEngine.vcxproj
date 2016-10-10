@@ -175,6 +175,7 @@
     <ClCompile Include="Source\Tests\Debugging\Logging\TestErrorLogger.cpp" />
     <ClCompile Include="Source\Tests\Debugging\Logging\TestLogger.cpp" />
     <ClCompile Include="Source\Tests\Debugging\Profiling\TestProfiler.cpp" />
+    <ClCompile Include="Source\Tests\Debugging\TestDebugManager.cpp" />
     <ClCompile Include="Source\Tests\Input\Keyboard\TestKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />

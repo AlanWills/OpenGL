@@ -40,7 +40,6 @@ namespace TestEngine
     {
       std::string message("Message");
 
-      // Sanity check to catch any errors in constructor
       ErrorLogger logger;
       int line = __LINE__; line++;
       logger.logError(message, ErrorLogger::kWarning, FUNCTION, FILENAME, LINE);
@@ -62,7 +61,6 @@ namespace TestEngine
     {
       std::string message("Message");
 
-      // Sanity check to catch any errors in constructor
       ErrorLogger logger;
       int line = __LINE__; line++;
       logger.logError(message, ErrorLogger::kError, FUNCTION, FILENAME, LINE);
@@ -84,7 +82,6 @@ namespace TestEngine
     {
       std::string message("Message");
 
-      // Sanity check to catch any errors in constructor
       ErrorLogger logger;
       int line = __LINE__; line++;
       logger.logError(message, ErrorLogger::kCriticalError, FUNCTION, FILENAME, LINE);

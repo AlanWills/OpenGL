@@ -28,7 +28,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_CollectAllAssetsOnInit)
     {
-      // Can use the directory getFiles stuff here
+      // Can use the directory getFiles stuff here to compare all asset types with those registered in ResourceManager
     }
 
     //------------------------------------------------------------------------------------------------

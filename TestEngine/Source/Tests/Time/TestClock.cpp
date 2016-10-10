@@ -174,10 +174,10 @@ namespace TestEngine
       Assert::AreEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles());
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)cyclesPerSecond, clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)cyclesPerSecond, clock.getElapsedCycles(), 4);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(1.5f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(1.5f * cyclesPerSecond), clock.getElapsedCycles(), 6);
     }
 
     //------------------------------------------------------------------------------------------------

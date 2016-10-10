@@ -26,7 +26,7 @@ class DllExport Profiler
 
     /// \brief Begin a profiling block
     /// Will create a new block if one for the inputted profiling name does not exist
-    void startProfilingBlock(StringId profilingBlockName);
+    void beginProfilingBlock(StringId profilingBlockName);
 
     /// \brief Close off the profiling block and check the input matches the current block running
     void endProfilingBlock(StringId profilingBlockName);
