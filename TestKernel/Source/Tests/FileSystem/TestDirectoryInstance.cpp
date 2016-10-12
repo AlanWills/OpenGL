@@ -88,6 +88,40 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_Constructor_Copy)
+    {
+      Path path(testDirectory, "Test");
+      Directory dir(path);
+      Assert::IsTrue(dir.exists());
+
+      // Now remove the directory
+      rmdir(path.asString().c_str());
+      Assert::IsFalse(dir.exists());
+
+      Directory dirCopy(dir);
+
+      // Check the directory still does not exist
+      Assert::IsFalse(dirCopy.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_AssignmentOperator)
+    {
+      Path path(testDirectory, "Test");
+      Directory dir(path);
+      Assert::IsTrue(dir.exists());
+
+      // Now remove the directory
+      rmdir(path.asString().c_str());
+      Assert::IsFalse(dir.exists());
+
+      Directory dirCopy = dir;
+
+      // Check the directory still does not exist
+      Assert::IsFalse(dirCopy.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Exists)
     {
       // Create and check the test directory

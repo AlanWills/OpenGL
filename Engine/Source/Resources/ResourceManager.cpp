@@ -192,6 +192,7 @@ namespace Engine
 
   //------------------------------------------------------------------------------------------------
   // Utility setters for the asset directory paths
+  // The copy constructor for Path just copies the underlying string so is quick
   //------------------------------------------------------------------------------------------------
   
 
@@ -204,36 +205,56 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setResourceDirectoryPath(const Path& resourceDirectoryPath)
   {
+    m_resourceDirectoryPath = resourceDirectoryPath;
     
+    Path newShaderPath(m_resourceDirectoryPath);
+    newShaderPath.combine(SHADER_DIR);
+    setShaderDirectoryPath(newShaderPath);
+
+    Path newTexturePath(m_resourceDirectoryPath);
+    newTexturePath.combine(TEXTURE_DIR);
+    setTextureDirectoryPath(newTexturePath);
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setTextureDirectoryPath(const Path& textureDirectoryPath)
   {
-
+    m_textureDirectoryPath = textureDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setShaderDirectoryPath(const Path& shaderDirectoryPath)
   {
+    m_shaderDirectoryPath = shaderDirectoryPath;
 
+    Path newVertexPath(m_shaderDirectoryPath);
+    newVertexPath.combine(VERTEX_SHADER_DIR);
+    setVertexShaderDirectoryPath(newVertexPath);
+
+    Path newFragmentPath(m_shaderDirectoryPath);
+    newFragmentPath.combine(FRAGMENT_SHADER_DIR);
+    setVertexShaderDirectoryPath(newFragmentPath);
+
+    Path newGeomtryPath(m_shaderDirectoryPath);
+    newGeomtryPath.combine(GEOMETRY_SHADER_DIR);
+    setVertexShaderDirectoryPath(newGeomtryPath);
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath)
   {
-
+    m_vertexShaderDirectoryPath = vertexShaderDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath)
   {
-
+    m_fragmentShaderDirectoryPath = fragmentShaderDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath)
   {
-
+    m_geometryShaderDirectoryPath = geometryShaderDirectoryPath;
   }
 }

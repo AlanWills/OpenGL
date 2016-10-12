@@ -26,12 +26,27 @@ namespace Kernel
   Directory::Directory(const Path& path) :
     m_dirPath(path)
   {
+    create(m_dirPath.asString());
+  }
 
+  //------------------------------------------------------------------------------------------------
+  Directory::Directory(const Directory& directory) :
+    m_dirPath(directory.m_dirPath)
+  {
+    // No create here - preserve state of input directory
   }
 
   //------------------------------------------------------------------------------------------------
   Directory::~Directory()
   {
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Directory& Directory::operator=(const Directory& other)
+  {
+    // No create here - preserve state of input directory
+    m_dirPath = other.m_dirPath;
+    return *this;
   }
 
   //------------------------------------------------------------------------------------------------

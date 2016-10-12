@@ -16,9 +16,12 @@ namespace Kernel
 class DllExport Path
 {
   public:
-    Path(const std::string& path);
+    Path(const std::string& fullPath);
     Path(const std::string& parentPath, const std::string& relativePath);
+    Path(const Path& path);   // Copy constructor just copies underlying string
     ~Path();
+
+    Path& operator=(const Path& other);
 
     /// \brief Appends a PATH_DELIMITER and the secondPath onto the firstPath
     /// std::string first("first\\path"), second("second\\path");
@@ -32,6 +35,11 @@ class DllExport Path
     /// Appends the full path onto the output string so anything already in the string will not be removed
     static void getParentDirectory(const std::string& fullPath, std::string& outParentDirectory);
     void getParentDirectory(std::string& outParentDirectory) const { getParentDirectory(m_path, outParentDirectory); }
+
+    /// \brief Sets the stored string path to be the new inputted values
+    /// Allows a way to reuse the same Path object rather than constructing a new one
+    void reset(const std::string& fullPath);
+    void reset(const std::string& parentPath, const std::string& relativePath);
 
     /// \brief Returns the path represented by this object as a string
     const std::string& asString() const { return m_path; }

@@ -88,7 +88,7 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Constructor_Instance_RelativeToDirectory)
+    TEST_METHOD(Test_File_Instance_Constructor_RelativeToDirectory)
     {
       File file(parentDirectory, testFileName);
       std::string expected("TestString");
@@ -115,12 +115,50 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_File_Constructor_Path)
+    TEST_METHOD(Test_File_Instance_Constructor_Path)
     {
       Path path(testFilePath);
       File file(path);
 
       checkTestFileExists();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Instance_Constructor_Copy)
+    {
+      Path path(testFilePath);
+      File file(path);
+      checkTestFileExists();
+
+      // Now remove test file
+      std::remove(path.asString().c_str());
+      std::fstream fileStream(path.asString());
+      Assert::IsFalse(fileStream.good());
+
+      File file2(file);
+
+      // Check the test file still does not exist
+      fileStream = std::fstream(path.asString());
+      Assert::IsFalse(fileStream.good());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Instance_AssignmentOperator)
+    {
+      Path path(testFilePath);
+      File file(path);
+      checkTestFileExists();
+
+      // Now remove test file
+      std::remove(path.asString().c_str());
+      std::fstream fileStream(path.asString());
+      Assert::IsFalse(fileStream.good());
+
+      File file2 = file;
+
+      // Check the test file still does not exist
+      fileStream = std::fstream(path.asString());
+      Assert::IsFalse(fileStream.good());
     }
 
     //------------------------------------------------------------------------------------------------

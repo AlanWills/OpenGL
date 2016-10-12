@@ -18,6 +18,11 @@ class DllExport Directory
     Directory(const Path& path);
     ~Directory();
 
+    /// Copy constructor and assignment operator do not create the directory; just copy the path
+    /// This seems reasonable as we wish to preserve the internal state of the filesystem if we are copying a Directory which does not exist
+    Directory(const Directory& directory);
+    Directory& operator=(const Directory&);
+
     /// \brief Get the directory of the executing .exe
     static void getExecutingAppDirectory(std::string& outputDir);
     static std::string getExecutingAppDirectory();

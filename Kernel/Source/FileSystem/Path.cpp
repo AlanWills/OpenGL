@@ -4,25 +4,53 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
-  Path::Path(const std::string& path) :
-    m_path(path)
+  Path::Path(const std::string& path)
   {
-    // Creating an empty path is a little odd
-    ASSERT(!m_path.empty());
+    reset(path);
   }
 
   //------------------------------------------------------------------------------------------------
   Path::Path(const std::string& parentPath, const std::string& relativePath) :
     m_path(parentPath)
   {
-    // Creating an empty path is a little odd and calling the constructor with an empty path is odd too (though still valid)
-    ASSERT(!m_path.empty() && !relativePath.empty());
-    combine(m_path, relativePath);
+    reset(parentPath, relativePath);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Path::Path(const Path& path)
+  {
+    reset(path.asString());
   }
 
   //------------------------------------------------------------------------------------------------
   Path::~Path()
   {
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Path& Path::operator=(const Path& other)
+  {
+    m_path = other.m_path;
+    return *this;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Path::reset(const std::string& fullPath)
+  {
+    // Creating an empty path is a little odd
+    ASSERT(!fullPath.empty());
+
+    m_path = fullPath;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Path::reset(const std::string& parentPath, const std::string& relativePath)
+  {
+    // Creating an empty path is a little odd and calling this with an empty relative path is odd too (though still valid)
+    ASSERT(!parentPath.empty() && !relativePath.empty());
+
+    m_path = parentPath;
+    combine(m_path, relativePath);
   }
 
   //------------------------------------------------------------------------------------------------

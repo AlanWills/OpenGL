@@ -19,9 +19,14 @@ class DllExport File
     /// Be careful passing string literals as the second arg to this constructor as it will convert it to a bool rather than a const std::string&
     /// and so call the first constructor
     File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = false);
-    ~File();
 
     File(const Path& path);
+    ~File();
+
+    /// Copy constructor and assignment operator do not create the file; just copy the path
+    /// This seems reasonable as we wish to preserve the internal state of the filesystem if we are copying a File which does not exist
+    File(const File& file);
+    File& operator=(const File& file);
 
     /// \brief Returns true if the file exists
     static bool exists(const std::string& fullFilePath);

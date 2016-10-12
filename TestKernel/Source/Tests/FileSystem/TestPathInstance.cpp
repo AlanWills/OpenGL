@@ -38,6 +38,66 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_Reset_FullPath)
+    {
+      std::string expected("Root");
+
+      Path path(expected);
+      Assert::AreEqual(expected, path.asString());
+
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      path.reset(expected);
+
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_Reset_ParentRelativePaths)
+    {
+      std::string expected("Root");
+
+      Path path(expected);
+      Assert::AreEqual(expected, path.asString());
+
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      path.reset("Root", "Directory.txt");
+
+      Assert::AreEqual(expected, path.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_CopyConstructor)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      Path original(expected);
+      Assert::AreEqual(expected, original.asString());
+
+      Path copy(original);
+      Assert::AreEqual(expected, copy.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_AssignmentOperator)
+    {
+      std::string expected("Root");
+      expected.push_back(PATH_DELIMITER);
+      expected.append("Directory.txt");
+
+      Path original(expected);
+      Assert::AreEqual(expected, original.asString());
+
+      Path copy = original;
+      Assert::AreEqual(expected, copy.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Path_Instance_CombinePaths_NeitherHaveDelimiter)
     {
       std::string expected("Test");

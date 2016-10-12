@@ -152,16 +152,16 @@ namespace TestEngine
       clock.setTimeScale(0.5f);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(0.125f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(0.125f * cyclesPerSecond), clock.getElapsedCycles(), 2);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(0.25f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(0.25f * cyclesPerSecond), clock.getElapsedCycles(), 4);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(0.375f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(0.375f * cyclesPerSecond), clock.getElapsedCycles(), 6);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles(), 8);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -171,7 +171,7 @@ namespace TestEngine
       clock.setTimeScale(2.0f);
 
       clock.singleStep();
-      Assert::AreEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles());
+      AssertExt::assertAreAlmostEqual((uint64_t)(0.5f * cyclesPerSecond), clock.getElapsedCycles(), 2);
 
       clock.singleStep();
       AssertExt::assertAreAlmostEqual((uint64_t)cyclesPerSecond, clock.getElapsedCycles(), 4);

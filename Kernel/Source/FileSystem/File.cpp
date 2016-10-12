@@ -26,11 +26,27 @@ namespace Kernel
   File::File(const Path& path) :
     m_filePath(path)
   {
+    create(m_filePath.asString());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  File::File(const File& file) :
+    m_filePath(file.m_filePath)
+  {
+    // No create here - preserve state of input file
   }
 
   //------------------------------------------------------------------------------------------------
   File::~File()
   {
+  }
+
+  //------------------------------------------------------------------------------------------------
+  File& File::operator=(const File& other)
+  {
+    // No create here - preserve state of input directory
+    m_filePath = other.m_filePath;
+    return *this;
   }
 
   //------------------------------------------------------------------------------------------------
