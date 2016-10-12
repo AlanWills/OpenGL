@@ -29,30 +29,31 @@ namespace TestEngine
     TEST_METHOD(Test_ResourceManager_CollectAllAssetsOnInit)
     {
       // Can use the directory getFiles stuff here to compare all asset types with those registered in ResourceManager
+      Assert::Fail();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadShader)
     {
-
+      Assert::Fail();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetShader)
     {
-
+      Assert::Fail();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadTexture)
     {
-
+      Assert::Fail();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetTexture)
     {
-
+      Assert::Fail();
     }
 
     // Then test the setters for the directories?  Is this necessary?  How do we actually get the Paths?
