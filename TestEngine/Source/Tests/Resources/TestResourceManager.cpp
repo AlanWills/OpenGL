@@ -10,15 +10,13 @@ namespace TestEngine
   static Directory testResourceDir(Directory::getExecutingAppDirectory());
   static StringId spriteStringId = internString("sprite");
 
-  TEST_CLASS(TestResourceManager)
+  TEST_CLASS(TestResourceManager), public GLUnitTest
   {
   public:
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestResourceManager_Setup)
     {
-      GLFW_INIT();
-
       Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
       testResourceDir = Directory(resourceDirPath);
       Assert::IsTrue(testResourceDir.exists());
@@ -26,12 +24,6 @@ namespace TestEngine
       // This should allow us to change the resource manager to look for assets in our test directory
       //ResourceManager::setResourceDirectoryPath(resourceDirPath);
       ResourceManager::init();
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestResourceManager_Cleanup)
-    {
-      GLFW_TERMINATE();
     }
 
     //------------------------------------------------------------------------------------------------

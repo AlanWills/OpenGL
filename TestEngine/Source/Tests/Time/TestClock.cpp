@@ -2,6 +2,9 @@
 
 #include "Time/Clock.h"
 
+#include <chrono>
+#include <thread>
+
 using namespace Engine;
 
 uint64_t Clock::s_cyclesPerSecond = 2;
@@ -10,30 +13,18 @@ uint64_t cyclesPerSecond = 0;
 namespace TestEngine
 {
 
-  TEST_CLASS(TestClock)
+  TEST_CLASS(TestClock), public GLUnitTest
   {
   public:
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestClock_Setup)
     {
-      // Set up glfw so we can get the timer frequency
+      // Manually init for cycles per second
       GLFW_INIT();
 
       cyclesPerSecond = glfwGetTimerFrequency();
       Clock::init();
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD_INITIALIZE(TestClock_MethodSetup)
-    {
-      glfwSetTime(0);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestClock_Cleanup)
-    {
-      GLFW_TERMINATE();
     }
 
     //------------------------------------------------------------------------------------------------
@@ -196,6 +187,8 @@ namespace TestEngine
     TEST_METHOD(Test_Clock_Reset)
     {
       Clock clock;
+
+      std::this_thread::sleep_for(std::chrono::milliseconds(1000));
 
       clock.update();
       Assert::AreNotEqual((uint64_t)0, clock.getElapsedCycles());

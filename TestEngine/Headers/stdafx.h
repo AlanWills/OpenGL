@@ -9,6 +9,7 @@
 
 #include "AssertExt.h"
 #include "GLHeaders.h"
+#include "GLUnitTest.h"
 #include "StringInterning/StringId.h"
 #include "Utils/StringUtils.h"
 

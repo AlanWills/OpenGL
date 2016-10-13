@@ -7,22 +7,9 @@ using namespace Engine;
 namespace TestEngine
 {
 
-  TEST_CLASS(TestOpenGLWindow)
+  TEST_CLASS(TestOpenGLWindow), public GLUnitTest
   {
   public:
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestOpenGLWindow_Setup)
-    {
-      // Set up glfw so we can create our window without problems
-      GLFW_INIT();
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestOpenGLWindow_Cleanup)
-    {
-      GLFW_TERMINATE();
-    }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_OpenGLWindow_DefaultConstructor)

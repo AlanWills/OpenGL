@@ -16,24 +16,15 @@ namespace TestEngine
   static Path resultsFilePath(Directory::getExecutingAppDirectory());
   static StringId codeBlockStringId = internString("Profile Code Block");
 
-  TEST_CLASS(TestDebugManager)
+  TEST_CLASS(TestDebugManager), public GLUnitTest
   {
   public:
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestDebugManager_Initialize)
     {
-      // Set up glfw so we can get the time
-      GLFW_INIT();
-
       logFilePath.combine("Log.txt");
       resultsFilePath.combine("Profiling.txt");
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestDebugManager_Cleanup)
-    {
-      GLFW_TERMINATE();
     }
 
     //------------------------------------------------------------------------------------------------
