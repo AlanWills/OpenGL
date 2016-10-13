@@ -15,17 +15,13 @@ namespace TestEngine
     TEST_CLASS_INITIALIZE(TestOpenGLWindow_Setup)
     {
       // Set up glfw so we can create our window without problems
-      glfwInit();
-      glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-      glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-      glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-      glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+      GLFW_INIT();
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_CLEANUP(TestOpenGLWindow_Cleanup)
     {
-      glfwTerminate();
+      GLFW_TERMINATE();
     }
 
     //------------------------------------------------------------------------------------------------
