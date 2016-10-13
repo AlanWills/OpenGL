@@ -22,8 +22,8 @@ namespace TestKernel
     //------------------------------------------------------------------------------------------------
     void checkTestFileExists()
     {
-      std::ofstream fStream(testFilePath);
-      Assert::IsTrue(fStream.good());
+      struct stat buf;
+      Assert::AreNotEqual(-1, stat(testFilePath.c_str(), &buf));
     }
 
     //------------------------------------------------------------------------------------------------

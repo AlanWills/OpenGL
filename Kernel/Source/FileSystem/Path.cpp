@@ -4,9 +4,11 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
-  Path::Path(const std::string& path)
+  Path::Path(const std::string& path) :
+    m_path(path)
   {
-    reset(path);
+    // Creating an empty path is a little odd
+    ASSERT(!m_path.empty());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -17,9 +19,11 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  Path::Path(const Path& path)
+  Path::Path(const Path& path) :
+    m_path(path.m_path)
   {
-    reset(path.asString());
+    // Creating an empty path is a little odd
+    ASSERT(!m_path.empty());
   }
 
   //------------------------------------------------------------------------------------------------

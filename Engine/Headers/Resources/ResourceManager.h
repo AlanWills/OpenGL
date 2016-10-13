@@ -93,9 +93,9 @@ class DllExport ResourceManager
 
     // Loads and generates a shader from file
     static Shader* loadShaderFromFile(
-      const std::string& vShaderRelativePathPath,
-      const std::string& fShaderRelativeFilePath,
-      const std::string& gShaderRelativeFilePath = "");
+      const std::string& vertexShaderFullPath,
+      const std::string& fragmentShaderFullPath,
+      const std::string& geometryShaderFullPath = "");
 
     /// \brief Loads a single texture from file - requires the full texture file path as input
     static Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);

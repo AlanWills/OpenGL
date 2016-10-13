@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Resources/ResourceManager.h"
+#include "OpenGL/OpenGLWindow.h"
 
 #include <SOIL/SOIL.h>
 
@@ -27,9 +28,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void ResourceManager::init()
   {
-    glewExperimental = GL_TRUE;
-    glewInit();
-
     // TODO: Bit of debug checking on the directory paths
     // TODO: Maybe actually change them to directories?
     // TODO: Auto find resource files
@@ -98,9 +96,9 @@ namespace Engine
 
   //------------------------------------------------------------------------------------------------
   Shader* ResourceManager::loadShaderFromFile(
-    const std::string& vShaderRelativeFilePath,
-    const std::string& fShaderRelativeFilePath,
-    const std::string& gShaderRelativeFilePath)
+    const std::string& vertexShaderFullPath,
+    const std::string& fragmentShaderFullPath,
+    const std::string& geometryShaderFullPath)
   {
     // Create shader object
     Shader* shader = nullptr;
@@ -123,27 +121,27 @@ namespace Engine
     std::string fragmentCode;
     std::string geometryCode;
 
-    File file(vShaderRelativeFilePath);
+    File file(vertexShaderFullPath);
     ASSERT(file.exists());
     file.read(vertexCode);
 
-    file = File(fShaderRelativeFilePath);
+    file = File(fragmentShaderFullPath);
     ASSERT(file.exists());
     file.read(fragmentCode);
 
-    if (!gShaderRelativeFilePath.empty())
+    if (!geometryShaderFullPath.empty())
     {
-      file = File(gShaderRelativeFilePath);
+      file = File(geometryShaderFullPath);
       ASSERT(file.exists());
       file.read(geometryCode);
     }
 
     ASSERT(!vertexCode.empty());
     ASSERT(!fragmentCode.empty());
-    ASSERT(gShaderRelativeFilePath.empty() || !geometryCode.empty());
+    ASSERT(geometryShaderFullPath.empty() || !geometryCode.empty());
 
     // Compile into the graphics card
-    shader->compile(vertexCode, fragmentCode, !gShaderRelativeFilePath.empty() ? geometryCode : "");
+    shader->compile(vertexCode, fragmentCode, !geometryShaderFullPath.empty() ? geometryCode : "");
 
     return shader;
   }

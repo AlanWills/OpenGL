@@ -183,6 +183,7 @@
     <ClInclude Include="Headers\targetver.h" />
     <ClInclude Include="Headers\Input\Mouse\Mouse.h" />
     <ClInclude Include="Headers\Time\Clock.h" />
+    <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Debugging\DebugManager.cpp" />

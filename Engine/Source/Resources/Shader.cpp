@@ -2,6 +2,10 @@
 #include "Resources/Shader.h"
 #include "DebugUtils/Debug.h"
 
+#ifdef _DEBUG
+#include "OpenGL/TemporaryGLContext.h"
+#endif
+
 #include <iostream>
 
 
@@ -16,12 +20,20 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Shader::~Shader()
   {
-    glDeleteProgram(m_program);
+    if (m_program != 0 && glIsProgram(m_program))
+    {
+      glDeleteProgram(m_program);
+    }
   }
 
   //------------------------------------------------------------------------------------------------
   void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource, const std::string& geometrySource)
   {
+#ifdef _DEBUG
+    // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
+    TemporaryGLContext glContext;
+#endif
+
     // TODO: Refactor this using createShader()
     GLuint sVertex, sFragment, gShader;
 
@@ -117,7 +129,7 @@ namespace Engine
       }
 
       std::cout << "ERROR::SHADER::" << shaderErrorType << "::COMPILATION_FAILED\n" << infoLog << std::endl;
-      assert(false);
+      ASSERT_FAIL();
     }
 
     glCheckError();

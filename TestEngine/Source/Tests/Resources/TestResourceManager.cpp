@@ -8,6 +8,7 @@ using namespace Engine;
 namespace TestEngine
 {
   static Directory testResourceDir(Directory::getExecutingAppDirectory());
+  static StringId spriteStringId = internString("sprite");
 
   TEST_CLASS(TestResourceManager)
   {
@@ -16,13 +17,21 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestResourceManager_Setup)
     {
-      Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResourceManager");
+      GLFW_INIT();
+
+      Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
       testResourceDir = Directory(resourceDirPath);
       Assert::IsTrue(testResourceDir.exists());
 
       // This should allow us to change the resource manager to look for assets in our test directory
-      ResourceManager::setResourceDirectoryPath(resourceDirPath);
+      //ResourceManager::setResourceDirectoryPath(resourceDirPath);
       ResourceManager::init();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_CLASS_CLEANUP(TestResourceManager_Cleanup)
+    {
+      GLFW_TERMINATE();
     }
 
     //------------------------------------------------------------------------------------------------
@@ -35,7 +44,8 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadShader)
     {
-      Assert::Fail();
+      Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "", spriteStringId);
+      Assert::IsNotNull(shader);
     }
 
     //------------------------------------------------------------------------------------------------

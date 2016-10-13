@@ -24,7 +24,10 @@ int main(int argc, char *argv[])
   GLFWwindow* window = glWindow.getGLWindow();
 
   glewExperimental = GL_TRUE;
-  glewInit();
+  GLenum glewError = glewInit();
+  ASSERT(glewError == GLEW_OK);
+  const GLubyte* error = glewGetErrorString(glewError);
+
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
   InputManager::init(window);
