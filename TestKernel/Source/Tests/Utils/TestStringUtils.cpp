@@ -22,6 +22,16 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_StringUtils_intToWchar)
+    {
+      std::wstring expected(L"1000");
+      Assert::AreEqual(expected, StringUtils::intToWchar(1000));
+
+      expected = std::wstring(L"21");
+      Assert::AreEqual(expected, StringUtils::intToWchar(33, (size_t)16));
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_StringUtils_IntToStringAppend)
     {
       {

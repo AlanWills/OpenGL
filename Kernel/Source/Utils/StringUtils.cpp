@@ -11,4 +11,13 @@ namespace Kernel
 
     return numConverted;
   }
+
+  //------------------------------------------------------------------------------------------------
+  std::wstring StringUtils::intToWchar(int number, size_t base)
+  {
+    wchar_t buffer[1024];
+    _itow_s(number, buffer, base);
+
+    return std::wstring(buffer);
+  }
 }

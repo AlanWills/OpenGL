@@ -43,7 +43,10 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetShader)
     {
-      Assert::Fail();
+      Shader* expectedShader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "", spriteStringId);
+      Shader* actualShader = ResourceManager::getShader(spriteStringId);
+
+      Assert::AreEqual(expectedShader, actualShader);
     }
 
     //------------------------------------------------------------------------------------------------
@@ -60,4 +63,19 @@ namespace TestEngine
 
     // Then test the setters for the directories?  Is this necessary?  How do we actually get the Paths?
   };
+}
+
+//----------------------------------------------------------------------------------------------------------
+// Implementation of ToString for allocate result so that we can use Assert::AreEqual on AllocateResult enum
+namespace Microsoft {
+  namespace VisualStudio {
+    namespace CppUnitTestFramework {
+
+      template<>
+      static std::wstring ToString<Shader>(Shader* shader)
+      {
+        return StringUtils::intToWchar((int)shader, 16);
+      }
+    }
+  }
 }
