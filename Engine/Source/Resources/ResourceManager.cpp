@@ -231,11 +231,11 @@ namespace Engine
 
     Path newFragmentPath(m_shaderDirectoryPath);
     newFragmentPath.combine(FRAGMENT_SHADER_DIR);
-    setVertexShaderDirectoryPath(newFragmentPath);
+    setFragmentShaderDirectoryPath(newFragmentPath);
 
     Path newGeomtryPath(m_shaderDirectoryPath);
     newGeomtryPath.combine(GEOMETRY_SHADER_DIR);
-    setVertexShaderDirectoryPath(newGeomtryPath);
+    setGeometryShaderDirectoryPath(newGeomtryPath);
   }
 
   //------------------------------------------------------------------------------------------------

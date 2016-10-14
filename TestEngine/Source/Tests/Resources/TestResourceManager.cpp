@@ -22,7 +22,7 @@ namespace TestEngine
       Assert::IsTrue(testResourceDir.exists());
 
       // This should allow us to change the resource manager to look for assets in our test directory
-      //ResourceManager::setResourceDirectoryPath(resourceDirPath);
+      ResourceManager::setResourceDirectoryPath(resourceDirPath);
       ResourceManager::init();
     }
 

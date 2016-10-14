@@ -121,6 +121,7 @@ namespace Kernel
     }
 
     // Remove the final \n
+    ASSERT(!outFileContents.empty());
     outFileContents.pop_back();
   }
 
