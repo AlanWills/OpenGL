@@ -17,3 +17,7 @@
 
 #define GLFW_TERMINATE() \
   glfwTerminate();
+
+#define GLEW_INIT() \
+  glewExperimental = GL_TRUE; \
+  glewInit();

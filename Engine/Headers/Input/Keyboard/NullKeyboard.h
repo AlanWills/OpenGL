@@ -7,10 +7,10 @@ namespace Engine
   class DllExport NullKeyboard : public Keyboard
   {
   public:
-    NullKeyboard() { }
-    ~NullKeyboard() { }
+    NullKeyboard();
+      ~NullKeyboard();
 
-    GLboolean isKeyDown(int key) const override { return GL_FALSE; }
-    GLboolean isKeyPressed(int key) const override { return GL_FALSE; }
+    GLboolean isKeyDown(int key) const override;
+    GLboolean isKeyPressed(int key) const override;
   };
 }

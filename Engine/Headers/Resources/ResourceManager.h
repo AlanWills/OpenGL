@@ -22,9 +22,9 @@ namespace Engine
 {
 
 #ifdef WIN32
-#define DIRECTORY "..\\OpenGL"
+#define DIRECTORY ""
 #else
-#define DIRECTORY"../OpenGL"
+#define DIRECTORY ""
 #endif
 #define TEXTURE_DIR "Assets"
 #define SHADER_DIR "Shaders"
@@ -91,7 +91,7 @@ class DllExport ResourceManager
     static const Path& getResourceDirectoryPath() { return m_resourceDirectoryPath; }
     static const Path& getTextureDirectoryPath() { return m_textureDirectoryPath; }
     static const Path& getShaderDirectoryPath() { return m_shaderDirectoryPath; }
-    static const Path& getVertexDirectoryPath() { return m_vertexShaderDirectoryPath; }
+    static const Path& getVertexShaderDirectoryPath() { return m_vertexShaderDirectoryPath; }
     static const Path& getFragmentShaderDirectoryPath() { return m_fragmentShaderDirectoryPath; }
     static const Path& getGeometryShaderDirectoryPath() { return m_geometryShaderDirectoryPath; }
 

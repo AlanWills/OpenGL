@@ -7,7 +7,7 @@
 
 using namespace Engine;
 
-uint64_t Clock::s_cyclesPerSecond = 2;
+
 uint64_t cyclesPerSecond = 0;
 
 namespace TestEngine

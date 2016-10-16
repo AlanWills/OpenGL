@@ -13,21 +13,13 @@ using namespace Engine;
 
 int main(int argc, char *argv[])
 {
-  glfwInit();
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+  GLFW_INIT();
 
   // TODO: Move to screen manager class
   OpenGLWindow glWindow;
   GLFWwindow* window = glWindow.getGLWindow();
 
-  glewExperimental = GL_TRUE;
-  GLenum glewError = glewInit();
-  ASSERT(glewError == GLEW_OK);
-  const GLubyte* error = glewGetErrorString(glewError);
-
+  GLEW_INIT();
   glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
   InputManager::init(window);

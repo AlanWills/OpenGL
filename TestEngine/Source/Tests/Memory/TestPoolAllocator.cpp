@@ -44,13 +44,17 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_PoolAllocator_FreeAll)
     {
-      Assert::Fail();
-    }
+      PoolAllocator<int, 10> intPool;
+      int* intObject = intPool.allocate();
 
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_PoolAllocator_ReallocateAfterFreeAll)
-    {
-      Assert::Fail();
+      // Do some more allocation just to move the head
+      intPool.allocate();
+
+      // Free everything
+      intPool.freeAll();
+
+      // Check the object we allocate is the first one in our pool
+      Assert::AreEqual(intObject, intPool.allocate());
     }
   };
 }

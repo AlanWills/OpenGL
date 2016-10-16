@@ -17,7 +17,7 @@ namespace Engine
   ShaderPoolOverflow    ResourceManager::m_shaderOverflow;
   TexturePoolOverflow   ResourceManager::m_textureOverflow;
 
-  Path                  ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory(), DIRECTORY);
+  Path                  ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory());
   Path                  ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
   Path                  ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
   Path                  ResourceManager::m_vertexShaderDirectoryPath(m_shaderDirectoryPath.asString(), VERTEX_SHADER_DIR);
@@ -28,6 +28,9 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void ResourceManager::init()
   {
+    // Really don't know why we need this, but we do apparently
+    GLEW_INIT();
+
     // TODO: Bit of debug checking on the directory paths
     // TODO: Maybe actually change them to directories?
     // TODO: Auto find resource files
@@ -155,6 +158,7 @@ namespace Engine
     // Compile into the graphics card
     shader->compile(vertexCode, fragmentCode, !geometryShaderFullPath.empty() ? geometryCode : "");
 
+    glCheckError();
     return shader;
   }
 

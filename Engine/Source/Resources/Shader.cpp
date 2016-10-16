@@ -31,7 +31,7 @@ namespace Engine
   {
 #ifdef _DEBUG
     // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
-    TemporaryGLContext glContext;
+    //TemporaryGLContext glContext;
 #endif
 
     // TODO: Refactor this using createShader()
