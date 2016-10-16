@@ -1,7 +1,7 @@
 #pragma once
 
 #include "DllExport.h"
-#include "Path.h"
+#include "File.h"
 
 #include <string>
 #include <dirent.h>
@@ -21,7 +21,9 @@ class DllExport Directory
     /// Copy constructor and assignment operator do not create the directory; just copy the path
     /// This seems reasonable as we wish to preserve the internal state of the filesystem if we are copying a Directory which does not exist
     Directory(const Directory& directory);
+
     Directory& operator=(const Directory&);
+    bool operator==(const Directory& rhs) const { return m_dirPath == rhs.m_dirPath; }
 
     /// \brief Get the directory of the executing .exe
     static void getExecutingAppDirectory(std::string& outputDir);
@@ -45,12 +47,12 @@ class DllExport Directory
     /// Can provide a flag to search recursively through subdirectories too - by default will not search recursively
     static void findFiles(
       const std::string& fullDirectoryPath, 
-      std::vector<std::string>& files, 
+      std::vector<File>& files, 
       const std::string& extension = ".", 
       bool includeSubDirectories = false);
 
     void findFiles(
-      std::vector<std::string>& files,
+      std::vector<File>& files,
       const std::string& extension = ".",
       bool includeSubDirectories = false) const 
     {
@@ -61,15 +63,17 @@ class DllExport Directory
     /// Can provide a flag to search recursively through subdirectories too - by default will not search recursively
     static void findDirectories(
       const std::string& fullDirectoryPath,
-      std::vector<std::string>& directories,
+      std::vector<Directory>& directories,
       bool includeSubDirectories = false);
 
     void findDirectories(
-      std::vector<std::string>& directories,
+      std::vector<Directory>& directories,
       bool includeSubDirectories = false)
     {
       findDirectories(m_dirPath.asString(), directories, includeSubDirectories);
     }
+
+    const std::string& getDirectoryPath() const { return m_dirPath.asString(); }
 
   private:
     Path m_dirPath;

@@ -1,6 +1,5 @@
 #include "DebugUtils/Debug.h"
 #include "FileSystem/Directory.h"
-#include "FileSystem/File.h"
 #include "Utils/StringUtils.h"
 
 #include <direct.h>
@@ -104,20 +103,20 @@ namespace Kernel
   {
     if (exists(directoryFullPath))
     {
-      std::vector<std::string> files;
+      std::vector<File> files;
       findFiles(directoryFullPath, files);
 
-      for (const std::string& file : files)
+      for (const File& file : files)
       {
-        File::remove(file);
+        file.remove();
       }
 
-      std::vector<std::string> dirs;
+      std::vector<Directory> dirs;
       findDirectories(directoryFullPath, dirs);
 
-      for (const std::string& dir : dirs)
+      for (const Directory& dir : dirs)
       {
-        Directory::remove(dir);
+        dir.remove();
       }
 
       int result = _rmdir(directoryFullPath.c_str());
@@ -127,7 +126,7 @@ namespace Kernel
 
   //------------------------------------------------------------------------------------------------
   void Directory::findFiles(const std::string& fullDirectoryPath,
-    std::vector<std::string>& files,
+    std::vector<File>& files,
     const std::string& extension,
     bool includeSubDirectories)
   {
@@ -149,8 +148,8 @@ namespace Kernel
     {
       if (dirent->d_type == DT_REG)
       {
-        std::string buffer(fullDirectoryPath);
-        Path::combine(buffer, dirent->d_name);
+        Path filePath(fullDirectoryPath);
+        filePath.combine(dirent->d_name);
 
         // Check the extension here
         if (extension != ".")
@@ -160,20 +159,20 @@ namespace Kernel
 
           if (extension == thisExtension)
           {
-            files.push_back(buffer);
+            files.push_back(filePath);
           }
         }
         else
         {
-          files.push_back(buffer);
+          files.push_back(filePath);
         }
       }
       else if (includeSubDirectories && dirent->d_type == DT_DIR)
       {
-        std::string subDirPath(fullDirectoryPath);
-        Path::combine(subDirPath, dirent->d_name);
+        Path subDirPath(fullDirectoryPath);
+        subDirPath.combine(dirent->d_name);
         
-        findFiles(subDirPath, files, extension, includeSubDirectories);
+        findFiles(subDirPath.asString(), files, extension, includeSubDirectories);
       }
     }
 
@@ -184,7 +183,7 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   void Directory::findDirectories(
     const std::string& fullDirectoryPath,
-    std::vector<std::string>& directories,
+    std::vector<Directory>& directories,
     bool includeSubDirectories)
   {
     if (!exists(fullDirectoryPath))
@@ -205,11 +204,11 @@ namespace Kernel
     {
       if (dirent->d_type == DT_DIR)
       {
-        std::string buffer(fullDirectoryPath);
-        Path::combine(buffer, dirent->d_name);
-        directories.push_back(buffer);
+        Path dirBuffer(fullDirectoryPath);
+        dirBuffer.combine(dirent->d_name);
+        directories.push_back(dirBuffer);
 
-        findDirectories(buffer, directories, includeSubDirectories);
+        findDirectories(dirBuffer.asString(), directories, includeSubDirectories);
       }
     }
 

@@ -3,11 +3,10 @@
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
 #include "FileSystem/Path.h"
+#include "Utils/StringUtils.h"
 
 #include <vector>
 #include <direct.h>
-
-using namespace Kernel;
 
 static std::string testDirectory = "";
 
@@ -122,6 +121,16 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_EqualityOperator)
+    {
+      Path path(testDirectory, "Test");
+      Directory original(path), same(path), notSame("Root");
+
+      Assert::IsTrue(original == same);
+      Assert::IsFalse(original == notSame);
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_Exists)
     {
       // Create and check the test directory
@@ -144,10 +153,10 @@ namespace TestKernel
       File file1 = create<File>(testDirectory, "TestFile1.txt");
       File file2 = create<File>(testDirectory, "TestFile2.txt");
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
-        testDirectory + PATH_DELIMITER + "TestFile1.txt",
-        testDirectory + PATH_DELIMITER + "TestFile2.txt"
+        file1,
+        file2
       };
 
       Directory dir(testDirectory);
@@ -166,9 +175,9 @@ namespace TestKernel
       File file1 = create<File>(testDirectory, "TestFile1.txt");
       File file2 = create<File>(testDirectory, "TestFile2.html");
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
-        testDirectory + PATH_DELIMITER + "TestFile1.txt",
+        file1
       };
 
       Directory dir(testDirectory);
@@ -193,11 +202,11 @@ namespace TestKernel
 
       File file3 = create<File>(nestedDir, "TestFile3.txt");
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
-        nestedDir + PATH_DELIMITER + "TestFile3.txt",
-        testDirectory + PATH_DELIMITER + "TestFile1.txt",
-        testDirectory + PATH_DELIMITER + "TestFile2.txt",
+        file3,
+        file1,
+        file2
       };
 
       Directory dir = create<Directory>(testDirectory);
@@ -224,10 +233,10 @@ namespace TestKernel
 
       File file3 = create<File>(nestedDir, "TestFile3.txt");
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
-        nestedDir + PATH_DELIMITER + "TestFile3.txt",
-        testDirectory + PATH_DELIMITER + "TestFile1.txt",
+        file3,
+        file1,
       };
 
       Directory dir = create<Directory>(testDirectory);
@@ -250,10 +259,10 @@ namespace TestKernel
       Directory dir1 = create<Directory>(enclosingDirectoryPath, "TestDirectory1");
       Directory dir2 = create<Directory>(enclosingDirectoryPath, "TestDirectory2");
 
-      std::vector<std::string> actualDirectories, expectedDirectories =
+      std::vector<Directory> actualDirectories, expectedDirectories =
       {
-        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory1",
-        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory2",
+        dir1,
+        dir2
       };
 
       enclosingDirectory.findDirectories(actualDirectories);
@@ -278,11 +287,11 @@ namespace TestKernel
 
       Directory dir3 = create<Directory>(nestedParent, "TestDirectory3");
 
-      std::vector<std::string> actualDirectories, expectedDirectories =
+      std::vector<Directory> actualDirectories, expectedDirectories =
       {
-        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory1",
-        enclosingDirectoryPath + PATH_DELIMITER + "TestDirectory2",
-        nestedParent + PATH_DELIMITER + "TestDirectory3",
+        dir1,
+        dir2,
+        dir3
       };
 
       enclosingDirectory.findDirectories(actualDirectories);
@@ -345,4 +354,32 @@ namespace TestKernel
       Assert::IsFalse(parentDir.exists());
     }
   };
+}
+
+//----------------------------------------------------------------------------------------------------------
+namespace Microsoft {
+  namespace VisualStudio {
+    namespace CppUnitTestFramework {
+
+      template<>
+      static std::wstring ToString<Directory>(const Directory& directory)
+      {
+        const std::string& directoryPath = directory.getDirectoryPath();
+        wchar_t buffer[1024];
+        StringUtils::charToWchar(directoryPath.c_str(), buffer, 1024);
+
+        return std::wstring(buffer);
+      }
+
+      template<>
+      static std::wstring ToString<File>(const File& file)
+      {
+        const std::string& filePath = file.getFilePath();
+        wchar_t buffer[1024];
+        StringUtils::charToWchar(filePath.c_str(), buffer, 1024);
+
+        return std::wstring(buffer);
+      }
+    }
+  }
 }

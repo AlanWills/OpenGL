@@ -22,6 +22,7 @@ class DllExport Path
     ~Path();
 
     Path& operator=(const Path& other);
+    bool operator==(const Path& rhs) const { return m_path == rhs.m_path; }
 
     /// \brief Appends a PATH_DELIMITER and the secondPath onto the firstPath
     /// std::string first("first\\path"), second("second\\path");

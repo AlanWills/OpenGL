@@ -9,5 +9,7 @@
 
 #include "AssertExt.h"
 #include "GLHeaders.h"
+#include "DebugUtils/AssertDisabler.h"
 
 using namespace TestUtils;
+using namespace Kernel;

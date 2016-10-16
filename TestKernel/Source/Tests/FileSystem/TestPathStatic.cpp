@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "FileSystem/Path.h"
-#include "DebugUtils/AssertDisabler.h"
 
 #include <vector>
 

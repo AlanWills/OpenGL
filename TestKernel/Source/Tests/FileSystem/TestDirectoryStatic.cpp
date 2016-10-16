@@ -3,6 +3,7 @@
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
 #include "FileSystem/Path.h"
+#include "Utils/StringUtils.h"
 
 #include <vector>
 #include <direct.h>
@@ -65,7 +66,7 @@ namespace TestKernel
       File file2(testDirectory, filename2);
       Assert::IsTrue(file2.exists());
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
         testDirectory + PATH_DELIMITER + filename1,
         testDirectory + PATH_DELIMITER + filename2
@@ -91,7 +92,7 @@ namespace TestKernel
       File file2(testDirectory, filename2);
       Assert::IsTrue(file2.exists());
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
         testDirectory + PATH_DELIMITER + filename1,
       };
@@ -123,7 +124,7 @@ namespace TestKernel
       File file3(nestedDir, filename3);
       Assert::IsTrue(file3.exists());
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
         nestedDir + PATH_DELIMITER + filename3,
         testDirectory + PATH_DELIMITER + filename1,
@@ -160,7 +161,7 @@ namespace TestKernel
       File file3(nestedDir, filename3);
       Assert::IsTrue(file3.exists());
 
-      std::vector<std::string> actualFiles, expectedFiles =
+      std::vector<File> actualFiles, expectedFiles =
       {
         nestedDir + PATH_DELIMITER + filename3,
         testDirectory + PATH_DELIMITER + filename1,
@@ -194,7 +195,7 @@ namespace TestKernel
       Directory::create(directory2FullPath);
       Assert::IsTrue(Directory::exists(directory2FullPath));
 
-      std::vector<std::string> actualDirectories, expectedDirectories =
+      std::vector<Directory> actualDirectories, expectedDirectories =
       {
         enclosingDirectory + PATH_DELIMITER + directory1,
         enclosingDirectory + PATH_DELIMITER + directory2,
@@ -234,7 +235,7 @@ namespace TestKernel
       Directory::create(directory3FullPath);
       Assert::IsTrue(Directory::exists(directory3FullPath));
 
-      std::vector<std::string> actualDirectories, expectedDirectories =
+      std::vector<Directory> actualDirectories, expectedDirectories =
       {
         enclosingDirectory + PATH_DELIMITER + directory1,
         enclosingDirectory + PATH_DELIMITER + directory2,
@@ -318,4 +319,32 @@ namespace TestKernel
       Assert::IsFalse(Directory::exists(parentDirectory));
     }
   };
+}
+
+//----------------------------------------------------------------------------------------------------------
+namespace Microsoft {
+  namespace VisualStudio {
+    namespace CppUnitTestFramework {
+
+      template<>
+      static std::wstring ToString<Directory>(const Directory& directory)
+      {
+        const std::string& directoryPath = directory.getDirectoryPath();
+        wchar_t buffer[1024];
+        StringUtils::charToWchar(directoryPath.c_str(), buffer, 1024);
+
+        return std::wstring(buffer);
+      }
+
+      template<>
+      static std::wstring ToString<File>(const File& file)
+      {
+        const std::string& filePath = file.getFilePath();
+        wchar_t buffer[1024];
+        StringUtils::charToWchar(filePath.c_str(), buffer, 1024);
+
+        return std::wstring(buffer);
+      }
+    }
+  }
 }

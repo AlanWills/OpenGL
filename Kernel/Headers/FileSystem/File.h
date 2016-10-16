@@ -26,7 +26,9 @@ class DllExport File
     /// Copy constructor and assignment operator do not create the file; just copy the path
     /// This seems reasonable as we wish to preserve the internal state of the filesystem if we are copying a File which does not exist
     File(const File& file);
+
     File& operator=(const File& file);
+    bool operator==(const File& rhs) const { return m_filePath == rhs.m_filePath; }
 
     /// \brief Returns true if the file exists
     static bool exists(const std::string& fullFilePath);
@@ -58,6 +60,14 @@ class DllExport File
     /// \brief Adds all the lines for the file onto the end of the inputted vector, without altering any contents that might already be inside it
     static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);
     void readLines(std::vector<std::string>& outLines) const { readLines(m_filePath.asString(), outLines); }
+
+    const std::string& getFilePath() const { return m_filePath.asString(); }
+
+    /// \brief Obtains the name of the file relative to it's parent directory including extension
+    std::string getFileName() const;
+
+    /// \brief Obtains the name of the file relative to it's parent directory not including extension
+    std::string getExtensionlessFileName() const;
 
   private:
     Path m_filePath;

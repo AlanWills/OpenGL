@@ -138,4 +138,56 @@ namespace Kernel
       outLines.push_back(buffer);
     }
   }
+
+  //------------------------------------------------------------------------------------------------
+  std::string File::getFileName() const
+  {
+    const std::string& filePath = m_filePath.asString();
+
+    if (filePath.empty())
+    {
+      ASSERT_FAIL();
+      return "";
+    }
+
+    std::string fileName(filePath);
+    size_t index = fileName.find_last_of(PATH_DELIMITER);
+
+    if (index < fileName.npos)
+    {
+      return fileName.substr(index + 1);
+    }
+    else
+    {
+      return "";
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  std::string File::getExtensionlessFileName() const
+  {
+    const std::string& filePath = m_filePath.asString();
+
+    if (filePath.empty())
+    {
+      ASSERT_FAIL();
+      return "";
+    }
+
+    std::string fileName(filePath);
+    size_t delimIndex = fileName.find_last_of(PATH_DELIMITER);
+    size_t extIndex = fileName.find_first_of('.');
+
+    if (delimIndex < fileName.npos && 
+        extIndex < fileName.npos && 
+        delimIndex < extIndex)
+    {
+      return fileName.substr(delimIndex + 1, extIndex);
+    }
+    else
+    {
+      ASSERT_FAIL();
+      return "";
+    }
+  }
 }

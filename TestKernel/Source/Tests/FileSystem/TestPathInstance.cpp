@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "FileSystem/Path.h"
-#include "DebugUtils/AssertDisabler.h"
 
 #include <vector>
 
@@ -95,6 +94,19 @@ namespace TestKernel
 
       Path copy = original;
       Assert::AreEqual(expected, copy.asString());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Path_Instance_EqualityOperator)
+    {
+      std::string path("Root");
+      path.push_back(PATH_DELIMITER);
+      path.append("Directory.txt");
+
+      Path original(path), same(original), notSame("Root");
+
+      Assert::IsTrue(original == same);
+      Assert::IsFalse(original == notSame);
     }
 
     //------------------------------------------------------------------------------------------------

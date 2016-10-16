@@ -13,6 +13,15 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
+  size_t StringUtils::charToWchar(const char* input, wchar_t* output, size_t sizeOfOutputBuffer)
+  {
+    size_t numConverted = 0;
+    return mbstowcs_s(&numConverted, output, sizeOfOutputBuffer, input, sizeOfOutputBuffer);
+
+    return numConverted;
+  }
+
+  //------------------------------------------------------------------------------------------------
   std::wstring StringUtils::intToWchar(int number, size_t base)
   {
     wchar_t buffer[1024];

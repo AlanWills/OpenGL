@@ -40,6 +40,12 @@ namespace Engine
     const std::string& gShaderRelativeFilePath,
     StringId name)
   {
+    if (m_shaders.find(name) != m_shaders.end())
+    {
+      // If the shader already exists in our dictionary just return it rather than loading it
+      return m_shaders[name];
+    }
+
     Path vertexShader(m_vertexShaderDirectoryPath), fragmentShader(m_fragmentShaderDirectoryPath), geometryShader(m_geometryShaderDirectoryPath);
     vertexShader.combine(vShaderRelativeFilePath);
     fragmentShader.combine(fShaderRelativeFilePath);
@@ -72,6 +78,12 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Texture2D* ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
   {
+    if (m_textures.find(name) != m_textures.end())
+    {
+      // If the texture already exists in our dictionary then we just return it
+      return m_textures[name];
+    }
+
     Path fullPath(m_textureDirectoryPath);
     fullPath.combine(relativeFilePath);
 
@@ -189,17 +201,41 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadTextures()
+  {
+    // Clear all the references in our texture map
+    m_textures.clear();
+
+    // Resets our pooled memory
+    m_texturePool.freeAll();
+
+    // Clear the overflow
+    m_textureOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadShaders()
+  {
+    // Clear all the references in our shader map
+    m_shaders.clear();
+
+    // Resets our pooled memory
+    m_shaderPool.freeAll();
+
+    // Clear the overflow
+    m_shaderOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadAllAssets()
+  {
+    unloadTextures();
+    unloadShaders();
+  }
+
+  //------------------------------------------------------------------------------------------------
   // Utility setters for the asset directory paths
   // The copy constructor for Path just copies the underlying string so is quick
-  //------------------------------------------------------------------------------------------------
-  
-
-
-  // NOTE TO FUTURE ALAN - WITH THESE WE CAN CALL THE CHILD DIRECTORY FUNCTIONS
-  // E.G. IN SET SHADER DIRECTORY - SET THE SHADER DIRECTORY AND THEN CALL SET__X__SHADERDIRECTORY() WITH AN APPROPRIATE PATH
-  // This should save a bit of time
-
-
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setResourceDirectoryPath(const Path& resourceDirectoryPath)
   {

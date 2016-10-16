@@ -3,6 +3,7 @@
 #include "FileSystem/Path.h"
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
+#include "Utils/StringUtils.h"
 
 #include <fstream>
 #include <vector>
@@ -162,6 +163,16 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Instance_EqualityOperator)
+    {
+      Path path(testFilePath);
+      File original(path), same(path), notSame("Root");
+
+      Assert::IsTrue(original == same);
+      Assert::IsFalse(original == notSame);
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_File_Instance_Exists)
     {
       File file(testFilePath);
@@ -283,6 +294,22 @@ namespace TestKernel
       file.readLines(actual);
 
       AssertExt::assertVectorContentsEqual<std::string>(expected, actual);
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Instance_GetFileName)
+    {
+      File file(testFilePath);
+
+      Assert::AreEqual(testFileName, file.getFileName());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_File_Instance_GetExtensionlessFileName)
+    {
+      File file(testFilePath);
+
+      Assert::AreEqual("TestFile", file.getExtensionlessFileName().c_str());
     }
   };
 }

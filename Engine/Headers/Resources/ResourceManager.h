@@ -86,6 +86,19 @@ class DllExport ResourceManager
     static void setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath);
     static void setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath);
     static void setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath);
+    
+    /// \brief Getters for the common asset folders on disc
+    static const Path& getResourceDirectoryPath() { return m_resourceDirectoryPath; }
+    static const Path& getTextureDirectoryPath() { return m_textureDirectoryPath; }
+    static const Path& getShaderDirectoryPath() { return m_shaderDirectoryPath; }
+    static const Path& getVertexDirectoryPath() { return m_vertexShaderDirectoryPath; }
+    static const Path& getFragmentShaderDirectoryPath() { return m_fragmentShaderDirectoryPath; }
+    static const Path& getGeometryShaderDirectoryPath() { return m_geometryShaderDirectoryPath; }
+
+    /// \brief Frees the relevant resources from the resource manager's memory
+    static void unloadTextures();
+    static void unloadShaders();
+    static void unloadAllAssets();
 
   private:
     // Private constructor, that is we do not want any actual resource manager objects. Its members and functions should be publicly available (static).
@@ -114,8 +127,8 @@ class DllExport ResourceManager
     static TexturePoolOverflow  m_textureOverflow;
 
     // Static variables representing the paths to commonly used resource directories
-    // They can be changed by the appropriate set functions, but since they represent a directory tree, updating a hifher level directory
-    // Requires updating lower level directory paths too
+    // They can be changed by the appropriate set functions, but since they represent a directory tree
+    // Updating a higher level directory requires updating lower level directory paths too
     // As a result, the setters are not trivial and we cannot just expose these as global variables for risk of invalidating some variables by changing others
     static Path     m_resourceDirectoryPath;
     static Path     m_textureDirectoryPath;

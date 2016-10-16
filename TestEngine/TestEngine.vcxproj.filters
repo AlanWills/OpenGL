@@ -75,13 +75,14 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestResources\Shaders\Fragment\colour.frag" />
-    <None Include="TestResources\Shaders\Fragment\experiment.frag" />
     <None Include="TestResources\Shaders\Fragment\sprite.frag" />
-    <None Include="TestResources\Shaders\Fragment\texture.frag" />
-    <None Include="TestResources\Shaders\Vertex\colour.vs" />
-    <None Include="TestResources\Shaders\Vertex\experiment.vs" />
     <None Include="TestResources\Shaders\Vertex\sprite.vs" />
-    <None Include="TestResources\Shaders\Vertex\texture.vs" />
+    <None Include="TestResources\Shaders\Geometry\sprite.geom" />
+    <None Include="TestResources\Shaders\Fragment\colour.frag" />
+    <None Include="TestResources\Shaders\Vertex\colour.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="TestResources\Assets\block.png" />
+    <Image Include="TestResources\Assets\container.jpg" />
   </ItemGroup>
 </Project>

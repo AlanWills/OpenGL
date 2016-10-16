@@ -23,8 +23,8 @@ class PoolAllocator
     /// This class still retains ownership of the object
     T* allocate();
 
-    /// \brief Marks the object as free to be allocated again
-    void free(T* objectToFree);
+    /// \brief Resets the head to the start of the pool
+    void freeAll();
 
   private:
     size_t m_head;
@@ -59,10 +59,9 @@ T* PoolAllocator<T, PoolSize>::allocate()
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
-void PoolAllocator<T, PoolSize>::free(T* objectToFree)
+void PoolAllocator<T, PoolSize>::freeAll()
 {
-  // TODO
-  ASSERT_FAIL();
+  m_head = 0;
 }
 
 };

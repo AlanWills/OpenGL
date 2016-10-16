@@ -12,6 +12,7 @@
 #include "GLUnitTest.h"
 #include "StringInterning/StringId.h"
 #include "Utils/StringUtils.h"
+#include "DebugUtils/AssertDisabler.h"
 
 using namespace TestUtils;
 using namespace Kernel;

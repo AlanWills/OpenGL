@@ -40,5 +40,17 @@ namespace TestEngine
       intPool.allocate();
       Assert::IsFalse(intPool.canAllocate());
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_PoolAllocator_FreeAll)
+    {
+      Assert::Fail();
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_PoolAllocator_ReallocateAfterFreeAll)
+    {
+      Assert::Fail();
+    }
   };
 }
