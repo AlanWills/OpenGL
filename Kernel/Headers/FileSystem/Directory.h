@@ -73,6 +73,10 @@ class DllExport Directory
       findDirectories(m_dirPath.asString(), directories, includeSubDirectories);
     }
 
+    /// \brief Returns the name of this directory relative to it's parent.  Contains no path delimiters
+    static std::string getDirectoryName(const std::string& directoryFullPath);
+    std::string getDirectoryName() const { return getDirectoryName(m_dirPath.asString()); }
+
     const std::string& getDirectoryPath() const { return m_dirPath.asString(); }
 
   private:

@@ -353,6 +353,14 @@ namespace TestKernel
       parentDir.remove();
       Assert::IsFalse(parentDir.exists());
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_GetDirectoryName)
+    {
+      Directory dir(testDirectory);
+
+      Assert::AreEqual("TestDirectory", dir.getDirectoryName().c_str());
+    }
   };
 }
 

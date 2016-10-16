@@ -213,4 +213,25 @@ namespace Kernel
     int result = closedir(dir);
     ASSERT(result == 0);
   }
+
+  //------------------------------------------------------------------------------------------------
+  std::string Directory::getDirectoryName(const std::string& directoryFullPath)
+  {
+    std::string directoryPath(directoryFullPath);
+
+    if (directoryPath.back() == PATH_DELIMITER)
+    {
+      directoryPath.pop_back();
+    }
+
+    size_t position = directoryPath.find_last_of(PATH_DELIMITER);
+    if (position != directoryPath.npos)
+    {
+      return directoryPath.substr(position + 1);
+    }
+    else
+    {
+      return "";
+    }
+  }
 }

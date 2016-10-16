@@ -318,6 +318,12 @@ namespace TestKernel
       Directory::remove(parentDirectory);
       Assert::IsFalse(Directory::exists(parentDirectory));
     }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Static_GetDirectoryName)
+    {
+      Assert::AreEqual("TestDirectory", Directory::getDirectoryName(testDirectory).c_str());
+    }
   };
 }
 
