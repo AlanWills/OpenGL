@@ -27,19 +27,16 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource, const std::string& geometrySource)
+  void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource)
   {
-#ifdef _DEBUG
     // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
-    //TemporaryGLContext glContext;
-#endif
+    TemporaryGLContext glContext;
 
     // TODO: Refactor this using createShader()
     GLuint sVertex, sFragment, gShader;
 
     const char* vertexCSource = vertexSource.c_str();
     const char* fragmentCSource = fragmentSource.c_str();
-    const char* geometryCSource = geometrySource.c_str();
 
     // Vertex Shader
     sVertex = glCreateShader(GL_VERTEX_SHADER);
@@ -53,24 +50,10 @@ namespace Engine
     glCompileShader(sFragment);
     checkCompileErrors(sFragment, "FRAGMENT");
 
-    // If geometry shader source code is given, also compile geometry shader
-    if (!geometrySource.empty())
-    {
-      gShader = glCreateShader(GL_GEOMETRY_SHADER);
-      glShaderSource(gShader, 1, &geometryCSource, NULL);
-      glCompileShader(gShader);
-      checkCompileErrors(gShader, "GEOMETRY");
-    }
-
     // Shader Program
     m_program = glCreateProgram();
     glAttachShader(m_program, sVertex);
     glAttachShader(m_program, sFragment);
-
-    if (!geometrySource.empty())
-    {
-      glAttachShader(m_program, gShader);
-    }
 
     glLinkProgram(m_program);
     checkCompileErrors(m_program, "PROGRAM");
@@ -78,11 +61,6 @@ namespace Engine
     // Delete the shaders as they're linked into our program now and no longer necessery
     glDeleteShader(sVertex);
     glDeleteShader(sFragment);
-
-    if (!geometrySource.empty())
-    {
-      glDeleteShader(gShader);
-    }
 
     glCheckError();
   }

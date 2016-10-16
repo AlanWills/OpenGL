@@ -157,12 +157,12 @@ namespace Kernel
 
           if (extension == thisExtension)
           {
-            files.push_back(filePath);
+            files.emplace_back(File(filePath));
           }
         }
         else
         {
-          files.push_back(filePath);
+          files.push_back(File(filePath));
         }
       }
       else if (includeSubDirectories && dirent->d_type == DT_DIR)

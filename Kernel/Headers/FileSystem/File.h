@@ -20,7 +20,7 @@ class DllExport File
     /// and so call the first constructor
     File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists = false);
 
-    File(const Path& path);
+    File(const Path& path, bool clearIfAlreadyExists = false);
     ~File();
 
     /// Copy constructor and assignment operator do not create the file; just copy the path

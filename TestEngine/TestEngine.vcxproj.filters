@@ -77,7 +77,6 @@
   <ItemGroup>
     <None Include="TestResources\Shaders\Fragment\sprite.frag" />
     <None Include="TestResources\Shaders\Vertex\sprite.vs" />
-    <None Include="TestResources\Shaders\Geometry\sprite.geom" />
     <None Include="TestResources\Shaders\Fragment\colour.frag" />
     <None Include="TestResources\Shaders\Vertex\colour.vs" />
   </ItemGroup>

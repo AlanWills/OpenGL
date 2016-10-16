@@ -18,6 +18,8 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestResourceManager_ClassSetup)
     {
+      GLFW_INIT();
+
       Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
       testResourceDir = Directory(resourceDirPath);
       Assert::IsTrue(testResourceDir.exists());
@@ -102,11 +104,6 @@ namespace TestEngine
           Path expectedFrag(expected.asString(), FRAGMENT_SHADER_DIR);
           Assert::AreEqual(expectedFrag, ResourceManager::getFragmentShaderDirectoryPath());
         }
-
-        {
-          Path expectedGeom(expected.asString(), GEOMETRY_SHADER_DIR);
-          Assert::AreEqual(expectedGeom, ResourceManager::getGeometryShaderDirectoryPath());
-        }
       }
 
       // Set it back to cleanup the test
@@ -146,22 +143,6 @@ namespace TestEngine
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_ResourceManager_SetGeometryShaderDirectoryPath)
-    {
-      Path original = ResourceManager::getGeometryShaderDirectoryPath();
-
-      // Do the test
-      {
-        Path expected(ResourceManager::getShaderDirectoryPath().asString(), "Geo");
-        ResourceManager::setGeometryShaderDirectoryPath(expected);
-        Assert::AreEqual(expected, ResourceManager::getGeometryShaderDirectoryPath());
-      }
-
-      // Set it back to cleanup the test
-      ResourceManager::setGeometryShaderDirectoryPath(original);
-    }
-
-    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_Unloading)
     {
       // Test all the unloading in one method, as we cannot do it over multiple tests since unload is called afterwards
@@ -186,7 +167,7 @@ namespace TestEngine
         AssertDisabler assertDisabler;
 
         // Load a shader
-        ResourceManager::loadShader("sprite.vs", "sprite.frag", "sprite.geom", shaderStringId);
+        ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
 
         // Check it exists
         Assert::IsNotNull(ResourceManager::getShader(shaderStringId));
@@ -238,18 +219,18 @@ namespace TestEngine
       {
         AssertDisabler disabler;
 
-        Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "sprite.geom", shaderStringId);
+        Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
         Assert::IsNotNull(shader);
       }
 
-      Shader* shader = ResourceManager::loadShader("colour.vs", "colour.frag", "", shaderStringId);
+      Shader* shader = ResourceManager::loadShader("colour.vs", "colour.frag", shaderStringId);
       Assert::IsNotNull(shader);
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetShader)
     {
-      Shader* expectedShader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "sprite.geom", shaderStringId);
+      Shader* expectedShader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
       Shader* actualShader = ResourceManager::getShader(shaderStringId);
 
       Assert::AreEqual(expectedShader, actualShader);

@@ -30,7 +30,7 @@ void Game::init(GLFWwindow* window)
   glCheckError();
   
   // Load shaders
-  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", "", ResourceStringIds::SpriteShader);
+  Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", ResourceStringIds::SpriteShader);
 
   // Configure shaders
   shader->use(); 
@@ -65,7 +65,7 @@ void Game::init(GLFWwindow* window)
 //------------------------------------------------------------------------------------------------
 void Game::loadLevel(const std::string& levelPath)
 {
-  Path path(DIRECTORY);
+  Path path(ResourceManager::getResourceDirectoryPath());
   path.combine(LEVEL_DIR).combine(levelPath);
 
   GameLevel* level = new GameLevel();

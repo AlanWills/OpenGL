@@ -31,7 +31,6 @@ namespace Engine
 #define LEVEL_DIR "Levels"
 #define VERTEX_SHADER_DIR "Vertex"
 #define FRAGMENT_SHADER_DIR "Fragment"
-#define GEOMETRY_SHADER_DIR "Geometry"
 
 #define SHADER_POOL_SIZE 10
 #define TEXTURE_POOL_SIZE 100
@@ -60,11 +59,10 @@ class DllExport ResourceManager
     /// \brief Initialises resource specific data including glew and file paths and loads all resources that will last the lifetime of the game
     static void init();
 
-    /// \brief Loads (and generates) a shader program from file by loading vertex, fragment (and geometry) shader source code. If gShaderFile is not nullptr, it also loads a geometry shader
+    /// \brief Loads (and generates) a shader program from file by loading vertex and fragment shader source code. If gShaderFile is not nullptr, it also loads a geometry shader
     static Shader* loadShader(
       const std::string& vShaderRelativeFilePath, 
       const std::string& fShaderRelativeFilePath, 
-      const std::string& gShaderRelativeFilePath, 
       StringId name);
 
     /// \brief Retrieves a stored shader
@@ -85,7 +83,6 @@ class DllExport ResourceManager
     static void setShaderDirectoryPath(const Path& shaderDirectoryPath);
     static void setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath);
     static void setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath);
-    static void setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath);
     
     /// \brief Getters for the common asset folders on disc
     static const Path& getResourceDirectoryPath() { return m_resourceDirectoryPath; }
@@ -93,7 +90,6 @@ class DllExport ResourceManager
     static const Path& getShaderDirectoryPath() { return m_shaderDirectoryPath; }
     static const Path& getVertexShaderDirectoryPath() { return m_vertexShaderDirectoryPath; }
     static const Path& getFragmentShaderDirectoryPath() { return m_fragmentShaderDirectoryPath; }
-    static const Path& getGeometryShaderDirectoryPath() { return m_geometryShaderDirectoryPath; }
 
     /// \brief Frees the relevant resources from the resource manager's memory
     static void unloadTextures();
@@ -107,8 +103,7 @@ class DllExport ResourceManager
     // Loads and generates a shader from file
     static Shader* loadShaderFromFile(
       const std::string& vertexShaderFullPath,
-      const std::string& fragmentShaderFullPath,
-      const std::string& geometryShaderFullPath = "");
+      const std::string& fragmentShaderFullPath);
 
     /// \brief Loads a single texture from file - requires the full texture file path as input
     static Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
@@ -135,7 +130,6 @@ class DllExport ResourceManager
     static Path     m_shaderDirectoryPath;
     static Path     m_vertexShaderDirectoryPath;
     static Path     m_fragmentShaderDirectoryPath;
-    static Path     m_geometryShaderDirectoryPath;
 };
 
 }

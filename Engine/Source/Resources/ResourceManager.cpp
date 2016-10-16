@@ -22,7 +22,6 @@ namespace Engine
   Path                  ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
   Path                  ResourceManager::m_vertexShaderDirectoryPath(m_shaderDirectoryPath.asString(), VERTEX_SHADER_DIR);
   Path                  ResourceManager::m_fragmentShaderDirectoryPath(m_shaderDirectoryPath.asString(), FRAGMENT_SHADER_DIR);
-  Path                  ResourceManager::m_geometryShaderDirectoryPath(m_shaderDirectoryPath.asString(), GEOMETRY_SHADER_DIR);
 
 
   //------------------------------------------------------------------------------------------------
@@ -40,7 +39,6 @@ namespace Engine
   Shader* ResourceManager::loadShader(
     const std::string& vShaderRelativeFilePath,
     const std::string& fShaderRelativeFilePath,
-    const std::string& gShaderRelativeFilePath,
     StringId name)
   {
     if (m_shaders.find(name) != m_shaders.end())
@@ -49,17 +47,11 @@ namespace Engine
       return m_shaders[name];
     }
 
-    Path vertexShader(m_vertexShaderDirectoryPath), fragmentShader(m_fragmentShaderDirectoryPath), geometryShader(m_geometryShaderDirectoryPath);
+    Path vertexShader(m_vertexShaderDirectoryPath), fragmentShader(m_fragmentShaderDirectoryPath);
     vertexShader.combine(vShaderRelativeFilePath);
     fragmentShader.combine(fShaderRelativeFilePath);
 
-    if (!gShaderRelativeFilePath.empty())
-    {
-      // Only set up the geometry shader path if we are using one
-      geometryShader.combine(gShaderRelativeFilePath);
-    }
-
-    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString(), !gShaderRelativeFilePath.empty() ? geometryShader.asString() : "");
+    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString());
     m_shaders[name] = shader;
     return shader;
   }
@@ -112,8 +104,7 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   Shader* ResourceManager::loadShaderFromFile(
     const std::string& vertexShaderFullPath,
-    const std::string& fragmentShaderFullPath,
-    const std::string& geometryShaderFullPath)
+    const std::string& fragmentShaderFullPath)
   {
     // Create shader object
     Shader* shader = nullptr;
@@ -134,7 +125,6 @@ namespace Engine
     // Retrieve the vertex/fragment/geometry source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
-    std::string geometryCode;
 
     File file(vertexShaderFullPath);
     ASSERT(file.exists());
@@ -144,21 +134,12 @@ namespace Engine
     ASSERT(file.exists());
     file.read(fragmentCode);
 
-    if (!geometryShaderFullPath.empty())
-    {
-      file = File(geometryShaderFullPath);
-      ASSERT(file.exists());
-      file.read(geometryCode);
-    }
-
     ASSERT(!vertexCode.empty());
     ASSERT(!fragmentCode.empty());
-    ASSERT(geometryShaderFullPath.empty() || !geometryCode.empty());
 
     // Compile into the graphics card
-    shader->compile(vertexCode, fragmentCode, !geometryShaderFullPath.empty() ? geometryCode : "");
+    shader->compile(vertexCode, fragmentCode);
 
-    glCheckError();
     return shader;
   }
 
@@ -272,10 +253,6 @@ namespace Engine
     Path newFragmentPath(m_shaderDirectoryPath);
     newFragmentPath.combine(FRAGMENT_SHADER_DIR);
     setFragmentShaderDirectoryPath(newFragmentPath);
-
-    Path newGeomtryPath(m_shaderDirectoryPath);
-    newGeomtryPath.combine(GEOMETRY_SHADER_DIR);
-    setGeometryShaderDirectoryPath(newGeomtryPath);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -288,11 +265,5 @@ namespace Engine
   void ResourceManager::setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath)
   {
     m_fragmentShaderDirectoryPath = fragmentShaderDirectoryPath;
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void ResourceManager::setGeometryShaderDirectoryPath(const Path& geometryShaderDirectoryPath)
-  {
-    m_geometryShaderDirectoryPath = geometryShaderDirectoryPath;
   }
 }

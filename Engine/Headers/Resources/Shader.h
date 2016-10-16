@@ -23,7 +23,7 @@ class DllExport Shader
 
     // Note: geometry source code is optional
     // Compiles the shader from given source code
-    void compile(const std::string& vertexSource, const std::string& fragmentSource, const std::string& geometrySource = "");
+    void compile(const std::string& vertexSource, const std::string& fragmentSource);
 
     // Sets the current shader as active
     void use() const;

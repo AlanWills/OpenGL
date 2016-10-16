@@ -23,10 +23,10 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  File::File(const Path& path) :
+  File::File(const Path& path, bool clearIfAlreadyExists) :
     m_filePath(path)
   {
-    create(m_filePath.asString());
+    create(m_filePath.asString(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
