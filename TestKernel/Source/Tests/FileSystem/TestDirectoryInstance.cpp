@@ -124,7 +124,7 @@ namespace TestKernel
     TEST_METHOD(Test_Directory_Instance_EqualityOperator)
     {
       Path path(testDirectory, "Test");
-      Directory original(path), same(path), notSame("Root");
+      Directory original(path), same(path), notSame(testDirectory, "NotTheSameDirectory");
 
       Assert::IsTrue(original == same);
       Assert::IsFalse(original == notSame);

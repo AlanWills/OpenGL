@@ -41,15 +41,15 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Clock_CyclesToSeconds)
     {
-      Assert::AreEqual(10.0f, Clock::cyclesToSeconds(20));
+      Assert::AreEqual(10.0f, Clock::cyclesToSeconds(10.0f * cyclesPerSecond));
       Assert::AreEqual(0.0f, Clock::cyclesToSeconds(0));
-      Assert::AreNotEqual(-10.0f, Clock::cyclesToSeconds(-20));
+      Assert::AreNotEqual(-10.0f, Clock::cyclesToSeconds(-10.0f * cyclesPerSecond));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Clock_SecondsToCycles)
     {
-      Assert::AreEqual((uint64_t)40, Clock::secondsToCycles(20));
+      Assert::AreEqual((uint64_t)20 * cyclesPerSecond, Clock::secondsToCycles(20));
       Assert::AreEqual((uint64_t)0, Clock::secondsToCycles(0));
     }
 
@@ -59,13 +59,13 @@ namespace TestEngine
       Clock clock;
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 2);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 5);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 4); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 10); // Compound errors
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 6); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond), clock.getElapsedCycles(), 15); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------
@@ -91,13 +91,13 @@ namespace TestEngine
       clock.setTimeScale(2.0f);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 4);
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 10);
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 8); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 20); // Compound errors
 
       clock.update();
-      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 12); // Compound errors
+      AssertExt::assertAreAlmostEqual((uint64_t)(glfwGetTime() * cyclesPerSecond * 2), clock.getElapsedCycles(), 30); // Compound errors
     }
 
     //------------------------------------------------------------------------------------------------

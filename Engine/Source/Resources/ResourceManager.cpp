@@ -32,7 +32,26 @@ namespace Engine
 
     // TODO: Bit of debug checking on the directory paths
     // TODO: Maybe actually change them to directories?
-    // TODO: Auto find resource files
+    
+    std::vector<File> textures;
+    Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
+
+    for (const File& file : textures)
+    {
+      const std::string& fileName = file.getFileName();
+
+      loadTexture(fileName, GL_TRUE, internString(fileName));
+    }
+
+    std::vector<File> shaderFiles;
+    Directory::findFiles(m_vertexShaderDirectoryPath.asString(), shaderFiles, ".vs", true);
+
+    for (const File& file : shaderFiles)
+    {
+      const std::string& extensionlessFileName = file.getExtensionlessFileName();
+
+      loadShader(file.getFileName(), extensionlessFileName + ".frag", internString(extensionlessFileName));
+    }
   }
 
   //------------------------------------------------------------------------------------------------

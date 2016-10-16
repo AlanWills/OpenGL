@@ -176,13 +176,13 @@ namespace Kernel
 
     std::string fileName(filePath);
     size_t delimIndex = fileName.find_last_of(PATH_DELIMITER);
-    size_t extIndex = fileName.find_first_of('.');
+    size_t extIndex = fileName.find_last_of('.');   // Find last here in case we have a \\..\\ in our file path
 
     if (delimIndex < fileName.npos && 
         extIndex < fileName.npos && 
         delimIndex < extIndex)
     {
-      return fileName.substr(delimIndex + 1, extIndex);
+      return fileName.substr(delimIndex + 1, extIndex - (delimIndex + 1));
     }
     else
     {

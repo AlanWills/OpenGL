@@ -166,10 +166,12 @@ namespace TestKernel
     TEST_METHOD(Test_File_Instance_EqualityOperator)
     {
       Path path(testFilePath);
-      File original(path), same(path), notSame("Root");
+      File original(path), same(path), notSame(parentDirectory, "NotTheSameFile.txt");
 
       Assert::IsTrue(original == same);
       Assert::IsFalse(original == notSame);
+
+      notSame.remove();
     }
 
     //------------------------------------------------------------------------------------------------
