@@ -355,6 +355,22 @@ namespace TestKernel
     }
 
     //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_CreateFile)
+    {
+      Directory dir(testDirectory);
+      const File& createdDir = dir.createFile("Test.txt");
+      Assert::IsTrue(createdDir.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_Directory_Instance_CreateDirectory)
+    {
+      Directory dir(testDirectory);
+      const Directory& createdDir = dir.createDirectory("TestDirectory");
+      Assert::IsTrue(createdDir.exists());
+    }
+
+    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Directory_Instance_GetDirectoryName)
     {
       Directory dir(testDirectory);

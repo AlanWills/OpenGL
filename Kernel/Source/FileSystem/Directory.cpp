@@ -215,6 +215,18 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
+  File Directory::createFile(const std::string& fileName)
+  {
+    return File(m_dirPath.asString(), fileName);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Directory Directory::createDirectory(const std::string& directoryName)
+  {
+    return Directory(m_dirPath.asString(), directoryName);
+  }
+
+  //------------------------------------------------------------------------------------------------
   std::string Directory::getDirectoryName(const std::string& directoryFullPath)
   {
     std::string directoryPath(directoryFullPath);
