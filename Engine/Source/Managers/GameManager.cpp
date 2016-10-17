@@ -33,6 +33,76 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
+  void GameManager::run()
+  {
+    Clock gameClock;
+    //Game game;
+
+    // Initialize game
+    //game.init();
+
+    // DeltaTime variables
+    GLfloat lag = 0.0f;
+
+    ASSERT(m_window.get());
+    while (!glfwWindowShouldClose(m_window->getGLWindow()))
+    {
+      gameClock.update();
+
+      GLfloat elapsedGameTime = gameClock.getElapsedDeltaTime();
+      lag += elapsedGameTime;
+
+      GLfloat gameSecondsPerUpdate = gameClock.getTimeScale() / gameClock.getTargetFramesPerSecond();
+
+      glfwPollEvents();
+
+      // Manage user input
+      handleInput(elapsedGameTime);
+
+      // We use a variable render fixed update loop
+      while (lag >= gameSecondsPerUpdate)
+      {
+        // Update Game state
+        update(gameSecondsPerUpdate);
+
+        lag -= gameSecondsPerUpdate;
+      }
+
+      glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+      glClear(GL_COLOR_BUFFER_BIT);
+
+      // Render
+      render(lag);
+
+      glfwSwapBuffers(GameManager::getWindow()->getGLWindow());
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::handleInput(GLfloat elapsedGameTime)
+  {
+    // Put custom input handling here
+
+    //game.handleInput(elapsedGameTime);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::update(GLfloat gameSecondsPerUpdate)
+  {
+    // Put custom update code here
+
+    //game.update(gameSecondsPerUpdate);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::render(GLfloat lag)
+  {
+    // Put custom render code here
+
+    //game.render(lag);
+  }
+
+  //------------------------------------------------------------------------------------------------
   OpenGLWindow* GameManager::getWindow()
   {
     ASSERT(m_window.get());

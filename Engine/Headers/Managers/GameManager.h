@@ -18,12 +18,18 @@ class DllExport GameManager
     /// \brief Get the window
     static OpenGLWindow* getWindow();
 
+    static void run();
+
     static inline int getWindowWidth() { return getWindow()->getWidth(); }
     static inline int getWindowHeight() { return getWindow()->getHeight(); }
 
   private:
     GameManager();
     ~GameManager();
+
+    static void handleInput(GLfloat elapsedGameTime);
+    static void update(GLfloat gameSecondsPerUpdate);
+    static void render(GLfloat lag);
 
     static std::unique_ptr<OpenGLWindow> m_window;
 };
