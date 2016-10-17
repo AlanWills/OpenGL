@@ -29,7 +29,7 @@ public:
   ~Game();
 
   // Initialize game state (load all shaders/textures/levels)
-  void init(GLFWwindow* window);
+  void init();
 
   // GameLoop
   void handleInput(GLfloat elapsedGameTime);

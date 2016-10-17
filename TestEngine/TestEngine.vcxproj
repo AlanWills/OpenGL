@@ -251,6 +251,7 @@
     <ClCompile Include="Source\Tests\Input\Keyboard\TestNullKeyboard.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestMouse.cpp" />
     <ClCompile Include="Source\Tests\Input\Mouse\TestNullMouse.cpp" />
+    <ClCompile Include="Source\Tests\Managers\TestGameManager.cpp" />
     <ClCompile Include="Source\Tests\Memory\TestDoubleBufferAllocator.cpp" />
     <ClCompile Include="Source\Tests\Memory\TestPoolAllocator.cpp" />
     <ClCompile Include="Source\Tests\OpenGL\TestOpenGLWindow.cpp" />

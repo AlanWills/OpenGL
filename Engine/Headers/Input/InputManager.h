@@ -16,7 +16,7 @@ class DllExport InputManager
   public:
     /// \brief Set up the keyboard and mouse objects and also set up the global window callback
     /// To receive messages from the message window pump
-    static void init(GLFWwindow* window);
+    static void init();
 
     static void update(GLfloat elapsedGameTime);
 

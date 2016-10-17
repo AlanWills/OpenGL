@@ -240,6 +240,7 @@
     <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
     <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
     <ClInclude Include="Headers\Debugging\Logging\Logger.h" />
+    <ClInclude Include="Headers\Managers\GameManager.h" />
     <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
     <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />
@@ -284,6 +285,7 @@
     <ClCompile Include="Source\Input\Keyboard\NullKeyboard.cpp" />
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
     <ClCompile Include="Source\Input\Mouse\NullMouse.cpp" />
+    <ClCompile Include="Source\Managers\GameManager.cpp" />
     <ClCompile Include="Source\Memory\AlignedAllocator.cpp" />
     <ClCompile Include="Source\OpenGL\OpenGLWindow.cpp" />
     <ClCompile Include="Source\Resources\ResourceManager.cpp" />

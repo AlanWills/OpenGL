@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Input/InputManager.h"
+#include "Managers/GameManager.h"
 
 namespace Engine
 {
@@ -42,9 +43,9 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::init(GLFWwindow* window)
+  void InputManager::init()
   {
-    glfwSetKeyCallback(window, handleGLKeyboardMessages);
+    glfwSetKeyCallback(GameManager::getWindow()->getGLWindow(), handleGLKeyboardMessages);
 
     setKeyboard(new Keyboard());
     setMouse(new Mouse());

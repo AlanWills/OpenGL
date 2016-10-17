@@ -1,10 +1,6 @@
-#include "GLHeaders.h"
 #include "Game.h"
-#include "Debugging/DebugManager.h"
-#include "Input/InputManager.h"
-#include "Resources/ResourceManager.h"
+#include "Managers/GameManager.h"
 #include "Time/Clock.h"
-#include "OpenGL/OpenGLWindow.h"
 
 #include <thread>
 #include <chrono>
@@ -15,27 +11,20 @@ int main(int argc, char *argv[])
 {
   GLFW_INIT();
 
-  // TODO: Move to screen manager class
-  OpenGLWindow glWindow;
-  GLFWwindow* window = glWindow.getGLWindow();
+  GameManager::init();
 
   GLEW_INIT();
-  glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
-
-  InputManager::init(window);
-  ResourceManager::init();
-  Clock::init();
 
   Clock gameClock;
   Game game;
 
   // Initialize game
-  game.init(window);
+  game.init();
 
   // DeltaTime variables
   GLfloat lag = 0.0f;
 
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(GameManager::getWindow()->getGLWindow()))
   {
     gameClock.update();
 
@@ -62,9 +51,9 @@ int main(int argc, char *argv[])
     glClear(GL_COLOR_BUFFER_BIT);
     game.render(lag);
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(GameManager::getWindow()->getGLWindow());
   }
 
-  glfwTerminate();
+  GLFW_TERMINATE();
   return 0;
 }
