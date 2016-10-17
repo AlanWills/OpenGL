@@ -1,8 +1,9 @@
 #include "stdafx.h"
 
 #include "Resources/ResourceManager.h"
-#include "FileSystem/Path.h"
-#include "FileSystem/Directory.h"
+#include "Resources/Texture2D.h"
+
+#include <SOIL/SOIL.h>
 
 using namespace Engine;
 
@@ -10,14 +11,14 @@ using namespace Engine;
 namespace TestEngine
 {
   static Directory testResourceDir(Directory::getExecutingAppDirectory());
-  static StringId shaderStringId = internString("sprite");
+  static StringId textureStringId = internString("texture");
 
-  TEST_CLASS(TestShader), public GLUnitTest
+  TEST_CLASS(TestTexture2D), public GLUnitTest
   {
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestShader_ClassSetup)
+    TEST_CLASS_INITIALIZE(TestTexture2D_ClassSetup)
     {
       Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
       testResourceDir = Directory(resourceDirPath);
@@ -27,29 +28,25 @@ namespace TestEngine
     }
 
     //----------------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Shader_Compile)
+    TEST_METHOD(Test_Texture2D_Generate)
     {
-      std::string vertexShaderCode, fragmentShaderCode;
-      Path vertexPath(testResourceDir.getDirectoryPath(), "Shaders");
-      vertexPath.combine("Vertex").combine("sprite.vs");
+      Path texturePath(testResourceDir.getDirectoryPath());
+      texturePath.combine("Assets").combine("block.png");
 
-      Path fragmentPath(testResourceDir.getDirectoryPath(), "Shaders");
-      fragmentPath.combine("Fragment").combine("sprite.frag");
+      Texture2D texture;
 
-      File::read(vertexPath.asString(), vertexShaderCode);
-      File::read(fragmentPath.asString(), fragmentShaderCode);
-
-      Shader shader;
-      shader.compile(vertexShaderCode, fragmentShaderCode);
+      int width, height;
+      unsigned char* image = SOIL_load_image(texturePath.asString().c_str(), &width, &height, 0, GL_FALSE);
+      texture.generate(1, 1, image);
     }
 
     //----------------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_Shader_Use)
+    TEST_METHOD(Test_Texture2D_Bind)
     {
-      Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
-      Assert::IsNotNull(shader);
+      Texture2D* texture = ResourceManager::loadTexture("block.png", GL_TRUE, textureStringId);
+      Assert::IsNotNull(texture);
 
-      shader->use();
+      texture->bind();
     }
   };
 }

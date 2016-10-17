@@ -256,6 +256,7 @@
     <ClCompile Include="Source\Tests\OpenGL\TestOpenGLWindow.cpp" />
     <ClCompile Include="Source\Tests\Resources\TestResourceManager.cpp" />
     <ClCompile Include="Source\Tests\Resources\TestShader.cpp" />
+    <ClCompile Include="Source\Tests\Resources\TestTexture2D.cpp" />
     <ClCompile Include="Source\Tests\Time\TestClock.cpp" />
   </ItemGroup>
   <ItemGroup>
