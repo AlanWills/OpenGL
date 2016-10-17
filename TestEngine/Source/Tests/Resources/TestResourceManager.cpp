@@ -18,8 +18,6 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_CLASS_INITIALIZE(TestResourceManager_ClassSetup)
     {
-      GLFW_INIT();
-
       Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
       testResourceDir = Directory(resourceDirPath);
       Assert::IsTrue(testResourceDir.exists());

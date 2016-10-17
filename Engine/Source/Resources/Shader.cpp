@@ -33,12 +33,13 @@ namespace Engine
     TemporaryGLContext glContext;
 
     // TODO: Refactor this using createShader()
-    GLuint sVertex, sFragment, gShader;
+    GLuint sVertex, sFragment;
 
     const char* vertexCSource = vertexSource.c_str();
     const char* fragmentCSource = fragmentSource.c_str();
 
     // Vertex Shader
+    // createShader(vertexSource, GL_VERTEX_SHADER, sVertex, "VERTEX");
     sVertex = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(sVertex, 1, &vertexCSource, NULL);
     glCompileShader(sVertex);

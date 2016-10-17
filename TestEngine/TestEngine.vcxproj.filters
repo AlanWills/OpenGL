@@ -73,6 +73,9 @@
     <ClCompile Include="Source\Tests\Debugging\TestDebugManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Tests\Resources\TestShader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="TestResources\Shaders\Fragment\sprite.frag" />
