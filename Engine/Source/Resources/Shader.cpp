@@ -35,21 +35,11 @@ namespace Engine
     // TODO: Refactor this using createShader()
     GLuint sVertex, sFragment;
 
-    const char* vertexCSource = vertexSource.c_str();
-    const char* fragmentCSource = fragmentSource.c_str();
-
     // Vertex Shader
-    // createShader(vertexSource, GL_VERTEX_SHADER, sVertex, "VERTEX");
-    sVertex = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(sVertex, 1, &vertexCSource, NULL);
-    glCompileShader(sVertex);
-    checkCompileErrors(sVertex, "VERTEX");
-
+    createShader(vertexSource, GL_VERTEX_SHADER, sVertex, "VERTEX");
+    
     // Fragment Shader
-    sFragment = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(sFragment, 1, &fragmentCSource, NULL);
-    glCompileShader(sFragment);
-    checkCompileErrors(sFragment, "FRAGMENT");
+    createShader(fragmentSource, GL_FRAGMENT_SHADER, sFragment, "FRAGMENT");
 
     // Shader Program
     m_program = glCreateProgram();
