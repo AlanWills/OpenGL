@@ -4,6 +4,7 @@
 #include "OpenGL/OpenGLWindow.h"
 #include "Resources/ResourceManager.h"
 #include "Input/InputManager.h"
+#include "Time/Clock.h"
 
 
 namespace Engine
@@ -26,15 +27,17 @@ class DllExport GameManager
     static inline int getWindowWidth() { return getWindow()->getWidth(); }
     static inline int getWindowHeight() { return getWindow()->getHeight(); }
 
-    static ResourceManager* getResourceManager();
-
     /// \brief GameManager takes responsibility for managing the resource manager
     static void setResourceManager(ResourceManager* resourceManager);
-
-    static InputManager* getInputManager();
+    static ResourceManager* getResourceManager();
 
     /// \brief GameManager takes responsibility for managing the input manager
     static void setInputManager(InputManager* resourceManager);
+    static InputManager* getInputManager();
+
+    /// \brief GameManager takes responsibility for manager the clock
+    static void setGameClock(Clock* clock);
+    static Clock* getGameClock();
 
   private:
     GameManager();
@@ -52,6 +55,10 @@ class DllExport GameManager
 
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;
+
+    /// \brief The game clock responsible for managing game time
+    /// This clock can have it's speed altered to change the speed of the game, but not the game loop itself
+    static std::unique_ptr<Clock> m_gameClock;
 };
 
 }

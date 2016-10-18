@@ -1,9 +1,6 @@
 #include "stdafx.h"
 
 #include "Managers/GameManager.h"
-#include "Input/InputManager.h"
-#include "Resources/ResourceManager.h"
-#include "Time/Clock.h"
 
 
 namespace Engine
@@ -12,6 +9,7 @@ namespace Engine
   std::unique_ptr<OpenGLWindow> GameManager::m_window(nullptr);
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
+  std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
 
   //------------------------------------------------------------------------------------------------
   GameManager::GameManager()
@@ -44,7 +42,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void GameManager::run()
   {
-    Clock gameClock;
     //Game game;
 
     // Initialize game
@@ -56,12 +53,12 @@ namespace Engine
     ASSERT(m_window.get());
     while (!glfwWindowShouldClose(m_window->getGLWindow()))
     {
-      gameClock.update();
+      m_gameClock->update();
 
-      GLfloat elapsedGameTime = gameClock.getElapsedDeltaTime();
+      GLfloat elapsedGameTime = m_gameClock->getElapsedDeltaTime();
       lag += elapsedGameTime;
 
-      GLfloat gameSecondsPerUpdate = gameClock.getTimeScale() / gameClock.getTargetFramesPerSecond();
+      GLfloat gameSecondsPerUpdate = m_gameClock->getTimeScale() / m_gameClock->getTargetFramesPerSecond();
 
       glfwPollEvents();
 
@@ -144,5 +141,19 @@ namespace Engine
   {
     ASSERT(inputManager);
     m_inputManager.reset(inputManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Clock* GameManager::getGameClock()
+  {
+    ASSERT(m_gameClock.get());
+    return m_gameClock.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setGameClock(Clock* clock)
+  {
+    ASSERT(clock);
+    m_gameClock.reset(clock);
   }
 }

@@ -23,6 +23,9 @@ namespace TestEngine
       GameManager::init();
 
       Assert::IsNotNull(GameManager::getWindow());
+      Assert::IsNotNull(GameManager::getResourceManager());
+      Assert::IsNotNull(GameManager::getInputManager());
+      Assert::IsNotNull(GameManager::getGameClock());
     }
   };
 }
