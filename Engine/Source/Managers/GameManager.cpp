@@ -27,7 +27,6 @@ namespace Engine
     GLEW_INIT();
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-    ResourceManager::init();
     InputManager::init();
     Clock::init();
   }

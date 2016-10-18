@@ -10,27 +10,17 @@ using namespace Engine;
 
 namespace TestEngine
 {
-  static Directory testResourceDir(Directory::getExecutingAppDirectory());
+  static Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
   static StringId textureStringId = internString("texture");
-
+  
   TEST_CLASS(TestTexture2D), public GLUnitTest
   {
   public:
 
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestTexture2D_ClassSetup)
-    {
-      Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
-      testResourceDir = Directory(resourceDirPath);
-      Assert::IsTrue(testResourceDir.exists());
-
-      ResourceManager::setResourceDirectoryPath(testResourceDir.getDirectoryPath());
-    }
-
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Texture2D_Generate)
     {
-      Path texturePath(testResourceDir.getDirectoryPath());
+      Path texturePath(resourceDirPath);
       texturePath.combine("Assets").combine("block.png");
 
       Texture2D texture;
@@ -43,7 +33,9 @@ namespace TestEngine
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Texture2D_Bind)
     {
-      Texture2D* texture = ResourceManager::loadTexture("block.png", GL_TRUE, textureStringId);
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      Texture2D* texture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
       Assert::IsNotNull(texture);
 
       texture->bind();

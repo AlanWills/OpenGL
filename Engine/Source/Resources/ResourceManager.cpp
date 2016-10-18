@@ -7,22 +7,21 @@
 namespace Engine
 {
   //------------------------------------------------------------------------------------------------
-  // Instantiate static variables
-  ShaderMap             ResourceManager::m_shaders;
-  TextureMap            ResourceManager::m_textures;
+  ResourceManager::ResourceManager(const std::string& resourceDirectory) :
+    m_resourceDirectoryPath(resourceDirectory),
+    m_textureDirectoryPath(resourceDirectory),
+    m_shaderDirectoryPath(resourceDirectory),
+    m_vertexShaderDirectoryPath(resourceDirectory),
+    m_fragmentShaderDirectoryPath(resourceDirectory)
+  {
+    // This will set all the paths up correctly
+    setResourceDirectoryPath(resourceDirectory);
+  }
 
-  ShaderPool            ResourceManager::m_shaderPool;
-  TexturePool           ResourceManager::m_texturePool;
-
-  ShaderPoolOverflow    ResourceManager::m_shaderOverflow;
-  TexturePoolOverflow   ResourceManager::m_textureOverflow;
-
-  Path                  ResourceManager::m_resourceDirectoryPath(Directory::getExecutingAppDirectory());
-  Path                  ResourceManager::m_textureDirectoryPath(m_resourceDirectoryPath.asString(), TEXTURE_DIR);
-  Path                  ResourceManager::m_shaderDirectoryPath(m_resourceDirectoryPath.asString(), SHADER_DIR);
-  Path                  ResourceManager::m_vertexShaderDirectoryPath(m_shaderDirectoryPath.asString(), VERTEX_SHADER_DIR);
-  Path                  ResourceManager::m_fragmentShaderDirectoryPath(m_shaderDirectoryPath.asString(), FRAGMENT_SHADER_DIR);
-
+  //------------------------------------------------------------------------------------------------
+  ResourceManager::~ResourceManager()
+  {
+  }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::init()
@@ -30,9 +29,6 @@ namespace Engine
     // Really don't know why we need this, but we do apparently
     GLEW_INIT();
 
-    // TODO: Bit of debug checking on the directory paths
-    // TODO: Maybe actually change them to directories?
-    
     std::vector<File> textures;
     Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
 

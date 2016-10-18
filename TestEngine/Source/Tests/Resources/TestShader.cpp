@@ -9,31 +9,21 @@ using namespace Engine;
 
 namespace TestEngine
 {
-  static Directory testResourceDir(Directory::getExecutingAppDirectory());
+  static Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
   static StringId shaderStringId = internString("sprite");
 
   TEST_CLASS(TestShader), public GLUnitTest
   {
   public:
 
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestShader_ClassSetup)
-    {
-      Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
-      testResourceDir = Directory(resourceDirPath);
-      Assert::IsTrue(testResourceDir.exists());
-
-      ResourceManager::setResourceDirectoryPath(testResourceDir.getDirectoryPath());
-    }
-
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Shader_Compile)
     {
       std::string vertexShaderCode, fragmentShaderCode;
-      Path vertexPath(testResourceDir.getDirectoryPath(), "Shaders");
+      Path vertexPath(resourceDirPath.asString(), "Shaders");
       vertexPath.combine("Vertex").combine("sprite.vs");
 
-      Path fragmentPath(testResourceDir.getDirectoryPath(), "Shaders");
+      Path fragmentPath(resourceDirPath.asString(), "Shaders");
       fragmentPath.combine("Fragment").combine("sprite.frag");
 
       File::read(vertexPath.asString(), vertexShaderCode);
@@ -46,7 +36,9 @@ namespace TestEngine
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Shader_Use)
     {
-      Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      Shader* shader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
       Assert::IsNotNull(shader);
 
       shader->use();

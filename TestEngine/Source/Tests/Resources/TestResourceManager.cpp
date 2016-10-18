@@ -7,7 +7,7 @@ using namespace Engine;
 
 namespace TestEngine
 {
-  static Directory testResourceDir(Directory::getExecutingAppDirectory());
+  static Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
   static StringId shaderStringId = internString("sprite");
   static StringId textureStringId = internString("texture");
 
@@ -16,196 +16,177 @@ namespace TestEngine
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestResourceManager_ClassSetup)
-    {
-      Path resourceDirPath(Directory::getExecutingAppDirectory(), "..\\..\\TestEngine\\TestResources");
-      testResourceDir = Directory(resourceDirPath);
-      Assert::IsTrue(testResourceDir.exists());
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD_INITIALIZE(TestResourceManager_Setup)
-    {
-      // This should allow us to change the resource manager to look for assets in our test directory
-      ResourceManager::setResourceDirectoryPath(testResourceDir.getDirectoryPath());
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD_CLEANUP(TestResourceManager_Cleanup)
-    {
-      // Unload the resources between each test to reset the resource manager
-      ResourceManager::unloadAllAssets();
-    }
-
-    //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetResourceDirectoryPath)
     {
-      Path original = ResourceManager::getResourceDirectoryPath();
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-      // Do the test
+      Path expected(Directory::getExecutingAppDirectory(), "Res");
+      resourceManager.setResourceDirectoryPath(expected);
+
+      Assert::AreEqual(expected, resourceManager.getResourceDirectoryPath());
+
+      // Check shader and texture dirs have been updated
       {
-        Path expected(Directory::getExecutingAppDirectory(), "Res");
-        ResourceManager::setResourceDirectoryPath(expected);
-
-        Assert::AreEqual(expected, ResourceManager::getResourceDirectoryPath());
-
-        // Check shader and texture dirs have been updated
-        {
-          Path expectedText(expected.asString(), TEXTURE_DIR);
-          Assert::AreEqual(expectedText, ResourceManager::getTextureDirectoryPath());
-        }
-
-        {
-          Path expectedShad(expected.asString(), SHADER_DIR);
-          Assert::AreEqual(expectedShad, ResourceManager::getShaderDirectoryPath());
-        }
+        Path expectedText(expected.asString(), TEXTURE_DIR);
+        Assert::AreEqual(expectedText, resourceManager.getTextureDirectoryPath());
       }
 
-      // Set it back to cleanup the test
-      ResourceManager::setResourceDirectoryPath(original);
+      {
+        Path expectedShad(expected.asString(), SHADER_DIR);
+        Assert::AreEqual(expectedShad, resourceManager.getShaderDirectoryPath());
+      }
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetTextureDirectoryPath)
     {
-      Path original = ResourceManager::getTextureDirectoryPath();
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-      // Do the test
-      {
-        Path expected(testResourceDir.getDirectoryPath(), "Tex");
-        ResourceManager::setTextureDirectoryPath(expected);
-        Assert::AreEqual(expected, ResourceManager::getTextureDirectoryPath());
-      }
-
-      // Set it back to cleanup the test
-      ResourceManager::setTextureDirectoryPath(original);
+      Path expected(resourceDirPath.asString(), "Tex");
+      resourceManager.setTextureDirectoryPath(expected);
+      Assert::AreEqual(expected, resourceManager.getTextureDirectoryPath());
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetShaderDirectoryPath)
     {
-      Path original = ResourceManager::getShaderDirectoryPath();
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-      // Do the test
+      Path expected(resourceManager.getResourceDirectoryPath().asString(), "Sha");
+      resourceManager.setShaderDirectoryPath(expected);
+      Assert::AreEqual(expected, resourceManager.getShaderDirectoryPath());
+
+      // Check the shader sub directories are correct
       {
-        Path expected(ResourceManager::getResourceDirectoryPath().asString(), "Sha");
-        ResourceManager::setShaderDirectoryPath(expected);
-        Assert::AreEqual(expected, ResourceManager::getShaderDirectoryPath());
-
-        // Check the shader sub directories are correct
-        {
-          Path expectedVert(expected.asString(), VERTEX_SHADER_DIR);
-          Assert::AreEqual(expectedVert, ResourceManager::getVertexShaderDirectoryPath());
-        }
-
-        {
-          Path expectedFrag(expected.asString(), FRAGMENT_SHADER_DIR);
-          Assert::AreEqual(expectedFrag, ResourceManager::getFragmentShaderDirectoryPath());
-        }
+        Path expectedVert(expected.asString(), VERTEX_SHADER_DIR);
+        Assert::AreEqual(expectedVert, resourceManager.getVertexShaderDirectoryPath());
       }
 
-      // Set it back to cleanup the test
-      ResourceManager::setShaderDirectoryPath(original);
+      {
+        Path expectedFrag(expected.asString(), FRAGMENT_SHADER_DIR);
+        Assert::AreEqual(expectedFrag, resourceManager.getFragmentShaderDirectoryPath());
+      }
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetVertexShaderDirectoryPath)
     {
-      Path original = ResourceManager::getVertexShaderDirectoryPath();
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-      // Do the test
-      {
-        Path expected(ResourceManager::getShaderDirectoryPath().asString(), "Vert");
-        ResourceManager::setVertexShaderDirectoryPath(expected);
-        Assert::AreEqual(expected, ResourceManager::getVertexShaderDirectoryPath());
-      }
-
-      // Set it back to cleanup the test
-      ResourceManager::setVertexShaderDirectoryPath(original);
+      Path expected(resourceManager.getShaderDirectoryPath().asString(), "Vert");
+      resourceManager.setVertexShaderDirectoryPath(expected);
+      Assert::AreEqual(expected, resourceManager.getVertexShaderDirectoryPath());
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetFragmentShaderDirectoryPath)
     {
-      Path original = ResourceManager::getFragmentShaderDirectoryPath();
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-      // Do the test
-      {
-        Path expected(ResourceManager::getShaderDirectoryPath().asString(), "Frag");
-        ResourceManager::setFragmentShaderDirectoryPath(expected);
-        Assert::AreEqual(expected, ResourceManager::getFragmentShaderDirectoryPath());
-      }
-
-      // Set it back to cleanup the test
-      ResourceManager::setFragmentShaderDirectoryPath(original);
+      Path expected(resourceManager.getShaderDirectoryPath().asString(), "Frag");
+      resourceManager.setFragmentShaderDirectoryPath(expected);
+      Assert::AreEqual(expected, resourceManager.getFragmentShaderDirectoryPath());
     }
 
     //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_ResourceManager_Unloading)
+    TEST_METHOD(Test_ResourceManager_UnloadTextures)
     {
-      // Test all the unloading in one method, as we cannot do it over multiple tests since unload is called afterwards
+      ResourceManager resourceManager(resourceDirPath.asString());
+      AssertDisabler assertDisabler;
 
-      {
-        // Load a texture
-        ResourceManager::loadTexture("block.png", GL_TRUE, textureStringId);
+      // Load a texture
+      resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
 
-        // Check it exists
-        Assert::IsNotNull(ResourceManager::getTexture(textureStringId));
+      // Check it exists
+      Assert::IsNotNull(resourceManager.getTexture(textureStringId));
 
-        // Unload textures
-        ResourceManager::unloadTextures();
+      // Unload textures
+      resourceManager.unloadTextures();
 
-        // Check the texture doesn't exist any more (turn off asserts)
-        AssertDisabler assertDisabler;
-        Assert::IsNull(ResourceManager::getTexture(textureStringId));
-      }
+      // Check the texture doesn't exist any more
+      Assert::IsNull(resourceManager.getTexture(textureStringId));
+    }
 
-      {
-        // Disable asserts because geom shader code might not be legit (as it's just a test resource)
-        AssertDisabler assertDisabler;
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_ResourceManager_UnloadShaders)
+    {
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-        // Load a shader
-        ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
+      // Disable asserts because geom shader code might not be legit (as it's just a test resource)
+      AssertDisabler assertDisabler;
 
-        // Check it exists
-        Assert::IsNotNull(ResourceManager::getShader(shaderStringId));
+      // Load a shader
+      resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
 
-        // Unload shaders
-        ResourceManager::unloadShaders();
+      // Check it exists
+      Assert::IsNotNull(resourceManager.getShader(shaderStringId));
 
-        // Check the shader doesn't exist any more
-        Assert::IsNull(ResourceManager::getShader(shaderStringId));
-      }
+      // Unload shaders
+      resourceManager.unloadShaders();
+
+      // Check the shader doesn't exist any more
+      Assert::IsNull(resourceManager.getShader(shaderStringId));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    TEST_METHOD(Test_ResourceManager_UnloadAllAssets)
+    {
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      AssertDisabler assertDisabler;
+
+      // Load a texture
+      resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
+
+      // Check it exists
+      Assert::IsNotNull(resourceManager.getTexture(textureStringId));
+
+      // Load a shader
+      resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
+
+      // Check it exists
+      Assert::IsNotNull(resourceManager.getShader(shaderStringId));
+
+      // Unload everything
+      resourceManager.unloadAllAssets();
+
+      // Check the texture doesn't exist any more
+      Assert::IsNull(resourceManager.getTexture(textureStringId));
+
+      // Check the shader doesn't exist any more
+      Assert::IsNull(resourceManager.getShader(shaderStringId));
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_CollectAllAssetsOnInit)
     {
-      ResourceManager::init();
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      resourceManager.init();
 
       // Check the textures in the texture directory are found
       {
-        Directory textureDirectory(ResourceManager::getTextureDirectoryPath());
+        Directory textureDirectory(resourceManager.getTextureDirectoryPath());
 
         std::vector<File> actualTextures;
         textureDirectory.findFiles(actualTextures);
 
         for (const File& fileName : actualTextures)
         {
-          Assert::IsNotNull(ResourceManager::getTexture(internString(fileName.getFileName())));
+          Assert::IsNotNull(resourceManager.getTexture(internString(fileName.getFileName())));
         }
       }
 
       // Check the shaders have been loaded
       {
-        Directory shaderDirectory(ResourceManager::getShaderDirectoryPath());
+        Directory shaderDirectory(resourceManager.getShaderDirectoryPath());
 
         std::vector<File> actualShaders;
         shaderDirectory.findFiles(actualShaders);
 
         for (const File& fileName : actualShaders)
         {
-          Assert::IsNotNull(ResourceManager::getShader(internString(fileName.getExtensionlessFileName())));
+          Assert::IsNotNull(resourceManager.getShader(internString(fileName.getExtensionlessFileName())));
         }
       }
     }
@@ -213,23 +194,22 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadShader)
     {
-      // Disable asserts for this because geometry shader might be rubbish and not compile
-      {
-        AssertDisabler disabler;
+      ResourceManager resourceManager(resourceDirPath.asString());
 
-        Shader* shader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
-        Assert::IsNotNull(shader);
-      }
+      Shader* shader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
+      Assert::IsNotNull(shader);
 
-      Shader* shader = ResourceManager::loadShader("colour.vs", "colour.frag", shaderStringId);
+      shader = resourceManager.loadShader("colour.vs", "colour.frag", shaderStringId);
       Assert::IsNotNull(shader);
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetShader)
     {
-      Shader* expectedShader = ResourceManager::loadShader("sprite.vs", "sprite.frag", shaderStringId);
-      Shader* actualShader = ResourceManager::getShader(shaderStringId);
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      Shader* expectedShader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
+      Shader* actualShader = resourceManager.getShader(shaderStringId);
 
       Assert::AreEqual(expectedShader, actualShader);
     }
@@ -237,15 +217,19 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadTexture)
     {
-      Texture2D* texture = ResourceManager::loadTexture("block.png", GL_TRUE, textureStringId);
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      Texture2D* texture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
       Assert::IsNotNull(texture);
     }
 
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetTexture)
     {
-      Texture2D* expectedTexture = ResourceManager::loadTexture("block.png", GL_TRUE, textureStringId);
-      Texture2D* actualTexture = ResourceManager::getTexture(textureStringId);
+      ResourceManager resourceManager(resourceDirPath.asString());
+
+      Texture2D* expectedTexture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
+      Texture2D* actualTexture = resourceManager.getTexture(textureStringId);
 
       Assert::AreEqual(expectedTexture, actualTexture);
     }

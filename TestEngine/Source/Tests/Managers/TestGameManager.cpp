@@ -8,8 +8,6 @@ using namespace Engine;
 
 namespace TestEngine
 {
-  static Path resourceManagerPath = ResourceManager::getResourceDirectoryPath();
-
   TEST_CLASS(TestGameManager)
   {
   public:
@@ -19,13 +17,6 @@ namespace TestEngine
     {
       Path path(Directory::getExecutingAppDirectory(), "..");
       path.combine("OpenGL");
-      ResourceManager::setResourceDirectoryPath(path);
-    }
-
-    //------------------------------------------------------------------------------------------------
-    TEST_CLASS_CLEANUP(TestGameManager_ClassCleanup)
-    {
-      ResourceManager::setResourceDirectoryPath(resourceManagerPath);
     }
 
     //------------------------------------------------------------------------------------------------

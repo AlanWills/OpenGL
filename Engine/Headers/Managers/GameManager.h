@@ -2,6 +2,8 @@
 
 #include "DllExport.h"
 #include "OpenGL/OpenGLWindow.h"
+#include "Resources/ResourceManager.h"
+#include "Input/InputManager.h"
 
 
 namespace Engine
@@ -31,7 +33,14 @@ class DllExport GameManager
     static void update(GLfloat gameSecondsPerUpdate);
     static void render(GLfloat lag);
 
+    /// \brief The GL window context
     static std::unique_ptr<OpenGLWindow> m_window;
+
+    /// \brief The manager responsible for handling game resources
+    static std::unique_ptr<ResourceManager> m_resourceManager;
+
+    /// \brief The manager responsible for handling and processing human input
+    static std::unique_ptr<InputManager> m_inputManager;
 };
 
 }
