@@ -5,12 +5,10 @@
 
 namespace Engine
 {
-  // Initialise the static members here
-  std::unique_ptr<Keyboard> InputManager::s_keyboard(nullptr);
-  std::unique_ptr<Mouse> InputManager::s_mouse(nullptr);
-
   //------------------------------------------------------------------------------------------------
-  InputManager::InputManager()
+  InputManager::InputManager() :
+    m_keyboard(new Keyboard()),
+    m_mouse(new Mouse())
   {
   }
 
@@ -33,11 +31,11 @@ namespace Engine
     {
       if (action == GLFW_PRESS)
       {
-        InputManager::getKeyboard()->setKeyDown(key);
+        GameManager::getInputManager()->getKeyboard()->setKeyDown(key);
       }
       else if (action == GLFW_RELEASE)
       {
-        InputManager::getKeyboard()->setKeyUp(key);
+        GameManager::getInputManager()->getKeyboard()->setKeyUp(key);
       }
     }
   }
@@ -46,43 +44,40 @@ namespace Engine
   void InputManager::init()
   {
     glfwSetKeyCallback(GameManager::getWindow()->getGLWindow(), handleGLKeyboardMessages);
-
-    setKeyboard(new Keyboard());
-    setMouse(new Mouse());
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::update(GLfloat elapsedGameTime)
   {
-    s_keyboard->update(elapsedGameTime);
-    s_mouse->update(elapsedGameTime);
+    m_keyboard->update(elapsedGameTime);
+    m_mouse->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::setKeyboard(Keyboard* keyboard)
   {
-    assert(keyboard);
-    s_keyboard.reset(keyboard);
+    ASSERT(keyboard);
+    m_keyboard.reset(keyboard);
   }
 
   //------------------------------------------------------------------------------------------------
-  Keyboard* InputManager::getKeyboard()
+  Keyboard* InputManager::getKeyboard() const
   {
-    assert(s_keyboard.get());
-    return s_keyboard.get();
+    ASSERT(m_keyboard.get());
+    return m_keyboard.get();
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::setMouse(Mouse* mouse)
   {
-    assert(mouse);
-    s_mouse.reset(mouse);
+    ASSERT(mouse);
+    m_mouse.reset(mouse);
   }
 
   //------------------------------------------------------------------------------------------------
-  Mouse* InputManager::getMouse()
+  Mouse* InputManager::getMouse() const
   {
-    assert(s_mouse.get());
-    return s_mouse.get();
+    ASSERT(m_mouse.get());
+    return m_mouse.get();
   }
 }

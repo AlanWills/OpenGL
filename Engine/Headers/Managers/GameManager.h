@@ -20,10 +20,21 @@ class DllExport GameManager
     /// \brief Get the window
     static OpenGLWindow* getWindow();
 
+    /// \brief Begin our game loop
     static void run();
 
     static inline int getWindowWidth() { return getWindow()->getWidth(); }
     static inline int getWindowHeight() { return getWindow()->getHeight(); }
+
+    static ResourceManager* getResourceManager();
+
+    /// \brief GameManager takes responsibility for managing the resource manager
+    static void setResourceManager(ResourceManager* resourceManager);
+
+    static InputManager* getInputManager();
+
+    /// \brief GameManager takes responsibility for managing the input manager
+    static void setInputManager(InputManager* resourceManager);
 
   private:
     GameManager();

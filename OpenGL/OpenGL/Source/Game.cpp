@@ -76,43 +76,43 @@ void Game::loadLevel(const std::string& levelPath)
 //------------------------------------------------------------------------------------------------
 void Game::handleInput(GLfloat elapsedGameTime)
 {
-  InputManager::update(elapsedGameTime);
-  Keyboard* keyboard = InputManager::getKeyboard();
+  //InputManager::update(elapsedGameTime);
+  //Keyboard* keyboard = InputManager::getKeyboard();
 
-  if (m_state == GAME_ACTIVE)
-  {
-    GLfloat velocity = 0;
+  //if (m_state == GAME_ACTIVE)
+  //{
+  //  GLfloat velocity = 0;
 
-    // Move paddle
-    if (keyboard->isKeyDown(GLFW_KEY_A))
-    {
-      if (m_player->getPosition().x >= 0)
-      {
-        velocity = -m_playerVelocity * elapsedGameTime;
-      }
-    }
+  //  // Move paddle
+  //  if (keyboard->isKeyDown(GLFW_KEY_A))
+  //  {
+  //    if (m_player->getPosition().x >= 0)
+  //    {
+  //      velocity = -m_playerVelocity * elapsedGameTime;
+  //    }
+  //  }
 
-    if (keyboard->isKeyDown(GLFW_KEY_D))
-    {
-      if (m_player->getPosition().x <= m_width - m_player->getSize().x)
-      {
-        velocity = m_playerVelocity * elapsedGameTime;
-      }
-    }
+  //  if (keyboard->isKeyDown(GLFW_KEY_D))
+  //  {
+  //    if (m_player->getPosition().x <= m_width - m_player->getSize().x)
+  //    {
+  //      velocity = m_playerVelocity * elapsedGameTime;
+  //    }
+  //  }
 
-    if (keyboard->isKeyDown(GLFW_KEY_SPACE))
-    {
-      m_ball->release();
-    }
+  //  if (keyboard->isKeyDown(GLFW_KEY_SPACE))
+  //  {
+  //    m_ball->release();
+  //  }
 
-    glm::vec2 delta(velocity, 0);
-    m_player->translate(delta);
+  //  glm::vec2 delta(velocity, 0);
+  //  m_player->translate(delta);
 
-    if (m_ball->isStuck())
-    {
-      m_ball->translate(delta);
-    }
-  }
+  //  if (m_ball->isStuck())
+  //  {
+  //    m_ball->translate(delta);
+  //  }
+  //}
 }
 
 //------------------------------------------------------------------------------------------------

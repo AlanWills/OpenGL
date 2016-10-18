@@ -13,15 +13,13 @@ namespace TestEngine
   public:
 
     //------------------------------------------------------------------------------------------------
-    TEST_CLASS_INITIALIZE(TestGameManager_ClassSetup)
+    TEST_METHOD(Test_GameManager_Init)
     {
       Path path(Directory::getExecutingAppDirectory(), "..");
       path.combine("OpenGL");
-    }
 
-    //------------------------------------------------------------------------------------------------
-    TEST_METHOD(Test_GameManager_Init)
-    {
+      ResourceManager* resourceManager = new ResourceManager(path.asString());
+      GameManager::setResourceManager(resourceManager);
       GameManager::init();
 
       Assert::IsNotNull(GameManager::getWindow());

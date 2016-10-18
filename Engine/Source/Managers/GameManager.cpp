@@ -10,10 +10,18 @@ namespace Engine
 {
   // Initialise static variables
   std::unique_ptr<OpenGLWindow> GameManager::m_window(nullptr);
+  std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
+  std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
 
   //------------------------------------------------------------------------------------------------
   GameManager::GameManager()
   {
+  }
+
+  //------------------------------------------------------------------------------------------------
+  GameManager::~GameManager()
+  {
+    GLFW_TERMINATE();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -27,7 +35,9 @@ namespace Engine
     GLEW_INIT();
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-    InputManager::init();
+    m_resourceManager->init();
+    m_inputManager->init();
+
     Clock::init();
   }
 
@@ -109,8 +119,30 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  GameManager::~GameManager()
+  ResourceManager* GameManager::getResourceManager()
   {
-    GLFW_TERMINATE();
+    ASSERT(m_resourceManager.get());
+    return m_resourceManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setResourceManager(ResourceManager* resourceManager)
+  {
+    ASSERT(resourceManager);
+    m_resourceManager.reset(resourceManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  InputManager* GameManager::getInputManager()
+  {
+    ASSERT(m_inputManager.get());
+    return m_inputManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setInputManager(InputManager* inputManager)
+  {
+    ASSERT(inputManager);
+    m_inputManager.reset(inputManager);
   }
 }

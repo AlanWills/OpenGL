@@ -85,11 +85,11 @@ class DllExport ResourceManager
     void setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath);
     
     /// \brief Getters for the common asset folders on disc
-    const Path& getResourceDirectoryPath() { return m_resourceDirectoryPath; }
-    const Path& getTextureDirectoryPath() { return m_textureDirectoryPath; }
-    const Path& getShaderDirectoryPath() { return m_shaderDirectoryPath; }
-    const Path& getVertexShaderDirectoryPath() { return m_vertexShaderDirectoryPath; }
-    const Path& getFragmentShaderDirectoryPath() { return m_fragmentShaderDirectoryPath; }
+    const Path& getResourceDirectoryPath() const { return m_resourceDirectoryPath; }
+    const Path& getTextureDirectoryPath() const { return m_textureDirectoryPath; }
+    const Path& getShaderDirectoryPath() const { return m_shaderDirectoryPath; }
+    const Path& getVertexShaderDirectoryPath() const { return m_vertexShaderDirectoryPath; }
+    const Path& getFragmentShaderDirectoryPath() const { return m_fragmentShaderDirectoryPath; }
 
     /// \brief Frees the relevant resources from the resource manager's memory
     void unloadTextures();
