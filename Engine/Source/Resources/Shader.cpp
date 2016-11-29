@@ -32,7 +32,6 @@ namespace Engine
     // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
     TemporaryGLContext glContext;
 
-    // TODO: Refactor this using createShader()
     GLuint sVertex, sFragment;
 
     // Vertex Shader

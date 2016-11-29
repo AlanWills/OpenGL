@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "Managers/GameManager.h"
+#include "Game/GameManager.h"
 
 
 namespace Engine
@@ -10,6 +10,7 @@ namespace Engine
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
+  SpriteRenderer GameManager::m_spriteRenderer;
 
   //------------------------------------------------------------------------------------------------
   GameManager::GameManager()
@@ -36,17 +37,12 @@ namespace Engine
     m_resourceManager->init();
     m_inputManager->init();
 
-    Clock::init();
+    m_spriteRenderer.init(internString("block.png"));
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::run()
   {
-    //Game game;
-
-    // Initialize game
-    //game.init();
-
     // DeltaTime variables
     GLfloat lag = 0.0f;
 
@@ -87,25 +83,18 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void GameManager::handleInput(GLfloat elapsedGameTime)
   {
-    // Put custom input handling here
-
-    //game.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::update(GLfloat gameSecondsPerUpdate)
   {
-    // Put custom update code here
-
-    //game.update(gameSecondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::render(GLfloat lag)
   {
-    // Put custom render code here
-
-    //game.render(lag);
+    glm::mat4 matrix;
+    m_spriteRenderer.render(lag, matrix);
   }
 
   //------------------------------------------------------------------------------------------------

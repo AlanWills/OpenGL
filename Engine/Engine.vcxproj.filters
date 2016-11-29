@@ -39,9 +39,6 @@
     <ClInclude Include="Headers\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Input\InputManager.h">
-      <Filter>Header Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h">
       <Filter>Header Files\Input\Keyboard</Filter>
     </ClInclude>
@@ -90,9 +87,6 @@
     <ClInclude Include="Headers\Debugging\Profiling\ProfilingBlock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Resources\ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Resources\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -102,7 +96,16 @@
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Managers\GameManager.h">
+    <ClInclude Include="Headers\Resources\ResourceManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Input\InputManager.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Game\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Components\Rendering\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -161,7 +164,10 @@
     <ClCompile Include="Source\Input\Mouse\NullMouse.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Managers\GameManager.cpp">
+    <ClCompile Include="Source\Game\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Components\Rendering\SpriteRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

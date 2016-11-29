@@ -4,15 +4,6 @@
 
 namespace Engine
 {
-  // Initialize static variables
-  uint64_t Clock::s_cyclesPerSecond = 0;
-
-  //------------------------------------------------------------------------------------------------
-  void Clock::init()
-  {
-    s_cyclesPerSecond = glfwGetTimerFrequency();
-  }
-
   //------------------------------------------------------------------------------------------------
   Clock::Clock(float targetFramesPerSecond, float startTimeSeconds) :
     m_cycles(secondsToCycles(startTimeSeconds)),

@@ -1,5 +1,4 @@
-#include "Game.h"
-#include "Managers/GameManager.h"
+#include "Game/GameManager.h"
 #include "Time/Clock.h"
 
 #include <thread>

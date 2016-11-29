@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "Managers/GameManager.h"
+#include "Game/GameManager.h"
 #include "Resources/ResourceManager.h"
 #include "FileSystem/Directory.h"
 

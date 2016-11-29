@@ -21,7 +21,6 @@ class DllExport Shader
     Shader();
     ~Shader();
 
-    // Note: geometry source code is optional
     // Compiles the shader from given source code
     void compile(const std::string& vertexSource, const std::string& fragmentSource);
 

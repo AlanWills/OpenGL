@@ -30,7 +30,7 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void OpenGLWindow::initWindow(ScreenMode screenMode)
   {
-    m_window = glfwCreateWindow(m_width, m_height, "Breakout", nullptr, nullptr);
+    m_window = glfwCreateWindow(m_width, m_height, "Rebak Out", nullptr, nullptr);
     glfwMakeContextCurrent(m_window);
 
     // OpenGL configuration

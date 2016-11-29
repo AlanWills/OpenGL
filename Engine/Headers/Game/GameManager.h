@@ -4,6 +4,7 @@
 #include "OpenGL/OpenGLWindow.h"
 #include "Resources/ResourceManager.h"
 #include "Input/InputManager.h"
+#include "Components/Rendering/SpriteRenderer.h"
 #include "Time/Clock.h"
 
 
@@ -59,6 +60,8 @@ class DllExport GameManager
     /// \brief The game clock responsible for managing game time
     /// This clock can have it's speed altered to change the speed of the game, but not the game loop itself
     static std::unique_ptr<Clock> m_gameClock;
+
+    static SpriteRenderer m_spriteRenderer;
 };
 
 }

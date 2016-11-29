@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "Input/InputManager.h"
-#include "Managers/GameManager.h"
+#include "Game/GameManager.h"
 
 namespace Engine
 {

@@ -33,25 +33,7 @@
     <ClCompile Include="Source\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Cube.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GameLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\Ball.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,51 +41,15 @@
     <ClInclude Include="Headers\Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Cube.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Camera.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\GameLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Ball.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Fragment\colour.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-    <None Include="Shaders\Fragment\experiment.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
     <None Include="Shaders\Fragment\sprite.frag">
       <Filter>Resource Files\Shaders\Fragment</Filter>
     </None>
-    <None Include="Shaders\Fragment\texture.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-    <None Include="Shaders\Vertex\colour.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="Shaders\Vertex\experiment.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
     <None Include="Shaders\Vertex\sprite.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="Shaders\Vertex\texture.vs">
       <Filter>Resource Files\Shaders\Vertex</Filter>
     </None>
   </ItemGroup>
@@ -129,11 +75,5 @@
     <Image Include="Assets\paddle.png">
       <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Levels\One.txt" />
-    <Text Include="Levels\Four.txt" />
-    <Text Include="Levels\Three.txt" />
-    <Text Include="Levels\Two.txt" />
   </ItemGroup>
 </Project>

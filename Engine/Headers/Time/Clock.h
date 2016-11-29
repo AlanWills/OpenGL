@@ -2,6 +2,7 @@
 
 #include "DllExport.h"
 #include <cstdint>
+#include <ctime>
 
 
 namespace Engine
@@ -12,9 +13,6 @@ namespace Engine
 class DllExport Clock
 {
   public:
-    /// \brief This should be called before the clock class is used at the beginning of the program
-    static void init();
-
     // Constructor & Destructor
     Clock(float targetFramesPerSecond = DEFAULT_TARGET_FPS, float startTimeSeconds = 0);
     ~Clock();
@@ -50,8 +48,6 @@ class DllExport Clock
     bool getPaused() const { return m_isPaused; }
 
   private:
-    static uint64_t s_cyclesPerSecond;
-
     uint64_t m_cycles;
     GLfloat m_current;
     GLfloat m_previous;
@@ -63,13 +59,13 @@ class DllExport Clock
 //------------------------------------------------------------------------------------------------
 inline uint64_t Clock::secondsToCycles(float timeSeconds)
 {
-  return (uint64_t)(timeSeconds * s_cyclesPerSecond);
+  return (uint64_t)(timeSeconds * CLOCKS_PER_SEC);
 }
 
 //------------------------------------------------------------------------------------------------
 inline float Clock::cyclesToSeconds(uint64_t timeCycles)
 {
-  return (float)timeCycles / s_cyclesPerSecond;
+  return (float)timeCycles / CLOCKS_PER_SEC;
 }
 
 };

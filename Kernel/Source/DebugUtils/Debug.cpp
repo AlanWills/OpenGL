@@ -3,7 +3,7 @@
 
 #include <string>
 
-#define GL_FATAL_ERROR_NUMBER 3
+#define GL_FATAL_ERROR_NUMBER 0
 
 void checkGLError_(const char *file, int line)
 {

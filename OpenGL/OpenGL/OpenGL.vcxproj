@@ -15,35 +15,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Ball.h" />
-    <ClInclude Include="Headers\GameLevel.h" />
-    <ClInclude Include="Headers\Game.h" />
-    <ClInclude Include="Headers\GameObject.h" />
     <ClInclude Include="Headers\Camera.h" />
     <ClInclude Include="Headers\Component.h" />
-    <ClInclude Include="Headers\Cube.h" />
-    <ClInclude Include="Headers\SpriteRenderer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Ball.cpp" />
-    <ClCompile Include="Source\GameLevel.cpp" />
-    <ClCompile Include="Source\Game.cpp" />
-    <ClCompile Include="Source\GameObject.cpp" />
     <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Component.cpp" />
-    <ClCompile Include="Source\Cube.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\SpriteRenderer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Fragment\colour.frag" />
-    <None Include="Shaders\Fragment\experiment.frag" />
     <None Include="Shaders\Fragment\sprite.frag" />
-    <None Include="Shaders\Fragment\texture.frag" />
-    <None Include="Shaders\Vertex\colour.vs" />
-    <None Include="Shaders\Vertex\experiment.vs" />
     <None Include="Shaders\Vertex\sprite.vs" />
-    <None Include="Shaders\Vertex\texture.vs" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\awesomeface.png" />
@@ -53,12 +35,6 @@
     <Image Include="Assets\container.jpg" />
     <Image Include="Assets\paddle.png" />
     <Image Include="Assets\wall.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Levels\Four.txt" />
-    <Text Include="Levels\One.txt" />
-    <Text Include="Levels\Three.txt" />
-    <Text Include="Levels\Two.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
