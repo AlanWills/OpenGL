@@ -30,7 +30,7 @@ namespace Engine
   void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource)
   {
     // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
-    TemporaryGLContext glContext;
+    //TemporaryGLContext glContext;
 
     GLuint sVertex, sFragment;
 
@@ -104,9 +104,15 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
-  void Shader::use() const
+  void Shader::bind() const
   {
     glUseProgram(m_program);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Shader::unbind() const
+  {
+    glUseProgram(0);
   }
 
   //------------------------------------------------------------------------------------------------

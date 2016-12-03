@@ -68,18 +68,20 @@ namespace Engine
   void SpriteRenderer::render(GLfloat lag, const glm::mat4& modelMatrix)
   {
     // Set up the sprite shader
-    m_shader->use();
-    //m_shader->setMatrix4("model", modelMatrix);
-    //m_shader->setVector4f("spriteColour", m_colour);
+    m_shader->bind();
 
-    glActiveTexture(GL_TEXTURE0);
+    m_shader->setMatrix4("model", modelMatrix);
+    m_shader->setVector4f("spriteColour", m_colour);
+
     m_texture->bind();
 
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 
+    m_texture->unbind();
+
     // Finish with our shader
-    glUseProgram(0);
+    m_shader->unbind();
   }
 }

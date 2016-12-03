@@ -25,7 +25,8 @@ class DllExport Shader
     void compile(const std::string& vertexSource, const std::string& fragmentSource);
 
     // Sets the current shader as active
-    void use() const;
+    void bind() const;
+    void unbind() const;
 
     // Utility functions
     void setFloat(const GLchar *name, GLfloat value) const;

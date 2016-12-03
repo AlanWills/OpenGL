@@ -51,6 +51,17 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void Texture2D::bind() const
   {
+    glActiveTexture(GL_TEXTURE0);
+    glCheckError();
+
     glBindTexture(GL_TEXTURE_2D, m_textureHandle);
+    glCheckError();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Texture2D::unbind() const
+  {
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glCheckError();
   }
 }

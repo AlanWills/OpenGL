@@ -22,6 +22,7 @@ class DllExport Texture2D
 
     // Binds the texture as the current active GL_TEXTURE_2D texture object
     void bind() const;
+    void unbind() const;
 
     void setInternalFormat(GLuint internalFormat) { m_internalFormat = internalFormat; }
     void setImageFormat(GLuint imageFormat) { m_imageFormat = imageFormat; }
