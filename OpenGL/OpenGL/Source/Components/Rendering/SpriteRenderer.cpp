@@ -75,14 +75,18 @@ namespace OpenGL
     // Set up the sprite shader
     m_shader->bind();
 
+    glActiveTexture(GL_TEXTURE0);
     m_texture->bind();
-    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "image"), 0);
+    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture1"), 0);
+    glActiveTexture(GL_TEXTURE1);
+    m_texture->bind();
+    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture2"), 1);
 
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 
-    m_texture->unbind();
+    //m_texture->unbind();
 
     // Finish with our shader
     m_shader->unbind();

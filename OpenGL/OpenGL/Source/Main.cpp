@@ -39,34 +39,23 @@ const GLuint WIDTH = 800, HEIGHT = 600;
 // The MAIN function, from here we start the application and run the game loop
 int main()
 {
-  //GameManager::init();
-  GLFW_INIT();
+  GameManager::init();
 
-  // Create a GLFWwindow object that we can use for GLFW's functions
-  //GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
-  //glfwMakeContextCurrent(window);
-
-  //// Define the viewport dimensions
-  //glViewport(0, 0, WIDTH, HEIGHT);
-
-  OpenGLWindow window;
-
-  GLEW_INIT();
+  SpriteRenderer spriteRenderer;
+  spriteRenderer.init(internString("container.jpg"));
 
   // Set the required callback functions
   glfwSetKeyCallback(glfwGetCurrentContext(), key_callback);
 
-  Shader shader;
-  shader.load("C:\\Users\\alawi\\Source\\Repos\\OpenGL\\OpenGL\\OpenGL\\Shaders\\Vertex\\sprite.vs",
-    "C:\\Users\\alawi\\Source\\Repos\\OpenGL\\OpenGL\\OpenGL\\Shaders\\Fragment\\sprite.frag");
+  Shader* shader = GameManager::getResourceManager()->getShader(internString("sprite"));
 
   // Set up vertex data (and buffer(s)) and attribute pointers
   GLfloat vertices[] = {
     // Positions          // Colors           // Texture Coords
-    0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
-    0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
+    0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // Top Right
+    0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // Bottom Right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // Bottom Left
+    -0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // Top Left 
   };
   GLuint indices[] = {  // Note that we start from 0!
     0, 1, 3, // First Triangle
@@ -86,14 +75,11 @@ int main()
   glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   // Position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
   glEnableVertexAttribArray(0);
-  // Color attribute
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-  glEnableVertexAttribArray(1);
   // TexCoord attribute
-  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+  glEnableVertexAttribArray(1);
 
   glBindVertexArray(0); // Unbind VAO
 
@@ -150,20 +136,22 @@ int main()
     glClear(GL_COLOR_BUFFER_BIT);
 
     // Activate shader
-    shader.bind();
+    //shader->bind();
 
-    // Bind Textures using texture units
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture1);
-    glUniform1i(glGetUniformLocation(shader.getProgram(), "ourTexture1"), 0);
-    glActiveTexture(GL_TEXTURE1);
-    glBindTexture(GL_TEXTURE_2D, texture2);
-    glUniform1i(glGetUniformLocation(shader.getProgram(), "ourTexture2"), 1);
+    //// Bind Textures using texture units
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, texture1);
+    //glUniform1i(glGetUniformLocation(shader->getProgram(), "ourTexture1"), 0);
+    //glActiveTexture(GL_TEXTURE1);
+    //glBindTexture(GL_TEXTURE_2D, texture2);
+    //glUniform1i(glGetUniformLocation(shader->getProgram(), "ourTexture2"), 1);
 
-    // Draw container
-    glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+    //// Draw container
+    //glBindVertexArray(VAO);
+    ////glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //glBindVertexArray(0);
+
+    spriteRenderer.render(0, glm::mat4());
 
     // Swap the screen buffers
     glfwSwapBuffers(glfwGetCurrentContext());
