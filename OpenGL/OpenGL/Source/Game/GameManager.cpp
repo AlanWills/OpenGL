@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Game/GameManager.h"
-#include <SOIL/SOIL.h>
 
 
 namespace OpenGL

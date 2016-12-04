@@ -4,7 +4,8 @@
 #include <string>
 #include <memory>
 
-#include "GLHeaders.h"
+#include <GL/glew.h>
+
 #include "Texture2D.h"
 #include "Shader.h"
 #include "FileSystem/File.h"

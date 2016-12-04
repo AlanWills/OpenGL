@@ -86,6 +86,37 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\Fragment\sprite.frag">
+      <Filter>Resource Files\Shaders\Fragment</Filter>
+    </None>
+    <None Include="Shaders\Vertex\sprite.vs">
+      <Filter>Resource Files\Shaders\Vertex</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\awesomeface.png">
+      <Filter>Resource Files\Assets</Filter>
+    </Image>
+    <Image Include="Assets\container.jpg">
+      <Filter>Resource Files\Assets</Filter>
+    </Image>
+    <Image Include="Assets\wall.jpg">
+      <Filter>Resource Files\Assets</Filter>
+    </Image>
+    <Image Include="Assets\block.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\block_solid.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\background.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\paddle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="Headers\Components\Rendering\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -158,36 +189,5 @@
     <ClInclude Include="Headers\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Shaders\Fragment\sprite.frag">
-      <Filter>Resource Files\Shaders\Fragment</Filter>
-    </None>
-    <None Include="Shaders\Vertex\sprite.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\awesomeface.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\container.jpg">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\wall.jpg">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\block.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\block_solid.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\background.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\paddle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
   </ItemGroup>
 </Project>

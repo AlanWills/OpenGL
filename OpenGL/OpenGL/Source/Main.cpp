@@ -42,7 +42,7 @@ int main()
   //GameManager::init();
   GLFW_INIT();
 
-  //// Create a GLFWwindow object that we can use for GLFW's functions
+  // Create a GLFWwindow object that we can use for GLFW's functions
   //GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
   //glfwMakeContextCurrent(window);
 

@@ -30,7 +30,6 @@ class SpriteRenderer
 
     GLuint m_vbo;
     GLuint m_vao;
-    GLuint m_ebo;
 };
 
 }

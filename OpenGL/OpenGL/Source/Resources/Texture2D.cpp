@@ -52,6 +52,9 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Texture2D::bind() const
   {
+    glActiveTexture(GL_TEXTURE0);
+    glCheckError();
+
     glBindTexture(GL_TEXTURE_2D, m_textureHandle);
     glCheckError();
   }

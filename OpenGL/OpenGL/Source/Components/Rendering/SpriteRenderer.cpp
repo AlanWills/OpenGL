@@ -14,8 +14,7 @@ namespace OpenGL
     m_texture(nullptr),
     m_shader(nullptr),
     m_vbo(0),
-    m_vao(0),
-    m_ebo(0)
+    m_vao(0)
   {
   }
 
@@ -24,30 +23,26 @@ namespace OpenGL
   {
     glDeleteVertexArrays(1, &m_vao);
     glDeleteBuffers(1, &m_vbo);
-    glDeleteBuffers(1, &m_ebo);
   }
 
   //------------------------------------------------------------------------------------------------
   void SpriteRenderer::init(StringId textureName)
   {
     // Configure the vbo/vao
-    GLfloat vertices[] = {
-      // Positions          // Colors           // Texture Coords
-      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, // Top Right
-      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
-      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f, // Bottom Left
-      -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f  // Top Left 
-    };
-
-    GLuint indices[] = {  // Note that we start from 0!
-      0, 1, 3, // First Triangle
-      1, 2, 3  // Second Triangle
+    GLfloat vertices[] = 
+    {
+      // Pos                // Tex
+      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
+      0.5f, -0.5f, 0.0f,    1.0f, 0.0f,   // Bottom Right
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
+      -0.5f,  0.5f, 0.0f,   0.0f, 1.0f,   // Top Left
+      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
     };
 
     // Generate the vertex attribute array for the shader
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
-    glGenBuffers(1, &m_ebo);
 
     glBindVertexArray(m_vao);
 
@@ -55,21 +50,15 @@ namespace OpenGL
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-    // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-    // Color attribute
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
-    // TexCoord attribute
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(2);
 
     // Now reset the graphics card state
     glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     // Now load the texture from the ResourceManager
     m_texture = GameManager::getResourceManager()->getTexture(textureName);
@@ -86,17 +75,14 @@ namespace OpenGL
     // Set up the sprite shader
     m_shader->bind();
 
-    glActiveTexture(GL_TEXTURE0);
     m_texture->bind();
-    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture1"), 0);
-
-    glActiveTexture(GL_TEXTURE1);
-    m_texture->bind();
-    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture2"), 1);
+    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "image"), 0);
 
     glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
+
+    m_texture->unbind();
 
     // Finish with our shader
     m_shader->unbind();
