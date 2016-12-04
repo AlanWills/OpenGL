@@ -26,9 +26,6 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void ResourceManager::init()
   {
-    // Really don't know why we need this, but we do apparently
-    GLEW_INIT();
-
     std::vector<File> textures;
     Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
 

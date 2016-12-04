@@ -57,8 +57,6 @@ namespace Engine
 
     GLuint sVertex, sFragment;
 
-    GLEW_INIT();
-
     // Vertex Shader
     createShader(vertexSource, GL_VERTEX_SHADER, sVertex, "VERTEX");
     
