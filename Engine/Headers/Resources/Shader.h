@@ -21,12 +21,14 @@ class DllExport Shader
     Shader();
     ~Shader();
 
-    // Compiles the shader from given source code
-    void compile(const std::string& vertexSource, const std::string& fragmentSource);
+    /// \brief Loads and compiles the shader from the inputted vertex and fragment shader files
+    void load(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 
     // Sets the current shader as active
     void bind() const;
     void unbind() const;
+
+    GLuint getProgram() const { return m_program; }
 
     // Utility functions
     void setFloat(const GLchar *name, GLfloat value) const;
@@ -40,6 +42,9 @@ class DllExport Shader
     void setMatrix4(const GLchar *name, const glm::mat4 &matrix) const;
 
   private:
+    // Compiles the shader from given source code
+    void compile(const std::string& vertexSource, const std::string& fragmentSource);
+
     // Wrapper function for creating a shader with the inputted code and returning a handle
     void createShader(const std::string& shaderCode, GLenum shaderType, GLuint& shaderHandleOutput, const GLchar* shaderErrorType);
 

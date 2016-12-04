@@ -137,23 +137,7 @@ namespace Engine
 
     ASSERT(shader);
 
-    // Retrieve the vertex/fragment/geometry source code from filePath
-    std::string vertexCode;
-    std::string fragmentCode;
-
-    File file(vertexShaderFullPath);
-    ASSERT(file.exists());
-    file.read(vertexCode);
-
-    file = File(fragmentShaderFullPath);
-    ASSERT(file.exists());
-    file.read(fragmentCode);
-
-    ASSERT(!vertexCode.empty());
-    ASSERT(!fragmentCode.empty());
-
-    // Compile into the graphics card
-    shader->compile(vertexCode, fragmentCode);
+    shader->load(vertexShaderFullPath, fragmentShaderFullPath);
 
     return shader;
   }

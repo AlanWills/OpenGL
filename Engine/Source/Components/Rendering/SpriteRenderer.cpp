@@ -22,6 +22,7 @@ namespace Engine
   SpriteRenderer::~SpriteRenderer()
   {
     glDeleteVertexArrays(1, &m_vao);
+    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -30,26 +31,30 @@ namespace Engine
     // Configure the vbo/vao
     GLfloat vertices[] = 
     {
-      // Pos      // Tex
-      0.0f, 1.0f, 0.0f, 1.0f,
-      1.0f, 0.0f, 1.0f, 0.0f,
-      0.0f, 0.0f, 0.0f, 0.0f,
-
-      0.0f, 1.0f, 0.0f, 1.0f,
-      1.0f, 1.0f, 1.0f, 1.0f,
-      1.0f, 0.0f, 1.0f, 0.0f
+      // Pos                // Tex
+      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
+      0.5f, -0.5f, 0.0f,    1.0f, 0.0f,   // Bottom Right
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
+      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
+      -0.5f,  0.5f, 0.0f,   0.0f, 1.0f,   // Top Left
+      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
     };
 
-    // Bind the buffer data to the graphics card
+    // Generate the vertex attribute array for the shader
+    glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
+
+    glBindVertexArray(m_vao);
+
+    // Bind the buffer data to the graphics card
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // Now generate the vertex attribute array for the shader
-    glGenVertexArrays(1, &m_vao);
-    glBindVertexArray(m_vao);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(1);
 
     // Now reset the graphics card state
     glBindVertexArray(0);
@@ -70,10 +75,8 @@ namespace Engine
     // Set up the sprite shader
     m_shader->bind();
 
-    m_shader->setMatrix4("model", modelMatrix);
-    m_shader->setVector4f("spriteColour", m_colour);
-
     m_texture->bind();
+    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "image"), 0);
 
     glBindVertexArray(m_vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Resources/Shader.h"
 #include "DebugUtils/Debug.h"
+#include "FileSystem/File.h"
 
 #ifdef _DEBUG
 #include "OpenGL/TemporaryGLContext.h"
@@ -27,12 +28,36 @@ namespace Engine
   }
 
   //------------------------------------------------------------------------------------------------
+  void Shader::load(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath)
+  {
+    // Retrieve the vertex/fragment/geometry source code from filePath
+    std::string vertexCode;
+    std::string fragmentCode;
+
+    Kernel::File file(vertexShaderFilePath);
+    ASSERT(file.exists());
+    file.read(vertexCode);
+
+    file = File(fragmentShaderFilePath);
+    ASSERT(file.exists());
+    file.read(fragmentCode);
+
+    ASSERT(!vertexCode.empty());
+    ASSERT(!fragmentCode.empty());
+
+    // Compile into the graphics card
+    compile(vertexCode, fragmentCode);
+  }
+
+  //------------------------------------------------------------------------------------------------
   void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource)
   {
     // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
     //TemporaryGLContext glContext;
 
     GLuint sVertex, sFragment;
+
+    GLEW_INIT();
 
     // Vertex Shader
     createShader(vertexSource, GL_VERTEX_SHADER, sVertex, "VERTEX");

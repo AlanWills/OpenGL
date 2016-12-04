@@ -254,6 +254,7 @@
     <ClInclude Include="Headers\Input\Mouse\Mouse.h" />
     <ClInclude Include="Headers\Time\Clock.h" />
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
+    <ClInclude Include="Headers\Resources\CShader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Components\Rendering\SpriteRenderer.cpp" />

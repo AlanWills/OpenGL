@@ -35,8 +35,9 @@ namespace Engine
     glGenTextures(1, &m_textureHandle);
 
     // Create Texture
-    glBindTexture(GL_TEXTURE_2D, m_textureHandle);
+    bind();
     glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, width, height, 0, m_imageFormat, GL_UNSIGNED_BYTE, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     // Set Texture wrap and filter modes
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, m_wrap_S);
@@ -45,7 +46,7 @@ namespace Engine
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, m_filter_Max);
 
     // Unbind texture
-    glBindTexture(GL_TEXTURE_2D, 0);
+    unbind();
   }
 
   //------------------------------------------------------------------------------------------------

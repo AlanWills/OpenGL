@@ -26,12 +26,12 @@ namespace Engine
   //------------------------------------------------------------------------------------------------
   void GameManager::init()
   {
-    GLFW_INIT();
+    //GLFW_INIT();
 
     // Window must be created before any systems are initialised
     m_window.reset(new OpenGLWindow());
 
-    GLEW_INIT();
+    //GLEW_INIT();
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
     m_resourceManager->init();
