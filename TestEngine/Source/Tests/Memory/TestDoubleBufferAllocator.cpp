@@ -2,7 +2,7 @@
 
 #include "Memory/DoubleBufferAllocator.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

@@ -4,7 +4,7 @@
 #include "FileSystem/Path.h"
 #include "FileSystem/Directory.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 
 namespace TestEngine

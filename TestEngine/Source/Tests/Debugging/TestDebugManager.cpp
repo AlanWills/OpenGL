@@ -8,7 +8,7 @@
 #include <thread>
 
 using namespace Kernel;
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

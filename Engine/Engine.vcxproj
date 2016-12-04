@@ -137,7 +137,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Kernel.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -229,80 +229,8 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Components\Rendering\SpriteRenderer.h" />
-    <ClInclude Include="Headers\Debugging\DebugManager.h" />
-    <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h" />
-    <ClInclude Include="Headers\Debugging\Profiling\Profiler.h" />
-    <ClInclude Include="Headers\Debugging\Profiling\ProfilingBlock.h" />
-    <ClInclude Include="Headers\Input\InputManager.h" />
     <ClInclude Include="Headers\Input\Keyboards\Keyboard.h" />
     <ClInclude Include="Headers\Input\Keyboards\NullKeyboard.h" />
-    <ClInclude Include="Headers\Input\Keyboard\Keyboard.h" />
-    <ClInclude Include="Headers\Input\Keyboard\NullKeyboard.h" />
-    <ClInclude Include="Headers\Input\Mouse\NullMouse.h" />
-    <ClInclude Include="Headers\Debugging\Logging\Logger.h" />
-    <ClInclude Include="Headers\Game\GameManager.h" />
-    <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
-    <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
-    <ClInclude Include="Headers\Memory\PoolAllocator.h" />
-    <ClInclude Include="Headers\OpenGL\OpenGLWindow.h" />
-    <ClInclude Include="Headers\Resources\ResourceManager.h" />
-    <ClInclude Include="Headers\Resources\Shader.h" />
-    <ClInclude Include="Headers\Resources\Texture2D.h" />
-    <ClInclude Include="Headers\stdafx.h" />
-    <ClInclude Include="Headers\targetver.h" />
-    <ClInclude Include="Headers\Input\Mouse\Mouse.h" />
-    <ClInclude Include="Headers\Time\Clock.h" />
-    <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
-    <ClInclude Include="Headers\Resources\CShader.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Source\Components\Rendering\SpriteRenderer.cpp" />
-    <ClCompile Include="Source\Debugging\DebugManager.cpp" />
-    <ClCompile Include="Source\Debugging\Logging\ErrorLogger.cpp" />
-    <ClCompile Include="Source\Debugging\Logging\Logger.cpp" />
-    <ClCompile Include="Source\Debugging\Profiling\Profiler.cpp" />
-    <ClCompile Include="Source\dllmain.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</CompileAsManaged>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Testing|x64'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Testing|x64'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\Engine.cpp" />
-    <ClCompile Include="Source\Input\InputManager.cpp" />
-    <ClCompile Include="Source\Input\Keyboard\Keyboard.cpp" />
-    <ClCompile Include="Source\Input\Keyboard\NullKeyboard.cpp" />
-    <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
-    <ClCompile Include="Source\Input\Mouse\NullMouse.cpp" />
-    <ClCompile Include="Source\Game\GameManager.cpp" />
-    <ClCompile Include="Source\Memory\AlignedAllocator.cpp" />
-    <ClCompile Include="Source\OpenGL\OpenGLWindow.cpp" />
-    <ClCompile Include="Source\Resources\ResourceManager.cpp" />
-    <ClCompile Include="Source\Resources\Shader.cpp" />
-    <ClCompile Include="Source\Resources\Texture2D.cpp" />
-    <ClCompile Include="Source\stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Testing|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Source\Time\Clock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

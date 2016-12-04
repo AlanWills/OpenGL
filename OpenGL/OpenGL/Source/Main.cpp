@@ -4,20 +4,13 @@
 #include <thread>
 #include <chrono>
 
-using namespace Engine;
+using namespace OpenGL;
 
 #if false
 int main(int argc, char *argv[])
 {
-  GLFW_INIT();
-
   GameManager::init();
-
-  GLEW_INIT();
-
   GameManager::run();
-
-  GLFW_TERMINATE();
 
   return 0;
 }
@@ -50,11 +43,13 @@ int main()
   GLFW_INIT();
 
   //// Create a GLFWwindow object that we can use for GLFW's functions
-  GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
-  glfwMakeContextCurrent(window);
+  //GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "LearnOpenGL", nullptr, nullptr);
+  //glfwMakeContextCurrent(window);
 
-  // Define the viewport dimensions
-  glViewport(0, 0, WIDTH, HEIGHT);
+  //// Define the viewport dimensions
+  //glViewport(0, 0, WIDTH, HEIGHT);
+
+  OpenGLWindow window;
 
   GLEW_INIT();
 

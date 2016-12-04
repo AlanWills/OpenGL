@@ -2,7 +2,7 @@
 
 #include "OpenGL/OpenGLWindow.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

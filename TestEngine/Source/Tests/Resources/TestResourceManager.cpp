@@ -2,7 +2,7 @@
 
 #include "Resources/ResourceManager.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 
 namespace TestEngine

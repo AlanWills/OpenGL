@@ -9,7 +9,7 @@
 // So we qualify with namespaces
 
 using namespace Kernel;
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

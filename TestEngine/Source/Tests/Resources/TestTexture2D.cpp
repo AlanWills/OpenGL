@@ -5,7 +5,7 @@
 
 #include <SOIL/SOIL.h>
 
-using namespace Engine;
+using namespace OpenGL;
 
 
 namespace TestEngine

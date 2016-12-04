@@ -4,7 +4,6 @@
 #include <GL/glew.h>
 
 // GLFW
-#define GLFW_DLL
 #include <GLFW/glfw3.h>
 
 #define GLFW_INIT() \
@@ -19,4 +18,5 @@
 
 #define GLEW_INIT() \
   glewExperimental = GL_TRUE; \
-  glewInit();
+  GLuint result = glewInit(); \
+  ASSERT(result == GLEW_OK);

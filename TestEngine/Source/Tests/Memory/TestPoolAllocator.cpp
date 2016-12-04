@@ -2,7 +2,7 @@
 
 #include "Memory/PoolAllocator.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

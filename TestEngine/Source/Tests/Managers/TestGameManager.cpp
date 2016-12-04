@@ -4,7 +4,7 @@
 #include "Resources/ResourceManager.h"
 #include "FileSystem/Directory.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

@@ -2,7 +2,7 @@
 
 #include "Input/Mouse/Mouse.h"
 
-using namespace Engine;
+using namespace OpenGL;
 
 namespace TestEngine
 {

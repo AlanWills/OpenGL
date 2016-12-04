@@ -5,7 +5,7 @@
 #include <chrono>
 #include <thread>
 
-using namespace Engine;
+using namespace OpenGL;
 
 
 namespace TestEngine
