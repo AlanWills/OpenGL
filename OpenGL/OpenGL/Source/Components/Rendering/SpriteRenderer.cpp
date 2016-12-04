@@ -86,7 +86,7 @@ namespace OpenGL
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 
-    //m_texture->unbind();
+    m_texture->unbind();
 
     // Finish with our shader
     m_shader->unbind();

@@ -39,7 +39,7 @@ namespace OpenGL
     m_resourceManager->init();
     m_inputManager->init();
 
-    m_spriteRenderer.init(internString("block.png"));
+    m_spriteRenderer.init(internString("container.jpg"));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -78,13 +78,18 @@ namespace OpenGL
       // Render
       render(lag);
 
-      glfwSwapBuffers(GameManager::getWindow()->getGLWindow());
+      glfwSwapBuffers(m_window->getGLWindow());
     }
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::handleInput(GLfloat elapsedGameTime)
   {
+    // Check to see whether we should exit
+    if (getInputManager()->getKeyboard()->isKeyPressed(GLFW_KEY_ESCAPE))
+    {
+      glfwSetWindowShouldClose(m_window->getGLWindow(), GL_TRUE);
+    }
   }
 
   //------------------------------------------------------------------------------------------------
