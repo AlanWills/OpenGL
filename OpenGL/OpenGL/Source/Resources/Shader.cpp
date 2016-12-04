@@ -52,9 +52,6 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Shader::compile(const std::string& vertexSource, const std::string& fragmentSource)
   {
-    // Create this so that in our unit tests, we will have a gl context set up so the glFunction calls work
-    //TemporaryGLContext glContext;
-
     GLuint sVertex, sFragment;
 
     // Vertex Shader
