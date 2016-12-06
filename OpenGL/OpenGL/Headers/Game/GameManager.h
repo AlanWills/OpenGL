@@ -3,7 +3,7 @@
 #include "OpenGL/OpenGLWindow.h"
 #include "Resources/ResourceManager.h"
 #include "Input/InputManager.h"
-#include "Components/Rendering/SpriteRenderer.h"
+#include "Rendering/RenderManager.h"
 #include "Time/Clock.h"
 
 
@@ -35,6 +35,9 @@ class GameManager
     static void setInputManager(InputManager* resourceManager);
     static InputManager* getInputManager();
 
+    static void setRenderManager(RenderManager* renderManager);
+    static RenderManager* getRenderManager();
+
     /// \brief GameManager takes responsibility for manager the clock
     static void setGameClock(Clock* clock);
     static Clock* getGameClock();
@@ -56,11 +59,12 @@ class GameManager
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;
 
+    /// \brief The manager responsible for handling all rendering to the gl window
+    static std::unique_ptr<RenderManager> m_renderManager;
+
     /// \brief The game clock responsible for managing game time
     /// This clock can have it's speed altered to change the speed of the game, but not the game loop itself
     static std::unique_ptr<Clock> m_gameClock;
-
-    static SpriteRenderer m_spriteRenderer;
 };
 
 }

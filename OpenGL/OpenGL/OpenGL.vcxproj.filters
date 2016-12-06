@@ -30,9 +30,6 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Components\Rendering\SpriteRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Debugging\Logging\ErrorLogger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,6 +81,12 @@
     <ClCompile Include="Source\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Rendering\RenderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\SpriteRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Fragment\sprite.frag">
@@ -117,9 +120,6 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Components\Rendering\SpriteRenderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -168,9 +168,6 @@
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Resources\CShader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Resources\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -187,6 +184,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Rendering\RenderManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Rendering\SpriteRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

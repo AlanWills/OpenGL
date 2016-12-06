@@ -9,8 +9,8 @@ namespace OpenGL
   std::unique_ptr<OpenGLWindow> GameManager::m_window(nullptr);
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
+  std::unique_ptr<RenderManager> GameManager::m_renderManager(new RenderManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
-  SpriteRenderer GameManager::m_spriteRenderer;
 
   //------------------------------------------------------------------------------------------------
   GameManager::GameManager()
@@ -36,10 +36,9 @@ namespace OpenGL
 
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
-    m_resourceManager->init();
-    m_inputManager->init();
-
-    m_spriteRenderer.init(internString("container.jpg"));
+    getResourceManager()->init();
+    getInputManager()->init();
+    getRenderManager()->init();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -100,8 +99,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::render(GLfloat lag)
   {
-    glm::mat4 matrix;
-    m_spriteRenderer.render(lag, matrix);
+    getRenderManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -137,6 +135,20 @@ namespace OpenGL
   {
     ASSERT(inputManager);
     m_inputManager.reset(inputManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  RenderManager* GameManager::getRenderManager()
+  {
+    ASSERT(m_renderManager.get());
+    return m_renderManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setRenderManager(RenderManager* renderManager)
+  {
+    ASSERT(renderManager);
+    m_renderManager.reset(renderManager);
   }
 
   //------------------------------------------------------------------------------------------------

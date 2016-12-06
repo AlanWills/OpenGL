@@ -1,20 +1,17 @@
 #include "stdafx.h"
 
-#include "Components/Rendering/SpriteRenderer.h"
+#include "Rendering/SpriteRenderer.h"
 #include "Game/GameManager.h"
 
 
 namespace OpenGL
 {
-  // Initialise static variables
-  StringId SpriteRenderer::s_spriteShaderId = internString("sprite");
-
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
     m_texture(nullptr),
-    m_shader(nullptr),
     m_vbo(0),
-    m_vao(0)
+    m_vao(0),
+    m_colour(1, 1, 1, 1)
   {
   }
 
@@ -35,20 +32,27 @@ namespace OpenGL
       0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
       0.5f, -0.5f, 0.0f,    1.0f, 0.0f,   // Bottom Right
       -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
-      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
       -0.5f,  0.5f, 0.0f,   0.0f, 1.0f,   // Top Left
-      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
+    };
+
+    GLuint indices[] = {  // Note that we start from 0!
+      0, 1, 3, // First Triangle
+      1, 2, 3  // Second Triangle
     };
 
     // Generate the vertex attribute array for the shader
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
+    glGenBuffers(1, &m_ebo);
 
     glBindVertexArray(m_vao);
 
     // Bind the buffer data to the graphics card
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
@@ -58,37 +62,29 @@ namespace OpenGL
 
     // Now reset the graphics card state
     glBindVertexArray(0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     
     // Now load the texture from the ResourceManager
     m_texture = GameManager::getResourceManager()->getTexture(textureName);
-    m_shader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
 
     // Debug check
     ASSERT(m_texture);
-    ASSERT(m_shader);
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::render(GLfloat lag, const glm::mat4& modelMatrix)
+  void SpriteRenderer::render(GLfloat lag, Shader* shader)
   {
-    // Set up the sprite shader
-    m_shader->bind();
+    shader->setVector4f("spriteColour", m_colour);
 
     glActiveTexture(GL_TEXTURE0);
     m_texture->bind();
-    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture1"), 0);
-    glActiveTexture(GL_TEXTURE1);
-    m_texture->bind();
-    glUniform1i(glGetUniformLocation(m_shader->getProgram(), "ourTexture2"), 1);
+    glUniform1i(glGetUniformLocation(shader->getProgram(), "sprite"), 0);
 
     glBindVertexArray(m_vao);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
     m_texture->unbind();
-
-    // Finish with our shader
-    m_shader->unbind();
   }
 }

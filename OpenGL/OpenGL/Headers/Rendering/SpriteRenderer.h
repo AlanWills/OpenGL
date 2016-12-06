@@ -3,6 +3,7 @@
 #include "GLHeaders.h"
 #include "Resources/Texture2D.h"
 #include "Resources/Shader.h"
+#include "StringInterning/StringId.h"
 
 #include <string>
 
@@ -16,19 +17,17 @@ class SpriteRenderer
     ~SpriteRenderer();
 
     /// \brief Set up the gl buffers and load the texture and shader from the resource manager
-    void init(StringId textureName);
+    void init(Kernel::StringId textureName);
 
-    void render(GLfloat lag, const glm::mat4& modelMatrix);
+    void render(GLfloat lag, Shader* shader);
 
   private:
-    static StringId s_spriteShaderId;
-
     Texture2D* m_texture;
-    Shader* m_shader;
 
     glm::vec4 m_colour;
 
     GLuint m_vbo;
+    GLuint m_ebo;
     GLuint m_vao;
 };
 

@@ -36,6 +36,7 @@ namespace OpenGL
 
     // Create Texture
     bind();
+
     glTexImage2D(GL_TEXTURE_2D, 0, m_internalFormat, width, height, 0, m_imageFormat, GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
 

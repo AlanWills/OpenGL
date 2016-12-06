@@ -15,8 +15,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Components\Rendering\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Rendering\SpriteRenderer.cpp" />
     <ClCompile Include="Source\Debugging\DebugManager.cpp" />
     <ClCompile Include="Source\Debugging\Logging\ErrorLogger.cpp" />
     <ClCompile Include="Source\Debugging\Logging\Logger.cpp" />
@@ -49,7 +50,8 @@
     <Image Include="Assets\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Components\Rendering\SpriteRenderer.h" />
+    <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
+    <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h" />
     <ClInclude Include="Headers\Debugging\Logging\Logger.h" />
@@ -66,13 +68,13 @@
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />
     <ClInclude Include="Headers\OpenGL\OpenGLWindow.h" />
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
-    <ClInclude Include="Headers\Resources\CShader.h" />
     <ClInclude Include="Headers\Resources\ResourceManager.h" />
     <ClInclude Include="Headers\Resources\Shader.h" />
     <ClInclude Include="Headers\Resources\Texture2D.h" />
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
     <ClInclude Include="Headers\Time\Clock.h" />
+    <ClInclude Include="Headers\Rendering\RenderManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>

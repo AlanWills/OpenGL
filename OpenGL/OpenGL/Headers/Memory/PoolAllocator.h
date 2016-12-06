@@ -1,6 +1,11 @@
 #pragma once
 
 #include "DebugUtils/Debug.h"
+#include "PoolAllocatorIterator.h"
+
+#include <iterator>
+#include <array>
+
 
 namespace OpenGL
 {
@@ -25,6 +30,9 @@ class PoolAllocator
     /// \brief Resets the head to the start of the pool
     void freeAll();
 
+    PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
+    PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
+
   private:
     size_t m_head;
     T m_pool[PoolSize];
@@ -38,7 +46,7 @@ PoolAllocator<T, PoolSize>::PoolAllocator() :
   // Construct all the objects - I think this is necessary
   for (size_t i = 0; i < PoolSize; ++i)
   {
-    new (&m_pool[i]) T();
+    new (&(m_pool[i])) T();
   }
 }
 
@@ -53,7 +61,7 @@ template <typename T, size_t PoolSize>
 T* PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
-  return &m_pool[m_head++];
+  return &(m_pool[m_head++]);
 }
 
 //------------------------------------------------------------------------------------------------
