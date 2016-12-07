@@ -7,6 +7,9 @@
 #define GLFW_DLL
 #include <GLFW/glfw3.h>
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 #define GLFW_INIT() \
   glfwInit(); \
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); \

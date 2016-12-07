@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Resources/ResourceManager.h"
-#include "OpenGL/OpenGLWindow.h"
 
 #include <SOIL/SOIL.h>
 

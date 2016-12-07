@@ -2,12 +2,14 @@
 
 #include "GLHeaders.h"
 #include "DebugUtils/Debug.h"
+#include "Camera.h"
+
 
 namespace OpenGL
 {
 
 // A class responsible for creating an OpenGL window and viewport
-class OpenGLWindow
+class OpenGLViewport
 {
   public:
     enum ScreenMode
@@ -16,19 +18,22 @@ class OpenGLWindow
       kFullScreen
     };
 
-    OpenGLWindow(GLfloat windowWidth, GLfloat windowHeight, ScreenMode screenMode = kWindowed);
-    OpenGLWindow(ScreenMode screenMode = kWindowed);
+    OpenGLViewport(GLfloat windowWidth, GLfloat windowHeight, ScreenMode screenMode = kWindowed);
+    OpenGLViewport(ScreenMode screenMode = kWindowed);
 
-    ~OpenGLWindow();
+    ~OpenGLViewport();
 
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
-    GLFWwindow* getGLWindow() const { return m_window; }
+
+    GLFWwindow* getGLWindow() const { return m_viewport; }
+
+    Camera* getCamera() const;
 
     inline void enableViewportFlag(GLenum flag) { glEnable(flag); }
 
     void setScreenMode(ScreenMode screenMode);
-    bool isFullScreen() const { return glfwGetWindowMonitor(m_window) ? true : false; }
+    bool isFullScreen() const { return glfwGetWindowMonitor(m_viewport) ? true : false; }
 
   private:
     void initWindow(ScreenMode screenMode);
@@ -36,7 +41,9 @@ class OpenGLWindow
     int m_width;
     int m_height;
 
-    GLFWwindow* m_window;
+    GLFWwindow* m_viewport;
+    
+    std::unique_ptr<Camera> m_camera;
 };
 
 };

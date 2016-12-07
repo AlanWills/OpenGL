@@ -43,7 +43,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void InputManager::init()
   {
-    glfwSetKeyCallback(GameManager::getWindow()->getGLWindow(), handleGLKeyboardMessages);
+    glfwSetKeyCallback(GameManager::getViewport()->getGLWindow(), handleGLKeyboardMessages);
   }
 
   //------------------------------------------------------------------------------------------------

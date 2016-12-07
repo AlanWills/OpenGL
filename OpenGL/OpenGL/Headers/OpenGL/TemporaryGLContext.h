@@ -14,10 +14,10 @@ class TemporaryGLContext
 {
   public:
     TemporaryGLContext() :
-      m_window(nullptr)
+      m_viewport(nullptr)
     {
-      m_window = glfwCreateWindow(1, 1, "Temp", nullptr, nullptr);
-      glfwMakeContextCurrent(m_window);
+      m_viewport = glfwCreateWindow(1, 1, "Temp", nullptr, nullptr);
+      glfwMakeContextCurrent(m_viewport);
 
       glewExperimental = GL_TRUE;
       GLenum glewError = glewInit();
@@ -27,11 +27,11 @@ class TemporaryGLContext
 
     ~TemporaryGLContext()
     {
-      glfwDestroyWindow(m_window);
+      glfwDestroyWindow(m_viewport);
     }
 
   private:
-    GLFWwindow* m_window;
+    GLFWwindow* m_viewport;
 };
 
 };

@@ -33,9 +33,13 @@ namespace OpenGL
     // Set up the sprite shader
     m_shader->bind();
 
+    Camera* camera = GameManager::getViewport()->getCamera();
+    m_shader->setMatrix4("projection", camera->getProjectionMatrix());
+    m_shader->setMatrix4("view", camera->getViewMatrix());
+
     for (SpriteRenderer* renderer : m_spriteRenderers)
     {
-
+      renderer->render(lag, m_shader);
     }
 
     // Finish with our shader

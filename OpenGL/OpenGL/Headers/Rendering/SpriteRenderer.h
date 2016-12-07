@@ -21,6 +21,9 @@ class SpriteRenderer
 
     void render(GLfloat lag, Shader* shader);
 
+    const glm::vec4& getColour() const { return m_colour; }
+    void setColour(const glm::vec4& colour) { m_colour = colour; }
+
   private:
     Texture2D* m_texture;
 

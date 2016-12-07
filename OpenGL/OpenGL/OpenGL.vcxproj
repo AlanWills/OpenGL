@@ -29,7 +29,8 @@
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
     <ClCompile Include="Source\Input\Mouse\NullMouse.cpp" />
     <ClCompile Include="Source\Memory\AlignedAllocator.cpp" />
-    <ClCompile Include="Source\OpenGL\OpenGLWindow.cpp" />
+    <ClCompile Include="Source\Viewport\Camera.cpp" />
+    <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />
     <ClCompile Include="Source\Resources\ResourceManager.cpp" />
     <ClCompile Include="Source\Resources\Shader.cpp" />
     <ClCompile Include="Source\Resources\Texture2D.cpp" />
@@ -66,7 +67,8 @@
     <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
     <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />
-    <ClInclude Include="Headers\OpenGL\OpenGLWindow.h" />
+    <ClInclude Include="Headers\Viewport\Camera.h" />
+    <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
     <ClInclude Include="Headers\Resources\ResourceManager.h" />
     <ClInclude Include="Headers\Resources\Shader.h" />

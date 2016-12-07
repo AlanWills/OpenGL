@@ -1,6 +1,6 @@
 #pragma once
 
-#include "OpenGL/OpenGLWindow.h"
+#include "Viewport/OpenGLViewport.h"
 #include "Resources/ResourceManager.h"
 #include "Input/InputManager.h"
 #include "Rendering/RenderManager.h"
@@ -19,13 +19,13 @@ class GameManager
     static void init();
 
     /// \brief Get the window
-    static OpenGLWindow* getWindow();
+    static OpenGLViewport* getViewport();
 
     /// \brief Begin our game loop
     static void run();
 
-    static inline int getWindowWidth() { return getWindow()->getWidth(); }
-    static inline int getWindowHeight() { return getWindow()->getHeight(); }
+    static inline int getWindowWidth() { return getViewport()->getWidth(); }
+    static inline int getWindowHeight() { return getViewport()->getHeight(); }
 
     /// \brief GameManager takes responsibility for managing the resource manager
     static void setResourceManager(ResourceManager* resourceManager);
@@ -51,7 +51,7 @@ class GameManager
     static void render(GLfloat lag);
 
     /// \brief The GL window context
-    static std::unique_ptr<OpenGLWindow> m_window;
+    static std::unique_ptr<OpenGLViewport> m_viewport;
 
     /// \brief The manager responsible for handling game resources
     static std::unique_ptr<ResourceManager> m_resourceManager;

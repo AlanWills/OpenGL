@@ -6,7 +6,7 @@
 namespace OpenGL
 {
   // Initialise static variables
-  std::unique_ptr<OpenGLWindow> GameManager::m_window(nullptr);
+  std::unique_ptr<OpenGLViewport> GameManager::m_viewport(nullptr);
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
   std::unique_ptr<RenderManager> GameManager::m_renderManager(new RenderManager());
@@ -29,7 +29,7 @@ namespace OpenGL
     GLFW_INIT();
 
     // Window must be created before any systems are initialised
-    m_window.reset(new OpenGLWindow());
+    m_viewport.reset(new OpenGLViewport());
 
     // It's important that GLEW is initialized after the window is created (I have literally no fucking idea why, but it's been pain to figure this out, so just trust me)
     GLEW_INIT();
@@ -47,8 +47,8 @@ namespace OpenGL
     // DeltaTime variables
     GLfloat lag = 0.0f;
 
-    ASSERT(m_window.get());
-    while (!glfwWindowShouldClose(m_window->getGLWindow()))
+    ASSERT(m_viewport.get());
+    while (!glfwWindowShouldClose(m_viewport->getGLWindow()))
     {
       m_gameClock->update();
 
@@ -77,7 +77,7 @@ namespace OpenGL
       // Render
       render(lag);
 
-      glfwSwapBuffers(m_window->getGLWindow());
+      glfwSwapBuffers(m_viewport->getGLWindow());
     }
   }
 
@@ -87,13 +87,14 @@ namespace OpenGL
     // Check to see whether we should exit
     if (getInputManager()->getKeyboard()->isKeyPressed(GLFW_KEY_ESCAPE))
     {
-      glfwSetWindowShouldClose(m_window->getGLWindow(), GL_TRUE);
+      glfwSetWindowShouldClose(m_viewport->getGLWindow(), GL_TRUE);
     }
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameManager::update(GLfloat gameSecondsPerUpdate)
+  void GameManager::update(GLfloat elapsedGameTime)
   {
+    getInputManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -103,10 +104,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  OpenGLWindow* GameManager::getWindow()
+  OpenGLViewport* GameManager::getViewport()
   {
-    ASSERT(m_window.get());
-    return m_window.get();
+    ASSERT(m_viewport.get());
+    return m_viewport.get();
   }
 
   //------------------------------------------------------------------------------------------------
