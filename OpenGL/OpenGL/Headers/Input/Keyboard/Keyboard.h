@@ -13,7 +13,7 @@ class Keyboard
     Keyboard();
     virtual ~Keyboard();
 
-    void update(GLfloat elapsedGameTime);
+    void handleInput(GLfloat elapsedGameTime);
 
     void setKeyDown(int key);
     void setKeyUp(int key);

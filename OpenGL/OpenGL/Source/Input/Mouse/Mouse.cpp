@@ -21,7 +21,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Mouse::update(GLfloat elapsedGameTime)
+  void Mouse::handleInput(GLfloat elapsedGameTime)
   {
     // Set the previous mouse button states to be the current mouse button states
     for (int i = 0; i < MouseButton::kNumButtons; ++i)

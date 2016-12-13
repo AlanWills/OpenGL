@@ -27,13 +27,14 @@ class OpenGLViewport
     int getHeight() const { return m_height; }
 
     GLFWwindow* getGLWindow() const { return m_viewport; }
-
     Camera* getCamera() const;
 
     inline void enableViewportFlag(GLenum flag) { glEnable(flag); }
 
     void setScreenMode(ScreenMode screenMode);
     bool isFullScreen() const { return glfwGetWindowMonitor(m_viewport) ? true : false; }
+
+    void handleInput(GLfloat elapsedGameTime);
 
   private:
     void initWindow(ScreenMode screenMode);

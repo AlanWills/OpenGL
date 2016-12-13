@@ -11,8 +11,6 @@ class Mouse
     Mouse();
     virtual ~Mouse();
 
-    void update(GLfloat elapsedGameTime);
-
     enum MouseButton
     {
       kLeft,
@@ -20,6 +18,8 @@ class Mouse
       kRight,
       kNumButtons,
     };
+
+    void handleInput(GLfloat elapsedGameTime);
 
     void setButtonDown(MouseButton mouseButton);
     void setButtonUp(MouseButton mouseButton);

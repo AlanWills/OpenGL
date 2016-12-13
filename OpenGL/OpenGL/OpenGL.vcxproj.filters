@@ -90,6 +90,9 @@
     <ClCompile Include="Source\Viewport\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Maths\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Fragment\sprite.frag">
@@ -199,6 +202,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Viewport\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Maths\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

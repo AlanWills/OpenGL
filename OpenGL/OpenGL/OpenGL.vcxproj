@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Rendering\SpriteRenderer.cpp" />
@@ -51,6 +52,7 @@
     <Image Include="Assets\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Maths\Transform.h" />
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />

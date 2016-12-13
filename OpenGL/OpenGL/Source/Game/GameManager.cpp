@@ -89,12 +89,14 @@ namespace OpenGL
     {
       glfwSetWindowShouldClose(m_viewport->getGLWindow(), GL_TRUE);
     }
+
+    getInputManager()->handleInput(elapsedGameTime);
+    getViewport()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::update(GLfloat elapsedGameTime)
   {
-    getInputManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------

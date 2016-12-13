@@ -47,10 +47,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::update(GLfloat elapsedGameTime)
+  void InputManager::handleInput(GLfloat elapsedGameTime)
   {
-    m_keyboard->update(elapsedGameTime);
-    m_mouse->update(elapsedGameTime);
+    m_keyboard->handleInput(elapsedGameTime);
+    m_mouse->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------

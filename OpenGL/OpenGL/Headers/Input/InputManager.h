@@ -19,7 +19,7 @@ class InputManager
     /// To receive messages from the message window pump
     void init();
 
-    void update(GLfloat elapsedGameTime);
+    void handleInput(GLfloat elapsedGameTime);
 
     /// \brief The input manager will take ownership of this object now
     void setKeyboard(Keyboard* keyboard);

@@ -24,6 +24,7 @@ namespace OpenGL
   void RenderManager::init()
   {
     m_shader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
+    m_spriteRenderers.allocate()->init(internString("container.jpg"));
     ASSERT(m_shader);
   }
 

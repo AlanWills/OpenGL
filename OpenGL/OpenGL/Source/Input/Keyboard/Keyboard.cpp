@@ -23,7 +23,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Keyboard::update(GLfloat elapsedGameTime)
+  void Keyboard::handleInput(GLfloat elapsedGameTime)
   {
     // Update the previous frame's keys with the contents of the current keys buffer
     for (int i = 0; i < KEYBOARD_KEY_COUNT; ++i)

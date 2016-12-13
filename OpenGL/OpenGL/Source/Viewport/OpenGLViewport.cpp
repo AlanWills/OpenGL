@@ -9,7 +9,7 @@ namespace OpenGL
     m_width(screenWidth),
     m_height(screenHeight),
     m_viewport(nullptr),
-    m_camera(new Camera())
+    m_camera(new Camera(glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
   {
     initWindow(screenMode);
   }
@@ -19,7 +19,7 @@ namespace OpenGL
     m_width(0),
     m_height(0),
     m_viewport(nullptr),
-    m_camera(new Camera())
+    m_camera(new Camera(glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
   {
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
@@ -50,6 +50,12 @@ namespace OpenGL
     setScreenMode(screenMode);
 
     glCheckError();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void OpenGLViewport::handleInput(GLfloat elapsedGameTime)
+  {
+    getCamera()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
