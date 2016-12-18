@@ -1,4 +1,5 @@
 #include "Game/GameManager.h"
+#include "Screens/ScreenManager.h"
 #include "Time/Clock.h"
 
 #include <thread>
@@ -13,7 +14,7 @@ int main()
   GameManager::init();
 
   ScreenManager* screenManager = GameManager::getScreenManager();
-  screenManager->transitionToScreen(screenManager->constructScreen());
+  screenManager->transitionToScreen(screenManager->allocateScreen());
 
   GameManager::run();
 

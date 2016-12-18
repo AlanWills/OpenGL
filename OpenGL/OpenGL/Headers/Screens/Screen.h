@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Objects/GameObject.h"
-#include "Memory/PoolAllocator.h"
+#include "Memory/ComponentAllocator.h"
 
 
 namespace OpenGL
@@ -15,9 +15,15 @@ class Screen : public Component
     virtual ~Screen();
 
     void initialize() override;
+    void handleInput(GLfloat elapsedGameTime) override;
+    void update(GLfloat elapsedGameTime) override;
+    void render(GLfloat elapsedGameTime) override;
+    void die() override;
 
   private:
-    PoolAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
+    typedef Component Inherited;
+
+    ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
 };
 
 }

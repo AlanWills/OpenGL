@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "Viewport/OpenGLViewport.h"
+#include "Game/GameManager.h"
+
 
 namespace OpenGL
 {
@@ -55,6 +57,12 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void OpenGLViewport::handleInput(GLfloat elapsedGameTime)
   {
+    // Check to see whether we should exit
+    if (GameManager::getInputManager()->getKeyboard()->isKeyPressed(GLFW_KEY_ESCAPE))
+    {
+      glfwSetWindowShouldClose(m_viewport, GL_TRUE);
+    }
+
     getCamera()->handleInput(elapsedGameTime);
   }
 

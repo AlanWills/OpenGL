@@ -21,8 +21,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void RenderManager::init()
+  void RenderManager::initialize()
   {
+    Inherited::initialize();
+
     m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
     ASSERT(m_spriteShader);
   }
@@ -30,10 +32,12 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void RenderManager::render(GLfloat lag)
   {
+    Inherited::render(lag);
+
     // Set up the sprite shader
     m_spriteShader->bind();
 
-    Camera* camera = GameManager::getViewport()->getCamera();
+    Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
     m_spriteShader->setMatrix4("projection", camera->getProjectionMatrix());
     m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
@@ -47,7 +51,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  SpriteRenderer* RenderManager::constructAndInitializeRenderer()
+  SpriteRenderer* RenderManager::allocateAndInitializeRenderer()
   {
     if (!m_spriteRenderers.canAllocate())
     {

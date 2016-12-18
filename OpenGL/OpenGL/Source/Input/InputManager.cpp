@@ -3,6 +3,7 @@
 #include "Input/InputManager.h"
 #include "Game/GameManager.h"
 
+
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
@@ -41,14 +42,18 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::init()
+  void InputManager::initialize()
   {
-    glfwSetKeyCallback(GameManager::getViewport()->getGLWindow(), handleGLKeyboardMessages);
+    Inherited::initialize();
+
+    glfwSetKeyCallback(GameManager::getScreenManager()->getViewport()->getGLWindow(), handleGLKeyboardMessages);
   }
 
   //------------------------------------------------------------------------------------------------
   void InputManager::handleInput(GLfloat elapsedGameTime)
   {
+    Inherited::handleInput(elapsedGameTime);
+
     m_keyboard->handleInput(elapsedGameTime);
     m_mouse->handleInput(elapsedGameTime);
   }

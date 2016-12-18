@@ -6,7 +6,6 @@
 namespace OpenGL
 {
   // Initialise static variables
-  std::unique_ptr<OpenGLViewport> GameManager::m_viewport(nullptr);
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<ScreenManager> GameManager::m_screenManager(new ScreenManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
@@ -27,20 +26,12 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::init()
   {
-    GLFW_INIT();
-
-    // Window must be created before any systems are initialised
-    m_viewport.reset(new OpenGLViewport());
-
-    // It's important that GLEW is initialized after the window is created (I have literally no fucking idea why, but it's been pain to figure this out, so just trust me)
-    GLEW_INIT();
-
-    glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
+    // ScreenManager initialize MUST be called first - it sets up the opengl context
+    getScreenManager()->initialize();
 
     getResourceManager()->init();
-    getScreenManager()->initialize();
-    getInputManager()->init();
-    getRenderManager()->init();
+    getInputManager()->initialize();
+    getRenderManager()->initialize();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -49,8 +40,7 @@ namespace OpenGL
     // DeltaTime variables
     GLfloat lag = 0.0f;
 
-    ASSERT(m_viewport.get());
-    while (!glfwWindowShouldClose(m_viewport->getGLWindow()))
+    while (!glfwWindowShouldClose(getScreenManager()->getViewport()->getGLWindow()))
     {
       m_gameClock->update();
 
@@ -78,42 +68,32 @@ namespace OpenGL
       // Render
       render(lag);
 
-      glfwSwapBuffers(m_viewport->getGLWindow());
+      glfwSwapBuffers(getScreenManager()->getViewport()->getGLWindow());
     }
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::handleInput(GLfloat elapsedGameTime)
   {
-    // Check to see whether we should exit
-    if (getInputManager()->getKeyboard()->isKeyPressed(GLFW_KEY_ESCAPE))
-    {
-      glfwSetWindowShouldClose(m_viewport->getGLWindow(), GL_TRUE);
-    }
-
-    getInputManager()->handleInput(elapsedGameTime);
     getScreenManager()->handleInput(elapsedGameTime);
-    getViewport()->handleInput(elapsedGameTime);
+    getInputManager()->handleInput(elapsedGameTime);
+    getRenderManager()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::update(GLfloat elapsedGameTime)
   {
     getScreenManager()->update(elapsedGameTime);
+    getInputManager()->update(elapsedGameTime);
+    getRenderManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::render(GLfloat lag)
   {
-    getRenderManager()->render(lag);
     getScreenManager()->render(lag);
-  }
-
-  //------------------------------------------------------------------------------------------------
-  OpenGLViewport* GameManager::getViewport()
-  {
-    ASSERT(m_viewport.get());
-    return m_viewport.get();
+    getInputManager()->render(lag);
+    getRenderManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------

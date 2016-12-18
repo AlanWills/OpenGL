@@ -10,20 +10,22 @@ namespace OpenGL
 
 #define SPRITE_RENDERER_POOL_SIZE 10
 
-class RenderManager
+class RenderManager : public Component
 {
   public:
     RenderManager();
     ~RenderManager();
 
-    void init();
-    void render(GLfloat lag);
+    void initialize() override;
+    void render(GLfloat lag) override;
 
     Shader* getSpriteShader() const { return m_spriteShader; }
 
-    SpriteRenderer* constructAndInitializeRenderer();
+    SpriteRenderer* allocateAndInitializeRenderer();
   
   private:
+    typedef Component Inherited;
+
     static StringId s_spriteShaderId;
     Shader* m_spriteShader;
 

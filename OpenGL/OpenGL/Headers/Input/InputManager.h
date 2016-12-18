@@ -2,14 +2,16 @@
 
 #include "Keyboard/Keyboard.h"
 #include "Mouse/Mouse.h"
+#include "Objects/Component.h"
 
 #include <memory.h>
+
 
 namespace OpenGL
 {
 // A class which uses a service locator pattern to store and update various input modules
 // These can be obtained and set with static methods, but the logic of them is in the objects themselves rather than this class
-class InputManager
+class InputManager : public Component
 {
   public:
     InputManager();
@@ -17,9 +19,9 @@ class InputManager
 
     /// \brief Set up the keyboard and mouse objects and also set up the global window callback
     /// To receive messages from the message window pump
-    void init();
+    void initialize() override;
 
-    void handleInput(GLfloat elapsedGameTime);
+    void handleInput(GLfloat elapsedGameTime) override;
 
     /// \brief The input manager will take ownership of this object now
     void setKeyboard(Keyboard* keyboard);
@@ -34,6 +36,8 @@ class InputManager
     Mouse* getMouse() const;
 
   private:
+    typedef Component Inherited;
+
     std::unique_ptr<Keyboard> m_keyboard;
     std::unique_ptr<Mouse> m_mouse;
 };
