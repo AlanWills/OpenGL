@@ -8,6 +8,7 @@ namespace OpenGL
   // Initialise static variables
   std::unique_ptr<OpenGLViewport> GameManager::m_viewport(nullptr);
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
+  std::unique_ptr<ScreenManager> GameManager::m_screenManager(new ScreenManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
   std::unique_ptr<RenderManager> GameManager::m_renderManager(new RenderManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
@@ -37,6 +38,7 @@ namespace OpenGL
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
     getResourceManager()->init();
+    getScreenManager()->initialize();
     getInputManager()->init();
     getRenderManager()->init();
   }
@@ -53,9 +55,8 @@ namespace OpenGL
       m_gameClock->update();
 
       GLfloat elapsedGameTime = m_gameClock->getElapsedDeltaTime();
-      lag += elapsedGameTime;
-
       GLfloat gameSecondsPerUpdate = m_gameClock->getTimeScale() / m_gameClock->getTargetFramesPerSecond();
+      lag += elapsedGameTime;
 
       glfwPollEvents();
 
@@ -91,18 +92,21 @@ namespace OpenGL
     }
 
     getInputManager()->handleInput(elapsedGameTime);
+    getScreenManager()->handleInput(elapsedGameTime);
     getViewport()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::update(GLfloat elapsedGameTime)
   {
+    getScreenManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::render(GLfloat lag)
   {
     getRenderManager()->render(lag);
+    getScreenManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -124,6 +128,20 @@ namespace OpenGL
   {
     ASSERT(resourceManager);
     m_resourceManager.reset(resourceManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  ScreenManager* GameManager::getScreenManager()
+  {
+    ASSERT(m_screenManager.get());
+    return m_screenManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setScreenManager(ScreenManager* screenManager)
+  {
+    ASSERT(screenManager);
+    m_screenManager.reset(screenManager);
   }
 
   //------------------------------------------------------------------------------------------------

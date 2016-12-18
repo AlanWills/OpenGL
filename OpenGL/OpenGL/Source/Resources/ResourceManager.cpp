@@ -127,6 +127,7 @@ namespace OpenGL
     else
     {
       // If we have run out of room in our pool, we dynamically create a new shader and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Shader pool allocator out of memory.  Consider increasing the size.")
       shader = new Shader();
       m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader));
     }
@@ -151,6 +152,7 @@ namespace OpenGL
     else
     {
       // If we have run out of room in our pool, we dynamically create a new texture and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Texture pool allocator out of memory.  Consider increasing the size.")
       texture = new Texture2D();
       m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture));
     }

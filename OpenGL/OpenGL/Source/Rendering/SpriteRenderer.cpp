@@ -23,7 +23,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::init(StringId textureName)
+  void SpriteRenderer::initialize()
   {
     // Configure the vbo/vao
     GLfloat vertices[] = 
@@ -64,27 +64,37 @@ namespace OpenGL
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    
-    // Now load the texture from the ResourceManager
-    m_texture = GameManager::getResourceManager()->getTexture(textureName);
-
-    // Debug check
-    ASSERT(m_texture);
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::render(GLfloat lag, Shader* shader)
+  void SpriteRenderer::render(GLfloat lag)
   {
-    shader->setVector4f("spriteColour", m_colour);
+    // Only draw if we have a texture set
+    if (m_texture)
+    {
+      Shader* spriteShader = GameManager::getRenderManager()->getSpriteShader();
 
-    glActiveTexture(GL_TEXTURE0);
-    m_texture->bind();
-    glUniform1i(glGetUniformLocation(shader->getProgram(), "sprite"), 0);
+      spriteShader->setVector4f("spriteColour", m_colour);
 
-    glBindVertexArray(m_vao);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    glBindVertexArray(0);
+      glActiveTexture(GL_TEXTURE0);
+      m_texture->bind();
+      glUniform1i(glGetUniformLocation(spriteShader->getProgram(), "sprite"), 0);
+      glCheckError();
 
-    m_texture->unbind();
+      glBindVertexArray(m_vao);
+      glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+      glBindVertexArray(0);
+      glCheckError();
+
+      m_texture->unbind();
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void SpriteRenderer::setTexture(Kernel::StringId textureStringId)
+  {
+    // Now load the texture from the ResourceManager
+    m_texture = GameManager::getResourceManager()->getTexture(textureStringId);
+    ASSERT(m_texture);
   }
 }

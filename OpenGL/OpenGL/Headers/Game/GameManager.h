@@ -2,6 +2,7 @@
 
 #include "Viewport/OpenGLViewport.h"
 #include "Resources/ResourceManager.h"
+#include "Screens/ScreenManager.h"
 #include "Input/InputManager.h"
 #include "Rendering/RenderManager.h"
 #include "Time/Clock.h"
@@ -31,6 +32,10 @@ class GameManager
     static void setResourceManager(ResourceManager* resourceManager);
     static ResourceManager* getResourceManager();
 
+    /// \brief GameManager takes responsibility for managing the screen manager
+    static void setScreenManager(ScreenManager* screenManager);
+    static ScreenManager* getScreenManager();
+
     /// \brief GameManager takes responsibility for managing the input manager
     static void setInputManager(InputManager* resourceManager);
     static InputManager* getInputManager();
@@ -55,6 +60,9 @@ class GameManager
 
     /// \brief The manager responsible for handling game resources
     static std::unique_ptr<ResourceManager> m_resourceManager;
+
+    /// \brief The manager responsible for handling screens
+    static std::unique_ptr<ScreenManager> m_screenManager;
 
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;

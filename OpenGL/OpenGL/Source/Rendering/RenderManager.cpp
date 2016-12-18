@@ -11,7 +11,7 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   RenderManager::RenderManager() :
-    m_shader(nullptr)
+    m_spriteShader(nullptr)
   {
   }
 
@@ -23,27 +23,38 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void RenderManager::init()
   {
-    m_shader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
-    m_spriteRenderers.allocate()->init(internString("container.jpg"));
-    ASSERT(m_shader);
+    m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
+    ASSERT(m_spriteShader);
   }
 
   //------------------------------------------------------------------------------------------------
   void RenderManager::render(GLfloat lag)
   {
     // Set up the sprite shader
-    m_shader->bind();
+    m_spriteShader->bind();
 
     Camera* camera = GameManager::getViewport()->getCamera();
-    m_shader->setMatrix4("projection", camera->getProjectionMatrix());
-    m_shader->setMatrix4("view", camera->getViewMatrix());
+    m_spriteShader->setMatrix4("projection", camera->getProjectionMatrix());
+    m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
     for (SpriteRenderer* renderer : m_spriteRenderers)
     {
-      renderer->render(lag, m_shader);
+      renderer->render(lag);
     }
 
     // Finish with our shader
-    m_shader->unbind();
+    m_spriteShader->unbind();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  SpriteRenderer* RenderManager::constructAndInitializeRenderer()
+  {
+    if (!m_spriteRenderers.canAllocate())
+    {
+      ASSERT_FAIL_MSG("Run out of renderers.  Consider increasing size");
+      return nullptr;
+    }
+    
+    return m_spriteRenderers.allocateAndInitialize();
   }
 }

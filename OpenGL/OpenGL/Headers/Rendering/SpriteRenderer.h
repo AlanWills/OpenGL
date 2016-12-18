@@ -4,22 +4,24 @@
 #include "Resources/Texture2D.h"
 #include "Resources/Shader.h"
 #include "StringInterning/StringId.h"
+#include "Objects/Component.h"
 
 #include <string>
 
 namespace OpenGL
 {
 // A class which is responsible for rendering a texture using the sprite shader
-class SpriteRenderer
+class SpriteRenderer : public Component
 {
   public:
     SpriteRenderer();
-    ~SpriteRenderer();
+    virtual ~SpriteRenderer();
 
-    /// \brief Set up the gl buffers and load the texture and shader from the resource manager
-    void init(Kernel::StringId textureName);
+    /// \brief Set up the gl buffers
+    void initialize() override;
+    void render(GLfloat lag) override;
 
-    void render(GLfloat lag, Shader* shader);
+    void setTexture(Kernel::StringId textureStringId);
 
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }

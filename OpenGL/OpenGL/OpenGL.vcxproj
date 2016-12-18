@@ -16,6 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Maths\Transform.cpp" />
+    <ClCompile Include="Source\Objects\Component.cpp" />
+    <ClCompile Include="Source\Objects\GameObject.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Rendering\SpriteRenderer.cpp" />
@@ -30,6 +32,8 @@
     <ClCompile Include="Source\Input\Mouse\Mouse.cpp" />
     <ClCompile Include="Source\Input\Mouse\NullMouse.cpp" />
     <ClCompile Include="Source\Memory\AlignedAllocator.cpp" />
+    <ClCompile Include="Source\Screens\Screen.cpp" />
+    <ClCompile Include="Source\Screens\ScreenManager.cpp" />
     <ClCompile Include="Source\Viewport\Camera.cpp" />
     <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />
     <ClCompile Include="Source\Resources\ResourceManager.cpp" />
@@ -53,7 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Maths\Transform.h" />
+    <ClInclude Include="Headers\Memory\ComponentAllocator.h" />
+    <ClInclude Include="Headers\Memory\ComponentAllocatorIterator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
+    <ClInclude Include="Headers\Objects\Component.h" />
+    <ClInclude Include="Headers\Objects\GameObject.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h" />
@@ -69,6 +77,8 @@
     <ClInclude Include="Headers\Memory\AlignedAllocator.h" />
     <ClInclude Include="Headers\Memory\DoubleBufferAllocator.h" />
     <ClInclude Include="Headers\Memory\PoolAllocator.h" />
+    <ClInclude Include="Headers\Screens\Screen.h" />
+    <ClInclude Include="Headers\Screens\ScreenManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />

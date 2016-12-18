@@ -11,6 +11,10 @@ using namespace OpenGL;
 int main()
 {
   GameManager::init();
+
+  ScreenManager* screenManager = GameManager::getScreenManager();
+  screenManager->transitionToScreen(screenManager->constructScreen());
+
   GameManager::run();
 
   return 0;

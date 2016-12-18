@@ -4,7 +4,6 @@
 #include "PoolAllocatorIterator.h"
 
 #include <iterator>
-#include <array>
 
 
 namespace OpenGL
@@ -17,10 +16,10 @@ class PoolAllocator
 {
   public:
     PoolAllocator();
-    ~PoolAllocator();
+    virtual ~PoolAllocator();
 
     /// \brief Returns true if we have free objects in the pool to allocate
-    bool canAllocate() { return m_head != PoolSize; }
+    bool canAllocate() const { return m_head != PoolSize; }
 
     /// \brief Obtain a pointer to a free object from this pool
     /// The object will have already been constructed
@@ -30,10 +29,10 @@ class PoolAllocator
     /// \brief Resets the head to the start of the pool
     void freeAll();
 
-    PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
-    PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
+    virtual PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
+    virtual PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
 
-  private:
+  protected:
     size_t m_head;
     T m_pool[PoolSize];
 };

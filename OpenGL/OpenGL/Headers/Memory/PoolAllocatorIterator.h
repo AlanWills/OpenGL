@@ -11,16 +11,17 @@ class PoolAllocatorIterator : std::iterator<std::forward_iterator_tag, T>
 {
   public:
     PoolAllocatorIterator(T* ptr);
+    virtual ~PoolAllocatorIterator();
     
-    PoolAllocatorIterator& operator++();
-    PoolAllocatorIterator operator++(int);
+    virtual PoolAllocatorIterator& operator++();
+    virtual PoolAllocatorIterator operator++(int);
 
     bool operator==(PoolAllocatorIterator<T> other) const;
     bool operator!=(PoolAllocatorIterator<T> other) const;
 
     T* operator*() const { return m_ptr; }
 
-  private:
+  protected:
     T* m_ptr;
 };
 
@@ -28,6 +29,12 @@ class PoolAllocatorIterator : std::iterator<std::forward_iterator_tag, T>
 template <typename T>
 PoolAllocatorIterator<T>::PoolAllocatorIterator(T* ptr) :
   m_ptr(ptr)
+{
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T>
+PoolAllocatorIterator<T>::~PoolAllocatorIterator()
 {
 }
 
@@ -43,8 +50,7 @@ PoolAllocatorIterator<T>& PoolAllocatorIterator<T>::operator++()
 template <typename T>
 PoolAllocatorIterator<T> PoolAllocatorIterator<T>::operator++(int)
 {
-  PoolAllocatorIterator<T> iterator(++m_ptr);
-  return iterator;
+  return PoolAllocatorIterator<T>(++m_ptr);
 }
 
 //------------------------------------------------------------------------------------------------

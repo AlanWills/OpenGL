@@ -2,7 +2,7 @@
 
 #include "Resources/Shader.h"
 #include "SpriteRenderer.h"
-#include "Memory/PoolAllocator.h"
+#include "Memory/ComponentAllocator.h"
 
 
 namespace OpenGL
@@ -18,12 +18,16 @@ class RenderManager
 
     void init();
     void render(GLfloat lag);
+
+    Shader* getSpriteShader() const { return m_spriteShader; }
+
+    SpriteRenderer* constructAndInitializeRenderer();
   
   private:
     static StringId s_spriteShaderId;
+    Shader* m_spriteShader;
 
-    PoolAllocator<SpriteRenderer, SPRITE_RENDERER_POOL_SIZE> m_spriteRenderers;
-    Shader* m_shader;
+    ComponentAllocator<SpriteRenderer, SPRITE_RENDERER_POOL_SIZE> m_spriteRenderers;
 };
 
 }
