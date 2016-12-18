@@ -18,6 +18,7 @@
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
+    <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -64,6 +65,7 @@
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
+    <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />

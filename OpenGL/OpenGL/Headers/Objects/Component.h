@@ -15,7 +15,7 @@ namespace OpenGL
       virtual void initialize();
       virtual void begin();
       virtual void handleInput(GLfloat elapsedGameTime) {}
-      virtual void update(GLfloat elapsedGameTime);
+      virtual void update(GLfloat secondsPerUpdate);
       virtual void render(GLfloat lag) {}
       virtual void die();
 

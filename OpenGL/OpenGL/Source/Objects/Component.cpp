@@ -40,7 +40,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Component::update(GLfloat elapsedGameTime)
+  void Component::update(GLfloat secondsPerUpdate)
   {
     if (!m_begun)
     {

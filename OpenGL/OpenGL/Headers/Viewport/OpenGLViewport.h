@@ -35,6 +35,7 @@ class OpenGLViewport
     bool isFullScreen() const { return glfwGetWindowMonitor(m_viewport) ? true : false; }
 
     void handleInput(GLfloat elapsedGameTime);
+    void update(GLfloat secondsPerUpdate);
 
   private:
     void initWindow(ScreenMode screenMode);

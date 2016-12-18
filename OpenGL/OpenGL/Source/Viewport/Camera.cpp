@@ -2,15 +2,16 @@
 
 #include "Viewport/Camera.h"
 #include "Game/GameManager.h"
+#include "Scripts/ScriptManager.h"
+#include "Scripts/KeyboardMovementScript.h"
 
 
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Camera::Camera(glm::vec3 cameraPosition, glm::vec3 lookDirection, glm::vec3 upDirection) :
-    m_transform(glm::lookAt(cameraPosition, cameraPosition + lookDirection, upDirection)),
-    m_panSpeed(1)
+  Camera::Camera(glm::vec3 cameraPosition, glm::vec3 lookDirection, glm::vec3 upDirection)
   {
+    m_transform.setLocalMatrix(glm::lookAt(cameraPosition, cameraPosition + lookDirection, upDirection));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -19,34 +20,16 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Camera::handleInput(GLfloat elapsedGameTime)
+  void Camera::initialize()
   {
-    Keyboard* keyboard = GameManager::getInputManager()->getKeyboard();
+    Inherited::initialize();
 
-    const glm::mat4& localMat = m_transform.getLocalMatrix();
-
-    // Only support one left/right key pressed
-    if (keyboard->isKeyDown(GLFW_KEY_A))
-    {
-      // Move along +ve local space x axis (right in local space)
-      pan(glm::vec3(localMat[0]) * m_panSpeed * elapsedGameTime);
-    }
-    else if (keyboard->isKeyDown(GLFW_KEY_D))
-    {
-      // Move along -ve local space x axis (left in local space)
-      pan(glm::vec3(localMat[0]) * -m_panSpeed * elapsedGameTime);
-    }
-
-    if (keyboard->isKeyDown(GLFW_KEY_W))
-    {
-      // Move along +ve local space y axis (up in local space)
-      pan(glm::vec3(localMat[1]) * m_panSpeed * elapsedGameTime);
-    }
-    else if (keyboard->isKeyDown(GLFW_KEY_S))
-    {
-      // Move along -+ve local space y axis (down in local space)
-      pan(glm::vec3(localMat[1]) * -m_panSpeed * elapsedGameTime);
-    }
+    //KeyboardMovementScript* keyboardMovementScript = addComponent(ScriptManager::instance().allocateAndInitializeScript<KeyboardMovementScript>());
+    KeyboardMovementScript* keyboardMovementScript = addComponent(new KeyboardMovementScript());
+    keyboardMovementScript->setTransform(&m_transform);
+    keyboardMovementScript->initialize();
+    keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
+    keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);
   }
 
   //------------------------------------------------------------------------------------------------

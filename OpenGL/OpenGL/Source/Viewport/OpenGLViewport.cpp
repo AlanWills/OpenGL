@@ -52,6 +52,8 @@ namespace OpenGL
     setScreenMode(screenMode);
 
     glCheckError();
+
+    getCamera()->initialize();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -64,6 +66,12 @@ namespace OpenGL
     }
 
     getCamera()->handleInput(elapsedGameTime);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void OpenGLViewport::update(GLfloat secondsPerUpdate)
+  {
+    getCamera()->update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------

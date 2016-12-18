@@ -23,7 +23,10 @@ class ScriptManager : public Component
     bool registerScript(StringId scriptName);
 
     template <typename T>
-    T* allocateScript(StringId scriptName);
+    T* allocateScript();
+
+    template <typename T>
+    T* allocateAndInitializeScript();
 
   private:
     typedef Component Inherited;
@@ -56,8 +59,10 @@ bool ScriptManager::registerScript(StringId scriptName)
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-T* ScriptManager::allocateScript(StringId scriptName)
+T* ScriptManager::allocateScript()
 {
+  StringId scriptName = T::getScriptName();
+
   if (m_scriptAllocators.find(scriptName) == m_scriptAllocators.end())
   {
     ASSERT_FAIL();
@@ -72,7 +77,24 @@ T* ScriptManager::allocateScript(StringId scriptName)
     return nullptr;
   }
 
-  return allocator->allocate();
+  return allocator->allocate()
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T>
+T* ScriptManager::allocateAndInitializeScript()
+{
+  T* script = allocateScript<T>();
+
+  if (!script)
+  {
+    ASSERT_FAIL_MSG("Script is nullptr");
+    return nullptr;
+  }
+
+  script->initialize();
+
+  return script;
 }
 
 }

@@ -59,6 +59,8 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
+    getViewport()->update(secondsPerUpdate);
+
     m_screens.update(secondsPerUpdate);
   }
 
