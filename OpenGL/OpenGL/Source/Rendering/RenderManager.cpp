@@ -1,7 +1,8 @@
 #include "stdafx.h"
 
-#include "Game/GameManager.h"
 #include "Rendering/RenderManager.h"
+#include "Game/GameManager.h"
+#include "Rendering/SpriteRenderer.h"
 
 
 namespace OpenGL
@@ -41,24 +42,12 @@ namespace OpenGL
     m_spriteShader->setMatrix4("projection", camera->getProjectionMatrix());
     m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
-    for (SpriteRenderer* renderer : m_spriteRenderers)
+    for (SpriteRenderer* renderer : SpriteRenderer::m_componentAllocator)
     {
       renderer->render(lag);
     }
 
     // Finish with our shader
     m_spriteShader->unbind();
-  }
-
-  //------------------------------------------------------------------------------------------------
-  SpriteRenderer* RenderManager::allocateAndInitializeRenderer()
-  {
-    if (!m_spriteRenderers.canAllocate())
-    {
-      ASSERT_FAIL_MSG("Run out of renderers.  Consider increasing size");
-      return nullptr;
-    }
-    
-    return m_spriteRenderers.allocateAndInitialize();
   }
 }

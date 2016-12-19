@@ -3,10 +3,13 @@
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
+#include "Rendering/SpriteRenderer.h"
 
 
 namespace OpenGL
 {
+  REGISTER_COMPONENT(Screen);
+
   //------------------------------------------------------------------------------------------------
   Screen::Screen()
   {
@@ -23,8 +26,8 @@ namespace OpenGL
     Inherited::initialize();
 
     GameObject* gameObject = m_gameObjects.allocateAndInitialize();
-    SpriteRenderer* spriteRenderer = gameObject->addComponent(GameManager::getRenderManager()->allocateAndInitializeRenderer());
-    spriteRenderer->setTexture(internString("container.jpg"));
+    SpriteRenderer* spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
+    spriteRenderer->setTexture(internStringFast("container.jpg"));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -33,6 +36,14 @@ namespace OpenGL
     Inherited::handleInput(elapsedGameTime);
 
     m_gameObjects.handleInput(elapsedGameTime);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Screen::awake()
+  {
+    Inherited::awake();
+
+    m_gameObjects.awake();
   }
 
   //------------------------------------------------------------------------------------------------

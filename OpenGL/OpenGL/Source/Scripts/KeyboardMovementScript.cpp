@@ -7,7 +7,7 @@
 
 namespace OpenGL
 {
-  REGISTER_SCRIPT(KeyboardMovementScript, "KeyboardMovementScript")
+  REGISTER_COMPONENT(KeyboardMovementScript)
 
   //------------------------------------------------------------------------------------------------
   KeyboardMovementScript::KeyboardMovementScript() :

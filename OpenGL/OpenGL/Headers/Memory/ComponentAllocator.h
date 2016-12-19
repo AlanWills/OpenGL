@@ -27,6 +27,7 @@ class ComponentAllocator : public PoolAllocator<T, PoolSize>
     PoolAllocatorIterator<T> begin() { return ComponentAllocatorIterator<T>(m_pool, &(m_pool[m_head])); }
     PoolAllocatorIterator<T> end() { return ComponentAllocatorIterator<T>(&(m_pool[m_head]), &(m_pool[m_head])); }
 
+    void awake();
     void handleInput(GLfloat elapsedGameTime);
     void update(GLfloat secondsPerUpdate);
     void render(GLfloat lag);
@@ -53,6 +54,16 @@ T* ComponentAllocator<T, PoolSize>::allocateAndInitialize()
   component->initialize();
 
   return component;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t PoolSize>
+void ComponentAllocator<T, PoolSize>::awake()
+{
+  for (T* component : *this)
+  {
+    component->awake();
+  }
 }
 
 //------------------------------------------------------------------------------------------------

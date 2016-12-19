@@ -6,6 +6,8 @@
 
 namespace OpenGL
 {
+  REGISTER_COMPONENT(SpriteRenderer)
+
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
     m_texture(nullptr),

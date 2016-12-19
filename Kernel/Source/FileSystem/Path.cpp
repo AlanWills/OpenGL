@@ -76,7 +76,7 @@ namespace Kernel
       return;
     }
 
-    // If the first path doesn't end in the delimiter and the second doesn't begin with the delimiter we should append the delimiter to the first path
+    // If the first path doesn't end in the delimiter and the second doesn't awake with the delimiter we should append the delimiter to the first path
     if ((firstPath.back() != PATH_DELIMITER) && (secondPath.front() != PATH_DELIMITER))
     {
       firstPath.push_back(PATH_DELIMITER);

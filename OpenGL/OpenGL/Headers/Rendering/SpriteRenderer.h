@@ -8,11 +8,14 @@
 
 #include <string>
 
+
 namespace OpenGL
 {
 // A class which is responsible for rendering a texture using the sprite shader
 class SpriteRenderer : public Component
 {
+  DECLARE_COMPONENT(SpriteRenderer, 10);
+
   public:
     SpriteRenderer();
     virtual ~SpriteRenderer();
@@ -34,6 +37,8 @@ class SpriteRenderer : public Component
     GLuint m_vbo;
     GLuint m_ebo;
     GLuint m_vao;
+
+    friend class RenderManager;
 };
 
 }

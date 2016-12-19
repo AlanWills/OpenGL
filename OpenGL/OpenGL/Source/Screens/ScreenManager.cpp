@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Screens/ScreenManager.h"
+#include "Screens/Screen.h"
 
 
 namespace OpenGL
@@ -34,14 +35,11 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenManager::begin()
+  void ScreenManager::awake()
   {
-    Inherited::begin();
+    Inherited::awake();
 
-    for (Screen* screen : m_screens)
-    {
-      screen->begin();
-    }
+    Screen::m_componentAllocator.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -51,7 +49,7 @@ namespace OpenGL
 
     getViewport()->handleInput(elapsedGameTime);
     
-    m_screens.handleInput(elapsedGameTime);
+    Screen::m_componentAllocator.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -61,7 +59,7 @@ namespace OpenGL
 
     getViewport()->update(secondsPerUpdate);
 
-    m_screens.update(secondsPerUpdate);
+    Screen::m_componentAllocator.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -69,19 +67,7 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    m_screens.render(lag);
-  }
-
-  //------------------------------------------------------------------------------------------------
-  Screen* ScreenManager::allocateScreen()
-  {
-    if (!m_screens.canAllocate())
-    {
-      ASSERT_FAIL_MSG("Run out of screens.  Considering allocating a larger screen pool");
-      return nullptr;
-    }
-
-    return m_screens.allocate();
+    Screen::m_componentAllocator.render(lag);
   }
 
   //------------------------------------------------------------------------------------------------

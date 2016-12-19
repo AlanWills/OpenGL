@@ -9,7 +9,7 @@ namespace OpenGL
   Component::Component() :
     m_alive(false),
     m_initialized(false),
-    m_begun(false)
+    m_awake(false)
   {
   }
 
@@ -31,21 +31,21 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Component::begin()
+  void Component::awake()
   {
     ASSERT(m_initialized);
-    ASSERT(!m_begun);
+    ASSERT(!m_awake);
 
-    m_begun = true;
+    m_awake = true;
   }
 
   //------------------------------------------------------------------------------------------------
   void Component::update(GLfloat secondsPerUpdate)
   {
-    if (!m_begun)
+    if (!m_awake)
     {
-      begin();
-      ASSERT(m_begun);
+      awake();
+      ASSERT(m_awake);
     }
   }
 
@@ -54,10 +54,10 @@ namespace OpenGL
   {
     ASSERT(m_alive);
     ASSERT(m_initialized);
-    ASSERT(m_begun);
+    ASSERT(m_awake);
 
     m_alive = false;
     m_initialized = true;
-    m_begun = false;
+    m_awake = false;
   }
 }

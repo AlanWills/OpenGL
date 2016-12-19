@@ -14,7 +14,7 @@ int main()
   GameManager::init();
 
   ScreenManager* screenManager = GameManager::getScreenManager();
-  screenManager->transitionToScreen(screenManager->allocateScreen());
+  screenManager->transitionToScreen(Screen::allocate());
 
   GameManager::run();
 

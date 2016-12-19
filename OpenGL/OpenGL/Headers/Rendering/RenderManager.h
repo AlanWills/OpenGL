@@ -1,14 +1,12 @@
 #pragma once
 
 #include "Resources/Shader.h"
-#include "SpriteRenderer.h"
 #include "Memory/ComponentAllocator.h"
+#include "Objects/Component.h"
 
 
 namespace OpenGL
 {
-
-#define SPRITE_RENDERER_POOL_SIZE 10
 
 class RenderManager : public Component
 {
@@ -21,15 +19,11 @@ class RenderManager : public Component
 
     Shader* getSpriteShader() const { return m_spriteShader; }
 
-    SpriteRenderer* allocateAndInitializeRenderer();
-  
   private:
     typedef Component Inherited;
 
     static StringId s_spriteShaderId;
     Shader* m_spriteShader;
-
-    ComponentAllocator<SpriteRenderer, SPRITE_RENDERER_POOL_SIZE> m_spriteRenderers;
 };
 
 }
