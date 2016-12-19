@@ -13,7 +13,8 @@ class ScriptManager : public Component
 {
   #define SCRIPTMANAGER_POOL_SIZE 10
 
-  public:
+  // Current unused - also need to delete the copy constructor?
+private:
     ScriptManager();
     virtual ~ScriptManager();
 
@@ -28,7 +29,6 @@ class ScriptManager : public Component
     template <typename T>
     T* allocateAndInitializeScript();
 
-  private:
     typedef Component Inherited;
     typedef ComponentAllocator<Script, SCRIPTMANAGER_POOL_SIZE> ScriptAllocator;
     typedef std::pair<StringId, ScriptAllocator*> NameAllocatorPair;

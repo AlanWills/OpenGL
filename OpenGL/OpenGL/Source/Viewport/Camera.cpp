@@ -24,12 +24,18 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    //KeyboardMovementScript* keyboardMovementScript = addComponent(ScriptManager::instance().allocateAndInitializeScript<KeyboardMovementScript>());
-    KeyboardMovementScript* keyboardMovementScript = addComponent(new KeyboardMovementScript());
-    keyboardMovementScript->setTransform(&m_transform);
-    keyboardMovementScript->initialize();
-    keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
-    keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);
+    if (KeyboardMovementScript::canAllocate())
+    {
+      KeyboardMovementScript* keyboardMovementScript = addComponent(KeyboardMovementScript::allocate());
+      keyboardMovementScript->setTransform(&m_transform);
+      keyboardMovementScript->initialize();
+      keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
+      keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);
+    }
+    else
+    {
+      ASSERT_FAIL();
+    }
   }
 
   //------------------------------------------------------------------------------------------------

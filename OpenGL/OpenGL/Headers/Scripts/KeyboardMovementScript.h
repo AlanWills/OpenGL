@@ -9,7 +9,7 @@ namespace OpenGL
 
 class KeyboardMovementScript : public Script
 {
-  DECLARE_SCRIPT()
+  DECLARE_SCRIPT(KeyboardMovementScript, 10)
 
   public:
     KeyboardMovementScript();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Objects/Component.h"
+#include "Memory/ComponentAllocator.h"
 #include "StringInterning/StringId.h"
 
 using namespace Kernel;
@@ -8,15 +9,25 @@ using namespace Kernel;
 
 namespace OpenGL
 {
-#define DECLARE_SCRIPT() \
+//------------------------------------------------------------------------------------------------
+#define DECLARE_SCRIPT(ScriptType, PoolSize) \
 public: \
-  static StringId getScriptName() { return m_scriptName; } \
-  static StringId m_scriptName; \
-  static bool m_b;
+  static bool canAllocate() { return m_scriptAllocator.canAllocate(); } \
+  static ScriptType* allocate() { return m_scriptAllocator.allocate(); } \
+  static ScriptType* allocateAndInitialize() \
+  { \
+    ASSERT(m_scriptAllocator.canAllocate()); \
+    ScriptType* script = m_scriptAllocator.allocate(); \
+    script->initialize(); \
+    return script; \
+  } \
+private: \
+  typedef ComponentAllocator<ScriptType, PoolSize> ScriptAllocator; \
+  static ComponentAllocator<ScriptType, PoolSize> m_scriptAllocator;
 
+//------------------------------------------------------------------------------------------------
 #define REGISTER_SCRIPT(ScriptType, ScriptName) \
-StringId ScriptType::m_scriptName(internString(ScriptName)); \
-bool ScriptType::m_b(ScriptManager::instance().registerScript<ScriptType>(internString(ScriptName)));
+ScriptType::ScriptAllocator ScriptType::m_scriptAllocator = ScriptType::ScriptAllocator();
 
 
 //------------------------------------------------------------------------------------------------
