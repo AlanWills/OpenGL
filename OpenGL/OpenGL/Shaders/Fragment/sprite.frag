@@ -7,6 +7,7 @@ out vec4 color;
 uniform sampler2D sprite;
 uniform vec4 spriteColour;
 
+
 void main()
 {
 	vec4 actualColour = vec4(spriteColour.xyz * spriteColour.w, 1);

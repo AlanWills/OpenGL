@@ -25,9 +25,9 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    GameObject* gameObject = m_gameObjects.allocateAndInitialize();
+    /*GameObject* gameObject = m_gameObjects.allocateAndInitialize();
     SpriteRenderer* spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
-    spriteRenderer->setTexture(internStringFast("container.jpg"));
+    spriteRenderer->setTexture(internStringFast("container.jpg"));*/
   }
 
   //------------------------------------------------------------------------------------------------

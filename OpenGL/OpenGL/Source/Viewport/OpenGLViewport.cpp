@@ -45,9 +45,9 @@ namespace OpenGL
 
     // OpenGL configuration
     glViewport(0, 0, m_width, m_height);
-    /*enableViewportFlag(GL_CULL_FACE);
+    /*enableViewportFlag(GL_CULL_FACE);*/
     enableViewportFlag(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);*/
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     setScreenMode(screenMode);
 

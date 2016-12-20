@@ -122,6 +122,9 @@
     <None Include="Shaders\Vertex\sprite.vs">
       <Filter>Resource Files\Shaders\Vertex</Filter>
     </None>
+    <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
+    <None Include="Shaders\Vertex\text.vs" />
+    <None Include="Shaders\Fragment\text.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\awesomeface.png">
@@ -255,5 +258,8 @@
     <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf" />
   </ItemGroup>
 </Project>
