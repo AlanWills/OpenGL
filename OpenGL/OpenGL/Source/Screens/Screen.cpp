@@ -4,6 +4,7 @@
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
 #include "Rendering/SpriteRenderer.h"
+#include "Rendering/TextRenderer.h"
 
 
 namespace OpenGL
@@ -25,9 +26,14 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    /*GameObject* gameObject = m_gameObjects.allocateAndInitialize();
+    GameObject* gameObject = m_gameObjects.allocateAndInitialize();
+
     SpriteRenderer* spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
-    spriteRenderer->setTexture(internStringFast("container.jpg"));*/
+    spriteRenderer->setTexture("container");
+
+    TextRenderer* textRenderer = gameObject->addComponent(TextRenderer::allocateAndInitialize());
+    textRenderer->setFont("Arial");
+    textRenderer->setText("Test");
   }
 
   //------------------------------------------------------------------------------------------------

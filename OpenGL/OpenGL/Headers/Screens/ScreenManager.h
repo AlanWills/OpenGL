@@ -26,8 +26,11 @@ class ScreenManager : public Component
     /// \brief Get the window
     OpenGLViewport* getViewport();
 
-    inline int getWindowWidth() { return getViewport()->getWidth(); }
-    inline int getWindowHeight() { return getViewport()->getHeight(); }
+    /// \brief Shorthand for obtaining the viewport width
+    inline float getViewportWidth() { return getViewport()->getWidth(); }
+
+    /// \brief Shorthand for obtaining the viewport height
+    inline float getViewportHeight() { return getViewport()->getHeight(); }
 
   private:
     typedef Component Inherited;

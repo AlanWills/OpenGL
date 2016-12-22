@@ -11,9 +11,9 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
     m_texture(nullptr),
+    m_colour(1, 1, 1, 1),
     m_vbo(0),
-    m_vao(0),
-    m_colour(1, 1, 1, 1)
+    m_vao(0)
   {
   }
 
@@ -27,6 +27,8 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void SpriteRenderer::initialize()
   {
+    Inherited::initialize();
+
     // Configure the vbo/vao
     GLfloat vertices[] = 
     {
@@ -71,11 +73,12 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void SpriteRenderer::render(GLfloat lag)
   {
+    Inherited::render(lag);
+
     // Only draw if we have a texture set
     if (m_texture)
     {
       Shader* spriteShader = GameManager::getRenderManager()->getSpriteShader();
-
       spriteShader->setVector4f("spriteColour", m_colour);
 
       glActiveTexture(GL_TEXTURE0);
@@ -93,10 +96,11 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::setTexture(Kernel::StringId textureStringId)
+  void SpriteRenderer::setTexture(const std::string& textureStringId)
   {
     // Now load the texture from the ResourceManager
-    m_texture = GameManager::getResourceManager()->getTexture(textureStringId);
+    // We can use fast interning as if it has been preloaded the string intern has already been calculated
+    m_texture = GameManager::getResourceManager()->getTexture(internStringFast(textureStringId));
     ASSERT(m_texture);
   }
 }

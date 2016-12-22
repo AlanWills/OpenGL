@@ -114,39 +114,45 @@
     <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Resources\Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Rendering\TextRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Fragment\sprite.frag">
+    <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
+    <None Include="Assets\Shaders\Fragment\sprite.frag">
       <Filter>Resource Files\Shaders\Fragment</Filter>
     </None>
-    <None Include="Shaders\Vertex\sprite.vs">
+    <None Include="Assets\Shaders\Fragment\text.frag" />
+    <None Include="Assets\Shaders\Vertex\sprite.vs">
       <Filter>Resource Files\Shaders\Vertex</Filter>
     </None>
-    <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
-    <None Include="Shaders\Vertex\text.vs" />
-    <None Include="Shaders\Fragment\text.frag" />
+    <None Include="Assets\Shaders\Vertex\text.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\awesomeface.png">
+    <Image Include="Assets\Textures\awesomeface.png">
       <Filter>Resource Files\Assets</Filter>
     </Image>
-    <Image Include="Assets\container.jpg">
+    <Image Include="Assets\Textures\background.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\block.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\block_solid.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\container.jpg">
       <Filter>Resource Files\Assets</Filter>
     </Image>
-    <Image Include="Assets\wall.jpg">
+    <Image Include="Assets\Textures\paddle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\wall.jpg">
       <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\block.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\block_solid.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\background.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\paddle.png">
-      <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
@@ -258,8 +264,14 @@
     <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Resources\Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Rendering\TextRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="arial.ttf" />
+    <Font Include="Assets\Fonts\arial.ttf" />
   </ItemGroup>
 </Project>

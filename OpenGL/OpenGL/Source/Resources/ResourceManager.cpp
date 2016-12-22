@@ -1,15 +1,18 @@
 #include "stdafx.h"
+
 #include "Resources/ResourceManager.h"
 
 #include <SOIL/SOIL.h>
+
 
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   ResourceManager::ResourceManager(const std::string& resourceDirectory) :
     m_resourceDirectoryPath(resourceDirectory),
-    m_textureDirectoryPath(resourceDirectory),
     m_shaderDirectoryPath(resourceDirectory),
+    m_textureDirectoryPath(resourceDirectory),
+    m_fontDirectoryPath(resourceDirectory),
     m_vertexShaderDirectoryPath(resourceDirectory),
     m_fragmentShaderDirectoryPath(resourceDirectory)
   {
@@ -23,18 +26,8 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ResourceManager::init()
+  void ResourceManager::initialize()
   {
-    std::vector<File> textures;
-    Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
-
-    for (const File& file : textures)
-    {
-      const std::string& fileName = file.getFileName();
-
-      loadTexture(fileName, GL_TRUE, internString(fileName));
-    }
-
     std::vector<File> shaderFiles;
     Directory::findFiles(m_vertexShaderDirectoryPath.asString(), shaderFiles, ".vs", true);
 
@@ -42,7 +35,23 @@ namespace OpenGL
     {
       const std::string& extensionlessFileName = file.getExtensionlessFileName();
 
-      loadShader(file.getFileName(), extensionlessFileName + ".frag", internString(extensionlessFileName));
+      loadShader(extensionlessFileName + ".vs", extensionlessFileName + ".frag", internString(extensionlessFileName));
+    }
+
+    std::vector<File> textures;
+    Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
+
+    for (const File& file : textures)
+    {
+      loadTexture(file.getFileName(), GL_TRUE, internString(file.getExtensionlessFileName()));
+    }
+
+    std::vector<File> fonts;
+    Directory::findFiles(m_fontDirectoryPath.asString(), fonts, ".ttf", true);
+
+    for (const File& file : fonts)
+    {
+      loadFont(file.getFileName(), internString(file.getExtensionlessFileName()));
     }
   }
 
@@ -110,6 +119,37 @@ namespace OpenGL
     }
 
     return m_textures[name];
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Font* ResourceManager::loadFont(const std::string& relativeFilePath, StringId name)
+  {
+    if (m_fonts.find(name) != m_fonts.end())
+    {
+      // If the texture already exists in our dictionary then we just return it
+      return m_fonts[name];
+    }
+
+    Path fullPath(m_fontDirectoryPath);
+    fullPath.combine(relativeFilePath);
+
+    Font* font = loadFontFromFile(fullPath.asString());
+    m_fonts[name] = font;
+    return font;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Font* ResourceManager::getFont(StringId name)
+  {
+    if (m_fonts.find(name) == m_fonts.end())
+    {
+      ASSERT_FAIL_MSG("Font does not exist");
+
+      /// TODO: Return a default font or something?
+      return nullptr;
+    }
+
+    return m_fonts[name];
   }
 
   //------------------------------------------------------------------------------------------------
@@ -183,16 +223,27 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ResourceManager::unloadTextures()
+  Font* ResourceManager::loadFontFromFile(const std::string& fullFilePath)
   {
-    // Clear all the references in our texture map
-    m_textures.clear();
+    // Create Font object
+    Font* font = nullptr;
+    if (m_fontPool.canAllocate())
+    {
+      // If we have room left in the pool we just allocate a new entry
+      font = m_fontPool.allocate();
+    }
+    else
+    {
+      // If we have run out of room in our pool, we dynamically create a new font and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Font pool allocator out of memory.  Consider increasing the size.")
+      font = new Font();
+      m_fontOverflow.push_back(std::unique_ptr<Font>(font));
+    }
 
-    // Resets our pooled memory
-    m_texturePool.freeAll();
+    ASSERT(font);
+    font->generate(fullFilePath);
 
-    // Clear the overflow
-    m_textureOverflow.clear();
+    return font;
   }
 
   //------------------------------------------------------------------------------------------------
@@ -209,10 +260,37 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadTextures()
+  {
+    // Clear all the references in our texture map
+    m_textures.clear();
+
+    // Resets our pooled memory
+    m_texturePool.freeAll();
+
+    // Clear the overflow
+    m_textureOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadFonts()
+  {
+    // Clear all the references in our font map
+    m_fonts.clear();
+
+    // Resets our pooled memory
+    m_fontPool.freeAll();
+
+    // Clear the overflow
+    m_fontOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadAllAssets()
   {
-    unloadTextures();
     unloadShaders();
+    unloadTextures();
+    unloadFonts();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -223,19 +301,38 @@ namespace OpenGL
   {
     m_resourceDirectoryPath = resourceDirectoryPath;
     
-    Path newShaderPath(m_resourceDirectoryPath);
-    newShaderPath.combine(SHADER_DIR);
-    setShaderDirectoryPath(newShaderPath);
+    // Update shader directory path
+    {
+      Path newShaderPath(m_resourceDirectoryPath);
+      newShaderPath.combine(SHADER_DIR);
+      setShaderDirectoryPath(newShaderPath);
+    }
 
-    Path newTexturePath(m_resourceDirectoryPath);
-    newTexturePath.combine(TEXTURE_DIR);
-    setTextureDirectoryPath(newTexturePath);
+    // Update texture directory path
+    {
+      Path newTexturePath(m_resourceDirectoryPath);
+      newTexturePath.combine(TEXTURE_DIR);
+      setTextureDirectoryPath(newTexturePath);
+    }
+
+    // Update font directory path
+    {
+      Path newFontPath(m_resourceDirectoryPath);
+      newFontPath.combine(FONT_DIR);
+      setFontDirectoryPath(newFontPath);
+    }
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::setTextureDirectoryPath(const Path& textureDirectoryPath)
   {
     m_textureDirectoryPath = textureDirectoryPath;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setFontDirectoryPath(const Path& fontDirectoryPath)
+  {
+    m_fontDirectoryPath = fontDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------

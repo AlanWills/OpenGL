@@ -18,6 +18,8 @@
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
+    <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
+    <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
@@ -47,19 +49,19 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
-    <None Include="Shaders\Fragment\sprite.frag" />
-    <None Include="Shaders\Fragment\text.frag" />
-    <None Include="Shaders\Vertex\sprite.vs" />
-    <None Include="Shaders\Vertex\text.vs" />
+    <None Include="Assets\Shaders\Fragment\sprite.frag" />
+    <None Include="Assets\Shaders\Fragment\text.frag" />
+    <None Include="Assets\Shaders\Vertex\sprite.vs" />
+    <None Include="Assets\Shaders\Vertex\text.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\awesomeface.png" />
-    <Image Include="Assets\background.jpg" />
-    <Image Include="Assets\block.png" />
-    <Image Include="Assets\block_solid.png" />
-    <Image Include="Assets\container.jpg" />
-    <Image Include="Assets\paddle.png" />
-    <Image Include="Assets\wall.jpg" />
+    <Image Include="Assets\Textures\awesomeface.png" />
+    <Image Include="Assets\Textures\background.jpg" />
+    <Image Include="Assets\Textures\block.png" />
+    <Image Include="Assets\Textures\block_solid.png" />
+    <Image Include="Assets\Textures\container.jpg" />
+    <Image Include="Assets\Textures\paddle.png" />
+    <Image Include="Assets\Textures\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Maths\Transform.h" />
@@ -68,6 +70,8 @@
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
+    <ClInclude Include="Headers\Rendering\TextRenderer.h" />
+    <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
@@ -100,7 +104,7 @@
     <ClInclude Include="Headers\Rendering\RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="arial.ttf" />
+    <Font Include="Assets\Fonts\arial.ttf" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>

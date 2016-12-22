@@ -24,12 +24,15 @@ class SpriteRenderer : public Component
     void initialize() override;
     void render(GLfloat lag) override;
 
-    void setTexture(Kernel::StringId textureStringId);
+    /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
+    void setTexture(const std::string& textureStringId);
 
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
   private:
+    typedef Component Inherited;
+
     Texture2D* m_texture;
 
     glm::vec4 m_colour;

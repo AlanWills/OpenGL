@@ -18,12 +18,16 @@ class RenderManager : public Component
     void render(GLfloat lag) override;
 
     Shader* getSpriteShader() const { return m_spriteShader; }
+    Shader* getTextShader() const { return m_textShader; }
 
   private:
     typedef Component Inherited;
 
     static StringId s_spriteShaderId;
     Shader* m_spriteShader;
+
+    static StringId s_textShaderId;
+    Shader* m_textShader;
 };
 
 }
