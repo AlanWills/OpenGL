@@ -58,18 +58,19 @@ namespace OpenGL
       glActiveTexture(GL_TEXTURE0);
       glBindVertexArray(m_vao);
 
-      GLfloat x = 25;
+      GLfloat x = 0;
       GLfloat y = 25;
+      GLfloat scale = 1;
 
       for (char letter : m_text)
       {
         const Character& character = m_font->getCharacter(letter);
 
-        GLfloat xpos = x + character.m_bearing.x;// *scale;
-        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y);// *scale;
+        GLfloat xpos = x + character.m_bearing.x * scale;
+        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y) * scale;
 
-        GLfloat w = character.m_size.x;// * scale;
-        GLfloat h = character.m_size.y;// * scale;
+        GLfloat w = character.m_size.x * scale;
+        GLfloat h = character.m_size.y * scale;
 
         // Update VBO for each character
         GLfloat vertices[6][4] = {
@@ -94,7 +95,7 @@ namespace OpenGL
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (character.m_advance >> 6);// *scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+        x += (character.m_advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
       }
 
       glBindVertexArray(0);

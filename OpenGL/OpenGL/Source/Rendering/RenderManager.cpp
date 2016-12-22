@@ -61,6 +61,7 @@ namespace OpenGL
 
     m_textShader->setMatrix4("projection", 
       glm::ortho(0.0f, GameManager::getScreenManager()->getViewportWidth(), 0.0f, GameManager::getScreenManager()->getViewportHeight()));
+    m_spriteShader->setMatrix4("view", glm::mat4());
 
     for (TextRenderer* renderer : TextRenderer::m_componentAllocator)
     {

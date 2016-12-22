@@ -33,10 +33,10 @@ namespace OpenGL
     GLfloat vertices[] = 
     {
       // Pos                // Tex
-      0.5f,  0.5f, 0.0f,    1.0f, 1.0f,   // Top Right
-      0.5f, -0.5f, 0.0f,    1.0f, 0.0f,   // Bottom Right
-      -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // Bottom Left
-      -0.5f,  0.5f, 0.0f,   0.0f, 1.0f,   // Top Left
+      0.5f,  0.5f, 1.0f, 1.0f,   // Top Right
+      0.5f, -0.5f, 1.0f, 0.0f,   // Bottom Right
+      -0.5f, -0.5f, 0.0f, 0.0f,   // Bottom Left
+      -0.5f,  0.5f, 0.0f, 1.0f,   // Top Left
     };
 
     GLuint indices[] = {  // Note that we start from 0!
@@ -58,10 +58,10 @@ namespace OpenGL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     // Now reset the graphics card state
