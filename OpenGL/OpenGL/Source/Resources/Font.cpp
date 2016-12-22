@@ -81,6 +81,8 @@ namespace OpenGL
 
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // Enable byte-alignment restriction
   }
 
   //------------------------------------------------------------------------------------------------
