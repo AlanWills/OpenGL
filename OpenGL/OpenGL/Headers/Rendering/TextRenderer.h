@@ -34,7 +34,7 @@ class TextRenderer : public Component
   private:
     typedef Component Inherited;
 
-    Font* m_font;
+    Handle<Font> m_font;
     std::string m_text;
 
     glm::vec4 m_colour;

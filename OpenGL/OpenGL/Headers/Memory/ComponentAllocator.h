@@ -22,7 +22,7 @@ class ComponentAllocator : public PoolAllocator<T, PoolSize>
 
     /// \brief Allocates and returns a pointer to a component.
     /// The component will have had initialize already called on it.
-    T* allocateAndInitialize();
+    Handle<T> allocateAndInitialize();
 
     PoolAllocatorIterator<T> begin() 
     {
@@ -53,9 +53,9 @@ ComponentAllocator<T, PoolSize>::~ComponentAllocator()
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
-T* ComponentAllocator<T, PoolSize>::allocateAndInitialize()
+Handle<T> ComponentAllocator<T, PoolSize>::allocateAndInitialize()
 {
-  T* component = allocate();
+  Handle<T> component = allocate();
   component->initialize();
 
   return component;

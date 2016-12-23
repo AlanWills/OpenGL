@@ -22,7 +22,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    for (Script* script : m_scripts)
+    for (Handle<Script> script : m_scripts)
     {
       script->awake();
     }
@@ -33,7 +33,7 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    for (Script* script : m_scripts)
+    for (Handle<Script> script : m_scripts)
     {
       script->handleInput(elapsedGameTime);
     }
@@ -44,7 +44,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    for (Script* script : m_scripts)
+    for (Handle<Script> script : m_scripts)
     {
       script->update(secondsPerUpdate);
     }
@@ -55,7 +55,7 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    for (Script* script : m_scripts)
+    for (Handle<Script> script : m_scripts)
     {
       script->render(lag);
     }
@@ -66,7 +66,7 @@ namespace OpenGL
   {
     Inherited::die();
 
-    for (Component* component : m_components)
+    for (Handle<Component> component : m_components)
     {
       component->die();
     }

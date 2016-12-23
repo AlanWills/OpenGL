@@ -11,16 +11,16 @@ namespace OpenGL
 public: \
   static bool canAllocate() { return m_componentAllocator.canAllocate(); } \
   \
-  static ComponentType* allocate() \
+  static Handle<ComponentType> allocate() \
   { \
     ASSERT(m_componentAllocator.canAllocate()); \
     return m_componentAllocator.allocate(); \
   } \
   \
-  static ComponentType* allocateAndInitialize() \
+  static Handle<ComponentType> allocateAndInitialize() \
   { \
     ASSERT(m_componentAllocator.canAllocate()); \
-    ComponentType* component = m_componentAllocator.allocate(); \
+    Handle<ComponentType> component = m_componentAllocator.allocate(); \
     component->initialize(); \
     return component; \
   } \

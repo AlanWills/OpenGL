@@ -56,7 +56,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Shader* ResourceManager::loadShader(
+  Handle<Shader> ResourceManager::loadShader(
     const std::string& vShaderRelativeFilePath,
     const std::string& fShaderRelativeFilePath,
     StringId name)
@@ -71,13 +71,13 @@ namespace OpenGL
     vertexShader.combine(vShaderRelativeFilePath);
     fragmentShader.combine(fShaderRelativeFilePath);
 
-    Shader* shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString());
+    Handle<Shader> shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString());
     m_shaders[name] = shader;
     return shader;
   }
 
   //------------------------------------------------------------------------------------------------
-  Shader* ResourceManager::getShader(StringId name)
+  Handle<Shader> ResourceManager::getShader(StringId name)
   {
     if (m_shaders.find(name) == m_shaders.end())
     {
@@ -91,7 +91,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Texture2D* ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
+  Handle<Texture2D> ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
   {
     if (m_textures.find(name) != m_textures.end())
     {
@@ -102,13 +102,13 @@ namespace OpenGL
     Path fullPath(m_textureDirectoryPath);
     fullPath.combine(relativeFilePath);
 
-    Texture2D* texture = loadTextureFromFile(fullPath.asString(), alpha);
+    Handle<Texture2D> texture = loadTextureFromFile(fullPath.asString(), alpha);
     m_textures[name] = texture;
     return texture;
   }
 
   //------------------------------------------------------------------------------------------------
-  Texture2D* ResourceManager::getTexture(StringId name)
+  Handle<Texture2D> ResourceManager::getTexture(StringId name)
   {
     if (m_textures.find(name) == m_textures.end())
     {
@@ -122,7 +122,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Font* ResourceManager::loadFont(const std::string& relativeFilePath, StringId name)
+  Handle<Font> ResourceManager::loadFont(const std::string& relativeFilePath, StringId name)
   {
     if (m_fonts.find(name) != m_fonts.end())
     {
@@ -133,13 +133,13 @@ namespace OpenGL
     Path fullPath(m_fontDirectoryPath);
     fullPath.combine(relativeFilePath);
 
-    Font* font = loadFontFromFile(fullPath.asString());
+    Handle<Font> font = loadFontFromFile(fullPath.asString());
     m_fonts[name] = font;
     return font;
   }
 
   //------------------------------------------------------------------------------------------------
-  Font* ResourceManager::getFont(StringId name)
+  Handle<Font> ResourceManager::getFont(StringId name)
   {
     if (m_fonts.find(name) == m_fonts.end())
     {
@@ -153,12 +153,12 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Shader* ResourceManager::loadShaderFromFile(
+  Handle<Shader> ResourceManager::loadShaderFromFile(
     const std::string& vertexShaderFullPath,
     const std::string& fragmentShaderFullPath)
   {
     // Create shader object
-    Shader* shader = nullptr;
+    Handle<Shader> shader(nullptr);
     if (m_shaderPool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
@@ -168,11 +168,11 @@ namespace OpenGL
     {
       // If we have run out of room in our pool, we dynamically create a new shader and then store it in the overflow vector
       ASSERT_FAIL_MSG("Shader pool allocator out of memory.  Consider increasing the size.")
-      shader = new Shader();
-      m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader));
+      shader = Handle<Shader>(new Shader());
+      m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader.get()));
     }
 
-    ASSERT(shader);
+    ASSERT(shader.get());
 
     shader->load(vertexShaderFullPath, fragmentShaderFullPath);
 
@@ -180,10 +180,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Texture2D* ResourceManager::loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha)
+  Handle<Texture2D> ResourceManager::loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha)
   {
     // Create Texture object
-    Texture2D* texture = nullptr;
+    Handle<Texture2D> texture(nullptr);
     if (m_texturePool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
@@ -193,11 +193,11 @@ namespace OpenGL
     {
       // If we have run out of room in our pool, we dynamically create a new texture and then store it in the overflow vector
       ASSERT_FAIL_MSG("Texture pool allocator out of memory.  Consider increasing the size.")
-      texture = new Texture2D();
-      m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture));
+      texture = Handle<Texture2D>(new Texture2D());
+      m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture.get()));
     }
 
-    ASSERT(texture);
+    ASSERT(texture.get());
 
     if (alpha)
     {
@@ -223,10 +223,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Font* ResourceManager::loadFontFromFile(const std::string& fullFilePath)
+  Handle<Font> ResourceManager::loadFontFromFile(const std::string& fullFilePath)
   {
     // Create Font object
-    Font* font = nullptr;
+    Handle<Font> font(nullptr);
     if (m_fontPool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
@@ -236,13 +236,13 @@ namespace OpenGL
     {
       // If we have run out of room in our pool, we dynamically create a new font and then store it in the overflow vector
       ASSERT_FAIL_MSG("Font pool allocator out of memory.  Consider increasing the size.")
-      font = new Font();
-      m_fontOverflow.push_back(std::unique_ptr<Font>(font));
+      font = Handle<Font>(new Font());
+      m_fontOverflow.push_back(std::unique_ptr<Font>(font.get()));
     }
 
-    ASSERT(font);
-    font->generate(fullFilePath);
+    ASSERT(font.get());
 
+    font->generate(fullFilePath);
     return font;
   }
 

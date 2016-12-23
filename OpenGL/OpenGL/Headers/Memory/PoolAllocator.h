@@ -2,6 +2,7 @@
 
 #include "DebugUtils/Debug.h"
 #include "PoolAllocatorIterator.h"
+#include "Handle.h"
 
 #include <iterator>
 
@@ -21,10 +22,10 @@ class PoolAllocator
     /// \brief Returns true if we have free objects in the pool to allocate
     bool canAllocate() const { return m_head != PoolSize; }
 
-    /// \brief Obtain a pointer to a free object from this pool
+    /// \brief Obtain a handle to a free object from this pool
     /// The object will have already been constructed
     /// This class still retains ownership of the object
-    T* allocate();
+    Handle<T> allocate();
 
     /// \brief Deallocates the object at the inputted memory address in this allocator.
     /// The memory will have to be defragmented later, as our head may be past the inputted address.
@@ -63,13 +64,13 @@ PoolAllocator<T, PoolSize>::~PoolAllocator()
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
-T* PoolAllocator<T, PoolSize>::allocate()
+Handle<T> PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
   ASSERT(m_deallocated[m_head]);
 
   m_deallocated[m_head] = false;
-  return &(m_pool[m_head++]);
+  return Handle<T>(&(m_pool[m_head++]));
 }
 
 //------------------------------------------------------------------------------------------------

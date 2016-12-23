@@ -27,7 +27,7 @@ class GameObject : public Component
 
     /// \brief Inserts the inputted component into the components associated with this game object
     template <typename T>
-    T* addComponent(T* component);
+    Handle<T> addComponent(Handle<T> component);
 
   protected:
     Transform m_transform;
@@ -37,29 +37,28 @@ class GameObject : public Component
 
     StringId m_name;
 
-    std::vector<Component*> m_components;
-    std::vector<Script*> m_scripts;
+    std::vector<Handle<Component>> m_components;
+    std::vector<Handle<Script>> m_scripts;
 };
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-T* GameObject::addComponent(T* component)
+Handle<T> GameObject::addComponent(Handle<T> component)
 {
-  if (!component)
+  if (!component.get())
   {
     ASSERT_FAIL_MSG("Component is nullptr");
     return nullptr;
   }
 
-  // If we have a script we need to add it to the scripts list instead
-  Script* script = dynamic_cast<Script*>(component);
-  if (script)
+  if (component.is<Script>())
   {
-    m_scripts.push_back(script);
+    // If we have a script we need to add it to the scripts list instead - this is because they are updated by the objects they are assigned to
+    m_scripts.push_back(component.as<Script>());
   }
   else
   {
-    m_components.push_back(component);
+    m_components.push_back(component.as<Component>());
   }
 
   return component;

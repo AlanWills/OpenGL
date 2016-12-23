@@ -21,7 +21,7 @@ class ScreenManager : public Component
     void render(GLfloat lag) override;
 
     /// \brief Sets the inputted screen as the now current main screen and calls initialize on the inputted screen.
-    void transitionToScreen(Screen* screenToTransitionTo);
+    void transitionToScreen(Handle<Screen> screenToTransitionTo);
 
     /// \brief Get the window
     OpenGLViewport* getViewport();
@@ -38,7 +38,7 @@ class ScreenManager : public Component
     /// \brief The GL window context
     std::unique_ptr<OpenGLViewport> m_viewport;
 
-    Screen* m_activeScreen;
+    Handle<Screen> m_activeScreen;
 };
 
 }

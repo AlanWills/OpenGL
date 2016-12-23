@@ -51,9 +51,9 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    if (m_font && !m_text.empty())
+    if (m_font.get() && !m_text.empty())
     {
-      Shader* textShader = GameManager::getRenderManager()->getTextShader();
+      Handle<Shader> textShader = GameManager::getRenderManager()->getTextShader();
       textShader->setVector4f("textColour", m_colour);
 
       glActiveTexture(GL_TEXTURE0);
@@ -111,6 +111,6 @@ namespace OpenGL
     // Now load the font from the ResourceManager
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
     m_font = GameManager::getResourceManager()->getFont(internStringFast(fontString));
-    ASSERT(m_font);
+    ASSERT(m_font.get());
   }
 }

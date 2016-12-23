@@ -26,12 +26,12 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    GameObject* gameObject = m_gameObjects.allocateAndInitialize();
+    Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
 
-    SpriteRenderer* spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("container");
 
-    TextRenderer* textRenderer = gameObject->addComponent(TextRenderer::allocateAndInitialize());
+    Handle<TextRenderer> textRenderer = gameObject->addComponent(TextRenderer::allocateAndInitialize());
     textRenderer->setFont("Arial");
     textRenderer->setText("Test");
   }

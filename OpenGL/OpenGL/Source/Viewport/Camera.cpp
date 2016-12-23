@@ -26,7 +26,7 @@ namespace OpenGL
 
     if (KeyboardMovementScript::canAllocate())
     {
-      KeyboardMovementScript* keyboardMovementScript = addComponent(KeyboardMovementScript::allocateAndInitialize());
+      Handle<KeyboardMovementScript> keyboardMovementScript = addComponent(KeyboardMovementScript::allocateAndInitialize());
       keyboardMovementScript->setTransform(&m_transform);
       keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
       keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);

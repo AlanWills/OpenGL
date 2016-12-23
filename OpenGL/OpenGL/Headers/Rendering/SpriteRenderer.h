@@ -33,7 +33,7 @@ class SpriteRenderer : public Component
   private:
     typedef Component Inherited;
 
-    Texture2D* m_texture;
+    Handle<Texture2D> m_texture;
 
     glm::vec4 m_colour;
 

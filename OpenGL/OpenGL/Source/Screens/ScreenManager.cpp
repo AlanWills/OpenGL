@@ -71,9 +71,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenManager::transitionToScreen(Screen* screenToTransitionTo)
+  void ScreenManager::transitionToScreen(Handle<Screen> screenToTransitionTo)
   {
-    if (m_activeScreen)
+    if (m_activeScreen.get())
     {
       m_activeScreen->die();
     }

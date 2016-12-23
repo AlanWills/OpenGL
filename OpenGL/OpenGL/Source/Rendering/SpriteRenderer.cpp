@@ -76,9 +76,9 @@ namespace OpenGL
     Inherited::render(lag);
 
     // Only draw if we have a texture set
-    if (m_texture)
+    if (m_texture.get())
     {
-      Shader* spriteShader = GameManager::getRenderManager()->getSpriteShader();
+      Handle<Shader> spriteShader = GameManager::getRenderManager()->getSpriteShader();
       spriteShader->setVector4f("spriteColour", m_colour);
 
       glActiveTexture(GL_TEXTURE0);
@@ -101,6 +101,6 @@ namespace OpenGL
     // Now load the texture from the ResourceManager
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
     m_texture = GameManager::getResourceManager()->getTexture(internStringFast(textureStringId));
-    ASSERT(m_texture);
+    ASSERT(m_texture.get());
   }
 }

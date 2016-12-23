@@ -32,15 +32,15 @@ namespace OpenGL
 #define TEXTURE_POOL_SIZE 100
 #define FONT_POOL_SIZE 10
 
-typedef std::map<StringId, Shader*>                     ShaderMap;
+typedef std::map<StringId, Handle<Shader>>              ShaderMap;
 typedef PoolAllocator<Shader, SHADER_POOL_SIZE>         ShaderPool;
 typedef std::vector<std::unique_ptr<Shader>>            ShaderPoolOverflow;
 
-typedef std::map<StringId, Texture2D*>                  TextureMap;
+typedef std::map<StringId, Handle<Texture2D>>           TextureMap;
 typedef PoolAllocator<Texture2D, TEXTURE_POOL_SIZE>     TexturePool;
 typedef std::vector<std::unique_ptr<Texture2D>>         TexturePoolOverflow;
 
-typedef std::map<StringId, Font*>                       FontMap;
+typedef std::map<StringId, Handle<Font>>                FontMap;
 typedef PoolAllocator<Font, FONT_POOL_SIZE>             FontPool;
 typedef std::vector<std::unique_ptr<Font>>              FontPoolOverflow;
 
@@ -62,27 +62,27 @@ class ResourceManager
     void initialize();
 
     /// \brief Loads (and generates) a shader program from file by loading vertex and fragment shader source code. If gShaderFile is not nullptr, it also loads a geometry shader
-    Shader* loadShader(
+    Handle<Shader> loadShader(
       const std::string& vShaderRelativeFilePath, 
       const std::string& fShaderRelativeFilePath, 
       StringId name);
 
     /// \brief Retrieves a preloaded shader
-    Shader* getShader(StringId name);
+    Handle<Shader> getShader(StringId name);
 
     /// \brief Loads (and generates) a texture from a file
     /// The inputted path should be relative to the texture directory
-    Texture2D* loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name);
+    Handle<Texture2D> loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name);
 
     /// \brief Retrieves a preloaded texture
-    Texture2D* getTexture(StringId name);
+    Handle<Texture2D> getTexture(StringId name);
 
     /// \brief Loads (and generates) a texture from a file
     /// The inputted path should be relative to the font directory
-    Font* loadFont(const std::string& relativeFilePath, StringId name);
+    Handle<Font> loadFont(const std::string& relativeFilePath, StringId name);
 
     /// \brief Retrieves a preloaded font
-    Font* getFont(StringId name);
+    Handle<Font> getFont(StringId name);
 
     /// \brief These setters allow changing the location of the common asset folders on disc
     /// However, since the static variables representing these locations form a tree, changing certain ones requires changing others - these functions take care of this
@@ -109,16 +109,16 @@ class ResourceManager
     void unloadAllAssets();
 
   private:
-    // Loads and generates a shader from file
-    Shader* loadShaderFromFile(
+    /// \brief Loads and generates a shader from file.  Memory will be allocated so this class will already manage the object.
+    Handle<Shader> loadShaderFromFile(
       const std::string& vertexShaderFullPath,
       const std::string& fragmentShaderFullPath);
 
-    /// \brief Loads a single texture from file - requires the full texture file path as input
-    Texture2D* loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
+    /// \brief Loads a single texture from file - requires the full texture file path as input.  Memory will be allocated so this class will already manage the object.
+    Handle<Texture2D> loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha);
 
-    /// \brief Loads a single font from file - requires the full font file path as input
-    Font* loadFontFromFile(const std::string& fullFilePath);
+    /// \brief Loads a single font from file - requires the full font file path as input.  Memory will be allocated so this class will already manage the object.
+    Handle<Font> loadFontFromFile(const std::string& fullFilePath);
 
     // Resource storage
     ShaderMap   m_shaders;
