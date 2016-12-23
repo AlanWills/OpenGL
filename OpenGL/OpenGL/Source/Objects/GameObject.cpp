@@ -18,6 +18,17 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void GameObject::awake()
+  {
+    Inherited::awake();
+
+    for (Script* script : m_scripts)
+    {
+      script->awake();
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
   void GameObject::handleInput(GLfloat elapsedGameTime)
   {
     Inherited::handleInput(elapsedGameTime);
@@ -37,5 +48,30 @@ namespace OpenGL
     {
       script->update(secondsPerUpdate);
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameObject::render(GLfloat lag)
+  {
+    Inherited::render(lag);
+
+    for (Script* script : m_scripts)
+    {
+      script->render(lag);
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameObject::die()
+  {
+    Inherited::die();
+
+    for (Component* component : m_components)
+    {
+      component->die();
+    }
+
+    m_components.clear();
+    m_scripts.clear();
   }
 }

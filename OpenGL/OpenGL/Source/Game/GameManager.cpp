@@ -39,6 +39,8 @@ namespace OpenGL
     // DeltaTime variables
     GLfloat lag = 0.0f;
 
+    awake();
+
     while (!glfwWindowShouldClose(getScreenManager()->getViewport()->getGLWindow()))
     {
       m_gameClock->update();
@@ -69,6 +71,14 @@ namespace OpenGL
 
       glfwSwapBuffers(getScreenManager()->getViewport()->getGLWindow());
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::awake()
+  {
+    getScreenManager()->awake();
+    getInputManager()->awake();
+    getRenderManager()->awake();
   }
 
   //------------------------------------------------------------------------------------------------

@@ -29,6 +29,8 @@ class Font
     float getHeight() const { return m_height; }
     const Character& getCharacter(GLchar character) const;
 
+    glm::vec2 measureString(const std::string& text) const;
+
   private:
     std::map<GLchar, Character> m_characters;
     float m_height;

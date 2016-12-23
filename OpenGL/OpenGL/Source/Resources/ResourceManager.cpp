@@ -253,7 +253,7 @@ namespace OpenGL
     m_shaders.clear();
 
     // Resets our pooled memory
-    m_shaderPool.freeAll();
+    m_shaderPool.deallocateAll();
 
     // Clear the overflow
     m_shaderOverflow.clear();
@@ -266,7 +266,7 @@ namespace OpenGL
     m_textures.clear();
 
     // Resets our pooled memory
-    m_texturePool.freeAll();
+    m_texturePool.deallocateAll();
 
     // Clear the overflow
     m_textureOverflow.clear();
@@ -279,7 +279,7 @@ namespace OpenGL
     m_fonts.clear();
 
     // Resets our pooled memory
-    m_fontPool.freeAll();
+    m_fontPool.deallocateAll();
 
     // Clear the overflow
     m_fontOverflow.clear();

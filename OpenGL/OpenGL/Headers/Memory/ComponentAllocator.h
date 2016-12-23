@@ -24,7 +24,12 @@ class ComponentAllocator : public PoolAllocator<T, PoolSize>
     /// The component will have had initialize already called on it.
     T* allocateAndInitialize();
 
-    PoolAllocatorIterator<T> begin() { return ComponentAllocatorIterator<T>(m_pool, &(m_pool[m_head])); }
+    PoolAllocatorIterator<T> begin() 
+    {
+      ComponentAllocatorIterator<T>& it = ComponentAllocatorIterator<T>(m_pool - 1, &(m_pool[m_head]));
+      return ++it;
+    }
+
     PoolAllocatorIterator<T> end() { return ComponentAllocatorIterator<T>(&(m_pool[m_head]), &(m_pool[m_head])); }
 
     void awake();
@@ -80,6 +85,15 @@ void ComponentAllocator<T, PoolSize>::handleInput(GLfloat elapsedGameTime)
 template <typename T, size_t PoolSize>
 void ComponentAllocator<T, PoolSize>::update(GLfloat secondsPerUpdate)
 {
+  for (size_t i = 0; i < m_head; ++i)
+  {
+    // Go through all elements before the head and check to see if any are dead but haven't been deallocated and deallocate them
+    if (!m_pool[i].isAlive() && !m_deallocated[i])
+    {
+      deallocate(&m_pool[i]);
+    }
+  }
+
   for (T* component : *this)
   {
     component->update(secondsPerUpdate);
@@ -104,7 +118,7 @@ void ComponentAllocator<T, PoolSize>::die()
   {
     component->die();
   }
-  // Deallocation here?
+  // Deallocation here - if we have called die on this, does it matter?
 }
 
 }

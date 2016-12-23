@@ -46,6 +46,7 @@ class GameManager
     GameManager();
     ~GameManager();
 
+    static void awake();
     static void handleInput(GLfloat elapsedGameTime);
     static void update(GLfloat gameSecondsPerUpdate);
     static void render(GLfloat lag);

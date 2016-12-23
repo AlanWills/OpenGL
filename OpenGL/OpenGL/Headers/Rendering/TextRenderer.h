@@ -29,6 +29,8 @@ class TextRenderer : public Component
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
+    void setScale(GLfloat scale) { m_scale = scale; }
+
   private:
     typedef Component Inherited;
 
@@ -36,6 +38,7 @@ class TextRenderer : public Component
     std::string m_text;
 
     glm::vec4 m_colour;
+    GLfloat m_scale;
 
     GLuint m_vbo;
     GLuint m_vao;

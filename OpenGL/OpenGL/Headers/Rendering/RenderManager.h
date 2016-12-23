@@ -15,6 +15,8 @@ class RenderManager : public Component
     ~RenderManager();
 
     void initialize() override;
+    void awake() override;
+    void update(GLfloat secondsPerUpdate) override;
     void render(GLfloat lag) override;
 
     Shader* getSpriteShader() const { return m_spriteShader; }

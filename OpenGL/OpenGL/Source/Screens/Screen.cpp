@@ -58,6 +58,11 @@ namespace OpenGL
     Inherited::update(secondsPerUpdate);
 
     m_gameObjects.update(secondsPerUpdate);
+
+    for (GameObject* gameObject : m_gameObjects)
+    {
+      gameObject->die();
+    }
   }
 
   //------------------------------------------------------------------------------------------------

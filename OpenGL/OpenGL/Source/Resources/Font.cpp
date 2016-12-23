@@ -19,6 +19,8 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Font::generate(const std::string& trueTypeFontFullPath, float height)
   {
+    m_height = height;
+
     FT_Library ft;
     if (FT_Init_FreeType(&ft))
     {
@@ -90,5 +92,21 @@ namespace OpenGL
   {
     ASSERT(m_characters.find(character) != m_characters.end());
     return m_characters.at(character);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec2 Font::measureString(const std::string& text) const
+  {
+    float x = 0;
+
+    for (char letter : text)
+    {
+      const Character& character = getCharacter(letter);
+
+      x += character.m_bearing.x;
+      x += (character.m_advance >> 6);
+    }
+
+    return glm::vec2(x, m_height);
   }
 }

@@ -26,8 +26,12 @@ class PoolAllocator
     /// This class still retains ownership of the object
     T* allocate();
 
+    /// \brief Deallocates the object at the inputted memory address in this allocator.
+    /// The memory will have to be defragmented later, as our head may be past the inputted address.
+    void deallocate(T* item);
+
     /// \brief Resets the head to the start of the pool
-    void freeAll();
+    void deallocateAll();
 
     virtual PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
     virtual PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
@@ -35,6 +39,7 @@ class PoolAllocator
   protected:
     size_t m_head;
     T m_pool[PoolSize];
+    bool m_deallocated[PoolSize];
 };
 
 //------------------------------------------------------------------------------------------------
@@ -46,6 +51,7 @@ PoolAllocator<T, PoolSize>::PoolAllocator() :
   for (size_t i = 0; i < PoolSize; ++i)
   {
     new (&(m_pool[i])) T();
+    m_deallocated[i] = true;
   }
 }
 
@@ -60,13 +66,33 @@ template <typename T, size_t PoolSize>
 T* PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
+  ASSERT(m_deallocated[m_head]);
+
+  m_deallocated[m_head] = false;
   return &(m_pool[m_head++]);
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
-void PoolAllocator<T, PoolSize>::freeAll()
+void PoolAllocator<T, PoolSize>::deallocate(T* item)
 {
+  int index = (item - m_pool) / sizeof(T);
+
+  ASSERT(index >= 0 && (index < PoolSize))
+  ASSERT(!m_deallocated[index]);
+
+  m_deallocated[index] = true;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t PoolSize>
+void PoolAllocator<T, PoolSize>::deallocateAll()
+{
+  for (int i = 0; i < PoolSize; ++i)
+  {
+    deallocate(&m_pool[i]);
+  }
+
   m_head = 0;
 }
 

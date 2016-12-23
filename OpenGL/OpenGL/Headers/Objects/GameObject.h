@@ -14,8 +14,11 @@ class GameObject : public Component
     GameObject();
     virtual ~GameObject();
 
+    void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
+    void render(GLfloat lag) override;
+    void die() override;
 
     const Transform& getConstTransform() const { return m_transform; }
     Transform& getTransform() { return m_transform; }
