@@ -34,13 +34,18 @@ class PoolAllocator
     /// \brief Resets the head to the start of the pool
     void deallocateAll();
 
+    /// \brief Sorts the underlying objects so that all the allocated objects are at the front of the buffer
+    /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.
+    void defragment();
+
     virtual PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
     virtual PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
 
   protected:
     size_t m_head;
     T m_pool[PoolSize];
-    bool m_deallocated[PoolSize];
+
+    Handle<T> m_handles[PoolSize];
 };
 
 //------------------------------------------------------------------------------------------------
@@ -52,7 +57,7 @@ PoolAllocator<T, PoolSize>::PoolAllocator() :
   for (size_t i = 0; i < PoolSize; ++i)
   {
     new (&(m_pool[i])) T();
-    m_deallocated[i] = true;
+    m_handles[i] = Handle<T>(nullptr);
   }
 }
 
@@ -67,10 +72,11 @@ template <typename T, size_t PoolSize>
 Handle<T> PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
-  ASSERT(m_deallocated[m_head]);
+  ASSERT(!m_handles[m_head].get());
 
-  m_deallocated[m_head] = false;
-  return Handle<T>(&(m_pool[m_head++]));
+  m_handles[m_head] = Handle<T>(&(m_pool[m_head]));
+
+  return m_handles[m_head++];
 }
 
 //------------------------------------------------------------------------------------------------
@@ -80,9 +86,9 @@ void PoolAllocator<T, PoolSize>::deallocate(T* item)
   int index = (item - m_pool) / sizeof(T);
 
   ASSERT(index >= 0 && (index < PoolSize))
-  ASSERT(!m_deallocated[index]);
+  ASSERT(m_handles[index].get());
 
-  m_deallocated[index] = true;
+  m_handles[index] = Handle<T>(nullptr);
 }
 
 //------------------------------------------------------------------------------------------------
@@ -95,6 +101,47 @@ void PoolAllocator<T, PoolSize>::deallocateAll()
   }
 
   m_head = 0;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t PoolSize>
+void PoolAllocator<T, PoolSize>::defragment()
+{
+  // Iterate on all the items up to head (this is the max we have deallocated)
+  // Start at the beginning, move first element we find that is allocated to the front
+  // Then continue until we find the next one and move it to the second place
+  // Once we have reached head we can stop.
+
+  int nextDest = 0;
+
+  for (int i = 0; i < m_head; ++i)
+  {
+    if (m_handles[i].get())
+    {
+      // We have found an unallocated element and since i != nextDest we have empty space in our pool
+
+      if (i != nextDest)
+      {
+        // If we aren't going to move it to the same place we swap the element in the current index and
+        // move it to the nextDest which corresponds to the next index of the contiguous block of objects
+        // at the start of our pool
+        std::swap(m_pool[i], m_pool[nextDest]);
+
+        // Having swapped the elements we need to update the handles
+        ASSERT(!m_handles[nextDest].get());
+        m_handles[nextDest] = Handle<T>(&(m_pool[i]));
+
+        // Reset this handle to be deallocated
+        m_handles[i] = Handle<T>(nullptr);
+      }
+
+      nextDest++;
+    }
+  }
+
+  // nextDest is also equivalent to the number of objects we have moved so we can reset the head to
+  // the end of our now contiguous block of memory
+  m_head = nextDest;
 }
 
 };

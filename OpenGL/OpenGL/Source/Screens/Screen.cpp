@@ -27,6 +27,7 @@ namespace OpenGL
     Inherited::initialize();
 
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
+    m_gameObjects.allocateAndInitialize();
 
     Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("container");
