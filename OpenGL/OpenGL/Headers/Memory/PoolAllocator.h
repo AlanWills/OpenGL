@@ -122,14 +122,16 @@ void PoolAllocator<T, PoolSize>::defragment()
   {
     if (m_handles[i])
     {
-      // We have found an unallocated element and since i != nextDest we have empty space in our pool
+      // We have found an unallocated element and since the handle points to an index which is != nextDest
+      // we have empty space in our pool
+      int handleIndex = m_handles[i] - m_pool;
 
-      if (i != nextDest)
+      if (handleIndex != nextDest)
       {
-        // If we aren't going to move it to the same place we swap the element in the current index and
+        // If we aren't going to move it to the same place we swap the element in the handle index and
         // move it to the nextDest which corresponds to the next index of the contiguous block of objects
         // at the start of our pool
-        std::swap(m_pool[i], m_pool[nextDest]);
+        std::swap(m_pool[handleIndex], m_pool[nextDest]);
 
         // Fix up the handle corresponding to the alive object to point to the new location
         m_handles[i] = &(m_pool[nextDest]);

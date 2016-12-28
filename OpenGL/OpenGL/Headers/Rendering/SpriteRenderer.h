@@ -23,6 +23,7 @@ class SpriteRenderer : public Component
     /// \brief Set up the gl buffers
     void initialize() override;
     void render(GLfloat lag) override;
+    void die() override;
 
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
     void setTexture(const std::string& textureStringId);

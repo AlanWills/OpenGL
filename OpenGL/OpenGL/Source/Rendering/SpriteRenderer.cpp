@@ -20,8 +20,6 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::~SpriteRenderer()
   {
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -78,6 +76,7 @@ namespace OpenGL
     // Only draw if we have a texture set
     if (m_texture.get())
     {
+      glCheckError();
       Handle<Shader> spriteShader = GameManager::getRenderManager()->getSpriteShader();
       spriteShader->setVector4f("spriteColour", m_colour);
 
@@ -87,12 +86,22 @@ namespace OpenGL
       glCheckError();
 
       glBindVertexArray(m_vao);
+      glCheckError();
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);
       glCheckError();
 
       m_texture->unbind();
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void SpriteRenderer::die()
+  {
+    Inherited::die();
+
+    glDeleteVertexArrays(1, &m_vao);
+    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
