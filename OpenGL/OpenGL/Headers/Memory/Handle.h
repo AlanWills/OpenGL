@@ -11,55 +11,55 @@ struct Handle
 {
   public:
     Handle();
-    Handle(T* ptr);
+    Handle(T** ptr);
     ~Handle();
 
     T* operator->() 
     {
       ASSERT(m_ptr);
-      return m_ptr; 
+      return *m_ptr; 
     }
 
     T& operator*()
     {
       ASSERT(m_ptr);
-      return *m_ptr;
+      return **m_ptr;
     }
 
     const T& operator*() const
     {
       ASSERT(m_ptr);
-      return *m_ptr;
+      return **m_ptr;
     }
 
-    T* get() { return m_ptr; }
+    T* get() { return *m_ptr; }
 
     /// \brief Checks to see if the underlying pointer this handle represents is dynamically castable to the inputted type
     template <typename K>
-    inline bool is() { return dynamic_cast<K*>(m_ptr) != nullptr; }
+    inline bool is() { return dynamic_cast<K*>(*m_ptr) != nullptr; }
 
     /// \brief Returns a new handle with this handle's pointer dynamically casted to the inputted type.
     template <typename K>
     inline Handle<K> as() 
     {
       ASSERT(is<K>());
-      return Handle<K>(dynamic_cast<K*>(m_ptr));
+      return Handle<K>(reinterpret_cast<K**>(m_ptr));
     }
 
   private:
-    T* m_ptr;
+    T** m_ptr;
 };
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
 Handle<T>::Handle() :
-  Handle<T>(nullptr)
+  m_ptr(nullptr)
 {
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-Handle<T>::Handle(T* ptr) :
+Handle<T>::Handle(T** ptr) : 
   m_ptr(ptr)
 {
 }

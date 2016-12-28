@@ -88,7 +88,7 @@ void ComponentAllocator<T, PoolSize>::update(GLfloat secondsPerUpdate)
   for (size_t i = 0; i < m_head; ++i)
   {
     // Go through all elements before the head and check to see if any are dead but haven't been deallocated and deallocate them
-    if (!m_pool[i].isAlive() && m_handles[i].get())
+    if (!m_pool[i].isAlive() && m_handles[i])
     {
       deallocate(&m_pool[i]);
     }

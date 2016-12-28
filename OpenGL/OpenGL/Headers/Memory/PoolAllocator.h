@@ -44,8 +44,7 @@ class PoolAllocator
   protected:
     size_t m_head;
     T m_pool[PoolSize];
-
-    Handle<T> m_handles[PoolSize];
+    T* m_handles[PoolSize];
 };
 
 //------------------------------------------------------------------------------------------------
@@ -57,7 +56,7 @@ PoolAllocator<T, PoolSize>::PoolAllocator() :
   for (size_t i = 0; i < PoolSize; ++i)
   {
     new (&(m_pool[i])) T();
-    m_handles[i] = Handle<T>(nullptr);
+    m_handles[i] = nullptr;
   }
 }
 
@@ -72,11 +71,14 @@ template <typename T, size_t PoolSize>
 Handle<T> PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
-  ASSERT(!m_handles[m_head].get());
+  ASSERT(!m_handles[m_head]);
 
-  m_handles[m_head] = Handle<T>(&(m_pool[m_head]));
+  m_handles[m_head] = &(m_pool[m_head]);
 
-  return m_handles[m_head++];
+  Handle<T> h(m_handles + m_head);
+  m_head++;
+
+  return h;
 }
 
 //------------------------------------------------------------------------------------------------
@@ -86,9 +88,9 @@ void PoolAllocator<T, PoolSize>::deallocate(T* item)
   int index = (item - m_pool) / sizeof(T);
 
   ASSERT(index >= 0 && (index < PoolSize))
-  ASSERT(m_handles[index].get());
+  ASSERT(m_handles[index]);
 
-  m_handles[index] = Handle<T>(nullptr);
+  m_handles[index] = nullptr;
 }
 
 //------------------------------------------------------------------------------------------------
@@ -116,7 +118,7 @@ void PoolAllocator<T, PoolSize>::defragment()
 
   for (int i = 0; i < m_head; ++i)
   {
-    if (m_handles[i].get())
+    if (m_handles[i])
     {
       // We have found an unallocated element and since i != nextDest we have empty space in our pool
 
@@ -128,11 +130,11 @@ void PoolAllocator<T, PoolSize>::defragment()
         std::swap(m_pool[i], m_pool[nextDest]);
 
         // Having swapped the elements we need to update the handles
-        ASSERT(!m_handles[nextDest].get());
-        m_handles[nextDest] = Handle<T>(&(m_pool[i]));
+        ASSERT(!m_handles[nextDest]);
+        m_handles[nextDest] = &(m_pool[i]);
 
         // Reset this handle to be deallocated
-        m_handles[i] = Handle<T>(nullptr);
+        m_handles[i] = nullptr;
       }
 
       nextDest++;

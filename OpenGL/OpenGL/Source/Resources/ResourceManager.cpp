@@ -63,7 +63,7 @@ namespace OpenGL
   {
     if (m_shaders.find(name) != m_shaders.end())
     {
-      // If the shader already exists in our dictionary just return it rather than loading it
+      // If the shaderHandle already exists in our dictionary just return it rather than loading it
       return m_shaders[name];
     }
 
@@ -83,7 +83,7 @@ namespace OpenGL
     {
       ASSERT_FAIL_MSG("Shader file does not exist");
 
-      /// TODO: Return a default shader or something?
+      /// TODO: Return a default shaderHandle or something?
       return nullptr;
     }
 
@@ -95,7 +95,7 @@ namespace OpenGL
   {
     if (m_textures.find(name) != m_textures.end())
     {
-      // If the texture already exists in our dictionary then we just return it
+      // If the textureHandle already exists in our dictionary then we just return it
       return m_textures[name];
     }
 
@@ -114,7 +114,7 @@ namespace OpenGL
     {
       ASSERT_FAIL_MSG("Texture does not exist");
 
-      /// TODO: Return a default texture or something?
+      /// TODO: Return a default textureHandle or something?
       return nullptr;
     }
 
@@ -126,7 +126,7 @@ namespace OpenGL
   {
     if (m_fonts.find(name) != m_fonts.end())
     {
-      // If the texture already exists in our dictionary then we just return it
+      // If the textureHandle already exists in our dictionary then we just return it
       return m_fonts[name];
     }
 
@@ -145,7 +145,7 @@ namespace OpenGL
     {
       ASSERT_FAIL_MSG("Font does not exist");
 
-      /// TODO: Return a default font or something?
+      /// TODO: Return a default fontHandle or something?
       return nullptr;
     }
 
@@ -157,52 +157,54 @@ namespace OpenGL
     const std::string& vertexShaderFullPath,
     const std::string& fragmentShaderFullPath)
   {
-    // Create shader object
-    Handle<Shader> shader(nullptr);
+    // Create shaderHandle object
+    Handle<Shader> shaderHandle(nullptr);
     if (m_shaderPool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
-      shader = m_shaderPool.allocate();
+      shaderHandle = m_shaderPool.allocate();
     }
     else
     {
-      // If we have run out of room in our pool, we dynamically create a new shader and then store it in the overflow vector
-      ASSERT_FAIL_MSG("Shader pool allocator out of memory.  Consider increasing the size.")
-      shader = Handle<Shader>(new Shader());
-      m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader.get()));
+      // If we have run out of room in our pool, we dynamically create a new shaderHandle and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Shader pool allocator out of memory.  Consider increasing the size.");
+      Shader* shader = new Shader();
+      shaderHandle = Handle<Shader>(&shader);
+      m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader));
     }
 
-    ASSERT(shader.get());
+    ASSERT(shaderHandle.get());
 
-    shader->load(vertexShaderFullPath, fragmentShaderFullPath);
+    shaderHandle->load(vertexShaderFullPath, fragmentShaderFullPath);
 
-    return shader;
+    return shaderHandle;
   }
 
   //------------------------------------------------------------------------------------------------
   Handle<Texture2D> ResourceManager::loadTextureFromFile(const std::string& fullFilePath, GLboolean alpha)
   {
     // Create Texture object
-    Handle<Texture2D> texture(nullptr);
+    Handle<Texture2D> textureHandle(nullptr);
     if (m_texturePool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
-      texture = m_texturePool.allocate();
+      textureHandle = m_texturePool.allocate();
     }
     else
     {
-      // If we have run out of room in our pool, we dynamically create a new texture and then store it in the overflow vector
-      ASSERT_FAIL_MSG("Texture pool allocator out of memory.  Consider increasing the size.")
-      texture = Handle<Texture2D>(new Texture2D());
-      m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture.get()));
+      // If we have run out of room in our pool, we dynamically create a new textureHandle and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Texture pool allocator out of memory.  Consider increasing the size.");
+      Texture2D* texture = new Texture2D();
+      textureHandle = Handle<Texture2D>(&texture);
+      m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture));
     }
 
-    ASSERT(texture.get());
+    ASSERT(textureHandle.get());
 
     if (alpha)
     {
-      texture->setInternalFormat(GL_RGBA);
-      texture->setImageFormat(GL_RGBA);
+      textureHandle->setInternalFormat(GL_RGBA);
+      textureHandle->setImageFormat(GL_RGBA);
     }
 
     // Do some debug checking on the image path to make sure it exists
@@ -214,42 +216,43 @@ namespace OpenGL
     unsigned char* image = SOIL_load_image(fullFilePath.c_str(), &width, &height, 0, alpha ? SOIL_LOAD_RGBA : SOIL_LOAD_RGB);
     ASSERT(image);
 
-    // Now generate texture
-    texture->generate(width, height, image);
+    // Now generate textureHandle
+    textureHandle->generate(width, height, image);
 
     // And finally free image data
     SOIL_free_image_data(image);
-    return texture;
+    return textureHandle;
   }
 
   //------------------------------------------------------------------------------------------------
   Handle<Font> ResourceManager::loadFontFromFile(const std::string& fullFilePath)
   {
     // Create Font object
-    Handle<Font> font(nullptr);
+    Handle<Font> fontHandle(nullptr);
     if (m_fontPool.canAllocate())
     {
       // If we have room left in the pool we just allocate a new entry
-      font = m_fontPool.allocate();
+      fontHandle = m_fontPool.allocate();
     }
     else
     {
-      // If we have run out of room in our pool, we dynamically create a new font and then store it in the overflow vector
-      ASSERT_FAIL_MSG("Font pool allocator out of memory.  Consider increasing the size.")
-      font = Handle<Font>(new Font());
-      m_fontOverflow.push_back(std::unique_ptr<Font>(font.get()));
+      // If we have run out of room in our pool, we dynamically create a new fontHandle and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Font pool allocator out of memory.  Consider increasing the size.");
+      Font* font = new Font();
+      fontHandle = Handle<Font>(&font);
+      m_fontOverflow.push_back(std::unique_ptr<Font>(font));
     }
 
-    ASSERT(font.get());
+    ASSERT(fontHandle.get());
 
-    font->generate(fullFilePath);
-    return font;
+    fontHandle->generate(fullFilePath);
+    return fontHandle;
   }
 
   //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadShaders()
   {
-    // Clear all the references in our shader map
+    // Clear all the references in our shaderHandle map
     m_shaders.clear();
 
     // Resets our pooled memory
@@ -262,7 +265,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadTextures()
   {
-    // Clear all the references in our texture map
+    // Clear all the references in our textureHandle map
     m_textures.clear();
 
     // Resets our pooled memory
@@ -275,7 +278,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadFonts()
   {
-    // Clear all the references in our font map
+    // Clear all the references in our fontHandle map
     m_fonts.clear();
 
     // Resets our pooled memory
@@ -301,21 +304,21 @@ namespace OpenGL
   {
     m_resourceDirectoryPath = resourceDirectoryPath;
     
-    // Update shader directory path
+    // Update shaderHandle directory path
     {
       Path newShaderPath(m_resourceDirectoryPath);
       newShaderPath.combine(SHADER_DIR);
       setShaderDirectoryPath(newShaderPath);
     }
 
-    // Update texture directory path
+    // Update textureHandle directory path
     {
       Path newTexturePath(m_resourceDirectoryPath);
       newTexturePath.combine(TEXTURE_DIR);
       setTextureDirectoryPath(newTexturePath);
     }
 
-    // Update font directory path
+    // Update fontHandle directory path
     {
       Path newFontPath(m_resourceDirectoryPath);
       newFontPath.combine(FONT_DIR);
