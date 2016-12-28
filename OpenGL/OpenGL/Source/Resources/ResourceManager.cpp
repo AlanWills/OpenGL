@@ -169,6 +169,8 @@ namespace OpenGL
       // If we have run out of room in our pool, we dynamically create a new shaderHandle and then store it in the overflow vector
       ASSERT_FAIL_MSG("Shader pool allocator out of memory.  Consider increasing the size.");
       Shader* shader = new Shader();
+
+      // This isn't going to work - assigning address of temp variable
       shaderHandle = Handle<Shader>(&shader);
       m_shaderOverflow.push_back(std::unique_ptr<Shader>(shader));
     }
@@ -195,6 +197,8 @@ namespace OpenGL
       // If we have run out of room in our pool, we dynamically create a new textureHandle and then store it in the overflow vector
       ASSERT_FAIL_MSG("Texture pool allocator out of memory.  Consider increasing the size.");
       Texture2D* texture = new Texture2D();
+
+      // This isn't going to work - assigning address of temp variable
       textureHandle = Handle<Texture2D>(&texture);
       m_textureOverflow.push_back(std::unique_ptr<Texture2D>(texture));
     }
@@ -239,6 +243,8 @@ namespace OpenGL
       // If we have run out of room in our pool, we dynamically create a new fontHandle and then store it in the overflow vector
       ASSERT_FAIL_MSG("Font pool allocator out of memory.  Consider increasing the size.");
       Font* font = new Font();
+
+      // This isn't going to work - assigning address of temp variable
       fontHandle = Handle<Font>(&font);
       m_fontOverflow.push_back(std::unique_ptr<Font>(font));
     }

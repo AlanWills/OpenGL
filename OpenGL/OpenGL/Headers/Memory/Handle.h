@@ -32,7 +32,7 @@ struct Handle
       return **m_ptr;
     }
 
-    T* get() { return *m_ptr; }
+    T* get() { return m_ptr ? *m_ptr : nullptr; }
 
     /// \brief Checks to see if the underlying pointer this handle represents is dynamically castable to the inputted type
     template <typename K>

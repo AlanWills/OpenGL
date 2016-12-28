@@ -26,15 +26,8 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
-    m_gameObjects.allocateAndInitialize();
-
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
-    spriteRenderer->setTexture("container");
-
-    Handle<TextRenderer> textRenderer = gameObject->addComponent(TextRenderer::allocateAndInitialize());
-    textRenderer->setFont("Arial");
-    textRenderer->setText("Test");
+    m_gameObjects.allocateAndInitialize()->addComponent(SpriteRenderer::allocateAndInitialize())->setTexture("container");
+    m_gameObjects.allocateAndInitialize()->addComponent(SpriteRenderer::allocateAndInitialize())->setTexture("awesomeface");
   }
 
   //------------------------------------------------------------------------------------------------
@@ -60,9 +53,14 @@ namespace OpenGL
 
     m_gameObjects.update(secondsPerUpdate);
 
+    static int counter = 0;
     for (GameObject* gameObject : m_gameObjects)
     {
-      gameObject->die();
+      if (counter == 0)
+      {
+        gameObject->die();
+        counter++;
+      }
     }
   }
 

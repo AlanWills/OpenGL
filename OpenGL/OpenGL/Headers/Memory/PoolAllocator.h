@@ -75,6 +75,8 @@ Handle<T> PoolAllocator<T, PoolSize>::allocate()
 
   m_handles[m_head] = &(m_pool[m_head]);
 
+  // This is wrong - allocations after defragmentation might overwrite pointers to existing objects
+  // Have a list of places in our handles array where we have free objects and maintain that when allocating/deallocating
   Handle<T> h(m_handles + m_head);
   m_head++;
 
@@ -116,7 +118,7 @@ void PoolAllocator<T, PoolSize>::defragment()
 
   int nextDest = 0;
 
-  for (int i = 0; i < m_head; ++i)
+  for (int i = 0; i < PoolSize; ++i)
   {
     if (m_handles[i])
     {
@@ -129,12 +131,8 @@ void PoolAllocator<T, PoolSize>::defragment()
         // at the start of our pool
         std::swap(m_pool[i], m_pool[nextDest]);
 
-        // Having swapped the elements we need to update the handles
-        ASSERT(!m_handles[nextDest]);
-        m_handles[nextDest] = &(m_pool[i]);
-
-        // Reset this handle to be deallocated
-        m_handles[i] = nullptr;
+        // Fix up the handle corresponding to the alive object to point to the new location
+        m_handles[i] = &(m_pool[nextDest]);
       }
 
       nextDest++;
