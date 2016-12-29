@@ -6,7 +6,7 @@
 
 namespace OpenGL
 {
-  REGISTER_COMPONENT(SpriteRenderer)
+  REGISTER_WORLD_AND_SCREEN_COMPONENT(SpriteRenderer)
 
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :

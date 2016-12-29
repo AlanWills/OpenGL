@@ -27,20 +27,25 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    m_screenRenderManager.initialize();
-    m_worldRenderManager.initialize();
+    m_renderManager.initialize();
 
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
     
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(m_worldRenderManager.allocateAndInitializeSpriteRenderer());
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateWorldAndInitialize());
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
 
+    Handle<TextRenderer> textRenderer = gameObject->addComponent(TextRenderer::allocateWorldAndInitialize());
+    textRenderer->setText("World");
+
     Handle<GameObject> gameObject2 = m_gameObjects.allocateAndInitialize();
 
-    Handle<SpriteRenderer> spriteRenderer2 = gameObject2->addComponent(m_screenRenderManager.allocateAndInitializeSpriteRenderer());
+    Handle<SpriteRenderer> spriteRenderer2 = gameObject2->addComponent(SpriteRenderer::allocateScreenAndInitialize());
     spriteRenderer2->setTexture("ButtonDefault");
     spriteRenderer2->setTransform(&gameObject2->getTransform());
+
+    Handle<TextRenderer> textRenderer2 = gameObject2->addComponent(TextRenderer::allocateScreenAndInitialize());
+    textRenderer2->setText("Screen");
 
     gameObject2->getTransform().translate(glm::vec3(0, 0, -0.1f));
     
@@ -57,9 +62,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    m_screenRenderManager.awake();
-    m_worldRenderManager.awake();
-
+    m_renderManager.awake();
     m_gameObjects.awake();
   }
 
@@ -68,9 +71,7 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    m_screenRenderManager.handleInput(elapsedGameTime);
-    m_worldRenderManager.handleInput(elapsedGameTime);
-
+    m_renderManager.handleInput(elapsedGameTime);
     m_gameObjects.handleInput(elapsedGameTime);
   }
 
@@ -79,9 +80,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    m_screenRenderManager.update(secondsPerUpdate);
-    m_worldRenderManager.update(secondsPerUpdate);
-
+    m_renderManager.update(secondsPerUpdate);
     m_gameObjects.update(secondsPerUpdate);
   }
 
@@ -90,20 +89,8 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
-
-    m_screenRenderManager.setProjectionMatrix(camera->getOrthographicProjectionMatrix());
-    m_screenRenderManager.setViewMatrix(glm::mat4());
-
-    m_worldRenderManager.setProjectionMatrix(camera->getPerspectiveProjectionMatrix());
-    m_worldRenderManager.setViewMatrix(camera->getViewMatrix());
-
-    // Draw world
-    m_worldRenderManager.render(lag);
+    m_renderManager.render(lag);
     m_gameObjects.render(lag);
-
-    // Draw screen overlay
-    m_screenRenderManager.render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -111,9 +98,7 @@ namespace OpenGL
   {
     Inherited::die();
 
-    m_screenRenderManager.die();
-    m_worldRenderManager.die();
-
+    m_renderManager.die();
     m_gameObjects.die();
   }
 }

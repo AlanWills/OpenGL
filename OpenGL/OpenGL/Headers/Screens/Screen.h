@@ -28,11 +28,8 @@ class Screen : public Component
 
     ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
 
-    /// \brief The manager responsible for handling all camera dependent world space rendering
-    RenderManager m_worldRenderManager;
-
-    /// \brief The manager responsible for handling all camera independent screen space rendering
-    RenderManager m_screenRenderManager;
+    /// \brief The manager responsible for handling all rendering
+    RenderManager m_renderManager;
 };
 
 }
