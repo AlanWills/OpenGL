@@ -34,6 +34,10 @@ class PoolAllocator
     /// \brief Resets the head to the start of the pool
     void deallocateAll();
 
+    /// \brief Do not want to unnecessarily defragment this allocator
+    /// This bool returns the current fragmentation state of the allocator
+    bool needsDefragmenting() const { return m_needsDefragmenting; }
+
     /// \brief Sorts the underlying objects so that all the allocated objects are at the front of the buffer
     /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.
     void defragment();
@@ -45,12 +49,14 @@ class PoolAllocator
     size_t m_head;
     T m_pool[PoolSize];
     T* m_handles[PoolSize];
+    bool m_needsDefragmenting;
 };
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
 PoolAllocator<T, PoolSize>::PoolAllocator() :
-  m_head(0)
+  m_head(0),
+  m_needsDefragmenting(false)
 {
   // Construct all the objects - I think this is necessary
   for (size_t i = 0; i < PoolSize; ++i)
@@ -97,6 +103,8 @@ void PoolAllocator<T, PoolSize>::deallocate(T* item)
   ASSERT(index >= 0 && (index < PoolSize))
   ASSERT(m_handles[index]);
 
+  // If we have deallocated an element that is not on the end of the block of allocated elements, this pool needs defragmenting
+  m_needsDefragmenting = m_needsDefragmenting || (index != m_head - 1);
   m_handles[index] = nullptr;
 }
 
@@ -121,6 +129,13 @@ void PoolAllocator<T, PoolSize>::defragment()
   // Then continue until we find the next one and move it to the second place
   // Once we have reached head we can stop.
 
+  if (!m_needsDefragmenting)
+  {
+    // If we do not need to defragment, then don't!
+    ASSERT_FAIL();
+    return;
+  }
+  
   int nextDest = 0;
 
   for (int i = 0; i < PoolSize; ++i)
@@ -149,6 +164,7 @@ void PoolAllocator<T, PoolSize>::defragment()
   // nextDest is also equivalent to the number of objects we have moved so we can reset the head to
   // the end of our now contiguous block of memory
   m_head = nextDest;
+  m_needsDefragmenting = false;
 }
 
 };

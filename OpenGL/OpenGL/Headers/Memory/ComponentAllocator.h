@@ -99,7 +99,10 @@ void ComponentAllocator<T, PoolSize>::update(GLfloat secondsPerUpdate)
     component->update(secondsPerUpdate);
   }
 
-  defragment();
+  if (needsDefragmenting())
+  {
+    defragment();
+  }
 }
 
 //------------------------------------------------------------------------------------------------
