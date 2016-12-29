@@ -71,16 +71,21 @@ template <typename T, size_t PoolSize>
 Handle<T> PoolAllocator<T, PoolSize>::allocate()
 {
   ASSERT(canAllocate());
-  ASSERT(!m_handles[m_head]);
 
-  m_handles[m_head] = &(m_pool[m_head]);
+  int freeIndex = 0;
+  for (int i = 0; i < PoolSize; ++i)
+  {
+    if (!m_handles[i])
+    {
+      freeIndex = i;
+      break;
+    }
+  }
 
-  // This is wrong - allocations after defragmentation might overwrite pointers to existing objects
-  // Have a list of places in our handles array where we have free objects and maintain that when allocating/deallocating
-  Handle<T> h(m_handles + m_head);
-  m_head++;
+  ASSERT(!m_handles[freeIndex]);
+  m_handles[freeIndex] = &(m_pool[m_head++]);
 
-  return h;
+  return Handle<T>(m_handles + freeIndex);
 }
 
 //------------------------------------------------------------------------------------------------

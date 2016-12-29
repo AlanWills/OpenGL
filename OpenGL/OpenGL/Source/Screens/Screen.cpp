@@ -52,16 +52,6 @@ namespace OpenGL
     Inherited::update(secondsPerUpdate);
 
     m_gameObjects.update(secondsPerUpdate);
-
-    static int counter = 0;
-    for (GameObject* gameObject : m_gameObjects)
-    {
-      if (counter == 0)
-      {
-        gameObject->die();
-        counter++;
-      }
-    }
   }
 
   //------------------------------------------------------------------------------------------------
