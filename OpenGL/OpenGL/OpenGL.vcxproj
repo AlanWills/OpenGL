@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Input\MouseInteractionHandler.cpp" />
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
@@ -61,6 +62,7 @@
     <Image Include="Assets\Textures\Fiirkan.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocator.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocatorIterator.h" />

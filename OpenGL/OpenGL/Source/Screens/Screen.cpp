@@ -6,6 +6,7 @@
 #include "Scripts/KeyboardMovementScript.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Rendering/TextRenderer.h"
+#include "Input/MouseInteractionHandler.h"
 
 
 namespace OpenGL
@@ -35,17 +36,11 @@ namespace OpenGL
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
 
-    Handle<TextRenderer> textRenderer = gameObject->addComponent(TextRenderer::allocateWorldAndInitialize());
-    textRenderer->setText("World");
-
     Handle<GameObject> gameObject2 = m_gameObjects.allocateAndInitialize();
 
     Handle<SpriteRenderer> spriteRenderer2 = gameObject2->addComponent(SpriteRenderer::allocateScreenAndInitialize());
     spriteRenderer2->setTexture("ButtonDefault");
     spriteRenderer2->setTransform(&gameObject2->getTransform());
-
-    Handle<TextRenderer> textRenderer2 = gameObject2->addComponent(TextRenderer::allocateScreenAndInitialize());
-    textRenderer2->setText("Screen");
 
     gameObject2->getTransform().translate(glm::vec3(0, 0, -0.1f));
     
