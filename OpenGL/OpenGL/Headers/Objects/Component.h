@@ -29,6 +29,12 @@ private: \
   static Allocator m_componentAllocator;
 
 //------------------------------------------------------------------------------------------------
+#define DECLARE_COMPONENT_WITH_MANAGER(ComponentType, PoolSize, Manager) \
+  DECLARE_COMPONENT(ComponentType, PoolSize); \
+  private: \
+    friend class Manager;
+
+//------------------------------------------------------------------------------------------------
 #define REGISTER_COMPONENT(ComponentType) \
 ComponentType::Allocator ComponentType::m_componentAllocator = ComponentType::Allocator();
 

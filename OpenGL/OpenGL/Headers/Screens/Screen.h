@@ -9,7 +9,7 @@ namespace OpenGL
 
 class Screen : public Component
 {
-  DECLARE_COMPONENT(Screen, 10);
+  DECLARE_COMPONENT_WITH_MANAGER(Screen, 10, ScreenManager);
 
   public:
     Screen();
@@ -26,8 +26,6 @@ class Screen : public Component
     typedef Component Inherited;
 
     ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
-
-    friend class ScreenManager;
 };
 
 }

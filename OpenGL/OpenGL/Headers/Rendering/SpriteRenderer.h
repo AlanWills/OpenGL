@@ -15,7 +15,7 @@ namespace OpenGL
 // A class which is responsible for rendering a texture using the sprite shader
 class SpriteRenderer : public Component
 {
-  DECLARE_COMPONENT(SpriteRenderer, 10);
+  DECLARE_COMPONENT_WITH_MANAGER(SpriteRenderer, 10, RenderManager);
 
   public:
     SpriteRenderer();
@@ -46,8 +46,6 @@ class SpriteRenderer : public Component
     GLuint m_vbo;
     GLuint m_ebo;
     GLuint m_vao;
-
-    friend class RenderManager;
 };
 
 }

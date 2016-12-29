@@ -133,28 +133,16 @@
     <None Include="Assets\Shaders\Vertex\text.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\awesomeface.png">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\Textures\background.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\block.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\block_solid.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\container.jpg">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
-    <Image Include="Assets\Textures\paddle.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\wall.jpg">
-      <Filter>Resource Files\Assets</Filter>
-    </Image>
     <Image Include="Assets\Textures\Fiirkan.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ButtonPressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ButtonHighlighted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ButtonDefault.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

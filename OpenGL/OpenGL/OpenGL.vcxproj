@@ -55,14 +55,10 @@
     <None Include="Assets\Shaders\Vertex\text.vs" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\awesomeface.png" />
-    <Image Include="Assets\Textures\background.jpg" />
-    <Image Include="Assets\Textures\block.png" />
-    <Image Include="Assets\Textures\block_solid.png" />
-    <Image Include="Assets\Textures\container.jpg" />
+    <Image Include="Assets\Textures\ButtonDefault.png" />
+    <Image Include="Assets\Textures\ButtonHighlighted.png" />
+    <Image Include="Assets\Textures\ButtonPressed.png" />
     <Image Include="Assets\Textures\Fiirkan.png" />
-    <Image Include="Assets\Textures\paddle.png" />
-    <Image Include="Assets\Textures\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Maths\Transform.h" />
