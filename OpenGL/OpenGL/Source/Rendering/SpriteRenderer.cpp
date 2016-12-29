@@ -35,8 +35,10 @@ namespace OpenGL
     float screenWidth = GameManager::getScreenManager()->getViewportWidth();
     float screenHeight = GameManager::getScreenManager()->getViewportHeight();
 
-    float ratioX = 1;//m_texture->getWidth() / (screenWidth * 2);
-    float ratioY = 1;//m_texture->getHeight() / (screenHeight * 2);
+    // Scale the texture by the screen dimensions * 2 because we will have the quad centred on the middle and extending
+    // In each direction by half
+    float ratioX = m_texture->getWidth() / (screenWidth * 2);
+    float ratioY = m_texture->getHeight() / (screenHeight * 2);
 
     // Configure the vbo/vao
     GLfloat vertices[] =
@@ -106,12 +108,7 @@ namespace OpenGL
       Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
 
       spriteShader->setVector4f("spriteColour", m_colour);
-
-      // Too large because the texture is a quad taking up the whole screen
-      // Also means it is being stretch - we need to scale it down by screen dims and texture dims
-      glm::mat4 matrix = m_transform ? m_transform->getLocalMatrix() : glm::mat4();
-      matrix = glm::scale(matrix, glm::vec3(m_texture->getWidth() / m_texture->getHeight(), 1, 0));
-      spriteShader->setMatrix4("model", matrix);
+      spriteShader->setMatrix4("model", m_transform ? m_transform->getLocalMatrix() : glm::mat4());
 
       glActiveTexture(GL_TEXTURE0);
       m_texture->bind();

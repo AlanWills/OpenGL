@@ -28,7 +28,7 @@ namespace OpenGL
     m_width = mode->width;
     m_height = mode->height;
 
-    m_camera.reset(new Camera(m_width / m_height, 0.1f, 100, glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)));
+    m_camera.reset(new Camera(m_width / m_height, 0.1f, 100, glm::vec3(0, 0, 1), glm::vec3(0, 0, -1)));
 
     initWindow(screenMode);
   }
