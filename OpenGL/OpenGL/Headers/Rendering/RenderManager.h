@@ -36,6 +36,9 @@ class RenderManager : public Component
       return spriteRenderer;
     }
 
+    void setProjectionMatrix(const glm::mat4& projectionMatrix) { m_projectionMatrix = projectionMatrix; }
+    void setViewMatrix(const glm::mat4& viewMatrix) { m_viewMatrix = viewMatrix; }
+
   private:
     typedef Component Inherited;
     typedef ComponentAllocator<SpriteRenderer, SPRITERENDERER_POOLSIZE> SpriteRendererAllocator;
@@ -49,6 +52,9 @@ class RenderManager : public Component
 
     SpriteRendererAllocator m_spriteRenderers;
     TextRendererAllocator m_textRenderers;
+
+    glm::mat4 m_projectionMatrix;
+    glm::mat4 m_viewMatrix;
 };
 
 }

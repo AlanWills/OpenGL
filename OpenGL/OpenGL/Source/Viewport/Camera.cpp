@@ -53,9 +53,15 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  glm::mat4 Camera::getProjectionMatrix() const
+  glm::mat4 Camera::getPerspectiveProjectionMatrix() const
   {
     return glm::perspective<float>(45.0f, m_aspectRatio, m_nearPlane, m_farPlane);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::mat4 Camera::getOrthographicProjectionMatrix() const
+  {
+    return glm::ortho<float>(-1, 1, -1, 1);
   }
 
   //------------------------------------------------------------------------------------------------

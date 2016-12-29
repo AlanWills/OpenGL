@@ -15,7 +15,9 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   RenderManager::RenderManager() :
     m_spriteShader(nullptr),
-    m_textShader(nullptr)
+    m_textShader(nullptr),
+    m_projectionMatrix(glm::mat4()),
+    m_viewMatrix(glm::mat4())
   {
   }
 
@@ -72,8 +74,8 @@ namespace OpenGL
     m_spriteShader->bind();
 
     Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
-    m_spriteShader->setMatrix4("projection", camera->getProjectionMatrix());
-    m_spriteShader->setMatrix4("view", camera->getViewMatrix());
+    m_spriteShader->setMatrix4("projection", m_projectionMatrix);
+    m_spriteShader->setMatrix4("view", m_viewMatrix);
 
     m_spriteRenderers.render(lag);
 

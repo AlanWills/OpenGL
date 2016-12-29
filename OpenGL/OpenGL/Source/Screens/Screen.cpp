@@ -90,10 +90,20 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    m_screenRenderManager.render(lag);
-    m_worldRenderManager.render(lag);
+    Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
 
+    m_screenRenderManager.setProjectionMatrix(camera->getOrthographicProjectionMatrix());
+    m_screenRenderManager.setViewMatrix(glm::mat4());
+
+    m_worldRenderManager.setProjectionMatrix(camera->getPerspectiveProjectionMatrix());
+    m_worldRenderManager.setViewMatrix(camera->getViewMatrix());
+
+    // Draw world
+    m_worldRenderManager.render(lag);
     m_gameObjects.render(lag);
+
+    // Draw screen overlay
+    m_screenRenderManager.render(lag);
   }
 
   //------------------------------------------------------------------------------------------------

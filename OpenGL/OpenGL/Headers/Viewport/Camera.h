@@ -23,7 +23,8 @@ class Camera : public GameObject
     /// \brief Performs a translation of the camera's position by the inputted translation vector
     void pan(const glm::vec3& translation); 
 
-    glm::mat4 getProjectionMatrix() const;
+    glm::mat4 getPerspectiveProjectionMatrix() const;
+    glm::mat4 getOrthographicProjectionMatrix() const;
     const glm::mat4& getViewMatrix() const;
 
   private:
