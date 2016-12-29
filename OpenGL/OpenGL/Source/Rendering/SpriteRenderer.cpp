@@ -11,6 +11,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
     m_texture(nullptr),
+    m_transform(nullptr),
     m_colour(1, 1, 1, 1),
     m_vbo(0),
     m_vao(0)
@@ -30,11 +31,11 @@ namespace OpenGL
     // Configure the vbo/vao
     GLfloat vertices[] = 
     {
-      // Pos                // Tex
-      0.5f,  0.5f, 1.0f, 1.0f,   // Top Right
-      0.5f, -0.5f, 1.0f, 0.0f,   // Bottom Right
-      -0.5f, -0.5f, 0.0f, 0.0f,   // Bottom Left
-      -0.5f,  0.5f, 0.0f, 1.0f,   // Top Left
+      // Pos    // Tex
+      1,  1, 1.0f, 1.0f,   // Top Right
+      1, -1, 1.0f, 0.0f,   // Bottom Right
+      -1, -1, 0.0f, 0.0f,   // Bottom Left
+      -1,  1, 0.0f, 1.0f,   // Top Left
     };
 
     GLuint indices[] = {  // Note that we start from 0!
@@ -78,7 +79,14 @@ namespace OpenGL
     {
       glCheckError();
       Handle<Shader> spriteShader = GameManager::getRenderManager()->getSpriteShader();
+
       spriteShader->setVector4f("spriteColour", m_colour);
+
+      // Too large because the texture is a quad taking up the whole screen
+      // Also means it is being stretch - we need to scale it down by screen dims and texture dims
+      glm::mat4 matrix = m_transform ? m_transform->getLocalMatrix() : glm::mat4();
+      matrix = glm::scale(matrix, glm::vec3(m_texture->getWidth() / m_texture->getHeight(), 1, 0));
+      spriteShader->setMatrix4("model", matrix);
 
       glActiveTexture(GL_TEXTURE0);
       m_texture->bind();

@@ -40,23 +40,23 @@ namespace OpenGL
       const glm::mat4& localMat = m_transform->getLocalMatrix();
 
       // Only support one left/right key pressed
-      if (keyboard->isKeyDown(GLFW_KEY_A))
+      if (keyboard->isKeyDown(m_moveRightKey))
       {
         // Move along +ve local space x axis (right in local space)
         m_directionVector += glm::vec3(localMat[0]);
       }
-      else if (keyboard->isKeyDown(GLFW_KEY_D))
+      else if (keyboard->isKeyDown(m_moveLeftKey))
       {
         // Move along -ve local space x axis (left in local space)
         m_directionVector -= glm::vec3(localMat[0]);
       }
 
-      if (keyboard->isKeyDown(GLFW_KEY_W))
+      if (keyboard->isKeyDown(m_moveUpKey))
       {
         // Move along +ve local space y axis (up in local space)
         m_directionVector += glm::vec3(localMat[1]);
       }
-      else if (keyboard->isKeyDown(GLFW_KEY_S))
+      else if (keyboard->isKeyDown(m_moveDownKey))
       {
         // Move along -+ve local space y axis (down in local space)
         m_directionVector -= glm::vec3(localMat[1]);

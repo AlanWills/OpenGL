@@ -3,6 +3,7 @@
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
+#include "Scripts/KeyboardMovementScript.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Rendering/TextRenderer.h"
 
@@ -26,8 +27,18 @@ namespace OpenGL
   {
     Inherited::initialize();
 
-    m_gameObjects.allocateAndInitialize()->addComponent(SpriteRenderer::allocateAndInitialize())->setTexture("container");
-    m_gameObjects.allocateAndInitialize()->addComponent(SpriteRenderer::allocateAndInitialize())->setTexture("awesomeface");
+    Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
+    
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
+    spriteRenderer->setTexture("Fiirkan");
+    spriteRenderer->setTransform(&gameObject->getTransform());
+    
+    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
+    movementScript->setTransform(&gameObject->getTransform());
+    movementScript->setMoveDownKey(GLFW_KEY_DOWN);
+    movementScript->setMoveUpKey(GLFW_KEY_UP);
+    movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
+    movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
   }
 
   //------------------------------------------------------------------------------------------------

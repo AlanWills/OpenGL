@@ -12,7 +12,7 @@
 #include <windows.h>
 
 // TODO: reference additional headers your program requires here
-#include "GLHeaders.h"
+#include "OpenGL/GLHeaders.h"
 #include "DebugUtils/Debug.h"
 #include "StringInterning/StringId.h"
 #include "Utils/StringUtils.h"

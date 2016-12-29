@@ -9,9 +9,6 @@
 #include <memory>
 
 
-DllExport void checkGLError_(const char *file, int line);
-#define glCheckError()  checkGLError_(__FILE__, __LINE__)
-
 #ifdef _DEBUG
 #define ASSERT(condition) Kernel::Debug::getAssert().check(condition);
 #else

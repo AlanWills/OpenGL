@@ -60,6 +60,7 @@
     <Image Include="Assets\Textures\block.png" />
     <Image Include="Assets\Textures\block_solid.png" />
     <Image Include="Assets\Textures\container.jpg" />
+    <Image Include="Assets\Textures\Fiirkan.png" />
     <Image Include="Assets\Textures\paddle.png" />
     <Image Include="Assets\Textures\wall.jpg" />
   </ItemGroup>
@@ -71,6 +72,7 @@
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
+    <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h" />

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GLHeaders.h"
+#include "OpenGL/GLHeaders.h"
 
 #include <string>
 
@@ -25,6 +25,9 @@ class Texture2D
 
     void setInternalFormat(GLuint internalFormat) { m_internalFormat = internalFormat; }
     void setImageFormat(GLuint imageFormat) { m_imageFormat = imageFormat; }
+
+    float getWidth() const { return m_width; }
+    float getHeight() const { return m_height; }
 
   private:
     // Holds the ID of the texture object, used for all texture operations to reference to this particlar texture

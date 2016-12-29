@@ -227,7 +227,6 @@
     <ClInclude Include="Headers\FileSystem\Directory.h" />
     <ClInclude Include="Headers\FileSystem\File.h" />
     <ClInclude Include="Headers\FileSystem\Path.h" />
-    <ClInclude Include="Headers\GLHeaders.h" />
     <ClInclude Include="Headers\StringInterning\StringId.h" />
     <ClInclude Include="Headers\Utils\StringUtils.h" />
   </ItemGroup>

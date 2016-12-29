@@ -1,10 +1,11 @@
 #pragma once
 
-#include "GLHeaders.h"
+#include "OpenGL/GLHeaders.h"
 #include "Resources/Texture2D.h"
 #include "Resources/Shader.h"
 #include "StringInterning/StringId.h"
 #include "Objects/Component.h"
+#include "Maths/Transform.h"
 
 #include <string>
 
@@ -28,6 +29,9 @@ class SpriteRenderer : public Component
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
     void setTexture(const std::string& textureStringId);
 
+    /// \brief Set the model transform of the sprite we are drawing
+    void setTransform(Transform* transform) { m_transform = transform; }
+
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
@@ -37,6 +41,7 @@ class SpriteRenderer : public Component
     Handle<Texture2D> m_texture;
 
     glm::vec4 m_colour;
+    Transform* m_transform;
 
     GLuint m_vbo;
     GLuint m_ebo;

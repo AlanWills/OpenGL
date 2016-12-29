@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GLHeaders.h"
+#include "OpenGL/GLHeaders.h"
 
 
 namespace OpenGL
