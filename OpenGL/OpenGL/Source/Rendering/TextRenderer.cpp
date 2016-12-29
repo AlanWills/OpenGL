@@ -7,7 +7,7 @@
 
 namespace OpenGL
 {
-  REGISTER_WORLD_AND_SCREEN_COMPONENT(TextRenderer);
+  REGISTER_COMPONENT(TextRenderer);
 
   //------------------------------------------------------------------------------------------------
   TextRenderer::TextRenderer() :

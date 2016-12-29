@@ -41,10 +41,8 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    SpriteRenderer::m_worldAllocator.awake();
-    SpriteRenderer::m_screenAllocator.awake();
-    TextRenderer::m_worldAllocator.awake();
-    TextRenderer::m_screenAllocator.awake();
+    SpriteRenderer::m_componentAllocator.awake();
+    TextRenderer::m_componentAllocator.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -52,10 +50,8 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    SpriteRenderer::m_worldAllocator.handleInput(elapsedGameTime);
-    SpriteRenderer::m_screenAllocator.handleInput(elapsedGameTime);
-    TextRenderer::m_worldAllocator.handleInput(elapsedGameTime);
-    TextRenderer::m_screenAllocator.handleInput(elapsedGameTime);
+    SpriteRenderer::m_componentAllocator.handleInput(elapsedGameTime);
+    TextRenderer::m_componentAllocator.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -63,10 +59,8 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    SpriteRenderer::m_worldAllocator.update(secondsPerUpdate);
-    SpriteRenderer::m_screenAllocator.update(secondsPerUpdate);
-    TextRenderer::m_worldAllocator.update(secondsPerUpdate);
-    TextRenderer::m_screenAllocator.handleInput(secondsPerUpdate);
+    SpriteRenderer::m_componentAllocator.update(secondsPerUpdate);
+    TextRenderer::m_componentAllocator.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -82,7 +76,7 @@ namespace OpenGL
       m_spriteShader->setMatrix4("projection", camera->getPerspectiveProjectionMatrix());
       m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
-      SpriteRenderer::m_worldAllocator.render(lag);
+      SpriteRenderer::m_componentAllocator.render(lag);
 
       m_spriteShader->unbind();
     }
@@ -94,33 +88,7 @@ namespace OpenGL
         glm::perspective(45.0f, GameManager::getScreenManager()->getViewportWidth() / GameManager::getScreenManager()->getViewportHeight(), 0.1f, 100.0f));
       m_textShader->setMatrix4("view", camera->getViewMatrix());
 
-      TextRenderer::m_worldAllocator.render(lag);
-
-      // Finish with the text shader
-      m_textShader->unbind();
-    }
-
-    // Render screen space sprites
-    {
-      m_spriteShader->bind();
-      m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
-      m_spriteShader->setMatrix4("view", glm::mat4());
-
-      SpriteRenderer::m_screenAllocator.render(lag);
-
-      // Finish with our sprite shader
-      m_spriteShader->unbind();
-    }
-
-    // Render screen space text
-    {
-      m_textShader->bind();
-
-      m_textShader->setMatrix4("projection", 
-        glm::ortho(0.0f, GameManager::getScreenManager()->getViewportWidth(), 0.0f, GameManager::getScreenManager()->getViewportHeight()));
-      m_textShader->setMatrix4("view", glm::mat4());
-
-      TextRenderer::m_screenAllocator.render(lag);
+      TextRenderer::m_componentAllocator.render(lag);
 
       // Finish with the text shader
       m_textShader->unbind();

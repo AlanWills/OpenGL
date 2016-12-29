@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
+    <ClCompile Include="Source\Physics\Collider.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp" />
@@ -71,6 +72,7 @@
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
     <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
+    <ClInclude Include="Headers\Physics\Collider.h" />
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h" />

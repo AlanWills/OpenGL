@@ -32,18 +32,10 @@ namespace OpenGL
 
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
     
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateWorldAndInitialize());
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
 
-    Handle<GameObject> gameObject2 = m_gameObjects.allocateAndInitialize();
-
-    Handle<SpriteRenderer> spriteRenderer2 = gameObject2->addComponent(SpriteRenderer::allocateScreenAndInitialize());
-    spriteRenderer2->setTexture("ButtonDefault");
-    spriteRenderer2->setTransform(&gameObject2->getTransform());
-
-    gameObject2->getTransform().translate(glm::vec3(0, 0, -0.1f));
-    
     Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());
     movementScript->setMoveDownKey(GLFW_KEY_DOWN);
