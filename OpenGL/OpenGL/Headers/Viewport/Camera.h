@@ -10,7 +10,12 @@ namespace OpenGL
 class Camera : public GameObject
 {
   public:
-    Camera(glm::vec3 cameraPosition, glm::vec3 lookDirection, glm::vec3 upDirection = glm::vec3(0, 1, 0));
+    Camera(float aspectRatio, 
+           float nearPlane, 
+           float farPlane, 
+           glm::vec3 cameraPosition, 
+           glm::vec3 lookDirection, 
+           glm::vec3 upDirection = glm::vec3(0, 1, 0));
     ~Camera();
 
     void initialize();
@@ -23,6 +28,10 @@ class Camera : public GameObject
 
   private:
     typedef GameObject Inherited;
+
+    float m_aspectRatio;
+    float m_nearPlane;
+    float m_farPlane;
 };
 
 }

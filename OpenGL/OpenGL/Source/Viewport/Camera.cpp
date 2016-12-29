@@ -9,7 +9,16 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Camera::Camera(glm::vec3 cameraPosition, glm::vec3 lookDirection, glm::vec3 upDirection)
+  Camera::Camera(
+      float aspectRatio,
+      float nearPlane,
+      float farPlane,
+      glm::vec3 cameraPosition, 
+      glm::vec3 lookDirection, 
+      glm::vec3 upDirection) :
+    m_aspectRatio(aspectRatio),
+    m_nearPlane(nearPlane),
+    m_farPlane(farPlane)
   {
     m_transform.setLocalMatrix(glm::lookAt(cameraPosition, cameraPosition + lookDirection, upDirection));
   }
@@ -46,7 +55,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   glm::mat4 Camera::getProjectionMatrix() const
   {
-    return glm::perspective<float>(45.0f, 1, 0.1f, 100);
+    return glm::perspective<float>(45.0f, m_aspectRatio, m_nearPlane, m_farPlane);
   }
 
   //------------------------------------------------------------------------------------------------

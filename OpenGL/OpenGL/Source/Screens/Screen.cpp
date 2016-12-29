@@ -42,7 +42,7 @@ namespace OpenGL
     spriteRenderer2->setTexture("ButtonDefault");
     spriteRenderer2->setTransform(&gameObject2->getTransform());
 
-    gameObject2->getTransform().translate(glm::vec3(0, 0, 0.1f));
+    gameObject2->getTransform().translate(glm::vec3(0, 0, -0.1f));
     
     Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());

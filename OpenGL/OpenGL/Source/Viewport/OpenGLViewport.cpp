@@ -11,7 +11,7 @@ namespace OpenGL
     m_width(screenWidth),
     m_height(screenHeight),
     m_viewport(nullptr),
-    m_camera(new Camera(glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
+    m_camera(new Camera(screenWidth / screenHeight, 0.1f, 100, glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
   {
     initWindow(screenMode);
   }
@@ -21,12 +21,14 @@ namespace OpenGL
     m_width(0),
     m_height(0),
     m_viewport(nullptr),
-    m_camera(new Camera(glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
+    m_camera(nullptr)
   {
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
     m_width = mode->width;
     m_height = mode->height;
+
+    m_camera.reset(new Camera(m_width / m_height, 0.1f, 100, glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)));
 
     initWindow(screenMode);
   }

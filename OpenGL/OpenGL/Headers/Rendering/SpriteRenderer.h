@@ -21,8 +21,6 @@ class SpriteRenderer : public Component
     SpriteRenderer();
     virtual ~SpriteRenderer();
 
-    /// \brief Set up the gl buffers
-    void initialize() override;
     void render(GLfloat lag) override;
     void die() override;
 
@@ -37,6 +35,12 @@ class SpriteRenderer : public Component
 
   private:
     typedef Component Inherited;
+
+    /// \brief Uses the set texture to allocate buffers on the graphics card
+    void setupGLBuffers();
+
+    /// \brief Deallocate all the buffered data on the graphics card
+    void cleanupGLBuffers();
 
     Handle<Texture2D> m_texture;
 

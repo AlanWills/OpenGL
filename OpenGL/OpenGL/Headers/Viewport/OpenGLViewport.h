@@ -20,8 +20,10 @@ class OpenGLViewport
 
     OpenGLViewport(GLfloat windowWidth, GLfloat windowHeight, ScreenMode screenMode = kWindowed);
     OpenGLViewport(ScreenMode screenMode = kWindowed);
-
     ~OpenGLViewport();
+
+    void handleInput(GLfloat elapsedGameTime);
+    void update(GLfloat secondsPerUpdate);
 
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
@@ -33,9 +35,6 @@ class OpenGLViewport
 
     void setScreenMode(ScreenMode screenMode);
     bool isFullScreen() const { return glfwGetWindowMonitor(m_viewport) ? true : false; }
-
-    void handleInput(GLfloat elapsedGameTime);
-    void update(GLfloat secondsPerUpdate);
 
   private:
     void initWindow(ScreenMode screenMode);

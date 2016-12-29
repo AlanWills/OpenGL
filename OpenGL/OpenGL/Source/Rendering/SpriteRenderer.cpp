@@ -24,18 +24,28 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::initialize()
+  void SpriteRenderer::setupGLBuffers()
   {
-    Inherited::initialize();
+    if (!m_texture.get())
+    {
+      ASSERT_FAIL();
+      return;
+    }
+
+    float screenWidth = GameManager::getScreenManager()->getViewportWidth();
+    float screenHeight = GameManager::getScreenManager()->getViewportHeight();
+
+    float ratioX = 1;//m_texture->getWidth() / (screenWidth * 2);
+    float ratioY = 1;//m_texture->getHeight() / (screenHeight * 2);
 
     // Configure the vbo/vao
-    GLfloat vertices[] = 
+    GLfloat vertices[] =
     {
       // Pos    // Tex
-      1,  1, 1.0f, 1.0f,   // Top Right
-      1, -1, 1.0f, 0.0f,   // Bottom Right
-      -1, -1, 0.0f, 0.0f,   // Bottom Left
-      -1,  1, 0.0f, 1.0f,   // Top Left
+      ratioX,  ratioY, 0, 1.0f, 1.0f,   // Top Right
+      ratioX, -ratioY, 0, 1.0f, 0.0f,   // Bottom Right
+      -ratioX, -ratioY, 0, 0.0f, 0.0f,   // Bottom Left
+      -ratioX,  ratioY, 0, 0.0f, 1.0f,   // Top Left
     };
 
     GLuint indices[] = {  // Note that we start from 0!
@@ -57,16 +67,31 @@ namespace OpenGL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     // Now reset the graphics card state
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void SpriteRenderer::cleanupGLBuffers()
+  {
+    if (!m_texture.get() ||
+         m_vao == 0 ||
+         m_vbo == 0)
+    {
+      ASSERT_FAIL();
+      return;
+    }
+
+    glDeleteVertexArrays(1, &m_vao);
+    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -108,8 +133,7 @@ namespace OpenGL
   {
     Inherited::die();
 
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
+    cleanupGLBuffers();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -119,5 +143,7 @@ namespace OpenGL
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
     m_texture = GameManager::getResourceManager()->getTexture(internStringFast(textureStringId));
     ASSERT(m_texture.get());
+
+    setupGLBuffers();
   }
 }
