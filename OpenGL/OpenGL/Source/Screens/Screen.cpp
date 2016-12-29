@@ -27,11 +27,22 @@ namespace OpenGL
   {
     Inherited::initialize();
 
+    m_screenRenderManager.initialize();
+    m_worldRenderManager.initialize();
+
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
     
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(m_worldRenderManager.allocateAndInitializeSpriteRenderer());
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
+
+    Handle<GameObject> gameObject2 = m_gameObjects.allocateAndInitialize();
+
+    Handle<SpriteRenderer> spriteRenderer2 = gameObject2->addComponent(m_screenRenderManager.allocateAndInitializeSpriteRenderer());
+    spriteRenderer2->setTexture("ButtonDefault");
+    spriteRenderer2->setTransform(&gameObject2->getTransform());
+
+    gameObject2->getTransform().translate(glm::vec3(0, 0, 0.1f));
     
     Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());
@@ -42,25 +53,34 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Screen::handleInput(GLfloat elapsedGameTime)
-  {
-    Inherited::handleInput(elapsedGameTime);
-
-    m_gameObjects.handleInput(elapsedGameTime);
-  }
-
-  //------------------------------------------------------------------------------------------------
   void Screen::awake()
   {
     Inherited::awake();
 
+    m_screenRenderManager.awake();
+    m_worldRenderManager.awake();
+
     m_gameObjects.awake();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Screen::handleInput(GLfloat elapsedGameTime)
+  {
+    Inherited::handleInput(elapsedGameTime);
+
+    m_screenRenderManager.handleInput(elapsedGameTime);
+    m_worldRenderManager.handleInput(elapsedGameTime);
+
+    m_gameObjects.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void Screen::update(GLfloat secondsPerUpdate)
   {
     Inherited::update(secondsPerUpdate);
+
+    m_screenRenderManager.update(secondsPerUpdate);
+    m_worldRenderManager.update(secondsPerUpdate);
 
     m_gameObjects.update(secondsPerUpdate);
   }
@@ -70,6 +90,9 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
+    m_screenRenderManager.render(lag);
+    m_worldRenderManager.render(lag);
+
     m_gameObjects.render(lag);
   }
 
@@ -77,6 +100,9 @@ namespace OpenGL
   void Screen::die()
   {
     Inherited::die();
+
+    m_screenRenderManager.die();
+    m_worldRenderManager.die();
 
     m_gameObjects.die();
   }

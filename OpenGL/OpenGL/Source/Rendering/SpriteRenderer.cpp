@@ -78,7 +78,7 @@ namespace OpenGL
     if (m_texture.get())
     {
       glCheckError();
-      Handle<Shader> spriteShader = GameManager::getRenderManager()->getSpriteShader();
+      Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
 
       spriteShader->setVector4f("spriteColour", m_colour);
 

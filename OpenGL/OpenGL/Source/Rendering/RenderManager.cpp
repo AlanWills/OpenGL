@@ -41,8 +41,17 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    SpriteRenderer::m_componentAllocator.awake();
-    TextRenderer::m_componentAllocator.awake();
+    m_spriteRenderers.awake();
+    m_textRenderers.awake();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void RenderManager::handleInput(GLfloat elapsedGameTime)
+  {
+    Inherited::handleInput(elapsedGameTime);
+
+    m_spriteRenderers.handleInput(elapsedGameTime);
+    m_textRenderers.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -50,8 +59,8 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    SpriteRenderer::m_componentAllocator.update(secondsPerUpdate);
-    TextRenderer::m_componentAllocator.update(secondsPerUpdate);
+    m_spriteRenderers.update(secondsPerUpdate);
+    m_textRenderers.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -66,7 +75,7 @@ namespace OpenGL
     m_spriteShader->setMatrix4("projection", camera->getProjectionMatrix());
     m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
-    SpriteRenderer::m_componentAllocator.render(lag);
+    m_spriteRenderers.render(lag);
 
     // Finish with our sprite shader
     m_spriteShader->unbind();
@@ -78,7 +87,7 @@ namespace OpenGL
       glm::ortho(0.0f, GameManager::getScreenManager()->getViewportWidth(), 0.0f, GameManager::getScreenManager()->getViewportHeight()));
     m_spriteShader->setMatrix4("view", glm::mat4());
 
-    TextRenderer::m_componentAllocator.render(lag);
+    m_textRenderers.render(lag);
 
     // Finish with the text shader
     m_textShader->unbind();

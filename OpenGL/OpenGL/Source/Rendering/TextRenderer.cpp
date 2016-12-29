@@ -53,7 +53,7 @@ namespace OpenGL
 
     if (m_font.get() && !m_text.empty())
     {
-      Handle<Shader> textShader = GameManager::getRenderManager()->getTextShader();
+      Handle<Shader> textShader = GameManager::getResourceManager()->getShader(internStringFast("text"));
       textShader->setVector4f("textColour", m_colour);
 
       glActiveTexture(GL_TEXTURE0);

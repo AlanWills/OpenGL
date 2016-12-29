@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Objects/GameObject.h"
+#include "Rendering/RenderManager.h"
 
 
 namespace OpenGL
@@ -26,6 +27,12 @@ class Screen : public Component
     typedef Component Inherited;
 
     ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
+
+    /// \brief The manager responsible for handling all camera dependent world space rendering
+    RenderManager m_worldRenderManager;
+
+    /// \brief The manager responsible for handling all camera independent screen space rendering
+    RenderManager m_screenRenderManager;
 };
 
 }

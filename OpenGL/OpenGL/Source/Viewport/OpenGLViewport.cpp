@@ -47,6 +47,7 @@ namespace OpenGL
     glViewport(0, 0, m_width, m_height);
     /*enableViewportFlag(GL_CULL_FACE);*/
     enableViewportFlag(GL_BLEND);
+    enableViewportFlag(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     setScreenMode(screenMode);

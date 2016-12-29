@@ -3,7 +3,6 @@
 #include "Resources/ResourceManager.h"
 #include "Screens/ScreenManager.h"
 #include "Input/InputManager.h"
-#include "Rendering/RenderManager.h"
 #include "Time/Clock.h"
 
 #include <memory>
@@ -35,9 +34,6 @@ class GameManager
     static void setInputManager(InputManager* resourceManager);
     static InputManager* getInputManager();
 
-    static void setRenderManager(RenderManager* renderManager);
-    static RenderManager* getRenderManager();
-
     /// \brief GameManager takes responsibility for manager the clock
     static void setGameClock(Clock* clock);
     static Clock* getGameClock();
@@ -59,9 +55,6 @@ class GameManager
 
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;
-
-    /// \brief The manager responsible for handling all rendering to the gl window
-    static std::unique_ptr<RenderManager> m_renderManager;
 
     /// \brief The game clock responsible for managing game time
     /// This clock can have it's speed altered to change the speed of the game, but not the game loop itself

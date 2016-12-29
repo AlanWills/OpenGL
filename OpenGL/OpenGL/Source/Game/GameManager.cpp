@@ -9,7 +9,6 @@ namespace OpenGL
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<ScreenManager> GameManager::m_screenManager(new ScreenManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
-  std::unique_ptr<RenderManager> GameManager::m_renderManager(new RenderManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
 
   //------------------------------------------------------------------------------------------------
@@ -30,7 +29,6 @@ namespace OpenGL
     getScreenManager()->initialize();
     getResourceManager()->initialize();
     getInputManager()->initialize();
-    getRenderManager()->initialize();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -64,7 +62,7 @@ namespace OpenGL
       }
 
       glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // Render
       render(lag);
@@ -78,7 +76,6 @@ namespace OpenGL
   {
     getScreenManager()->awake();
     getInputManager()->awake();
-    getRenderManager()->awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -86,7 +83,6 @@ namespace OpenGL
   {
     getScreenManager()->handleInput(elapsedGameTime);
     getInputManager()->handleInput(elapsedGameTime);
-    getRenderManager()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -94,7 +90,6 @@ namespace OpenGL
   {
     getScreenManager()->update(elapsedGameTime);
     getInputManager()->update(elapsedGameTime);
-    getRenderManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -102,7 +97,6 @@ namespace OpenGL
   {
     getScreenManager()->render(lag);
     getInputManager()->render(lag);
-    getRenderManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -145,20 +139,6 @@ namespace OpenGL
   {
     ASSERT(inputManager);
     m_inputManager.reset(inputManager);
-  }
-
-  //------------------------------------------------------------------------------------------------
-  RenderManager* GameManager::getRenderManager()
-  {
-    ASSERT(m_renderManager.get());
-    return m_renderManager.get();
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void GameManager::setRenderManager(RenderManager* renderManager)
-  {
-    ASSERT(renderManager);
-    m_renderManager.reset(renderManager);
   }
 
   //------------------------------------------------------------------------------------------------
