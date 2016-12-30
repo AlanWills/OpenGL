@@ -23,7 +23,7 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    ASSERT_FAIL_MSG("TODO - debug rendering");
+    //ASSERT_FAIL_MSG("TODO - debug rendering");
   }
 
   //------------------------------------------------------------------------------------------------

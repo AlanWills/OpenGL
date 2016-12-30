@@ -42,6 +42,7 @@
     <ClCompile Include="Source\Screens\Screen.cpp" />
     <ClCompile Include="Source\Screens\ScreenManager.cpp" />
     <ClCompile Include="Source\Scripts\ScriptManager.cpp" />
+    <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\Viewport\Camera.cpp" />
     <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />

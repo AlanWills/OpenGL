@@ -8,6 +8,7 @@
 #include "Rendering/TextRenderer.h"
 #include "Physics/RectangleCollider.h"
 #include "Input/MouseInteractionHandler.h"
+#include "UI/Button.h"
 
 
 namespace OpenGL
@@ -36,22 +37,25 @@ namespace OpenGL
 
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
 
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
+    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
 
-    Handle<RectangleCollider> collider = gameObject->addComponent(RectangleCollider::allocateAndInitialize());
+    Handle<RectangleCollider> collider = gameObject->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
     collider->setTransform(&gameObject->getTransform());
 
-    Handle<Texture2D> texture = spriteRenderer->getTexture();
-    collider->setDimensions(glm::vec2(texture->getWidth() / screenManager->getViewportWidth(), texture->getHeight() / screenManager->getViewportHeight()));
+    glm::vec2 texDims = spriteRenderer->getDimensions();
+    collider->setDimensions(glm::vec2(texDims.x / screenManager->getViewportWidth(), texDims.y / screenManager->getViewportHeight()));
 
-    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
+    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent<kManaged>(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());
     movementScript->setMoveDownKey(GLFW_KEY_DOWN);
     movementScript->setMoveUpKey(GLFW_KEY_UP);
     movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
     movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
+
+    // This isn't right, buttons are per screen?
+    Handle<Button> button = Button::allocateAndInitialize();
   }
 
   //------------------------------------------------------------------------------------------------

@@ -8,12 +8,28 @@
 
 namespace OpenGL
 {
+
+#define DECLARE_CLASS_COMPONENT(ComponentType, MemberName) \
+  private: \
+    ComponentType MemberName; \
+    ComponentType* MemberName##Ptr = &MemberName;
+
+#define ADD_CLASS_COMPONENT(ComponentType, MemberName) \
+  addComponent<kUnmanaged>(Handle<ComponentType>(&MemberName##Ptr));
+
+enum ManagementType
+{
+  kManaged,
+  kUnmanaged
+};
+
 class GameObject : public Component
 {
   public:
     GameObject();
     virtual ~GameObject();
 
+    void initialize() override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
@@ -26,7 +42,7 @@ class GameObject : public Component
     StringId getName() const { return m_name; }
 
     /// \brief Inserts the inputted component into the components associated with this game object
-    template <typename T>
+    template <ManagementType MType, typename T>
     Handle<T> addComponent(Handle<T> component);
 
     template <typename T>
@@ -40,12 +56,12 @@ class GameObject : public Component
 
     StringId m_name;
 
-    std::vector<Handle<Component>> m_components;
-    std::vector<Handle<Script>> m_scripts;
+    std::vector<Handle<Component>> m_managedComponents;
+    std::vector<Handle<Component>> m_unmanagedComponents;
 };
 
 //------------------------------------------------------------------------------------------------
-template <typename T>
+template <ManagementType MType, typename T>
 Handle<T> GameObject::addComponent(Handle<T> component)
 {
   if (!component.get())
@@ -54,14 +70,14 @@ Handle<T> GameObject::addComponent(Handle<T> component)
     return nullptr;
   }
 
-  if (component.is<Script>())
+  if (MType == kUnmanaged)
   {
-    // If we have a script we need to add it to the scripts list instead - this is because they are updated by the objects they are assigned to
-    m_scripts.push_back(component.as<Script>());
+    // Scripts are currently unmanaged so we should add them to the unmanaged list
+    m_unmanagedComponents.push_back(component.as<Component>());
   }
   else
   {
-    m_components.push_back(component.as<Component>());
+    m_managedComponents.push_back(component.as<Component>());
   }
 
   return component;
@@ -71,7 +87,15 @@ Handle<T> GameObject::addComponent(Handle<T> component)
 template <typename T>
 Handle<T> GameObject::findComponent() const
 {
-  for (const Handle<Component>& handle : m_components)
+  for (const Handle<Component>& handle : m_managedComponents)
+  {
+    if (handle.is<T>())
+    {
+      return handle.as<T>();
+    }
+  }
+
+  for (const Handle<Component>& handle : m_unmanagedComponents)
   {
     if (handle.is<T>())
     {

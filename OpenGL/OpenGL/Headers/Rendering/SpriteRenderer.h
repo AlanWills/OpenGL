@@ -22,14 +22,15 @@ class SpriteRenderer : public Component
     void die() override;
 
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
-    void setTexture(const std::string& textureStringId);
-    Handle<Texture2D> getTexture() const { return m_texture; }
+    void setTexture(const std::string& textureString);
 
     /// \brief Set the model transform of the sprite we are drawing
     void setTransform(Transform* transform) { m_transform = transform; }
 
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
+
+    glm::vec2 getDimensions() const { return glm::vec2(m_texture->getWidth(), m_texture->getHeight()); }
 
   private:
     typedef Component Inherited;

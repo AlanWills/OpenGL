@@ -6,7 +6,7 @@
 
 namespace OpenGL
 {
-  //------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------
 #define DECLARE_COMPONENT(ComponentType, PoolSize) \
 public: \
   static bool canAllocate() { return m_componentAllocator.canAllocate(); } \

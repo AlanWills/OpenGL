@@ -14,7 +14,7 @@ struct Handle
     Handle(T** ptr);
     ~Handle();
 
-    T* operator->() 
+    T* operator->() const
     {
       ASSERT(m_ptr);
       return *m_ptr; 

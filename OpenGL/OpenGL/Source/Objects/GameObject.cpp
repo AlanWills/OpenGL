@@ -18,11 +18,22 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void GameObject::initialize()
+  {
+    Inherited::initialize();
+
+    for (Handle<Component> script : m_unmanagedComponents)
+    {
+      script->initialize();
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
   void GameObject::awake()
   {
     Inherited::awake();
 
-    for (Handle<Script> script : m_scripts)
+    for (Handle<Component> script : m_unmanagedComponents)
     {
       script->awake();
     }
@@ -33,9 +44,9 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    for (Handle<Script> script : m_scripts)
+    for (Handle<Component> component : m_unmanagedComponents)
     {
-      script->handleInput(elapsedGameTime);
+      component->handleInput(elapsedGameTime);
     }
   }
 
@@ -44,9 +55,9 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    for (Handle<Script> script : m_scripts)
+    for (Handle<Component> component : m_unmanagedComponents)
     {
-      script->update(secondsPerUpdate);
+      component->update(secondsPerUpdate);
     }
   }
 
@@ -55,9 +66,9 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    for (Handle<Script> script : m_scripts)
+    for (Handle<Component> component : m_unmanagedComponents)
     {
-      script->render(lag);
+      component->render(lag);
     }
   }
 
@@ -66,12 +77,17 @@ namespace OpenGL
   {
     Inherited::die();
 
-    for (Handle<Component> component : m_components)
+    for (Handle<Component> component : m_managedComponents)
     {
       component->die();
     }
 
-    m_components.clear();
-    m_scripts.clear();
+    for (Handle<Component> component : m_unmanagedComponents)
+    {
+      component->die();
+    }
+
+    m_managedComponents.clear();
+    m_unmanagedComponents.clear();
   }
 }
