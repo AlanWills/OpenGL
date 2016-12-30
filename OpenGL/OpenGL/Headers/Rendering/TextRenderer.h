@@ -13,9 +13,6 @@ class TextRenderer : public Component
   DECLARE_COMPONENT_WITH_MANAGER(TextRenderer, 10, RenderManager);
 
   public:
-    TextRenderer();
-    virtual ~TextRenderer();
-
     /// \brief Set up the gl buffers
     void initialize() override;
     void render(GLfloat lag) override;

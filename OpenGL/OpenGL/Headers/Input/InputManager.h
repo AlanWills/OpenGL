@@ -20,8 +20,11 @@ class InputManager : public Component
     /// \brief Set up the keyboard and mouse objects and also set up the global window callback
     /// To receive messages from the message window pump
     void initialize() override;
-
+    void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
+    void update(GLfloat secondsPerUpdate) override;
+    void render(GLfloat lag) override;
+    void die() override;
 
     /// \brief The input manager will take ownership of this object now
     void setKeyboard(Keyboard* keyboard);

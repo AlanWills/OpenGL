@@ -24,6 +24,10 @@ public: \
     component->initialize(); \
     return component; \
   } \
+  \
+  ComponentType(); \
+  virtual ~ComponentType(); \
+  \
 private: \
   typedef ComponentAllocator<ComponentType, PoolSize> Allocator; \
   static Allocator m_componentAllocator;

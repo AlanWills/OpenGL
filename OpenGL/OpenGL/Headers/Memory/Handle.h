@@ -36,11 +36,11 @@ struct Handle
 
     /// \brief Checks to see if the underlying pointer this handle represents is dynamically castable to the inputted type
     template <typename K>
-    inline bool is() { return dynamic_cast<K*>(*m_ptr) != nullptr; }
+    inline bool is() const { return dynamic_cast<K*>(*m_ptr) != nullptr; }
 
     /// \brief Returns a new handle with this handle's pointer dynamically casted to the inputted type.
     template <typename K>
-    inline Handle<K> as() 
+    inline Handle<K> as() const
     {
       ASSERT(is<K>());
       return Handle<K>(reinterpret_cast<K**>(m_ptr));

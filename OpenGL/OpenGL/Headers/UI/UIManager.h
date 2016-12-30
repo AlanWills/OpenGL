@@ -10,7 +10,7 @@ class UIManager : public Component
 {
   public:
     UIManager();
-    ~UIManager();
+    virtual ~UIManager();
 
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;

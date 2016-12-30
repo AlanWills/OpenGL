@@ -129,6 +129,9 @@
     <ClCompile Include="Source\UI\UIManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Physics\RectangleCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
@@ -286,6 +289,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Maths\Ray.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Physics\RectangleCollider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

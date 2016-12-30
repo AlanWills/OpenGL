@@ -29,6 +29,9 @@ class GameObject : public Component
     template <typename T>
     Handle<T> addComponent(Handle<T> component);
 
+    template <typename T>
+    Handle<T> findComponent() const;
+
   protected:
     Transform m_transform;
 
@@ -62,6 +65,22 @@ Handle<T> GameObject::addComponent(Handle<T> component)
   }
 
   return component;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T>
+Handle<T> GameObject::findComponent() const
+{
+  for (const Handle<Component>& handle : m_components)
+  {
+    if (handle.is<T>())
+    {
+      return handle.as<T>();
+    }
+  }
+
+  ASSERT_FAIL();
+  return Handle<T>(nullptr);
 }
 
 }

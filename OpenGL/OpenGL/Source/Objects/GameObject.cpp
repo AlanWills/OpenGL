@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "Objects/GameObject.h"
+#include "Physics/RectangleCollider.h"
+#include "Rendering/SpriteRenderer.h"
 
 
 namespace OpenGL
@@ -36,6 +38,15 @@ namespace OpenGL
     for (Handle<Script> script : m_scripts)
     {
       script->handleInput(elapsedGameTime);
+    }
+
+    if (findComponent<RectangleCollider>()->isMouseOver())
+    {
+      findComponent<SpriteRenderer>()->setColour(glm::vec4(1, 0, 0, 1));
+    }
+    else
+    {
+      findComponent<SpriteRenderer>()->setColour(glm::vec4(1, 1, 1, 1));
     }
   }
 

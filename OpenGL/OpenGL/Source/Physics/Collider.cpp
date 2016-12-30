@@ -20,6 +20,14 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void Collider::awake()
+  {
+    Inherited::awake();
+
+    ASSERT(m_transform);
+  }
+
+  //------------------------------------------------------------------------------------------------
   void Collider::handleInput(GLfloat elapsedGameTime)
   {
     Inherited::handleInput(elapsedGameTime);

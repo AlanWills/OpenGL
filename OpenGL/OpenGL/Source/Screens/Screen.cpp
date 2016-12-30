@@ -6,6 +6,7 @@
 #include "Scripts/KeyboardMovementScript.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Rendering/TextRenderer.h"
+#include "Physics/RectangleCollider.h"
 #include "Input/MouseInteractionHandler.h"
 
 
@@ -31,11 +32,19 @@ namespace OpenGL
     m_renderManager.initialize();
     m_uiManager.initialize();
 
+    ScreenManager* screenManager = GameManager::getScreenManager();
+
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
-    
+
     Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("Fiirkan");
     spriteRenderer->setTransform(&gameObject->getTransform());
+
+    Handle<RectangleCollider> collider = gameObject->addComponent(RectangleCollider::allocateAndInitialize());
+    collider->setTransform(&gameObject->getTransform());
+
+    Handle<Texture2D> texture = spriteRenderer->getTexture();
+    collider->setDimensions(glm::vec2(texture->getWidth() / screenManager->getViewportWidth(), texture->getHeight() / screenManager->getViewportHeight()));
 
     Handle<KeyboardMovementScript> movementScript = gameObject->addComponent(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());

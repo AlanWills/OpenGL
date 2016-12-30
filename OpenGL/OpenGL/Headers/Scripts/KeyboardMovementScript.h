@@ -12,9 +12,6 @@ class KeyboardMovementScript : public Script
   DECLARE_COMPONENT(KeyboardMovementScript, 10)
 
   public:
-    KeyboardMovementScript();
-    ~KeyboardMovementScript();
-
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
 

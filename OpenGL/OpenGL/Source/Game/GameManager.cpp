@@ -74,29 +74,29 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::awake()
   {
-    getScreenManager()->awake();
     getInputManager()->awake();
+    getScreenManager()->awake();
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::handleInput(GLfloat elapsedGameTime)
   {
-    getScreenManager()->handleInput(elapsedGameTime);
     getInputManager()->handleInput(elapsedGameTime);
+    getScreenManager()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::update(GLfloat elapsedGameTime)
   {
-    getScreenManager()->update(elapsedGameTime);
     getInputManager()->update(elapsedGameTime);
+    getScreenManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::render(GLfloat lag)
   {
-    getScreenManager()->render(lag);
     getInputManager()->render(lag);
+    getScreenManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------

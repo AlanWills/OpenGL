@@ -68,7 +68,7 @@ namespace OpenGL
       glfwSetWindowShouldClose(m_viewport, GL_TRUE);
     }
 
-    getCamera()->handleInput(elapsedGameTime);
+    //getCamera()->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
