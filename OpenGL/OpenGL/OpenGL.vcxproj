@@ -99,6 +99,7 @@
     <ClInclude Include="Headers\Screens\Screen.h" />
     <ClInclude Include="Headers\Screens\ScreenManager.h" />
     <ClInclude Include="Headers\Scripts\ScriptManager.h" />
+    <ClInclude Include="Headers\UI\Button.h" />
     <ClInclude Include="Headers\UI\UIManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
