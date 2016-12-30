@@ -16,6 +16,8 @@ namespace OpenGL
 
       void translate(const glm::vec3& translation);
 
+      glm::vec3 getTranslation() const;
+
     private:
       glm::mat4 m_localMatrix;
   };

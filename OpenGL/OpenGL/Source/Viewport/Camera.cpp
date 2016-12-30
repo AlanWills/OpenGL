@@ -70,4 +70,25 @@ namespace OpenGL
     // Maybe expand this later, but for now it's going to be a top down camera
     return m_transform.getLocalMatrix();
   }
+
+  //------------------------------------------------------------------------------------------------
+  Ray Camera::createRay(const glm::vec2& screenPosition) const
+  {
+    Ray ray;
+    ray.m_origin = m_transform.getTranslation();
+
+    float screenWidth = GameManager::getScreenManager()->getViewportWidth();
+    float screenHeight = GameManager::getScreenManager()->getViewportHeight();
+
+    float mouseX = screenPosition.x / (screenWidth  * 0.5f) - 1.0f;
+    float mouseY = screenPosition.y / (screenHeight * 0.5f) - 1.0f;
+
+    glm::mat4 invVP = glm::inverse(getPerspectiveProjectionMatrix() * getViewMatrix());
+    glm::vec4 screenPos = glm::vec4(mouseX, -mouseY, 1.0f, 1.0f);
+    glm::vec4 worldPos = invVP * screenPos;
+
+    ray.m_direction = glm::normalize(glm::vec3(worldPos));
+
+    return ray;
+  }
 }

@@ -41,6 +41,7 @@
     <ClCompile Include="Source\Screens\Screen.cpp" />
     <ClCompile Include="Source\Screens\ScreenManager.cpp" />
     <ClCompile Include="Source\Scripts\ScriptManager.cpp" />
+    <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\Viewport\Camera.cpp" />
     <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />
     <ClCompile Include="Source\Resources\ResourceManager.cpp" />
@@ -64,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
+    <ClInclude Include="Headers\Maths\Ray.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocator.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocatorIterator.h" />
@@ -95,6 +97,7 @@
     <ClInclude Include="Headers\Screens\Screen.h" />
     <ClInclude Include="Headers\Screens\ScreenManager.h" />
     <ClInclude Include="Headers\Scripts\ScriptManager.h" />
+    <ClInclude Include="Headers\UI\UIManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
     <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />

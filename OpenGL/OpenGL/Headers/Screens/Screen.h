@@ -2,6 +2,7 @@
 
 #include "Objects/GameObject.h"
 #include "Rendering/RenderManager.h"
+#include "UI/UIManager.h"
 
 
 namespace OpenGL
@@ -28,8 +29,11 @@ class Screen : public Component
 
     ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
 
-    /// \brief The manager responsible for handling all rendering
+    /// \brief The manager responsible for handling all rendering in this screen
     RenderManager m_renderManager;
+
+    /// \brief The manager responsible for handling all UI
+    UIManager m_uiManager;
 };
 
 }

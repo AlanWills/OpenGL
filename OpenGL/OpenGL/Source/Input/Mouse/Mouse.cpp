@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Input/Mouse/Mouse.h"
+#include "Game/GameManager.h"
 
 namespace OpenGL
 {
@@ -61,5 +62,14 @@ namespace OpenGL
     {
       m_currentButtons[i] = GL_FALSE;
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec2 Mouse::getMousePosition() const
+  {
+    double x = 0, y = 0;
+    glfwGetCursorPos(GameManager::getScreenManager()->getViewport()->getGLWindow(), &x, &y);
+
+    return glm::vec2(x, y);
   }
 }

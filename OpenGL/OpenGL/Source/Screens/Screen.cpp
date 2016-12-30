@@ -29,6 +29,7 @@ namespace OpenGL
     Inherited::initialize();
 
     m_renderManager.initialize();
+    m_uiManager.initialize();
 
     Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
     
@@ -51,6 +52,7 @@ namespace OpenGL
 
     m_renderManager.awake();
     m_gameObjects.awake();
+    m_uiManager.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -60,6 +62,7 @@ namespace OpenGL
 
     m_renderManager.handleInput(elapsedGameTime);
     m_gameObjects.handleInput(elapsedGameTime);
+    m_uiManager.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -69,6 +72,7 @@ namespace OpenGL
 
     m_renderManager.update(secondsPerUpdate);
     m_gameObjects.update(secondsPerUpdate);
+    m_uiManager.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -78,6 +82,7 @@ namespace OpenGL
 
     m_renderManager.render(lag);
     m_gameObjects.render(lag);
+    m_uiManager.render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -87,5 +92,6 @@ namespace OpenGL
 
     m_renderManager.die();
     m_gameObjects.die();
+    m_uiManager.die();
   }
 }

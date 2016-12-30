@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Physics/Collider.h"
+#include "Game/GameManager.h"
 
 
 namespace OpenGL
@@ -23,6 +24,9 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
+    Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
+    Mouse* mouse = GameManager::getInputManager()->getMouse();
 
+    m_mouseOver = intersectsRay(camera->createRay(mouse->getMousePosition()));
   }
 }

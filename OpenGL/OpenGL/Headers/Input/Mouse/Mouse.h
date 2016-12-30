@@ -33,6 +33,8 @@ class Mouse
 
     void flush();
 
+    glm::vec2 getMousePosition() const;
+
   private:
     GLboolean m_currentButtons[MouseButton::kNumButtons];
     GLboolean m_previousButtons[MouseButton::kNumButtons];

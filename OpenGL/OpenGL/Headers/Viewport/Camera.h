@@ -2,6 +2,7 @@
 
 #include "OpenGL/GLHeaders.h"
 #include "Objects/GameObject.h"
+#include "Maths/Ray.h"
 
 
 namespace OpenGL
@@ -26,6 +27,9 @@ class Camera : public GameObject
     glm::mat4 getPerspectiveProjectionMatrix() const;
     glm::mat4 getOrthographicProjectionMatrix() const;
     const glm::mat4& getViewMatrix() const;
+
+    /// \brief Create a ray from the camera's eye to the position in world space that is unprojected from the inputted screen position
+    Ray createRay(const glm::vec2& screenPosition) const;
 
   private:
     typedef GameObject Inherited;
