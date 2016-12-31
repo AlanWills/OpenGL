@@ -39,21 +39,19 @@ namespace OpenGL
 
     Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
     spriteRenderer->setTexture("Fiirkan");
-    spriteRenderer->setTransform(&gameObject->getTransform());
 
     Handle<RectangleCollider> collider = gameObject->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-    collider->setTransform(&gameObject->getTransform());
-
     glm::vec2 texDims = spriteRenderer->getDimensions();
     collider->setDimensions(glm::vec2(texDims.x / screenManager->getViewportWidth(), texDims.y / screenManager->getViewportHeight()));
 
     Handle<KeyboardMovementScript> movementScript = gameObject->addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
-    movementScript->setTransform(&gameObject->getTransform());
     movementScript->setMoveDownKey(GLFW_KEY_DOWN);
     movementScript->setMoveUpKey(GLFW_KEY_UP);
     movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
     movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
 
+    // How do we bind class instance functions to a button
+    // Maybe we need like a void* as the first parameter for the instance - how do we make it so that anyone can subscribe
     Handle<Button> button = m_uiManager.allocateAndInitializeButton();
   }
 

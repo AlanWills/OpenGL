@@ -72,7 +72,7 @@ Handle<T> GameObject::addComponent(Handle<T> component)
     m_managedComponents.push_back(component.as<Component>());
   }
 
-  component->setOwner(getAllocatorHandle().as<GameObject>());
+  component->setParent(getAllocatorHandle().as<GameObject>());
 
   return component;
 }

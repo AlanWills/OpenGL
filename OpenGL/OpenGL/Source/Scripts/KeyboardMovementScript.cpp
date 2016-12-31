@@ -26,6 +26,15 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void KeyboardMovementScript::awake()
+  {
+    Inherited::awake();
+
+    ASSERT(getParent().get());
+    m_transform = &getParent()->getTransform();
+  }
+
+  //------------------------------------------------------------------------------------------------
   void KeyboardMovementScript::handleInput(GLfloat elapsedGameTime)
   {
     Inherited::handleInput(elapsedGameTime);

@@ -18,14 +18,12 @@ class SpriteRenderer : public Component
   DECLARE_COMPONENT_WITH_MANAGER(SpriteRenderer, 10, RenderManager);
 
   public:
+    void awake() override;
     void render(GLfloat lag) override;
     void die() override;
 
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
     void setTexture(const std::string& textureString);
-
-    /// \brief Set the model transform of the sprite we are drawing
-    void setTransform(Transform* transform) { m_transform = transform; }
 
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }

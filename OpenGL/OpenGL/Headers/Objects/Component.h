@@ -45,8 +45,12 @@ private: \
     ComponentType MemberName; \
     ComponentType* MemberName##Ptr = &MemberName;
 
-#define ADD_CLASS_COMPONENT(ComponentType, MemberName) \
-  addComponent<kUnmanaged>(Handle<ComponentType>(&MemberName##Ptr));
+#define ADD_AND_INITIALIZE_CLASS_COMPONENT(ComponentType, MemberName) \
+  { \
+    Handle<ComponentType> component = Handle<ComponentType>(&MemberName##Ptr); \
+    addComponent<kUnmanaged>(component); \
+    component->initialize(component.as<Component>()); \
+  }
 
 #define DECLARE_CLASS_COMPONENT_ALLOCATOR(ComponentType, PoolSize, MemberName) \
   public: \
@@ -85,10 +89,10 @@ class Component
     bool isAlive() const { return m_alive; }
 
     Handle<Component> getAllocatorHandle() const { return m_allocatorHandle; }
-    Handle<GameObject> getOwner() const { return m_owner; }
+    Handle<GameObject> getParent() const { return m_owner; }
 
     // Don't like this, but can't think of an alternative right now
-    void setOwner(Handle<GameObject> gameObject);
+    void setParent(Handle<GameObject> gameObject);
 
   private:
     bool m_alive;

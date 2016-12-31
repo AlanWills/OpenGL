@@ -97,6 +97,15 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void SpriteRenderer::awake()
+  {
+    Inherited::awake();
+
+    ASSERT(getParent().get());
+    m_transform = &getParent()->getTransform();
+  }
+
+  //------------------------------------------------------------------------------------------------
   void SpriteRenderer::render(GLfloat lag)
   {
     Inherited::render(lag);

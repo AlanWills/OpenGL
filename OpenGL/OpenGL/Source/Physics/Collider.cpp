@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Physics/Collider.h"
+#include "Objects/GameObject.h"
 
 
 namespace OpenGL
@@ -20,6 +21,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    ASSERT(m_transform);
+    ASSERT(getParent().get());
+    m_transform = &getParent()->getTransform();
   }
 }

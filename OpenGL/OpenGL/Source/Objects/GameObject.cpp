@@ -22,9 +22,9 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    for (Handle<Component> script : m_unmanagedComponents)
+    for (Handle<Component> component : m_unmanagedComponents)
     {
-      script->initialize(script.as<Component>());
+      component->initialize(component.as<Component>());
     }
   }
 

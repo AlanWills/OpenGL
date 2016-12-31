@@ -11,12 +11,7 @@ namespace OpenGL
 class Camera : public GameObject
 {
   public:
-    Camera(float aspectRatio, 
-           float nearPlane, 
-           float farPlane, 
-           glm::vec3 cameraPosition, 
-           glm::vec3 lookDirection, 
-           glm::vec3 upDirection = glm::vec3(0, 1, 0));
+    Camera();
     ~Camera();
 
     void initialize(Handle<Component> allocHandle);
@@ -30,6 +25,8 @@ class Camera : public GameObject
 
     /// \brief Create a ray from the camera's eye to the position in world space that is unprojected from the inputted screen position
     Ray createRay(const glm::vec2& screenPosition) const;
+
+    void setAspectRatio(float aspectRatio);
 
   private:
     typedef GameObject Inherited;

@@ -2,6 +2,8 @@
 
 #include "Objects/Component.h"
 
+class Button;
+
 
 namespace OpenGL
 {

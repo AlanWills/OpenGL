@@ -65,7 +65,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Component::setOwner(Handle<GameObject> owner)
+  void Component::setParent(Handle<GameObject> owner)
   {
     if (!owner.get() ||
          m_owner.get())

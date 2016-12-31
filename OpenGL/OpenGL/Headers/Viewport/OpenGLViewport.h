@@ -29,7 +29,7 @@ class OpenGLViewport
     int getHeight() const { return m_height; }
 
     GLFWwindow* getGLWindow() const { return m_viewport; }
-    Camera* getCamera() const;
+    Camera* getCamera() const { return m_cameraPtr; }
 
     inline void enableViewportFlag(GLenum flag) { glEnable(flag); }
 
@@ -44,7 +44,7 @@ class OpenGLViewport
 
     GLFWwindow* m_viewport;
     
-    std::unique_ptr<Camera> m_camera;
+    DECLARE_CLASS_COMPONENT(Camera, m_camera)
 };
 
 };

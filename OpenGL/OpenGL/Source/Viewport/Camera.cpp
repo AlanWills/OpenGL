@@ -9,18 +9,12 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Camera::Camera(
-      float aspectRatio,
-      float nearPlane,
-      float farPlane,
-      glm::vec3 cameraPosition, 
-      glm::vec3 lookDirection, 
-      glm::vec3 upDirection) :
-    m_aspectRatio(aspectRatio),
-    m_nearPlane(nearPlane),
-    m_farPlane(farPlane)
+  Camera::Camera() :
+    m_aspectRatio(1),
+    m_nearPlane(0.1f),
+    m_farPlane(100)
   {
-    m_transform.setLocalMatrix(glm::lookAt(cameraPosition, cameraPosition + lookDirection, upDirection));
+    m_transform.setLocalMatrix(glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(), glm::vec3(0, 1, 0)));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -36,7 +30,6 @@ namespace OpenGL
     if (KeyboardMovementScript::canAllocate())
     {
       Handle<KeyboardMovementScript> keyboardMovementScript = addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
-      keyboardMovementScript->setTransform(&m_transform);
       keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
       keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);
     }
@@ -90,5 +83,17 @@ namespace OpenGL
     ray.m_direction = glm::normalize(glm::vec3(worldPos));
 
     return ray;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Camera::setAspectRatio(float aspectRatio)
+  {
+    if (!aspectRatio > 0)
+    {
+      ASSERT_FAIL();
+      return;
+    }
+
+    m_aspectRatio = aspectRatio;
   }
 }

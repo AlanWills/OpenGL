@@ -16,8 +16,6 @@ namespace OpenGL
 
     void awake() override;
 
-    void setTransform(Transform* transform) { m_transform = transform; }
-
     virtual bool intersectsRay(const Ray& ray) const = 0;
     virtual bool intersectsPoint(const glm::vec2& point) const = 0;
 

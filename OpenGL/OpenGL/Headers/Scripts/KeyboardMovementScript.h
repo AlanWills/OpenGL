@@ -12,10 +12,9 @@ class KeyboardMovementScript : public Script
   DECLARE_COMPONENT(KeyboardMovementScript, 10)
 
   public:
+    void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
-
-    void setTransform(Transform* transform) { m_transform = transform; }
 
     void setMoveLeftKey(int moveLeftKey) { m_moveLeftKey = moveLeftKey; }
     void setMoveRightKey(int moveRightKey) { m_moveRightKey = moveRightKey; }

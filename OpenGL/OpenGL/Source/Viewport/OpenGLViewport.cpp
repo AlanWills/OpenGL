@@ -10,8 +10,7 @@ namespace OpenGL
   OpenGLViewport::OpenGLViewport(GLfloat screenWidth, GLfloat screenHeight, ScreenMode screenMode) :
     m_width(screenWidth),
     m_height(screenHeight),
-    m_viewport(nullptr),
-    m_camera(new Camera(screenWidth / screenHeight, 0.1f, 100, glm::vec3(0, 0, 5), glm::vec3(0, 0, -1)))
+    m_viewport(nullptr)
   {
     initWindow(screenMode);
   }
@@ -20,15 +19,14 @@ namespace OpenGL
   OpenGLViewport::OpenGLViewport(ScreenMode screenMode) :
     m_width(0),
     m_height(0),
-    m_viewport(nullptr),
-    m_camera(nullptr)
+    m_viewport(nullptr)
   {
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
     m_width = mode->width;
     m_height = mode->height;
 
-    m_camera.reset(new Camera(m_width / m_height, 0.1f, 100, glm::vec3(0, 0, 1), glm::vec3(0, 0, -1)));
+    m_camera.setAspectRatio(m_width / m_height);
 
     initWindow(screenMode);
   }
@@ -57,7 +55,7 @@ namespace OpenGL
     glCheckError();
 
     // Initialize with an empty handle because this camera is taken care of here by unique_ptr
-    getCamera()->initialize(Handle<Component>());
+    getCamera()->initialize(Handle<Camera>(&m_cameraPtr).as<Component>());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -87,12 +85,5 @@ namespace OpenGL
     glfwGetWindowPos(m_viewport, &x, &y);
 
     glfwSetWindowMonitor(m_viewport, screenMode == kFullScreen ? glfwGetPrimaryMonitor() : nullptr, x, y, m_width, m_height, mode->refreshRate);
-  }
-
-  //------------------------------------------------------------------------------------------------
-  Camera* OpenGLViewport::getCamera() const
-  {
-    ASSERT(m_camera.get());
-    return m_camera.get();
   }
 }
