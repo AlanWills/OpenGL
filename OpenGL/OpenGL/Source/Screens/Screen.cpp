@@ -47,7 +47,7 @@ namespace OpenGL
     glm::vec2 texDims = spriteRenderer->getDimensions();
     collider->setDimensions(glm::vec2(texDims.x / screenManager->getViewportWidth(), texDims.y / screenManager->getViewportHeight()));
 
-    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent<kManaged>(KeyboardMovementScript::allocateAndInitialize());
+    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
     movementScript->setTransform(&gameObject->getTransform());
     movementScript->setMoveDownKey(GLFW_KEY_DOWN);
     movementScript->setMoveUpKey(GLFW_KEY_UP);

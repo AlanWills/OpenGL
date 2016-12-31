@@ -32,6 +32,9 @@ class ScreenManager : public Component
     /// \brief Shorthand for obtaining the viewport height
     inline float getViewportHeight() { return getViewport()->getHeight(); }
 
+    /// \brief Shorthand for obtaining the viewport width and height
+    inline glm::vec2 getViewportDimensions() { return glm::vec2(getViewportWidth(), getViewportHeight()); }
+
   private:
     typedef Component Inherited;
 

@@ -70,6 +70,6 @@ namespace OpenGL
     double x = 0, y = 0;
     glfwGetCursorPos(GameManager::getScreenManager()->getViewport()->getGLWindow(), &x, &y);
 
-    return glm::vec2(x, y);
+    return glm::vec2(x, GameManager::getScreenManager()->getViewportHeight() - y);
   }
 }

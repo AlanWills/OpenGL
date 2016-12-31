@@ -27,7 +27,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  bool RectangleCollider::intersectsRay(const Ray& ray)
+  bool RectangleCollider::intersectsRay(const Ray& ray) const
   {
     if (!m_transform)
     {
@@ -40,14 +40,28 @@ namespace OpenGL
     // We also do not handle rotation at the moment (should be ok - just rotate the dims vector
     // Why is the y like this, bleurgh
     glm::vec3 translation = m_transform->getTranslation();
-    glm::vec2 halfDims = m_dimensions * 0.5f;
 
     float t = (translation.z - ray.m_origin.z) / ray.m_direction.z;
     glm::vec2 intersectPoint(ray.m_origin.x + t * ray.m_direction.x, ray.m_origin.y + t * ray.m_direction.y);
 
-    return ((translation.x - halfDims.x) <= intersectPoint.x) &&
-           ((translation.x + halfDims.x) >= intersectPoint.x) &&
-           ((translation.y - m_dimensions.y) <= intersectPoint.y) &&
-           ((translation.y) >= intersectPoint.y);
+    return intersectsPoint(intersectPoint);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  bool RectangleCollider::intersectsPoint(const glm::vec2& point) const
+  {
+    if (!m_transform)
+    {
+      ASSERT_FAIL();
+      return false;
+    }
+
+    glm::vec3 translation = m_transform->getTranslation();
+    glm::vec2 halfDims = m_dimensions * 0.5f;
+
+    return ((translation.x - halfDims.x) <= point.x) &&
+           ((translation.x + halfDims.x) >= point.x) &&
+           ((translation.y) <= point.y) &&
+           ((translation.y) + m_dimensions.y>= point.y);
   }
 }

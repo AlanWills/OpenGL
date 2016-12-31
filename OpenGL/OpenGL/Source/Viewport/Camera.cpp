@@ -61,7 +61,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   glm::mat4 Camera::getOrthographicProjectionMatrix() const
   {
-    return glm::ortho<float>(-1, 1, -1, 1);
+    return glm::ortho<float>(0, GameManager::getScreenManager()->getViewportWidth(), 0, GameManager::getScreenManager()->getViewportHeight());
   }
 
   //------------------------------------------------------------------------------------------------

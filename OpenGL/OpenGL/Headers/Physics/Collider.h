@@ -15,22 +15,14 @@ namespace OpenGL
     virtual ~Collider();
 
     void awake() override;
-    void handleInput(GLfloat elapsedGameTime) override;
 
     void setTransform(Transform* transform) { m_transform = transform; }
 
-    bool isMouseOver() const { return m_mouseOver; }
-    bool isClicked() const { return m_clicked; }
-    bool isPressed() const { return m_pressed; }
+    virtual bool intersectsRay(const Ray& ray) const = 0;
+    virtual bool intersectsPoint(const glm::vec2& point) const = 0;
 
   protected:
     typedef Component Inherited;
-    
-    virtual bool intersectsRay(const Ray& ray) = 0;
-
-    bool m_mouseOver;
-    bool m_clicked;
-    bool m_pressed;
 
     Transform* m_transform;
 };

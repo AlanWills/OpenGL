@@ -15,6 +15,7 @@ class Button : public GameObject
 
   public:
     void initialize() override;
+    void handleInput(GLfloat elapsedGameTime) override;
 
   private:
     typedef GameObject Inherited;
