@@ -29,9 +29,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Camera::initialize()
+  void Camera::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     if (KeyboardMovementScript::canAllocate())
     {

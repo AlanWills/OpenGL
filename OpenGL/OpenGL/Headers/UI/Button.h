@@ -11,10 +11,11 @@ namespace OpenGL
 
 class Button : public GameObject
 {
-  DECLARE_COMPONENT_WITH_MANAGER(Button, 10, UIManager);
-
   public:
-    void initialize() override;
+    Button();
+    virtual ~Button();
+
+    void initialize(Handle<Component> allocHandle) override;
     void handleInput(GLfloat elapsedGameTime) override;
 
   private:

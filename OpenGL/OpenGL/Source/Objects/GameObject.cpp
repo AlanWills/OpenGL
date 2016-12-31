@@ -18,13 +18,13 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameObject::initialize()
+  void GameObject::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     for (Handle<Component> script : m_unmanagedComponents)
     {
-      script->initialize();
+      script->initialize(script.as<Component>());
     }
   }
 

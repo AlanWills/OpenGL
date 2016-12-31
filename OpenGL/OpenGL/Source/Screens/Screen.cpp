@@ -26,12 +26,12 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Screen::initialize()
+  void Screen::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
-    m_renderManager.initialize();
-    m_uiManager.initialize();
+    m_renderManager.initialize(getAllocatorHandle());
+    m_uiManager.initialize(getAllocatorHandle());
 
     ScreenManager* screenManager = GameManager::getScreenManager();
 
@@ -54,8 +54,7 @@ namespace OpenGL
     movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
     movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
 
-    // This isn't right, buttons are per screen?
-    Handle<Button> button = Button::allocateAndInitialize();
+    Handle<Button> button = m_uiManager.allocateAndInitializeButton();
   }
 
   //------------------------------------------------------------------------------------------------

@@ -12,9 +12,9 @@ class ScreenManager : public Component
 {
   public:
     ScreenManager();
-    ~ScreenManager();
+    virtual ~ScreenManager();
 
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;

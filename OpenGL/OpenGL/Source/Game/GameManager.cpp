@@ -26,9 +26,10 @@ namespace OpenGL
   void GameManager::init()
   {
     // ScreenManager initialize MUST be called first - it sets up the opengl context
-    getScreenManager()->initialize();
+    // Initialize these managers with an empty allocator handler - they are taken care of here by unique_ptr
+    getScreenManager()->initialize(Handle<Component>());
     getResourceManager()->initialize();
-    getInputManager()->initialize();
+    getInputManager()->initialize(Handle<Component>());
   }
 
   //------------------------------------------------------------------------------------------------

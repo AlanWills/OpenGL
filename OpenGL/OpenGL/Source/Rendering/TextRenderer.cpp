@@ -28,9 +28,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void TextRenderer::initialize()
+  void TextRenderer::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);

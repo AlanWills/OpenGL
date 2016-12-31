@@ -42,6 +42,11 @@ class PoolAllocator
     /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.
     void defragment();
 
+    /// \brief Utility function for creating a handle from an object.
+    /// We iterate over our handle pointer array and attempt to find a pointer matching the input.
+    /// If successful, we return a handle with the address of the matching handle pointer.
+    Handle<T> getHandle(T* item) const;
+
     virtual PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
     virtual PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
 
@@ -165,6 +170,28 @@ void PoolAllocator<T, PoolSize>::defragment()
   // the end of our now contiguous block of memory
   m_head = nextDest;
   m_needsDefragmenting = false;
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t PoolSize>
+Handle<T> PoolAllocator<T, PoolSize>::getHandle(T* item) const
+{
+  if (!item)
+  {
+    ASSERT_FAIL();
+    return Handle<T>(nullptr);
+  }
+
+  for (const T* handle : m_handles)
+  {
+    if (handle == item)
+    {
+      return Handle<T>(&handle);
+    }
+  }
+
+  ASSERT_FAIL();
+  return Handle<T>(nullptr);
 }
 
 };

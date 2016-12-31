@@ -14,9 +14,9 @@ class RenderManager : public Component
 {
   public:
     RenderManager();
-    ~RenderManager();
+    virtual ~RenderManager();
 
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;

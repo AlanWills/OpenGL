@@ -22,9 +22,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void UIManager::initialize()
+  void UIManager::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
     ASSERT(m_spriteShader.get());
@@ -38,7 +38,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    Button::m_componentAllocator.awake();
+    m_buttons.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    Button::m_componentAllocator.handleInput(elapsedGameTime);
+    m_buttons.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    Button::m_componentAllocator.update(secondsPerUpdate);
+    m_buttons.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ namespace OpenGL
       m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
       m_spriteShader->setMatrix4("view", glm::mat4());
 
-      Button::m_componentAllocator.render(lag);
+      m_buttons.render(lag);
 
       m_spriteShader->unbind();
     }
@@ -94,6 +94,6 @@ namespace OpenGL
   {
     Inherited::die();
 
-    Button::m_componentAllocator.die();
+    m_buttons.die();
   }
 }

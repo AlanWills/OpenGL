@@ -9,14 +9,6 @@
 namespace OpenGL
 {
 
-#define DECLARE_CLASS_COMPONENT(ComponentType, MemberName) \
-  private: \
-    ComponentType MemberName; \
-    ComponentType* MemberName##Ptr = &MemberName;
-
-#define ADD_CLASS_COMPONENT(ComponentType, MemberName) \
-  addComponent<kUnmanaged>(Handle<ComponentType>(&MemberName##Ptr));
-
 enum ManagementType
 {
   kManaged,
@@ -29,7 +21,7 @@ class GameObject : public Component
     GameObject();
     virtual ~GameObject();
 
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
@@ -79,6 +71,8 @@ Handle<T> GameObject::addComponent(Handle<T> component)
   {
     m_managedComponents.push_back(component.as<Component>());
   }
+
+  component->setOwner(getAllocatorHandle().as<GameObject>());
 
   return component;
 }

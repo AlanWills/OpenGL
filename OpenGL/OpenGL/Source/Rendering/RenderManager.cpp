@@ -25,9 +25,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void RenderManager::initialize()
+  void RenderManager::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
     ASSERT(m_spriteShader.get());

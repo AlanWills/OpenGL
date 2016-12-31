@@ -14,7 +14,7 @@ class TextRenderer : public Component
 
   public:
     /// \brief Set up the gl buffers
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void render(GLfloat lag) override;
 
     /// \brief Loads a font from the resource manager and sets it to be the font this renderer uses

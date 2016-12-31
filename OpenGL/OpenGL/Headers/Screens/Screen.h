@@ -14,7 +14,7 @@ class Screen : public Component
   DECLARE_COMPONENT_WITH_MANAGER(Screen, 10, ScreenManager);
 
   public:
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat elapsedGameTime) override;

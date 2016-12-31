@@ -6,8 +6,6 @@
 
 namespace OpenGL
 {
-  REGISTER_COMPONENT(Button)
-
   //------------------------------------------------------------------------------------------------
   Button::Button()
   {
@@ -22,9 +20,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Button::initialize()
+  void Button::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     m_spriteRenderer.setTransform(&m_transform);
     m_spriteRenderer.setTexture("ButtonDefault");

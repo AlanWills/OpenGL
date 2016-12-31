@@ -43,9 +43,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void InputManager::initialize()
+  void InputManager::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     glfwSetKeyCallback(GameManager::getScreenManager()->getViewport()->getGLWindow(), handleGLKeyboardMessages);
   }

@@ -2,6 +2,8 @@
 
 #include "Objects/Component.h"
 #include "Resources/Shader.h"
+#include "Memory/ComponentAllocator.h"
+#include "UI/Button.h"
 
 
 namespace OpenGL
@@ -9,11 +11,13 @@ namespace OpenGL
 
 class UIManager : public Component
 {
+  #define BUTTON_POOL_SIZE 10
+
   public:
     UIManager();
     virtual ~UIManager();
 
-    void initialize() override;
+    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
@@ -28,6 +32,8 @@ class UIManager : public Component
 
     static StringId s_textShaderId;
     Handle<Shader> m_textShader;
+    
+    DECLARE_CLASS_COMPONENT_ALLOCATOR(Button, BUTTON_POOL_SIZE, m_buttons)
 };
 
 }

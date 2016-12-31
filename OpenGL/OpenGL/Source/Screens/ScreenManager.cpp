@@ -18,9 +18,9 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenManager::initialize()
+  void ScreenManager::initialize(Handle<Component> allocHandle)
   {
-    Inherited::initialize();
+    Inherited::initialize(allocHandle);
 
     GLFW_INIT();
 
@@ -78,7 +78,7 @@ namespace OpenGL
       m_activeScreen->die();
     }
 
-    screenToTransitionTo->initialize();
+    screenToTransitionTo->initialize(screenToTransitionTo.as<Component>());
     m_activeScreen = screenToTransitionTo;
   }
 
