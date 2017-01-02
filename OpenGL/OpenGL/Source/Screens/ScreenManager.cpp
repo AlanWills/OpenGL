@@ -78,7 +78,7 @@ namespace OpenGL
       m_activeScreen->die();
     }
 
-    screenToTransitionTo->initialize(screenToTransitionTo.as<Component>());
+    screenToTransitionTo->initialize(screenToTransitionTo);
     m_activeScreen = screenToTransitionTo;
   }
 

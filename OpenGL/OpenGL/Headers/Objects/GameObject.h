@@ -65,11 +65,11 @@ Handle<T> GameObject::addComponent(Handle<T> component)
   if (MType == kUnmanaged)
   {
     // Scripts are currently unmanaged so we should add them to the unmanaged list
-    m_unmanagedComponents.push_back(component.as<Component>());
+    m_unmanagedComponents.push_back(component);
   }
   else
   {
-    m_managedComponents.push_back(component.as<Component>());
+    m_managedComponents.push_back(component);
   }
 
   component->setParent(getAllocatorHandle().as<GameObject>());

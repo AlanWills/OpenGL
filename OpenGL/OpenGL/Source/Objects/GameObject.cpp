@@ -24,7 +24,7 @@ namespace OpenGL
 
     for (Handle<Component> component : m_unmanagedComponents)
     {
-      component->initialize(component.as<Component>());
+      component->initialize(component);
     }
   }
 

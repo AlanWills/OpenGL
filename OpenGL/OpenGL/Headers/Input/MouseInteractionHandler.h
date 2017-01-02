@@ -13,10 +13,12 @@ class MouseInteractionHandler : public Component
   DECLARE_COMPONENT(MouseInteractionHandler, 10);
 
   public:
-    typedef void(*ClickHandler)();
+    typedef void(Button::* ClickHandler)();
 
-    /// \brief Set the function to execute when we left click on the object this is associated with
-    void setOnLeftClick(ClickHandler onLeftClick) { m_onLeftClick = onLeftClick; }
+    /// \brief Add a function to execute when we left click on the object this is associated with
+    void addOnLeftClickEvent(ClickHandler onLeftClick) { m_onLeftClick = onLeftClick; }
+
+    void test();
 
   private:
     ClickHandler m_onLeftClick;

@@ -49,7 +49,7 @@ private: \
   { \
     Handle<ComponentType> component = Handle<ComponentType>(&MemberName##Ptr); \
     addComponent<kUnmanaged>(component); \
-    component->initialize(component.as<Component>()); \
+    component->initialize(component); \
   }
 
 #define DECLARE_CLASS_COMPONENT_ALLOCATOR(ComponentType, PoolSize, MemberName) \

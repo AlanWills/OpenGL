@@ -10,9 +10,15 @@ template <typename T>
 struct Handle
 {
   public:
-    Handle();
-    Handle(T** ptr);
-    ~Handle();
+    Handle() : m_ptr(nullptr) { }
+    Handle(T** ptr) : m_ptr(ptr) { }
+
+    template <typename K>
+    Handle(const Handle<K>& handle,
+      typename std::enable_if<std::is_convertible<K*, T*>::value, void>::type * = 0)
+      : Handle(handle.as<T>()) { }
+
+    ~Handle() { }
 
     T* operator->() const
     {
@@ -32,7 +38,7 @@ struct Handle
       return **m_ptr;
     }
 
-    T* get() { return m_ptr ? *m_ptr : nullptr; }
+    T* get() const { return m_ptr ? *m_ptr : nullptr; }
 
     /// \brief Checks to see if the underlying pointer this handle represents is dynamically castable to the inputted type
     template <typename K>
@@ -49,25 +55,5 @@ struct Handle
   private:
     T** m_ptr;
 };
-
-//------------------------------------------------------------------------------------------------
-template <typename T>
-Handle<T>::Handle() :
-  m_ptr(nullptr)
-{
-}
-
-//------------------------------------------------------------------------------------------------
-template <typename T>
-Handle<T>::Handle(T** ptr) : 
-  m_ptr(ptr)
-{
-}
-
-//------------------------------------------------------------------------------------------------
-template <typename T>
-Handle<T>::~Handle()
-{
-}
 
 }

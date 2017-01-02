@@ -55,7 +55,7 @@ namespace OpenGL
     glCheckError();
 
     // Initialize with an empty handle because this camera is taken care of here by unique_ptr
-    getCamera()->initialize(Handle<Camera>(&m_cameraPtr).as<Component>());
+    getCamera()->initialize(Handle<Camera>(&m_cameraPtr));
   }
 
   //------------------------------------------------------------------------------------------------

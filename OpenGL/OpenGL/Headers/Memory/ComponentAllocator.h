@@ -56,7 +56,7 @@ template <typename T, size_t PoolSize>
 Handle<T> ComponentAllocator<T, PoolSize>::allocateAndInitialize()
 {
   Handle<T> component = allocate();
-  component->initialize(component.as<Component>());
+  component->initialize(component);
 
   return component;
 }
