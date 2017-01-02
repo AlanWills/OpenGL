@@ -1,27 +1,26 @@
 #pragma once
 
 #include "Objects/Component.h"
+#include <functional>
 
-class Button;
+class GameObject;
 
 
 namespace OpenGL
 {
+
+typedef std::function<void(Handle<GameObject>)> ClickEvent;
 
 class MouseInteractionHandler : public Component
 {
   DECLARE_COMPONENT(MouseInteractionHandler, 10);
 
   public:
-    typedef void(Button::* ClickHandler)();
-
     /// \brief Add a function to execute when we left click on the object this is associated with
-    void addOnLeftClickEvent(ClickHandler onLeftClick) { m_onLeftClick = onLeftClick; }
-
-    void test();
+    void addOnLeftClickEvent(const ClickEvent& onLeftClick) { m_onLeftClick = onLeftClick; }
 
   private:
-    ClickHandler m_onLeftClick;
+    ClickEvent m_onLeftClick;
 };
 
 }

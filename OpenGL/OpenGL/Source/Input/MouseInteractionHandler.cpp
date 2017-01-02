@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "Input/MouseInteractionHandler.h"
-#include "UI/Button.h"
+#include "Objects/GameObject.h"
 
 
 namespace OpenGL
@@ -16,11 +16,5 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   MouseInteractionHandler::~MouseInteractionHandler()
   {
-  }
-
-  void MouseInteractionHandler::test()
-  {
-    /*Button* button = getParent().as<Button>().get();
-    (button->*m_onLeftClick)();*/
   }
 }

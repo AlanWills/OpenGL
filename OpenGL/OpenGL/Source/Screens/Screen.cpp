@@ -50,11 +50,7 @@ namespace OpenGL
     movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
     movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
 
-    // How do we bind class instance functions to a button
-    // Maybe we need like a void* as the first parameter for the instance - how do we make it so that anyone can subscribe
     Handle<Button> button = m_uiManager.allocateAndInitializeButton();
-    /*button->findComponent<MouseInteractionHandler>()->addOnLeftClickEvent(&Button::awake);
-    button->findComponent<MouseInteractionHandler>()->test();*/
   }
 
   //------------------------------------------------------------------------------------------------

@@ -24,6 +24,7 @@ namespace OpenGL
     ADD_AND_INITIALIZE_CLASS_COMPONENT(RectangleCollider, m_collider);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(TextRenderer, m_textRenderer);
+    ADD_AND_INITIALIZE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction);
 
     m_spriteRenderer.setTexture("ButtonDefault");
 
