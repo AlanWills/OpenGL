@@ -32,20 +32,20 @@ namespace OpenGL
 
     m_transform.setLocalMatrix(glm::scale(m_transform.getLocalMatrix(), glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1)));
     m_transform.translate(glm::vec3(200, 200, 0));
+
+    m_mouseInteraction.addOnEnterEvent(std::bind(&Button::onEnter, this, std::placeholders::_1));
+    m_mouseInteraction.addOnLeaveEvent(std::bind(&Button::onLeave, this, std::placeholders::_1));
   }
 
   //------------------------------------------------------------------------------------------------
-  void Button::handleInput(GLfloat elapsedGameTime)
+  void Button::onEnter(Handle<GameObject> sender)
   {
-    Inherited::handleInput(elapsedGameTime);
+    m_spriteRenderer.setTexture("ButtonHighlighted");
+  }
 
-    if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
-    {
-      m_spriteRenderer.setTexture("ButtonHighlighted");
-    }
-    else
-    {
-      m_spriteRenderer.setTexture("ButtonDefault");
-    }
+  //------------------------------------------------------------------------------------------------
+  void Button::onLeave(Handle<GameObject> sender)
+  {
+    m_spriteRenderer.setTexture("ButtonDefault");
   }
 }

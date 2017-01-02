@@ -17,11 +17,11 @@ class Button : public GameObject
     virtual ~Button();
 
     void initialize(Handle<Component> allocHandle) override;
-    void handleInput(GLfloat elapsedGameTime) override;
-
-    void test(Handle<GameObject>);
 
   private:
+    void onEnter(Handle<GameObject> sender);
+    void onLeave(Handle<GameObject> sender);
+
     typedef GameObject Inherited;
 
     DECLARE_CLASS_COMPONENT(RectangleCollider, m_collider)
