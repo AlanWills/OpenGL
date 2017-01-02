@@ -3,7 +3,7 @@
 #include "Viewport/Camera.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
-#include "Scripts/KeyboardMovementScript.h"
+#include "Input/KeyboardMovementScript.h"
 
 
 namespace OpenGL

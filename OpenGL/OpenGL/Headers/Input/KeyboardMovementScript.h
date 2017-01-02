@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Script.h"
+#include "Scripts/Script.h"
 #include "Maths/Transform.h"
 
 

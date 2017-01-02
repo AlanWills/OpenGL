@@ -3,10 +3,10 @@
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
-#include "Scripts/KeyboardMovementScript.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Rendering/TextRenderer.h"
 #include "Physics/RectangleCollider.h"
+#include "Input/KeyboardMovementScript.h"
 #include "Input/MouseInteractionHandler.h"
 #include "UI/Button.h"
 

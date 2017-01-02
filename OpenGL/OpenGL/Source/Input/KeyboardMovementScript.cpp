@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include "Scripts/KeyboardMovementScript.h"
+#include "Input/KeyboardMovementScript.h"
 #include "Scripts/ScriptManager.h"
 #include "Game/GameManager.h"
 

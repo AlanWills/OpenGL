@@ -111,9 +111,6 @@
     <ClCompile Include="Source\Scripts\ScriptManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Resources\Font.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -133,6 +130,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\UI\Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\KeyboardMovementScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -267,9 +267,6 @@
     <ClInclude Include="Headers\Scripts\ScriptManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Resources\Font.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -298,6 +295,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\UI\Button.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Input\KeyboardMovementScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

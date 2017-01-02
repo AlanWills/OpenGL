@@ -23,7 +23,7 @@
     <ClCompile Include="Source\Physics\RectangleCollider.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
-    <ClCompile Include="Source\Scripts\KeyboardMovementScript.cpp" />
+    <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -80,7 +80,7 @@
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
-    <ClInclude Include="Headers\Scripts\KeyboardMovementScript.h" />
+    <ClInclude Include="Headers\Input\KeyboardMovementScript.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />
