@@ -66,6 +66,7 @@
     <Image Include="Assets\Textures\Fiirkan.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Events\Event.h" />
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
     <ClInclude Include="Headers\Maths\Ray.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Objects/Component.h"
-#include <functional>
+#include "Events/Event.h"
 
 class GameObject;
 
@@ -9,7 +9,7 @@ class GameObject;
 namespace OpenGL
 {
 
-typedef std::function<void(Handle<GameObject>)> ClickEvent;
+typedef std::function<void(GameObject)> GameObjectClickCallback;
 
 class MouseInteractionHandler : public Component
 {
@@ -17,10 +17,11 @@ class MouseInteractionHandler : public Component
 
   public:
     /// \brief Add a function to execute when we left click on the object this is associated with
-    void addOnLeftClickEvent(const ClickEvent& onLeftClick) { m_onLeftClick = onLeftClick; }
+    void addOnLeftClickEvent(const GameObjectClickCallback& onLeftClick) { m_onLeftClick.subscribe(onLeftClick); }
+    void removeOnLeftClickEvent(const GameObjectClickCallback& onLeftClick) { m_onLeftClick.unsubscribe(onLeftClick); }
 
   private:
-    ClickEvent m_onLeftClick;
+    Event<void, GameObject> m_onLeftClick;
 };
 
 }
