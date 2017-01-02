@@ -24,10 +24,15 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Mouse::handleInput(GLfloat elapsedGameTime)
   {
-    // Set the previous mouse button states to be the current mouse button states
+    GLFWwindow* window = GameManager::getScreenManager()->getViewport()->getGLWindow();
+
     for (int i = 0; i < MouseButton::kNumButtons; ++i)
     {
+      // Set the previous mouse button states to be the current mouse button states
       m_previousButtons[i] = m_currentButtons[i];
+      
+      // Get the current button state
+      m_currentButtons[i] = glfwGetMouseButton(window, i);
     }
   }
 
@@ -52,7 +57,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   GLboolean Mouse::isButtonPressed(MouseButton mouseButton) const
   {
-    return m_currentButtons[mouseButton] && !m_previousButtons[mouseButton];
+    return !m_currentButtons[mouseButton] && m_previousButtons[mouseButton];
   }
 
   //------------------------------------------------------------------------------------------------

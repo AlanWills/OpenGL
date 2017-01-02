@@ -17,9 +17,6 @@ class InputManager : public Component
     InputManager();
     virtual ~InputManager();
 
-    /// \brief Set up the keyboard and mouse objects and also set up the global window callback
-    /// To receive messages from the message window pump
-    void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;

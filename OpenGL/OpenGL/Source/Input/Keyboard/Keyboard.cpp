@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Input/Keyboard/Keyboard.h"
+#include "Game/GameManager.h"
 
 namespace OpenGL
 {
@@ -25,10 +26,15 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Keyboard::handleInput(GLfloat elapsedGameTime)
   {
-    // Update the previous frame's keys with the contents of the current keys buffer
+    GLFWwindow* window = GameManager::getScreenManager()->getViewport()->getGLWindow();
+
     for (int i = 0; i < KEYBOARD_KEY_COUNT; ++i)
     {
+      // Update the previous frame's keys with the contents of the current keys buffer
       m_previousKeys[i] = m_currentKeys[i];
+
+      // Get the current state of the buttons
+      m_currentKeys[i] = glfwGetKey(window, i);
     }
   }
 
@@ -55,7 +61,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   GLboolean Keyboard::isKeyPressed(int key) const
   {
-    return m_currentKeys[key] && !m_previousKeys[key];
+    return !m_currentKeys[key] && m_previousKeys[key];
   }
 
   //------------------------------------------------------------------------------------------------

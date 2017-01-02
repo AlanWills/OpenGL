@@ -14,7 +14,6 @@ namespace OpenGL
   public: \
     void addOn##Name##Event(const CallbackType& on##Name) { m_on##Name##.subscribe(on##Name); } \
     void removeOn##Name##Event(const CallbackType& on##Name) { m_on##Name##.unsubscribe(on##Name); }
-    
 
 typedef std::function<void(Handle<GameObject>)> GameObjectClickCallback;
 
@@ -32,11 +31,24 @@ class MouseInteractionHandler : public Component
     /// \brief An event that will be called when the mouse first leaves the parent's collider
     EVENT_FUNCTIONS(Leave, GameObjectClickCallback)
 
+    /// \brief An event that will be called when the parent's collider is left clicked using the mouse
+    EVENT_FUNCTIONS(LeftClick, GameObjectClickCallback)
+
+    /// \brief An event that will be called when the parent's collider is left clicked using the mouse
+    EVENT_FUNCTIONS(MiddleClick, GameObjectClickCallback)
+
+    /// \brief An event that will be called when the parent's collider is left clicked using the mouse
+    EVENT_FUNCTIONS(RightClick, GameObjectClickCallback)
+
   private:
     typedef Component Inherited;
+    typedef Event<void, Handle<GameObject>> GameObjectEvent;
 
-    Event<void, Handle<GameObject>> m_onEnter;
-    Event<void, Handle<GameObject>> m_onLeave;
+    GameObjectEvent m_onEnter;
+    GameObjectEvent m_onLeave;
+    GameObjectEvent m_onLeftClick;
+    GameObjectEvent m_onMiddleClick;
+    GameObjectEvent m_onRightClick;
 
     Handle<Collider> m_collider;
     bool m_isMouseOver;

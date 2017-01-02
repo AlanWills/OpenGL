@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
+    <ClCompile Include="Source\Objects\UIObject.cpp" />
     <ClCompile Include="Source\Physics\Collider.cpp" />
     <ClCompile Include="Source\Physics\RectangleCollider.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
+    <ClInclude Include="Headers\Objects\UIObject.h" />
     <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Physics\Collider.h" />
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />

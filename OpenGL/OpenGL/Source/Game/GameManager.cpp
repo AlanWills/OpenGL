@@ -84,6 +84,11 @@ namespace OpenGL
   {
     getInputManager()->handleInput(elapsedGameTime);
     getScreenManager()->handleInput(elapsedGameTime);
+
+    if (getInputManager()->getKeyboard()->isKeyDown(GLFW_KEY_ESCAPE))
+    {
+      glfwSetWindowShouldClose(getScreenManager()->getViewport()->getGLWindow(), GL_TRUE);
+    }
   }
 
   //------------------------------------------------------------------------------------------------

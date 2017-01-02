@@ -7,7 +7,9 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Button::Button()
+  Button::Button() :
+    m_clickTimer(0),
+    m_state(kIdle)
   {
   }
 
@@ -30,22 +32,56 @@ namespace OpenGL
 
     m_collider.setDimensions(m_spriteRenderer.getDimensions());
 
-    m_transform.setLocalMatrix(glm::scale(m_transform.getLocalMatrix(), glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1)));
     m_transform.translate(glm::vec3(200, 200, 0));
 
     m_mouseInteraction.addOnEnterEvent(std::bind(&Button::onEnter, this, std::placeholders::_1));
     m_mouseInteraction.addOnLeaveEvent(std::bind(&Button::onLeave, this, std::placeholders::_1));
+    m_mouseInteraction.addOnLeftClickEvent(std::bind(&Button::onLeftClick, this, std::placeholders::_1));
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Button::update(GLfloat secondsPerUpdate)
+  {
+    Inherited::update(secondsPerUpdate);
+
+    m_clickTimer += secondsPerUpdate;
+    
+    if (m_state == kClicked && m_clickTimer > CLICK_TIMER)
+    {
+      if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
+      {
+        m_spriteRenderer.setTexture("ButtonHighlighted");
+        m_state = kHighlighted;
+      }
+      else
+      {
+        m_spriteRenderer.setTexture("ButtonDefault");
+        m_state = kIdle;
+      }
+    }
   }
 
   //------------------------------------------------------------------------------------------------
   void Button::onEnter(Handle<GameObject> sender)
   {
     m_spriteRenderer.setTexture("ButtonHighlighted");
+    m_state = kHighlighted;
   }
 
   //------------------------------------------------------------------------------------------------
   void Button::onLeave(Handle<GameObject> sender)
   {
     m_spriteRenderer.setTexture("ButtonDefault");
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Button::onLeftClick(Handle<GameObject> sender)
+  {
+    if (m_state != kClicked)
+    {
+      m_spriteRenderer.setTexture("ButtonPressed");
+      m_state = kClicked;
+      m_clickTimer = 0;
+    }
   }
 }
