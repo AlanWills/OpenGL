@@ -21,6 +21,8 @@ class Screen : public Component
     void render(GLfloat elapsedGameTime) override;
     void die() override;
 
+    void addBackground(const std::string& backgroundImage);
+
   private:
     typedef Component Inherited;
 
@@ -31,6 +33,8 @@ class Screen : public Component
 
     /// \brief The manager responsible for handling all UI
     UIManager m_uiManager;
+
+    friend class ScreenFactory;
 };
 
 }

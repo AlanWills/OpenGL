@@ -55,9 +55,21 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
+    std::vector<Handle<Component>> deadComponents;
+
     for (Handle<Component> component : m_unmanagedComponents)
     {
       component->update(secondsPerUpdate);
+
+      if (!component->isAlive())
+      {
+        deadComponents.push_back(component);
+      }
+    }
+
+    for (Handle<Component> component : deadComponents)
+    {
+      m_unmanagedComponents.erase(component);
     }
   }
 
@@ -88,6 +100,7 @@ namespace OpenGL
     }
 
     m_managedComponents.clear();
-    m_unmanagedComponents.clear();
+
+    // Have to clear unmanaged components when we deallocate - we could be iterating over them when die is called.
   }
 }

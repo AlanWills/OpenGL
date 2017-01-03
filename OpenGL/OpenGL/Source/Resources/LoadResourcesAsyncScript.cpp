@@ -10,7 +10,8 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   LoadResourcesAsyncScript::LoadResourcesAsyncScript() :
-    m_loadingThread(nullptr)
+    m_timeElapsed(0)
+    //m_loadingThread(nullptr)
   {
   }
 
@@ -24,7 +25,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    m_loadingThread = new std::thread(std::function<void()>(std::bind(&ResourceManager::initialize, GameManager::getResourceManager())));
+    //m_loadingThread = new std::thread(std::function<void()>(std::bind(&ResourceManager::initialize, GameManager::getResourceManager())));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -32,7 +33,14 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    if (m_loadingThread->joinable())
+    m_timeElapsed += secondsPerUpdate;
+
+    /*if (m_loadingThread->joinable())
+    {
+      GameManager::getScreenManager()->transitionToScreen(Screen::allocateAndInitialize());
+    }*/
+
+    if (m_timeElapsed > MIN_WAIT_TIME)
     {
       GameManager::getScreenManager()->transitionToScreen(Screen::allocateAndInitialize());
     }
@@ -43,10 +51,10 @@ namespace OpenGL
   {
     Inherited::die();
 
-    if (m_loadingThread)
-    {
-      // Delete our allocated thread
-      delete m_loadingThread;
-    }
+    //if (m_loadingThread)
+    //{
+    //  // Delete our allocated thread
+    //  delete m_loadingThread;
+    //}
   }
 }

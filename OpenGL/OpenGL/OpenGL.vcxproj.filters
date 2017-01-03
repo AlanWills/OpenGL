@@ -144,6 +144,9 @@
     <ClCompile Include="Source\Resources\LoadResourcesAsyncScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\UI\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
@@ -167,6 +170,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Textures\ButtonDefault.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Logo.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -319,6 +325,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Resources\LoadResourcesAsyncScript.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\UI\Image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -39,6 +39,7 @@ namespace OpenGL
     Inherited::awake();
 
     m_buttons.awake();
+    m_images.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -47,6 +48,7 @@ namespace OpenGL
     Inherited::handleInput(elapsedGameTime);
 
     m_buttons.handleInput(elapsedGameTime);
+    m_images.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -55,6 +57,7 @@ namespace OpenGL
     Inherited::update(secondsPerUpdate);
 
     m_buttons.update(secondsPerUpdate);
+    m_images.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -71,6 +74,7 @@ namespace OpenGL
       m_spriteShader->setMatrix4("view", glm::mat4());
 
       m_buttons.render(lag);
+      m_images.render(lag);
 
       m_spriteShader->unbind();
     }
@@ -95,5 +99,6 @@ namespace OpenGL
     Inherited::die();
 
     m_buttons.die();
+    m_images.die();
   }
 }

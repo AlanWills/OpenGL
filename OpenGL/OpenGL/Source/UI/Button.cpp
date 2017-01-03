@@ -30,7 +30,7 @@ namespace OpenGL
 
     m_spriteRenderer.setTexture("ButtonDefault");
 
-    m_collider.setDimensions(m_spriteRenderer.getDimensions());
+    m_collider.setDimensions(m_spriteRenderer.getTextureDimensions());
 
     m_transform.translate(glm::vec3(200, 200, 0));
 

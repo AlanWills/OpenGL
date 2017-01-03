@@ -4,6 +4,7 @@
 #include "Maths/Transform.h"
 
 #include <vector>
+#include <unordered_set>
 
 
 namespace OpenGL
@@ -49,7 +50,7 @@ class GameObject : public Component
     StringId m_name;
 
     std::vector<Handle<Component>> m_managedComponents;
-    std::vector<Handle<Component>> m_unmanagedComponents;
+    std::unordered_set<Handle<Component>> m_unmanagedComponents;
 };
 
 //------------------------------------------------------------------------------------------------
@@ -64,8 +65,8 @@ Handle<T> GameObject::addComponent(Handle<T> component)
 
   if (MType == kUnmanaged)
   {
-    // Scripts are currently unmanaged so we should add them to the unmanaged list
-    m_unmanagedComponents.push_back(component);
+    // Add to the unmanaged set
+    m_unmanagedComponents.emplace(component);
   }
   else
   {

@@ -4,6 +4,7 @@
 #include "Resources/Shader.h"
 #include "Memory/ComponentAllocator.h"
 #include "UI/Button.h"
+#include "UI/Image.h"
 
 
 namespace OpenGL
@@ -12,6 +13,7 @@ namespace OpenGL
 class UIManager : public Component
 {
   #define BUTTON_POOL_SIZE 10
+  #define IMAGE_POOL_SIZE 10
 
   public:
     UIManager();
@@ -34,6 +36,7 @@ class UIManager : public Component
     Handle<Shader> m_textShader;
     
     DECLARE_CLASS_COMPONENT_ALLOCATOR(Button, BUTTON_POOL_SIZE, m_buttons)
+    DECLARE_CLASS_COMPONENT_ALLOCATOR(Image, IMAGE_POOL_SIZE, m_images)
 };
 
 }

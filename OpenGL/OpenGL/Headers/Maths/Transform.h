@@ -15,6 +15,8 @@ namespace OpenGL
       void setLocalMatrix(const glm::mat4& localMatrix) { m_localMatrix = localMatrix; }
 
       void applyTransform(const glm::mat4& transform) { m_localMatrix *= transform; }
+      
+      void translate(const glm::vec2& translation);
       void translate(const glm::vec3& translation);
 
       glm::vec3 getTranslation() const;

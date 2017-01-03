@@ -11,7 +11,14 @@ namespace OpenGL
   {
   }
 
-  ////------------------------------------------------------------------------------------------------
+  //------------------------------------------------------------------------------------------------
+  void Transform::translate(const glm::vec2& translation)
+  {
+    m_localMatrix[3].x += translation.x;
+    m_localMatrix[3].y += translation.y;
+  }
+
+  //------------------------------------------------------------------------------------------------
   void Transform::translate(const glm::vec3& translation)
   {
     m_localMatrix[3].x += translation.x;

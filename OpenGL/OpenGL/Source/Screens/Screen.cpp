@@ -3,12 +3,14 @@
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
+
 #include "Rendering/SpriteRenderer.h"
 #include "Rendering/TextRenderer.h"
+
 #include "Physics/RectangleCollider.h"
+
 #include "Input/KeyboardMovementScript.h"
 #include "Input/MouseInteractionHandler.h"
-#include "UI/Button.h"
 
 
 namespace OpenGL
@@ -82,5 +84,16 @@ namespace OpenGL
     m_renderManager.die();
     m_gameObjects.die();
     m_uiManager.die();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void Screen::addBackground(const std::string& backgroundImage)
+  {
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    Handle<Image> image = m_uiManager.allocateAndInitializeImage();
+    image->setImage(backgroundImage);
+    image->setSize(screenDimensions);
+    image->getTransform().translate(screenDimensions * 0.5f);
   }
 }

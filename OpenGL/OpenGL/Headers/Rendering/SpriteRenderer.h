@@ -28,7 +28,9 @@ class SpriteRenderer : public Component
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
-    glm::vec2 getDimensions() const { return glm::vec2(m_texture->getWidth(), m_texture->getHeight()); }
+    glm::vec2 getTextureDimensions() const { return glm::vec2(m_texture->getWidth(), m_texture->getHeight()); }
+
+    void setScale(const glm::vec2& scale) { m_scale = scale; }
 
   private:
     typedef Component Inherited;
@@ -42,6 +44,7 @@ class SpriteRenderer : public Component
     Handle<Texture2D> m_texture;
 
     glm::vec4 m_colour;
+    glm::vec2 m_scale;
     Transform* m_transform;
 
     GLuint m_vbo;

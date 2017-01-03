@@ -23,8 +23,12 @@ namespace OpenGL
       return Handle<Screen>();
     }
 
+    // Attach the async resource loader to a game object
     Handle<GameObject> resourceLoader = screen->allocateAndInitializeGameObject();
-    resourceLoader->addComponent<kManaged>(LoadResourcesAsyncScript::allocateAndInitialize());
+    resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
+
+    // Add a background image
+    screen->addBackground("Logo");
     
     return screen;
   }

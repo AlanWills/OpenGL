@@ -35,16 +35,16 @@ namespace OpenGL
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
 
     m_screenFactory.reset(new ScreenFactory());
-
-    transitionToScreen(getScreenFactory()->createStartupLogoScreen());
   }
 
   //------------------------------------------------------------------------------------------------
   void ScreenManager::awake()
   {
     Inherited::awake();
-
+    
     Screen::m_componentAllocator.awake();
+
+    transitionToScreen(getScreenFactory()->createStartupLogoScreen());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -83,7 +83,6 @@ namespace OpenGL
       m_activeScreen->die();
     }
 
-    screenToTransitionTo->initialize(screenToTransitionTo);
     m_activeScreen = screenToTransitionTo;
   }
 

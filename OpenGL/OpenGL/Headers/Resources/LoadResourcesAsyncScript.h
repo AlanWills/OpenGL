@@ -9,6 +9,8 @@ namespace OpenGL
 
 class LoadResourcesAsyncScript : public Script
 {
+  #define MIN_WAIT_TIME 2
+
   DECLARE_COMPONENT(LoadResourcesAsyncScript, 1);
 
   public:
@@ -19,9 +21,11 @@ class LoadResourcesAsyncScript : public Script
   private:
     typedef Script Inherited;
 
+    float m_timeElapsed;
+
     // Don't like this, but running into copy constructor deletion issues
     // If there is a way around this, I'm all ears
-    std::thread* m_loadingThread;
+    //std::thread* m_loadingThread;
 };
 
 }

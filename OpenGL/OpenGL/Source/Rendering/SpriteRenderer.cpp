@@ -13,6 +13,7 @@ namespace OpenGL
     m_texture(nullptr),
     m_transform(nullptr),
     m_colour(1, 1, 1, 1),
+    m_scale(1, 1),
     m_vbo(0),
     m_vao(0)
   {
@@ -103,6 +104,7 @@ namespace OpenGL
 
     ASSERT(getParent().get());
     m_transform = &getParent()->getTransform();
+    ASSERT(m_transform);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -117,7 +119,11 @@ namespace OpenGL
       Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
 
       spriteShader->setVector4f("spriteColour", m_colour);
-      spriteShader->setMatrix4("model", m_transform ? m_transform->getLocalMatrix() : glm::mat4());
+
+      ASSERT(m_transform);
+      glm::mat4 modelMatrix = m_transform ? m_transform->getLocalMatrix() : glm::mat4();
+      modelMatrix = glm::scale(modelMatrix, glm::vec3(m_scale, 1));
+      spriteShader->setMatrix4("model", modelMatrix);
 
       glActiveTexture(GL_TEXTURE0);
       m_texture->bind();

@@ -38,6 +38,8 @@ struct Handle
       return **m_ptr;
     }
 
+    bool operator==(const Handle<T>& handle) const { return m_ptr == handle.m_ptr; }
+
     T* get() const { return m_ptr ? *m_ptr : nullptr; }
 
     /// \brief Checks to see if the underlying pointer this handle represents is dynamically castable to the inputted type
@@ -56,4 +58,19 @@ struct Handle
     T** m_ptr;
 };
 
+}
+
+
+namespace std
+{
+  template <typename T>
+  struct hash<OpenGL::Handle<T>>
+  {
+    std::size_t operator()(const OpenGL::Handle<T>& handle) const
+    {
+      using std::hash;
+
+      return std::hash<T*>()(handle.get());
+    }
+  };
 }
