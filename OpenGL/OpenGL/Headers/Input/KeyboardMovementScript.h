@@ -24,7 +24,7 @@ class KeyboardMovementScript : public Script
     void setPanSpeed(float panSpeed) { m_panSpeed = panSpeed; }
 
   private:
-    typedef Component Inherited;
+    typedef Script Inherited;
 
     Transform* m_transform;
 

@@ -24,7 +24,7 @@ class Screen : public Component
   private:
     typedef Component Inherited;
 
-    ComponentAllocator<GameObject, SCREEN_GAMEOBJECT_POOL_SIZE> m_gameObjects;
+    DECLARE_CLASS_COMPONENT_ALLOCATOR(GameObject, SCREEN_GAMEOBJECT_POOL_SIZE, m_gameObjects)
 
     /// \brief The manager responsible for handling all rendering in this screen
     RenderManager m_renderManager;

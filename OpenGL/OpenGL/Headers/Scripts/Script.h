@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Objects/Component.h"
-#include "Memory/ComponentAllocator.h"
-#include "StringInterning/StringId.h"
 
 using namespace Kernel;
 
@@ -10,7 +8,7 @@ using namespace Kernel;
 namespace OpenGL
 {
 
-  class Script : public Component
+class Script : public Component
 {
   public:
     Script();

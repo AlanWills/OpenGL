@@ -2,7 +2,7 @@
 
 #include "Memory/ComponentAllocator.h"
 #include "Viewport/OpenGLViewport.h"
-#include "Screen.h"
+#include "Factories/ScreenFactory.h"
 
 
 namespace OpenGL
@@ -24,7 +24,11 @@ class ScreenManager : public Component
     void transitionToScreen(Handle<Screen> screenToTransitionTo);
 
     /// \brief Get the window
-    OpenGLViewport* getViewport();
+    OpenGLViewport* getViewport() const;
+
+    /// \brief Get the screen factory
+    ScreenFactory* getScreenFactory() const;
+    void setScreenFactory(ScreenFactory* screenFactory);
 
     /// \brief Shorthand for obtaining the viewport width
     inline float getViewportWidth() { return getViewport()->getWidth(); }
@@ -40,6 +44,9 @@ class ScreenManager : public Component
 
     /// \brief The GL window context
     std::unique_ptr<OpenGLViewport> m_viewport;
+
+    /// \brief The screen factory which wraps up the logic of creating various screens
+    std::unique_ptr<ScreenFactory> m_screenFactory;
 
     Handle<Screen> m_activeScreen;
 };

@@ -32,25 +32,6 @@ namespace OpenGL
 
     m_renderManager.initialize(getAllocatorHandle());
     m_uiManager.initialize(getAllocatorHandle());
-
-    ScreenManager* screenManager = GameManager::getScreenManager();
-
-    Handle<GameObject> gameObject = m_gameObjects.allocateAndInitialize();
-
-    Handle<SpriteRenderer> spriteRenderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-    spriteRenderer->setTexture("Fiirkan");
-
-    Handle<RectangleCollider> collider = gameObject->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-    glm::vec2 texDims = spriteRenderer->getDimensions();
-    collider->setDimensions(glm::vec2(texDims.x / screenManager->getViewportWidth(), texDims.y / screenManager->getViewportHeight()));
-
-    Handle<KeyboardMovementScript> movementScript = gameObject->addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
-    movementScript->setMoveDownKey(GLFW_KEY_DOWN);
-    movementScript->setMoveUpKey(GLFW_KEY_UP);
-    movementScript->setMoveLeftKey(GLFW_KEY_LEFT);
-    movementScript->setMoveRightKey(GLFW_KEY_RIGHT);
-
-    Handle<Button> button = m_uiManager.allocateAndInitializeButton();
   }
 
   //------------------------------------------------------------------------------------------------

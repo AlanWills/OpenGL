@@ -15,6 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Factories\ScreenFactory.cpp" />
     <ClCompile Include="Source\Input\MouseInteractionHandler.cpp" />
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
@@ -25,6 +26,7 @@
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
+    <ClCompile Include="Source\Resources\LoadResourcesAsyncScript.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -68,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Events\Event.h" />
+    <ClInclude Include="Headers\Factories\ScreenFactory.h" />
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
     <ClInclude Include="Headers\Maths\Ray.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />
@@ -84,6 +87,7 @@
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Input\KeyboardMovementScript.h" />
+    <ClInclude Include="Headers\Resources\LoadResourcesAsyncScript.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />

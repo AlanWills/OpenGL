@@ -8,7 +8,8 @@ namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   ScreenManager::ScreenManager() :
-    m_viewport(nullptr)
+    m_viewport(nullptr),
+    m_screenFactory(nullptr)
   {
   }
 
@@ -32,6 +33,10 @@ namespace OpenGL
     GLEW_INIT();
 
     glGetError(); // Call it once to catch glewInit() bug, all other errors are now from our application.
+
+    m_screenFactory.reset(new ScreenFactory());
+
+    transitionToScreen(getScreenFactory()->createStartupLogoScreen());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -83,9 +88,23 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  OpenGLViewport* ScreenManager::getViewport()
+  OpenGLViewport* ScreenManager::getViewport() const
   {
     ASSERT(m_viewport.get());
     return m_viewport.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  ScreenFactory* ScreenManager::getScreenFactory() const
+  {
+    ASSERT(m_screenFactory.get());
+    return m_screenFactory.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ScreenManager::setScreenFactory(ScreenFactory* screenFactory)
+  {
+    ASSERT(screenFactory);
+    m_screenFactory.reset(screenFactory);
   }
 }
