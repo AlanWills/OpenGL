@@ -147,6 +147,9 @@
     <ClCompile Include="Source\UI\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Screens\MenuScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
@@ -328,6 +331,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\UI\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Screens\MenuScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

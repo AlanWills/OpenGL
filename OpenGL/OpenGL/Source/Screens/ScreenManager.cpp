@@ -42,8 +42,6 @@ namespace OpenGL
   void ScreenManager::awake()
   {
     Inherited::awake();
-    
-    Screen::m_componentAllocator.awake();
 
     transitionToScreen(getScreenFactory()->createStartupLogoScreen());
   }
@@ -55,7 +53,7 @@ namespace OpenGL
 
     getViewport()->handleInput(elapsedGameTime);
     
-    Screen::m_componentAllocator.handleInput(elapsedGameTime);
+    m_activeScreen->handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -65,7 +63,7 @@ namespace OpenGL
 
     getViewport()->update(secondsPerUpdate);
 
-    Screen::m_componentAllocator.update(secondsPerUpdate);
+    m_activeScreen->update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -73,7 +71,7 @@ namespace OpenGL
   {
     Inherited::render(lag);
 
-    Screen::m_componentAllocator.render(lag);
+    m_activeScreen->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------

@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Resources\LoadResourcesAsyncScript.cpp" />
+    <ClCompile Include="Source\Screens\MenuScreen.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Input\KeyboardMovementScript.h" />
     <ClInclude Include="Headers\Resources\LoadResourcesAsyncScript.h" />
+    <ClInclude Include="Headers\Screens\MenuScreen.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />

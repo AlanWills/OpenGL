@@ -2,6 +2,7 @@
 
 #include "Factories/ScreenFactory.h"
 #include "Game/GameManager.h"
+#include "Screens/MenuScreen.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 
 
@@ -10,13 +11,13 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::createStartupLogoScreen() const
   {
-    if (!Screen::canAllocate())
+    if (!MenuScreen::canAllocate())
     {
       ASSERT_FAIL();
       return Handle<Screen>();
     }
 
-    Handle<Screen> screen = Screen::allocateAndInitialize();
+    Handle<MenuScreen> screen = MenuScreen::allocateAndInitialize();
 
     if (!screen->canAllocateGameObject())
     {
@@ -37,13 +38,13 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::createMainMenuScreen()
   {
-    if (!Screen::canAllocate())
+    if (!MenuScreen::canAllocate())
     {
       ASSERT_FAIL();
       return Handle<Screen>();
     }
 
-    Handle<Screen> screen = Screen::allocateAndInitialize();
+    Handle<MenuScreen> screen = MenuScreen::allocateAndInitialize();
     
     if (!screen->getUIManager().canAllocateButton())
     {
