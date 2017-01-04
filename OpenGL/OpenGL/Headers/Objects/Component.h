@@ -87,6 +87,7 @@ class Component
     virtual void die();
 
     bool isAlive() const { return m_alive; }
+    bool isAwake() const { return m_awake; }
 
     Handle<Component> getAllocatorHandle() const { return m_allocatorHandle; }
     Handle<GameObject> getParent() const { return m_owner; }

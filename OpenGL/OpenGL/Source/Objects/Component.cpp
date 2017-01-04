@@ -24,13 +24,13 @@ namespace OpenGL
   {
     m_allocatorHandle = allocHandle;
 
-    // Check that this object is not currently alive
-    ASSERT(!m_alive);
-    m_alive = true;
-
     // Check we haven't already called initialize
     ASSERT(!m_initialized);
     m_initialized = true;
+
+    // Check that this object is not currently alive
+    ASSERT(!m_alive);
+    m_alive = true;
   }
 
   //------------------------------------------------------------------------------------------------

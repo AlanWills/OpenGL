@@ -18,7 +18,6 @@ class SpriteRenderer : public Component
   DECLARE_COMPONENT_WITH_MANAGER(SpriteRenderer, 10, RenderManager);
 
   public:
-    void awake() override;
     void render(GLfloat lag) override;
     void die() override;
 
@@ -45,7 +44,6 @@ class SpriteRenderer : public Component
 
     glm::vec4 m_colour;
     glm::vec2 m_scale;
-    Transform* m_transform;
 
     GLuint m_vbo;
     GLuint m_ebo;

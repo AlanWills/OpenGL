@@ -2,6 +2,7 @@
 
 #include "Screens/ScreenManager.h"
 #include "Screens/Screen.h"
+#include "Game/GameManager.h"
 
 
 namespace OpenGL
@@ -105,5 +106,11 @@ namespace OpenGL
   {
     ASSERT(screenFactory);
     m_screenFactory.reset(screenFactory);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ScreenManager::exitCallback(Handle<GameObject> sender)
+  {
+    GameManager::exit();
   }
 }

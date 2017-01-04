@@ -33,9 +33,16 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    for (Handle<Component> script : m_unmanagedComponents)
+    for (Handle<Component> component : m_unmanagedComponentsToAdd)
     {
-      script->awake();
+      m_unmanagedComponents.insert(component);
+    }
+
+    m_unmanagedComponentsToAdd.clear();
+
+    for (Handle<Component> component : m_unmanagedComponents)
+    {
+      component->awake();
     }
   }
 
@@ -55,7 +62,12 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    std::vector<Handle<Component>> deadComponents;
+    for (Handle<Component> component : m_unmanagedComponentsToAdd)
+    {
+      m_unmanagedComponents.insert(component);
+    }
+
+    m_unmanagedComponentsToAdd.clear();
 
     for (Handle<Component> component : m_unmanagedComponents)
     {
@@ -63,14 +75,16 @@ namespace OpenGL
 
       if (!component->isAlive())
       {
-        deadComponents.push_back(component);
+        m_unmanagedComponentsToRemove.push_back(component);
       }
     }
 
-    for (Handle<Component> component : deadComponents)
+    for (Handle<Component> component : m_unmanagedComponentsToRemove)
     {
       m_unmanagedComponents.erase(component);
     }
+
+    m_unmanagedComponentsToRemove.clear();
   }
 
   //------------------------------------------------------------------------------------------------

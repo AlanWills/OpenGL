@@ -29,8 +29,8 @@ class GameObject : public Component
     void render(GLfloat lag) override;
     void die() override;
 
-    const Transform& getConstTransform() const { return m_transform; }
     Transform& getTransform() { return m_transform; }
+    const Transform& getTransform() const { return m_transform; }
 
     StringId getName() const { return m_name; }
 
@@ -50,6 +50,8 @@ class GameObject : public Component
     StringId m_name;
 
     std::vector<Handle<Component>> m_managedComponents;
+    std::vector<Handle<Component>> m_unmanagedComponentsToAdd;
+    std::vector<Handle<Component>> m_unmanagedComponentsToRemove;
     std::unordered_set<Handle<Component>> m_unmanagedComponents;
 };
 
@@ -66,7 +68,7 @@ Handle<T> GameObject::addComponent(Handle<T> component)
   if (MType == kUnmanaged)
   {
     // Add to the unmanaged set
-    m_unmanagedComponents.emplace(component);
+    m_unmanagedComponentsToAdd.push_back(component);
   }
   else
   {
@@ -91,6 +93,14 @@ Handle<T> GameObject::findComponent() const
   }
 
   for (const Handle<Component>& handle : m_unmanagedComponents)
+  {
+    if (handle.is<T>())
+    {
+      return handle.as<T>();
+    }
+  }
+
+  for (const Handle<Component>& handle : m_unmanagedComponentsToAdd)
   {
     if (handle.is<T>())
     {

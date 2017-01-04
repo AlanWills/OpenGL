@@ -39,6 +39,8 @@ class ScreenManager : public Component
     /// \brief Shorthand for obtaining the viewport width and height
     inline glm::vec2 getViewportDimensions() { return glm::vec2(getViewportWidth(), getViewportHeight()); }
 
+    void exitCallback(Handle<GameObject> gameObject);
+
   private:
     typedef Component Inherited;
 

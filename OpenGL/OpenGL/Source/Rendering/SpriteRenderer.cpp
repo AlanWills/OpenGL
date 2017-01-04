@@ -11,7 +11,6 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
     m_texture(nullptr),
-    m_transform(nullptr),
     m_colour(1, 1, 1, 1),
     m_scale(1, 1),
     m_vbo(0),
@@ -98,16 +97,6 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::awake()
-  {
-    Inherited::awake();
-
-    ASSERT(getParent().get());
-    m_transform = &getParent()->getTransform();
-    ASSERT(m_transform);
-  }
-
-  //------------------------------------------------------------------------------------------------
   void SpriteRenderer::render(GLfloat lag)
   {
     Inherited::render(lag);
@@ -120,8 +109,10 @@ namespace OpenGL
 
       spriteShader->setVector4f("spriteColour", m_colour);
 
-      ASSERT(m_transform);
-      glm::mat4 modelMatrix = m_transform ? m_transform->getLocalMatrix() : glm::mat4();
+      Handle<GameObject> parent = getParent();
+      ASSERT(parent.get());
+
+      glm::mat4 modelMatrix = parent.get() ? parent->getTransform().getLocalMatrix() : glm::mat4();
       modelMatrix = glm::scale(modelMatrix, glm::vec3(m_scale, 1));
       spriteShader->setMatrix4("model", modelMatrix);
 

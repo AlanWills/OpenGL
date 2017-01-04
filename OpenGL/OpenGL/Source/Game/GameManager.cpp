@@ -160,4 +160,10 @@ namespace OpenGL
     ASSERT(clock);
     m_gameClock.reset(clock);
   }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::exit()
+  {
+    glfwSetWindowShouldClose(getScreenManager()->getViewport()->getGLWindow(), GL_TRUE);
+  }
 }

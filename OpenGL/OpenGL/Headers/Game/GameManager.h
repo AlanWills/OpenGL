@@ -22,6 +22,9 @@ class GameManager
     /// \brief Begin our game loop
     static void run();
 
+    /// \brief Exits the application
+    static void exit();
+
     /// \brief GameManager takes responsibility for managing the resource manager
     static void setResourceManager(ResourceManager* resourceManager);
     static ResourceManager* getResourceManager();

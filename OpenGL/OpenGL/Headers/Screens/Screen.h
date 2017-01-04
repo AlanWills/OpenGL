@@ -23,6 +23,9 @@ class Screen : public Component
 
     void addBackground(const std::string& backgroundImage);
 
+    UIManager& getUIManager() { return m_uiManager; }
+    const UIManager& getUIManager() const { return m_uiManager; }
+
   private:
     typedef Component Inherited;
 
@@ -33,8 +36,6 @@ class Screen : public Component
 
     /// \brief The manager responsible for handling all UI
     UIManager m_uiManager;
-
-    friend class ScreenFactory;
 };
 
 }
