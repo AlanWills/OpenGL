@@ -13,7 +13,7 @@ class Allocator
     Allocator();
     virtual ~Allocator();
 
-    virtual bool canAllocate() = 0;
+    virtual bool canAllocate() const = 0;
     virtual Handle<T> allocate() = 0;
     virtual void deallocate(T* item) = 0;
 
@@ -35,7 +35,7 @@ Allocator<T, PoolSize>::Allocator()
 }
 
 //------------------------------------------------------------------------------------------------
-template <typename T, PoolSize>
+template <typename T, size_t PoolSize>
 Allocator<T, PoolSize>::~Allocator()
 {
 }

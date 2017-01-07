@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Handle.h"
+#include "Allocator.h"
 #include "Debugging/DebugManager.h"
 
 
@@ -8,7 +8,7 @@ namespace OpenGL
 {
 
 template <typename T, size_t PoolSize>
-class GapAllocator
+class GapAllocator : public Allocator<T, PoolSize>
 {
 public:
   GapAllocator();
@@ -16,30 +16,21 @@ public:
 
   /// \brief Returns true if we have free elements within our pool to allocate.
   /// Otherwise returns false.
-  bool canAllocate() const;
+  bool canAllocate() const override;
 
   /// \brief Obtain a handle to a free object from this allocator.
   /// The object will have already been constructed, so this class still retains ownership.
-  Handle<T> allocate();
+  Handle<T> allocate() override;
 
   /// \brief Deallocates the slot which holds the inputted item.
   /// No defragmentation takes place because the PoolSize is small.
-  void deallocate(T* item);
-
-private:
-  T m_pool[PoolSize];
-  T* m_handles[PoolSize];
+  void deallocate(T* item) override;
 };
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
 GapAllocator<T, PoolSize>::GapAllocator()
 {
-  for (size_t i = 0; i < PoolSize; ++i)
-  {
-    new (&(m_pool[i])) T();
-    m_handles[i] = nullptr;
-  }
 }
 
 //------------------------------------------------------------------------------------------------
