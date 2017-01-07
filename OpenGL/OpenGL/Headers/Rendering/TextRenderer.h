@@ -10,7 +10,7 @@ namespace OpenGL
 // A class which is responsible for rendering text in a specific font
 class TextRenderer : public Component
 {
-  DECLARE_COMPONENT_WITH_MANAGER(TextRenderer, 10, RenderManager);
+  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, TextRenderer, 10, RenderManager);
 
   public:
     /// \brief Set up the gl buffers

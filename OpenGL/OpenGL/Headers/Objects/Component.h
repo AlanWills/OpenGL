@@ -2,12 +2,14 @@
 
 #include "OpenGL/GLHeaders.h"
 #include "Memory/ComponentAllocator.h"
+#include "Memory/PoolAllocator.h"
+#include "Memory/GapAllocator.h"
 
 
 namespace OpenGL
 {
 //------------------------------------------------------------------------------------------------
-#define DECLARE_COMPONENT(ComponentType, PoolSize) \
+#define DECLARE_COMPONENT(AllocatorType, ComponentType, PoolSize) \
 public: \
   static bool canAllocate() { return m_componentAllocator.canAllocate(); } \
   \
@@ -27,18 +29,18 @@ public: \
   virtual ~ComponentType(); \
   \
 private: \
-  typedef ComponentAllocator<ComponentType, PoolSize> Allocator; \
-  static Allocator m_componentAllocator;
+  typedef ComponentAllocator<AllocatorType<ComponentType, PoolSize>, ComponentType, PoolSize> Alloc; \
+  static Alloc m_componentAllocator;
 
 //------------------------------------------------------------------------------------------------
-#define DECLARE_COMPONENT_WITH_MANAGER(ComponentType, PoolSize, Manager) \
-  DECLARE_COMPONENT(ComponentType, PoolSize); \
+#define DECLARE_COMPONENT_WITH_MANAGER(AllocatorType, ComponentType, PoolSize, Manager) \
+  DECLARE_COMPONENT(AllocatorType, ComponentType, PoolSize); \
   private: \
     friend class Manager;
 
 //------------------------------------------------------------------------------------------------
 #define REGISTER_COMPONENT(ComponentType) \
-  ComponentType::Allocator ComponentType::m_componentAllocator = ComponentType::Allocator();
+  ComponentType::Alloc ComponentType::m_componentAllocator = ComponentType::Alloc();
 
 #define DECLARE_CLASS_COMPONENT(ComponentType, MemberName) \
   private: \
@@ -68,7 +70,7 @@ private: \
       return MemberName##.allocateAndInitialize(); \
     } \
   private: \
-    ComponentAllocator<ComponentType, PoolSize> MemberName;
+    ComponentAllocator<PoolAllocator<ComponentType, PoolSize>, ComponentType, PoolSize> MemberName;
 
 class GameObject;
 

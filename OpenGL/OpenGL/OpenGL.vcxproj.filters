@@ -249,9 +249,6 @@
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -340,6 +337,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Memory\Allocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Memory\AllocatorIterator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

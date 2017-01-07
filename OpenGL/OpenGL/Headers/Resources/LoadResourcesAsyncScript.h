@@ -11,7 +11,7 @@ class LoadResourcesAsyncScript : public Script
 {
   #define MIN_WAIT_TIME 2
 
-  DECLARE_COMPONENT(LoadResourcesAsyncScript, 1);
+  DECLARE_COMPONENT(PoolAllocator, LoadResourcesAsyncScript, 1);
 
   public:
     void awake() override;

@@ -7,17 +7,17 @@ namespace OpenGL
 {
 
 template <typename T>
-class PoolAllocatorIterator : std::iterator<std::forward_iterator_tag, T>
+class AllocatorIterator : std::iterator<std::forward_iterator_tag, T>
 {
   public:
-    PoolAllocatorIterator(T* ptr);
-    virtual ~PoolAllocatorIterator();
+    AllocatorIterator(T* ptr);
+    virtual ~AllocatorIterator();
     
-    virtual PoolAllocatorIterator& operator++();
-    virtual PoolAllocatorIterator operator++(int);
+    virtual AllocatorIterator& operator++();
+    virtual AllocatorIterator operator++(int);
 
-    bool operator==(PoolAllocatorIterator<T> other) const;
-    bool operator!=(PoolAllocatorIterator<T> other) const;
+    bool operator==(AllocatorIterator<T> other) const;
+    bool operator!=(AllocatorIterator<T> other) const;
 
     T* operator*() const { return m_ptr; }
 
@@ -27,20 +27,20 @@ class PoolAllocatorIterator : std::iterator<std::forward_iterator_tag, T>
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T>::PoolAllocatorIterator(T* ptr) :
+AllocatorIterator<T>::AllocatorIterator(T* ptr) :
   m_ptr(ptr)
 {
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T>::~PoolAllocatorIterator()
+AllocatorIterator<T>::~AllocatorIterator()
 {
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T>& PoolAllocatorIterator<T>::operator++()
+AllocatorIterator<T>& AllocatorIterator<T>::operator++()
 {
   ++m_ptr;
   return *this;
@@ -48,21 +48,21 @@ PoolAllocatorIterator<T>& PoolAllocatorIterator<T>::operator++()
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T> PoolAllocatorIterator<T>::operator++(int)
+AllocatorIterator<T> AllocatorIterator<T>::operator++(int)
 {
-  return PoolAllocatorIterator<T>(++m_ptr);
+  return AllocatorIterator<T>(++m_ptr);
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-bool PoolAllocatorIterator<T>::operator==(PoolAllocatorIterator<T> other) const
+bool AllocatorIterator<T>::operator==(AllocatorIterator<T> other) const
 {
   return m_ptr == *other;
 }
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-bool PoolAllocatorIterator<T>::operator!=(PoolAllocatorIterator<T> other) const
+bool AllocatorIterator<T>::operator!=(AllocatorIterator<T> other) const
 {
   return !(m_ptr == *other);
 }

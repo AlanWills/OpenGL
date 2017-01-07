@@ -1,8 +1,8 @@
 #pragma once
 
 #include "DebugUtils/Debug.h"
-#include "PoolAllocatorIterator.h"
-#include "Handle.h"
+#include "AllocatorIterator.h"
+#include "Allocator.h"
 
 #include <iterator>
 
@@ -13,62 +13,40 @@ namespace OpenGL
 /// A memory allocator which creates a large pool of objects in a contiguous array
 /// Allocating from this consists of obtaining a pointer to an object in the pool not currently used
 template <typename T, size_t PoolSize>
-class PoolAllocator
+class PoolAllocator : public Allocator<T, PoolSize>
 {
   public:
     PoolAllocator();
     virtual ~PoolAllocator();
 
     /// \brief Returns true if we have free objects in the pool to allocate
-    bool canAllocate() const { return m_head != PoolSize; }
+    bool canAllocate() const override { return m_head != PoolSize; }
 
     /// \brief Obtain a handle to a free object from this pool
     /// The object will have already been constructed
     /// This class still retains ownership of the object
-    Handle<T> allocate();
+    Handle<T> allocate() override;
 
     /// \brief Deallocates the object at the inputted memory address in this allocator.
     /// The memory will have to be defragmented later, as our head may be past the inputted address.
-    void deallocate(T* item);
+    void deallocate(T* item) override;
 
     /// \brief Resets the head to the start of the pool
     void deallocateAll();
 
-    /// \brief Do not want to unnecessarily defragment this allocator
-    /// This bool returns the current fragmentation state of the allocator
-    bool needsDefragmenting() const { return m_needsDefragmenting; }
-
     /// \brief Sorts the underlying objects so that all the allocated objects are at the front of the buffer
     /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.
-    void defragment();
-
-    /// \brief Utility function for creating a handle from an object.
-    /// We iterate over our handle pointer array and attempt to find a pointer matching the input.
-    /// If successful, we return a handle with the address of the matching handle pointer.
-    Handle<T> getHandle(T* item) const;
-
-    virtual PoolAllocatorIterator<T> begin() { return PoolAllocatorIterator<T>(m_pool); }
-    virtual PoolAllocatorIterator<T> end() { return PoolAllocatorIterator<T>(&(m_pool[m_head])); }
+    void defragment() override;
 
   protected:
     size_t m_head;
-    T m_pool[PoolSize];
-    T* m_handles[PoolSize];
-    bool m_needsDefragmenting;
 };
 
 //------------------------------------------------------------------------------------------------
 template <typename T, size_t PoolSize>
 PoolAllocator<T, PoolSize>::PoolAllocator() :
-  m_head(0),
-  m_needsDefragmenting(false)
+  m_head(0)
 {
-  // Construct all the objects
-  for (size_t i = 0; i < PoolSize; ++i)
-  {
-    new (&(m_pool[i])) T();
-    m_handles[i] = nullptr;
-  }
 }
 
 //------------------------------------------------------------------------------------------------
@@ -170,28 +148,6 @@ void PoolAllocator<T, PoolSize>::defragment()
   // the end of our now contiguous block of memory
   m_head = nextDest;
   m_needsDefragmenting = false;
-}
-
-//------------------------------------------------------------------------------------------------
-template <typename T, size_t PoolSize>
-Handle<T> PoolAllocator<T, PoolSize>::getHandle(T* item) const
-{
-  if (!item)
-  {
-    ASSERT_FAIL();
-    return Handle<T>(nullptr);
-  }
-
-  for (const T* handle : m_handles)
-  {
-    if (handle == item)
-    {
-      return Handle<T>(&handle);
-    }
-  }
-
-  ASSERT_FAIL();
-  return Handle<T>(nullptr);
 }
 
 };

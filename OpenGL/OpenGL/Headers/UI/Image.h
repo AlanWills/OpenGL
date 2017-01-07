@@ -9,7 +9,7 @@ namespace OpenGL
 
 class Image : public UIObject
 {
-  DECLARE_COMPONENT_WITH_MANAGER(Image, 10, UIManager);
+  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, Image, 10, UIManager);
 
   public:
     void initialize(Handle<Component> allocHandle) override;

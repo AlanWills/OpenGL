@@ -25,6 +25,9 @@ public:
   /// \brief Deallocates the slot which holds the inputted item.
   /// No defragmentation takes place because the PoolSize is small.
   void deallocate(T* item) override;
+
+  /// \brief Do not defragment this allocator
+  void defragment() override { }
 };
 
 //------------------------------------------------------------------------------------------------
@@ -82,9 +85,9 @@ void GapAllocator<T, PoolSize>::deallocate(T* item)
   // We then clear the handle to that item to be nullptr to indicate it is available to be allocated again
   for (size_t i = 0; i < PoolSize; ++i)
   {
-    if (m_pool[i] == item)
+    if (&m_pool[i] == item)
     {
-      ASSERT(+m_handles[i]);
+      ASSERT(m_handles[i]);
       m_handles[i] = nullptr;
       return;
     }

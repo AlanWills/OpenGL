@@ -1,20 +1,20 @@
 #pragma once
 
-#include "PoolAllocatorIterator.h"
+#include "AllocatorIterator.h"
 
 
 namespace OpenGL
 {
 
 template <typename T>
-class ComponentAllocatorIterator : public PoolAllocatorIterator<T>
+class ComponentAllocatorIterator : public AllocatorIterator<T>
 {
   public:
     ComponentAllocatorIterator(T* ptr, T* end);
     virtual ~ComponentAllocatorIterator();
 
-    PoolAllocatorIterator& operator++() override;
-    PoolAllocatorIterator operator++(int) override;
+    AllocatorIterator& operator++() override;
+    AllocatorIterator operator++(int) override;
 
     T* operator*() const { return m_ptr; }
 
@@ -25,7 +25,7 @@ class ComponentAllocatorIterator : public PoolAllocatorIterator<T>
 //------------------------------------------------------------------------------------------------
 template <typename T>
 ComponentAllocatorIterator<T>::ComponentAllocatorIterator(T* ptr, T* end) :
-  PoolAllocatorIterator<T>(ptr),
+  AllocatorIterator<T>(ptr),
   m_end(end)
 {
 }
@@ -38,7 +38,7 @@ ComponentAllocatorIterator<T>::~ComponentAllocatorIterator()
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T>& ComponentAllocatorIterator<T>::operator++()
+AllocatorIterator<T>& ComponentAllocatorIterator<T>::operator++()
 {
   ++m_ptr;
   while (m_ptr != m_end && !m_ptr->isAlive())
@@ -51,7 +51,7 @@ PoolAllocatorIterator<T>& ComponentAllocatorIterator<T>::operator++()
 
 //------------------------------------------------------------------------------------------------
 template <typename T>
-PoolAllocatorIterator<T> ComponentAllocatorIterator<T>::operator++(int)
+AllocatorIterator<T> ComponentAllocatorIterator<T>::operator++(int)
 {
   ++m_ptr;
   while (m_ptr != m_end && !m_ptr->isAlive())

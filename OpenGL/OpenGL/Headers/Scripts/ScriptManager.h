@@ -30,11 +30,6 @@ private:
     T* allocateAndInitializeScript();
 
     typedef Component Inherited;
-    typedef ComponentAllocator<Script, SCRIPTMANAGER_POOL_SIZE> ScriptAllocator;
-    typedef std::pair<StringId, ScriptAllocator*> NameAllocatorPair;
-    typedef std::unordered_map<StringId, ScriptAllocator*> ScriptAllocatorMap;
-
-    ScriptAllocatorMap m_scriptAllocators;
 };
 
 

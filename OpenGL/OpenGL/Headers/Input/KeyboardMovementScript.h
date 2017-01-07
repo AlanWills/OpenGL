@@ -9,7 +9,7 @@ namespace OpenGL
 
 class KeyboardMovementScript : public Script
 {
-  DECLARE_COMPONENT(KeyboardMovementScript, 10)
+  DECLARE_COMPONENT(PoolAllocator, KeyboardMovementScript, 10)
 
   public:
     void awake() override;

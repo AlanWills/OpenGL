@@ -82,7 +82,7 @@
     <ClInclude Include="Headers\Memory\ComponentAllocatorIterator.h" />
     <ClInclude Include="Headers\Memory\GapAllocator.h" />
     <ClInclude Include="Headers\Memory\Handle.h" />
-    <ClInclude Include="Headers\Memory\PoolAllocatorIterator.h" />
+    <ClInclude Include="Headers\Memory\AllocatorIterator.h" />
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
     <ClInclude Include="Headers\Objects\UIObject.h" />

@@ -13,10 +13,6 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   ScriptManager::~ScriptManager()
   {
-    for (const NameAllocatorPair& pair : m_scriptAllocators)
-    {
-      pair.second->~ComponentAllocator();
-    }
   }
 
   //------------------------------------------------------------------------------------------------

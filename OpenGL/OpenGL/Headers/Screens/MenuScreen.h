@@ -8,7 +8,7 @@ namespace OpenGL
 
 class MenuScreen : public Screen
 {
-  DECLARE_SCREEN(MenuScreen, 3);
+  DECLARE_COMPONENT(GapAllocator, MenuScreen, 3);
 };
 
 }

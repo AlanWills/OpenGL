@@ -19,7 +19,7 @@ typedef std::function<void(Handle<GameObject>)> GameObjectClickCallback;
 
 class MouseInteractionHandler : public Component
 {
-  DECLARE_COMPONENT(MouseInteractionHandler, 10);
+  DECLARE_COMPONENT(PoolAllocator, MouseInteractionHandler, 10);
 
   public:
     void awake() override;
