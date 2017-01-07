@@ -38,6 +38,8 @@ class PoolAllocator : public Allocator<T, PoolSize>
     /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.
     void defragment() override;
 
+    AllocatorIterator<T> end() override { return AllocatorIterator<T>(&m_pool[m_head]); }
+
   protected:
     size_t m_head;
 };

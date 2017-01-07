@@ -102,7 +102,7 @@ void ComponentAllocator<AllocatorType, T, PoolSize>::update(GLfloat secondsPerUp
   for (T* component : m_allocator)
   {
     // Go through all elements and check to see if any are dead and deallocate them
-    if (!component->isAlive())
+    if (!component->isAlive() && m_allocator.isAllocated(component))
     {
       deallocate(component);
     }
