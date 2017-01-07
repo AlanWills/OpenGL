@@ -77,6 +77,7 @@
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
     <ClInclude Include="Headers\Maths\Ray.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />
+    <ClInclude Include="Headers\Memory\Allocator.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocator.h" />
     <ClInclude Include="Headers\Memory\ComponentAllocatorIterator.h" />
     <ClInclude Include="Headers\Memory\GapAllocator.h" />

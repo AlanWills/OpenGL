@@ -63,7 +63,7 @@ PoolAllocator<T, PoolSize>::PoolAllocator() :
   m_head(0),
   m_needsDefragmenting(false)
 {
-  // Construct all the objects - I think this is necessary
+  // Construct all the objects
   for (size_t i = 0; i < PoolSize; ++i)
   {
     new (&(m_pool[i])) T();
