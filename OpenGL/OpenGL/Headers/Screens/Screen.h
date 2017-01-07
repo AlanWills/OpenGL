@@ -3,11 +3,36 @@
 #include "Objects/GameObject.h"
 #include "Rendering/RenderManager.h"
 #include "UI/UIManager.h"
+#include "Memory/GapAllocator.h"
 
 
 namespace OpenGL
 {
 #define SCREEN_GAMEOBJECT_POOL_SIZE 10
+
+//------------------------------------------------------------------------------------------------
+#define DECLARE_SCREEN(ComponentType, PoolSize) \
+public: \
+  static bool canAllocate() { return m_componentAllocator.canAllocate(); } \
+  \
+  static Handle<ComponentType> allocate() \
+  { \
+    ASSERT(m_componentAllocator.canAllocate()); \
+    return m_componentAllocator.allocate(); \
+  } \
+  \
+  static Handle<ComponentType> allocateAndInitialize() \
+  { \
+    ASSERT(m_componentAllocator.canAllocate()); \
+    return m_componentAllocator.allocateAndInitialize(); \
+  } \
+  \
+  ComponentType(); \
+  virtual ~ComponentType(); \
+  \
+private: \
+  typedef GapAllocator<ComponentType, PoolSize> Allocator; \
+  static Allocator m_componentAllocator;
 
 class Screen : public Component
 {
