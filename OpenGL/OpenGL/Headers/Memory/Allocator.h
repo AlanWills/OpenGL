@@ -35,6 +35,16 @@ class Allocator
     virtual AllocatorIterator<T> begin() { return AllocatorIterator<T>(m_pool); }
     virtual AllocatorIterator<T> end() { return AllocatorIterator<T>(&m_pool[PoolSize]); }
 
+    /// \brief Returns the element in the pool at the inputted index
+    T* at(size_t i) 
+    {
+      ASSERT(0 <= i && i < PoolSize);
+      return &m_pool[i]; 
+    }
+
+    /// \brief Returns the PoolSize of this allocator
+    size_t maxSize() const { return PoolSize; }
+
   protected:
     T m_pool[PoolSize];
     T* m_handles[PoolSize];

@@ -42,6 +42,11 @@ class ComponentAllocator
 
     AllocatorIterator<T> end() { return ComponentAllocatorIterator<T>(*m_allocator.end(), *m_allocator.end()); }
 
+    /// \brief Returns the element in the templated allocator at the inputted index
+    T* at(size_t i) { return m_allocator.at(i); }
+
+    size_t maxSize() const { return m_allocator.maxSize(); }
+
     void awake();
     void handleInput(GLfloat elapsedGameTime);
     void update(GLfloat secondsPerUpdate);

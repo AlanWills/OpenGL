@@ -31,6 +31,7 @@ namespace OpenGL
     ADD_AND_INITIALIZE_CLASS_COMPONENT(Label, m_label);
 
     m_label.getTransform().setParent(&getTransform());
+    m_label.getTransform().setLocalMatrix(glm::mat4());
     m_label.getTransform().translate(glm::vec3(0, 0, 0.1f));
     m_label.findComponent<TextRenderer>()->setText("Test");
 

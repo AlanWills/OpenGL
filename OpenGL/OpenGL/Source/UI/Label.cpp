@@ -22,15 +22,16 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    // Labels don't need screen scaling on them for some reason
-    getTransform().setLocalMatrix(glm::mat4());
-
     ADD_AND_INITIALIZE_CLASS_COMPONENT(TextRenderer, m_textRenderer);
   }
 
   //------------------------------------------------------------------------------------------------
   void Label::render(GLfloat lag)
   {
+    // Unbind the sprite shader
+    Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
+    spriteShader->unbind();
+
     Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
 
     Handle<Shader> textShader = GameManager::getResourceManager()->getShader(internStringFast("text"));
@@ -43,5 +44,8 @@ namespace OpenGL
 
     // Finish with the text shader
     textShader->unbind();
+
+    // Rebind the sprite shader
+    spriteShader->bind();
   }
 }

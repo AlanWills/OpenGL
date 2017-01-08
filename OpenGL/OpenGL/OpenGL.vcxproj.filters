@@ -135,9 +135,6 @@
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Objects\UIObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Factories\ScreenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -319,9 +316,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Events\Event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Objects\UIObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Factories\ScreenFactory.h">

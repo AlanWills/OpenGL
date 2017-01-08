@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Objects/UIObject.h"
+#include "Objects/GameObject.h"
 #include "Physics/RectangleCollider.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Input/MouseInteractionHandler.h"
@@ -10,7 +10,7 @@
 namespace OpenGL
 {
 
-class Button : public UIObject
+class Button : public GameObject
 {
   enum ButtonState
   {
@@ -30,7 +30,7 @@ class Button : public UIObject
     void addOnLeftClickEvent(const GameObjectClickCallback& onLeftClick) { m_mouseInteraction.addOnLeftClickEvent(onLeftClick); }
 
   private:
-    typedef UIObject Inherited;
+    typedef GameObject Inherited;
 
     void onEnter(Handle<GameObject> sender);
     void onLeave(Handle<GameObject> sender);
