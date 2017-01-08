@@ -11,6 +11,8 @@ namespace OpenGL
     public:
       Transform(glm::mat4 localMatrix = glm::mat4());
 
+      glm::mat4 getWorldMatrix() const { return m_parent ? m_localMatrix * m_parent->getWorldMatrix() : m_localMatrix; }
+
       const glm::mat4& getLocalMatrix() const { return m_localMatrix; }
       void setLocalMatrix(const glm::mat4& localMatrix) { m_localMatrix = localMatrix; }
 
@@ -21,7 +23,10 @@ namespace OpenGL
 
       glm::vec3 getTranslation() const;
 
+      void setParent(Transform* parent) { m_parent = parent; }
+
     private:
+      Transform* m_parent;
       glm::mat4 m_localMatrix;
   };
 }

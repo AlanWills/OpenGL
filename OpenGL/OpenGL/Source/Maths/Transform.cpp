@@ -7,6 +7,7 @@ namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   Transform::Transform(glm::mat4 localMatrix) :
+    m_parent(nullptr),
     m_localMatrix(localMatrix)
   {
   }

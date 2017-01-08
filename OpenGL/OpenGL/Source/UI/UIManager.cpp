@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "UI/UIManager.h"
-#include "UI/Button.h"
 #include "Game/GameManager.h"
 
 
@@ -40,6 +39,7 @@ namespace OpenGL
 
     m_buttons.awake();
     m_images.awake();
+    m_labels.awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -49,6 +49,7 @@ namespace OpenGL
 
     m_buttons.handleInput(elapsedGameTime);
     m_images.handleInput(elapsedGameTime);
+    m_labels.handleInput(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -58,6 +59,7 @@ namespace OpenGL
 
     m_buttons.update(secondsPerUpdate);
     m_images.update(secondsPerUpdate);
+    m_labels.update(secondsPerUpdate);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -67,7 +69,7 @@ namespace OpenGL
 
     Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
 
-    // Render world space sprites
+    // Render screen space sprites
     {
       m_spriteShader->bind();
       m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
@@ -79,18 +81,10 @@ namespace OpenGL
       m_spriteShader->unbind();
     }
 
-    // Render world space text
-    //{
-    //  m_textShader->bind();
-    //  m_textShader->setMatrix4("projection",
-    //    glm::perspective(45.0f, GameManager::getScreenManager()->getViewportWidth() / GameManager::getScreenManager()->getViewportHeight(), 0.1f, 100.0f));
-    //  m_textShader->setMatrix4("view", camera->getViewMatrix());
-
-    //  TextRenderer::m_componentAllocator.render(lag);
-
-    //  // Finish with the text shader
-    //  m_textShader->unbind();
-    //}
+    // Render screen space text
+    {
+      m_labels.render(lag);
+    }
   }
 
   //------------------------------------------------------------------------------------------------
@@ -100,5 +94,6 @@ namespace OpenGL
 
     m_buttons.die();
     m_images.die();
+    m_labels.die();
   }
 }

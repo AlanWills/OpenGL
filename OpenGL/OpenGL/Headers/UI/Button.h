@@ -3,8 +3,8 @@
 #include "Objects/UIObject.h"
 #include "Physics/RectangleCollider.h"
 #include "Rendering/SpriteRenderer.h"
-#include "Rendering/TextRenderer.h"
 #include "Input/MouseInteractionHandler.h"
+#include "UI/Label.h"
 
 
 namespace OpenGL
@@ -12,8 +12,6 @@ namespace OpenGL
 
 class Button : public UIObject
 {
-  #define CLICK_TIMER 0.1f
-
   enum ButtonState
   {
     kIdle,
@@ -40,9 +38,10 @@ class Button : public UIObject
 
     DECLARE_CLASS_COMPONENT(RectangleCollider, m_collider)
     DECLARE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer)
-    DECLARE_CLASS_COMPONENT(TextRenderer, m_textRenderer)
     DECLARE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction)
+    DECLARE_CLASS_COMPONENT(Label, m_label);
 
+    static const float s_maxTime;
     float m_clickTimer;
     ButtonState m_state;
 };

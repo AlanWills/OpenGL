@@ -48,6 +48,7 @@
     <ClCompile Include="Source\Scripts\ScriptManager.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\Image.cpp" />
+    <ClCompile Include="Source\UI\Label.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\Viewport\Camera.cpp" />
     <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />
@@ -115,6 +116,7 @@
     <ClInclude Include="Headers\Scripts\ScriptManager.h" />
     <ClInclude Include="Headers\UI\Button.h" />
     <ClInclude Include="Headers\UI\Image.h" />
+    <ClInclude Include="Headers\UI\Label.h" />
     <ClInclude Include="Headers\UI\UIManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />

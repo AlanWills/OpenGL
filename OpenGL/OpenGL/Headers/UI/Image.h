@@ -9,9 +9,10 @@ namespace OpenGL
 
 class Image : public UIObject
 {
-  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, Image, 10, UIManager);
-
   public:
+    Image();
+    virtual ~Image();
+
     void initialize(Handle<Component> allocHandle) override;
 
     void setImage(const std::string& image) { m_spriteRenderer.setTexture(image); }

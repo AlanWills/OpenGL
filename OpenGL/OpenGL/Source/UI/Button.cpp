@@ -6,6 +6,8 @@
 
 namespace OpenGL
 {
+  const float Button::s_maxTime = 10;
+
   //------------------------------------------------------------------------------------------------
   Button::Button() :
     m_clickTimer(0),
@@ -25,8 +27,12 @@ namespace OpenGL
 
     ADD_AND_INITIALIZE_CLASS_COMPONENT(RectangleCollider, m_collider);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer);
-    ADD_AND_INITIALIZE_CLASS_COMPONENT(TextRenderer, m_textRenderer);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction);
+    ADD_AND_INITIALIZE_CLASS_COMPONENT(Label, m_label);
+
+    m_label.getTransform().setParent(&getTransform());
+    m_label.getTransform().translate(glm::vec3(0, 0, 0.1f));
+    m_label.findComponent<TextRenderer>()->setText("Test");
 
     m_spriteRenderer.setTexture("ButtonDefault");
 
@@ -44,7 +50,7 @@ namespace OpenGL
 
     m_clickTimer += secondsPerUpdate;
     
-    if (m_state == kClicked && m_clickTimer > CLICK_TIMER)
+    if (m_state == kClicked && m_clickTimer > s_maxTime)
     {
       if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
       {

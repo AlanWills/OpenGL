@@ -30,6 +30,9 @@ class ScreenManager : public Component
     ScreenFactory* getScreenFactory() const;
     void setScreenFactory(ScreenFactory* screenFactory);
 
+    /// \brief Get the current active screen
+    Handle<Screen> getCurrentScreen() const { return m_activeScreen; }
+
     /// \brief Shorthand for obtaining the viewport width
     inline float getViewportWidth() { return getViewport()->getWidth(); }
 

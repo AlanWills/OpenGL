@@ -10,7 +10,8 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   ScreenManager::ScreenManager() :
     m_viewport(nullptr),
-    m_screenFactory(nullptr)
+    m_screenFactory(nullptr),
+    m_activeScreen()
   {
   }
 

@@ -2,15 +2,6 @@
 
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
-#include "Scripts/ScriptManager.h"
-
-#include "Rendering/SpriteRenderer.h"
-#include "Rendering/TextRenderer.h"
-
-#include "Physics/RectangleCollider.h"
-
-#include "Input/KeyboardMovementScript.h"
-#include "Input/MouseInteractionHandler.h"
 
 
 namespace OpenGL

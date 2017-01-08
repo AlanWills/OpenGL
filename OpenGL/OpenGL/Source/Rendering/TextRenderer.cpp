@@ -62,14 +62,22 @@ namespace OpenGL
 
     if (m_font.get() && !m_text.empty())
     {
+      glCheckError();
       Handle<Shader> textShader = GameManager::getResourceManager()->getShader(internStringFast("text"));
       textShader->setVector4f("textColour", m_colour);
 
       glActiveTexture(GL_TEXTURE0);
       glBindVertexArray(m_vao);
 
+      Handle<GameObject> parent = getParent();
+      ASSERT(parent.get());
+
+      glm::mat4 modelMatrix;
+      modelMatrix[3] = getParent()->getTransform().getWorldMatrix()[3];
+      textShader->setMatrix4("model", modelMatrix);
+
       GLfloat x = 0;
-      GLfloat y = 0;    // Don't think this is correct, or the measureString() function
+      GLfloat y = 0;
 
       for (char letter : m_text)
       {
