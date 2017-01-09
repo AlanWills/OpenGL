@@ -29,7 +29,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   bool RectangleCollider::intersectsRay(const Ray& ray) const
   {
-    if (!m_transform)
+    if (!m_transform.get())
     {
       ASSERT_FAIL();
       return false;
@@ -50,7 +50,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   bool RectangleCollider::intersectsPoint(const glm::vec2& point) const
   {
-    if (!m_transform)
+    if (!m_transform.get())
     {
       ASSERT_FAIL();
       return false;

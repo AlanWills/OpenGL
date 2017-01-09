@@ -32,22 +32,6 @@ namespace OpenGL
     ASSERT(m_textShader.get());
 
     m_screenRoot.setLocalMatrix(glm::scale(glm::mat4(), glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1)));
-
-    // Make sure all elements are parented to the root - is there are a way to tidy this up
-    for (size_t i = 0; i < m_buttons.maxSize(); ++i)
-    {
-      m_buttons.at(i)->getTransform().setParent(&m_screenRoot);
-    }
-
-    for (size_t i = 0; i < m_images.maxSize(); ++i)
-    {
-      m_images.at(i)->getTransform().setParent(&m_screenRoot);
-    }
-
-    for (size_t i = 0; i < m_labels.maxSize(); ++i)
-    {
-      m_labels.at(i)->getTransform().setParent(&m_screenRoot);
-    }
   }
 
   //------------------------------------------------------------------------------------------------

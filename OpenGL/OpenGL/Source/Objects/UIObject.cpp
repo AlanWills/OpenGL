@@ -1,27 +1,26 @@
 #include "stdafx.h"
 
-#include "Physics/Collider.h"
-#include "Objects/GameObject.h"
+#include "Objects/UIObject.h"
+#include "Game/GameManager.h"
 
 
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Collider::Collider()
+  UIObject::UIObject()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  Collider::~Collider()
+  UIObject::~UIObject()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  void Collider::awake()
+  void UIObject::initialize(Handle<Component> allocHandle)
   {
-    Inherited::awake();
+    Inherited::initialize(allocHandle);
 
-    ASSERT(getParent().get());
-    m_transform = getParent()->getTransform();
+    getTransform()->setParent(GameManager::getScreenManager()->getCurrentScreen()->getUIManager().getSceneRoot());
   }
 }

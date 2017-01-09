@@ -10,7 +10,7 @@
 namespace OpenGL
 {
 
-class Button : public GameObject
+class Button : public UIObject
 {
   enum ButtonState
   {
@@ -30,7 +30,7 @@ class Button : public GameObject
     void addOnLeftClickEvent(const GameObjectClickCallback& onLeftClick) { m_mouseInteraction.addOnLeftClickEvent(onLeftClick); }
 
   private:
-    typedef GameObject Inherited;
+    typedef UIObject Inherited;
 
     void onEnter(Handle<GameObject> sender);
     void onLeave(Handle<GameObject> sender);

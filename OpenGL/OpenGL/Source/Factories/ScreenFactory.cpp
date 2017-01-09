@@ -11,13 +11,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::createStartupLogoScreen() const
   {
-    if (!MenuScreen::canAllocate())
-    {
-      ASSERT_FAIL();
-      return Handle<Screen>();
-    }
-
-    Handle<MenuScreen> screen = MenuScreen::allocateAndInitialize();
+    Handle<MenuScreen> screen = allocateScreenAndTransition<MenuScreen>();
 
     if (!screen->canAllocateGameObject())
     {
@@ -36,16 +30,10 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Screen> ScreenFactory::createMainMenuScreen()
+  Handle<Screen> ScreenFactory::createMainMenuScreen() const
   {
-    if (!MenuScreen::canAllocate())
-    {
-      ASSERT_FAIL();
-      return Handle<Screen>();
-    }
+    Handle<MenuScreen> screen = allocateScreenAndTransition<MenuScreen>();
 
-    Handle<MenuScreen> screen = MenuScreen::allocateAndInitialize();
-    
     if (!screen->getUIManager().canAllocateButton())
     {
       ASSERT_FAIL();
@@ -54,7 +42,7 @@ namespace OpenGL
 
     Handle<Button> exitGameButton = screen->getUIManager().allocateAndInitializeButton();
     exitGameButton->addOnLeftClickEvent(std::bind(&ScreenManager::exitCallback, GameManager::getScreenManager(), std::placeholders::_1));
-    exitGameButton->getTransform().translate(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
+    exitGameButton->getTransform()->translate(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
 
     return screen;
   }

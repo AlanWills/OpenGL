@@ -73,7 +73,7 @@ namespace OpenGL
       ASSERT(parent.get());
 
       glm::mat4 modelMatrix;
-      modelMatrix[3] = getParent()->getTransform().getWorldMatrix()[3];
+      modelMatrix[3] = getParent()->getTransform()->getWorldMatrix()[3];
       textShader->setMatrix4("model", modelMatrix);
 
       GLfloat x = 0;

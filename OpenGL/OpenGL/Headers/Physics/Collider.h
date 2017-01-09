@@ -22,7 +22,7 @@ namespace OpenGL
   protected:
     typedef Component Inherited;
 
-    Transform* m_transform;
+    Handle<Transform> m_transform;
 };
 
 }

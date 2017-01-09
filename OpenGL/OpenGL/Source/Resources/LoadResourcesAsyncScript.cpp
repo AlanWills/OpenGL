@@ -42,9 +42,7 @@ namespace OpenGL
 
     if (m_timeElapsed > MIN_WAIT_TIME)
     {
-      ScreenManager* screenManager = GameManager::getScreenManager();
-
-      screenManager->transitionToScreen(screenManager->getScreenFactory()->createMainMenuScreen());
+      GameManager::getScreenManager()->getScreenFactory()->createMainMenuScreen();
     }
   }
 

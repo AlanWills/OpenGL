@@ -26,7 +26,7 @@ class KeyboardMovementScript : public Script
   private:
     typedef Script Inherited;
 
-    Transform* m_transform;
+    Handle<Transform> m_transform;
 
     int m_moveLeftKey;
     int m_moveRightKey;

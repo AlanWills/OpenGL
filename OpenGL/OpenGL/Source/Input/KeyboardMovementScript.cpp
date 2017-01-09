@@ -30,7 +30,7 @@ namespace OpenGL
     Inherited::awake();
 
     ASSERT(getParent().get());
-    m_transform = &getParent()->getTransform();
+    m_transform = getParent()->getTransform();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -38,7 +38,7 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
-    if (m_transform)
+    if (m_transform.get())
     {
       // Zero the direction again
       m_directionVector = glm::vec3();
@@ -83,7 +83,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    if (m_transform && (m_directionVector != glm::vec3()))
+    if (m_transform.get() && (m_directionVector != glm::vec3()))
     {
       m_transform->translate(m_directionVector * m_panSpeed * secondsPerUpdate);
     }

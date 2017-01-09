@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Objects/GameObject.h"
+#include "Objects/UIObject.h"
 #include "Rendering/SpriteRenderer.h"
 
 
 namespace OpenGL
 {
 
-class Image : public GameObject
+class Image : public UIObject
 {
   public:
     Image();
@@ -21,7 +21,7 @@ class Image : public GameObject
     void setSize(const glm::vec2& size);
 
   private:
-    typedef GameObject Inherited;
+    typedef UIObject Inherited;
 
     DECLARE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer)
 };

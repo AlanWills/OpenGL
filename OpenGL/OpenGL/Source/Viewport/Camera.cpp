@@ -14,7 +14,6 @@ namespace OpenGL
     m_nearPlane(0.1f),
     m_farPlane(100)
   {
-    m_transform.setLocalMatrix(glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(), glm::vec3(0, 1, 0)));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -26,6 +25,8 @@ namespace OpenGL
   void Camera::initialize(Handle<Component> allocHandle)
   {
     Inherited::initialize(allocHandle);
+
+    getTransform()->setLocalMatrix(glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(), glm::vec3(0, 1, 0)));
 
     if (KeyboardMovementScript::canAllocate())
     {
@@ -42,7 +43,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Camera::pan(const glm::vec3& translation)
   {
-    m_transform.translate(translation);
+    getTransform()->translate(translation);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -61,14 +62,14 @@ namespace OpenGL
   const glm::mat4& Camera::getViewMatrix() const
   {
     // Maybe expand this later, but for now it's going to be a top down camera
-    return m_transform.getLocalMatrix();
+    return getTransform()->getLocalMatrix();
   }
 
   //------------------------------------------------------------------------------------------------
   Ray Camera::createRay(const glm::vec2& screenPosition) const
   {
     Ray ray;
-    ray.m_origin = m_transform.getTranslation();
+    ray.m_origin = getTransform()->getTranslation();
 
     float screenWidth = GameManager::getScreenManager()->getViewportWidth();
     float screenHeight = GameManager::getScreenManager()->getViewportHeight();

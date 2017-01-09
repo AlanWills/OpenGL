@@ -7,7 +7,7 @@ namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   GameObject::GameObject() :
-    m_transform(),
+    m_transform(nullptr),
     m_name(-1)
   {
   }
@@ -21,6 +21,9 @@ namespace OpenGL
   void GameObject::initialize(Handle<Component> allocHandle)
   {
     Inherited::initialize(allocHandle);
+
+    ASSERT(Transform::canAllocate());
+    m_transform = Transform::allocate();
 
     for (Handle<Component> component : m_unmanagedComponents)
     {
@@ -114,6 +117,8 @@ namespace OpenGL
     }
 
     m_managedComponents.clear();
+
+    Transform::deallocate(m_transform);
 
     // Have to clear unmanaged components when we deallocate - we could be iterating over them when die is called.
   }

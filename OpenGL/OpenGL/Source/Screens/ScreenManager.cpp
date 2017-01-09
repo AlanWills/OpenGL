@@ -44,7 +44,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    transitionToScreen(getScreenFactory()->createStartupLogoScreen());
+    getScreenFactory()->createStartupLogoScreen();
   }
 
   //------------------------------------------------------------------------------------------------

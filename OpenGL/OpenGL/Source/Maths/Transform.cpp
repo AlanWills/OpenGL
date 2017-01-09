@@ -5,6 +5,9 @@
 
 namespace OpenGL
 {
+  // Initialize static variables
+  Transform::Alloc Transform::m_allocator = Transform::Alloc();
+
   //------------------------------------------------------------------------------------------------
   Transform::Transform(glm::mat4 localMatrix) :
     m_parent(nullptr),

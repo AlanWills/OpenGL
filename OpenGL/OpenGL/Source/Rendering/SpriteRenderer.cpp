@@ -112,7 +112,7 @@ namespace OpenGL
       Handle<GameObject> parent = getParent();
       ASSERT(parent.get());
 
-      glm::mat4 modelMatrix = parent.get() ? parent->getTransform().getWorldMatrix() : glm::mat4();
+      glm::mat4 modelMatrix = parent.get() ? parent->getTransform()->getWorldMatrix() : glm::mat4();
       modelMatrix = glm::scale(modelMatrix, glm::vec3(m_scale, 1));
       spriteShader->setMatrix4("model", modelMatrix);
 

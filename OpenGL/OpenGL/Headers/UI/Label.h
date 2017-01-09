@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Objects/GameObject.h"
+#include "Objects/UIObject.h"
 #include "Rendering/TextRenderer.h"
 
 
 namespace OpenGL
 {
 
-class Label : public GameObject
+class Label : public UIObject
 {
   public:
     Label();
@@ -17,7 +17,7 @@ class Label : public GameObject
     void render(GLfloat lag) override;
 
   private:
-    typedef GameObject Inherited;
+    typedef UIObject Inherited;
 
     DECLARE_CLASS_COMPONENT(TextRenderer, m_textRenderer)
 };

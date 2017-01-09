@@ -29,8 +29,8 @@ class GameObject : public Component
     void render(GLfloat lag) override;
     void die() override;
 
-    Transform& getTransform() { return m_transform; }
-    const Transform& getTransform() const { return m_transform; }
+    Handle<Transform> getTransform() { return m_transform; }
+    const Handle<Transform> getTransform() const { return m_transform; }
 
     StringId getName() const { return m_name; }
 
@@ -41,11 +41,10 @@ class GameObject : public Component
     template <typename T>
     Handle<T> findComponent() const;
 
-  protected:
-    Transform m_transform;
-
   private:
     typedef Component Inherited;
+
+    Handle<Transform> m_transform;
 
     StringId m_name;
 

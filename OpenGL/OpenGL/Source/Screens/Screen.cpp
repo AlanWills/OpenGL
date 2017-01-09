@@ -83,6 +83,6 @@ namespace OpenGL
     Handle<Image> image = m_uiManager.allocateAndInitializeImage();
     image->setImage(backgroundImage);
     image->setSize(screenDimensions);
-    image->getTransform().translate(screenDimensions * 0.5f);
+    image->getTransform()->translate(screenDimensions * 0.5f);
   }
 }
