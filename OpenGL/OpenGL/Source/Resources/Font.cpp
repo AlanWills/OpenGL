@@ -101,10 +101,7 @@ namespace OpenGL
 
     for (char letter : text)
     {
-      const Character& character = getCharacter(letter);
-
-      x += character.m_bearing.x;
-      x += (character.m_advance >> 6);
+      x += (getCharacter(letter).m_advance >> 6);
     }
 
     return glm::vec2(x, m_height);

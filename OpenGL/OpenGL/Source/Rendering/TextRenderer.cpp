@@ -76,7 +76,9 @@ namespace OpenGL
       modelMatrix[3] = getParent()->getTransform()->getWorldMatrix()[3];
       textShader->setMatrix4("model", modelMatrix);
 
-      GLfloat x = 0;
+      const glm::vec2& size = m_font->measureString(m_text);
+
+      GLfloat x = -size.x * 0.5f;
       GLfloat y = 0;
 
       for (char letter : m_text)
