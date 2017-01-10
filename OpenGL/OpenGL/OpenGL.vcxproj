@@ -23,6 +23,7 @@
     <ClCompile Include="Source\Objects\UIObject.cpp" />
     <ClCompile Include="Source\Physics\Collider.cpp" />
     <ClCompile Include="Source\Physics\RectangleCollider.cpp" />
+    <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
@@ -49,6 +50,7 @@
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\Image.cpp" />
     <ClCompile Include="Source\UI\Label.cpp" />
+    <ClCompile Include="Source\UI\StackPanel.cpp" />
     <ClCompile Include="Source\UI\UIManager.cpp" />
     <ClCompile Include="Source\Viewport\Camera.cpp" />
     <ClCompile Include="Source\Viewport\OpenGLViewport.cpp" />
@@ -89,6 +91,7 @@
     <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Physics\Collider.h" />
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />
+    <ClInclude Include="Headers\Rendering\Renderer.h" />
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Input\KeyboardMovementScript.h" />
@@ -116,6 +119,7 @@
     <ClInclude Include="Headers\UI\Button.h" />
     <ClInclude Include="Headers\UI\Image.h" />
     <ClInclude Include="Headers\UI\Label.h" />
+    <ClInclude Include="Headers\UI\StackPanel.h" />
     <ClInclude Include="Headers\UI\UIManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
