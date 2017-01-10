@@ -55,7 +55,7 @@ namespace OpenGL
       1, 2, 3  // Second Triangle
     };
 
-    // Generate the vertex attribute array for the shader
+    // Generate the vertex attribute array for the renderer
     glGenVertexArrays(1, &m_vao);
     glGenBuffers(1, &m_vbo);
     glGenBuffers(1, &m_ebo);

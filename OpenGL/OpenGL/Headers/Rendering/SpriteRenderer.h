@@ -1,6 +1,5 @@
 #pragma once
 
-#include "OpenGL/GLHeaders.h"
 #include "Resources/Texture2D.h"
 #include "Resources/Shader.h"
 #include "StringInterning/StringId.h"

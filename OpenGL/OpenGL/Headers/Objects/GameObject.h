@@ -36,7 +36,7 @@ class GameObject : public Component
 
     /// \brief Inserts the inputted component into the components associated with this game object
     template <ManagementType MType, typename T>
-    Handle<T> addComponent(Handle<T> component);
+    virtual Handle<T> addComponent(Handle<T> component);
 
     template <typename T>
     Handle<T> findComponent() const;

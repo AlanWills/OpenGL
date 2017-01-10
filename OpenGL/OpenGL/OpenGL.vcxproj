@@ -59,7 +59,6 @@
     <ClCompile Include="Source\Time\Clock.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\..\..\..\..\Windows\Fonts" />
     <None Include="Assets\Shaders\Fragment\sprite.frag" />
     <None Include="Assets\Shaders\Fragment\text.frag" />
     <None Include="Assets\Shaders\Vertex\sprite.vs" />
