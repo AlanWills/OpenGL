@@ -31,9 +31,24 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  glm::vec3 Transform::getTranslation() const
+  void Transform::setLocalTranslation(const glm::vec3& translation)
+  {
+    m_localMatrix[3].x = translation.x;
+    m_localMatrix[3].y = translation.y;
+    m_localMatrix[3].z = translation.z;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec3 Transform::getLocalTranslation() const
   {
     const glm::vec4& translation = m_localMatrix[3];
+    return glm::vec3(translation.x, translation.y, translation.z);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec3 Transform::getWorldTranslation() const
+  {
+    const glm::vec4& translation = getWorldMatrix()[3];
     return glm::vec3(translation.x, translation.y, translation.z);
   }
 }

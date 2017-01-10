@@ -39,7 +39,7 @@ namespace OpenGL
     // For now we are assuming all textures are perpendicular to z
     // We also do not handle rotation at the moment (should be ok - just rotate the dims vector
     // Why is the y like this, bleurgh
-    glm::vec3 translation = m_transform->getTranslation();
+    glm::vec3 translation = m_transform->getWorldTranslation();
 
     float t = (translation.z - ray.m_origin.z) / ray.m_direction.z;
     glm::vec2 intersectPoint(ray.m_origin.x + t * ray.m_direction.x, ray.m_origin.y + t * ray.m_direction.y);
@@ -56,7 +56,7 @@ namespace OpenGL
       return false;
     }
 
-    glm::vec3 translation = m_transform->getTranslation();
+    glm::vec3 translation = m_transform->getWorldTranslation();
     glm::vec2 halfDims = m_dimensions * 0.5f;
 
     return ((translation.x - halfDims.x) <= point.x) &&

@@ -41,6 +41,9 @@ class GameObject : public Component
     template <typename T>
     Handle<T> findComponent() const;
 
+    template <typename T>
+    bool hasComponent() const;
+
   private:
     typedef Component Inherited;
 
@@ -109,6 +112,37 @@ Handle<T> GameObject::findComponent() const
 
   ASSERT_FAIL();
   return Handle<T>(nullptr);
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T>
+bool GameObject::hasComponent() const
+{
+  for (const Handle<Component>& handle : m_managedComponents)
+  {
+    if (handle.is<T>())
+    {
+      return true;
+    }
+  }
+
+  for (const Handle<Component>& handle : m_unmanagedComponents)
+  {
+    if (handle.is<T>())
+    {
+      return true;
+    }
+  }
+
+  for (const Handle<Component>& handle : m_unmanagedComponentsToAdd)
+  {
+    if (handle.is<T>())
+    {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 }

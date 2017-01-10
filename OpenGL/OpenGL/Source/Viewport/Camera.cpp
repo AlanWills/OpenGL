@@ -69,7 +69,7 @@ namespace OpenGL
   Ray Camera::createRay(const glm::vec2& screenPosition) const
   {
     Ray ray;
-    ray.m_origin = getTransform()->getTranslation();
+    ray.m_origin = getTransform()->getLocalTranslation();
 
     float screenWidth = GameManager::getScreenManager()->getViewportWidth();
     float screenHeight = GameManager::getScreenManager()->getViewportHeight();

@@ -15,15 +15,29 @@ class StackPanel : public UIObject
     StackPanel();
     virtual ~StackPanel();
 
+    enum Orientation
+    {
+      kHorizontal,
+      kVertical,
+    };
+
+    void die() override;
+
     void addChild(Handle<UIObject> uiObject);
+
+    void setOrientation(Orientation orientation) { m_orientation = orientation; }
 
   private:
     typedef UIObject Inherited;
 
-    void calculateLayout();
+    /// \brief Position all the added children to create a symmetric distribution
+    void layout();
 
     // All of the UIObjects that have been added to this stack panel
     std::vector<Handle<UIObject>> m_children;
+
+    /// \brief The direction around which we will stack the children
+    Orientation m_orientation;
 };
 
 }

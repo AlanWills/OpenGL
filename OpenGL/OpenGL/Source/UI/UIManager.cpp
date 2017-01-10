@@ -39,6 +39,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
+    m_stackPanels.awake();
     m_buttons.awake();
     m_images.awake();
     m_labels.awake();
@@ -49,6 +50,7 @@ namespace OpenGL
   {
     Inherited::handleInput(elapsedGameTime);
 
+    m_stackPanels.handleInput(elapsedGameTime);
     m_buttons.handleInput(elapsedGameTime);
     m_images.handleInput(elapsedGameTime);
     m_labels.handleInput(elapsedGameTime);
@@ -59,6 +61,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
+    m_stackPanels.update(secondsPerUpdate);
     m_buttons.update(secondsPerUpdate);
     m_images.update(secondsPerUpdate);
     m_labels.update(secondsPerUpdate);
@@ -77,6 +80,7 @@ namespace OpenGL
       m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
       m_spriteShader->setMatrix4("view", glm::mat4());
 
+      m_stackPanels.render(lag);
       m_buttons.render(lag);
       m_images.render(lag);
 
@@ -94,6 +98,7 @@ namespace OpenGL
   {
     Inherited::die();
 
+    m_stackPanels.die();
     m_buttons.die();
     m_images.die();
     m_labels.die();

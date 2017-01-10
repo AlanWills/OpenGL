@@ -52,12 +52,6 @@ private: \
   public: \
     bool canAllocate##ComponentType() const { return MemberName##.canAllocate(); } \
     \
-    Handle<ComponentType> allocate##ComponentType() \
-    { \
-      ASSERT(canAllocate##ComponentType##()); \
-      return MemberName##.allocate(); \
-    } \
-    \
     Handle<ComponentType> allocateAndInitialize##ComponentType() \
     { \
       ASSERT(canAllocate##ComponentType##()); \

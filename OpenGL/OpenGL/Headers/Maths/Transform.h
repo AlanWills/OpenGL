@@ -31,6 +31,7 @@ class Transform
     Transform(glm::mat4 localMatrix = glm::mat4());
 
     glm::mat4 getWorldMatrix() const { return m_parent.get() ? m_localMatrix * m_parent->getWorldMatrix() : m_localMatrix; }
+    glm::vec3 getWorldTranslation() const;
 
     const glm::mat4& getLocalMatrix() const { return m_localMatrix; }
     void setLocalMatrix(const glm::mat4& localMatrix) { m_localMatrix = localMatrix; }
@@ -40,7 +41,8 @@ class Transform
     void translate(const glm::vec2& translation);
     void translate(const glm::vec3& translation);
 
-    glm::vec3 getTranslation() const;
+    void setLocalTranslation(const glm::vec3& translation);
+    glm::vec3 getLocalTranslation() const;
 
     void setParent(Handle<Transform> parent) { m_parent = parent; }
 
