@@ -29,6 +29,8 @@ class Button : public UIObject
     /// \brief Subscribes a callback to the onLeftClick event in the MouseInteractionHandler component on this object
     void addOnLeftClickEvent(const GameObjectClickCallback& onLeftClick) { m_mouseInteraction.addOnLeftClickEvent(onLeftClick); }
 
+    void setText(const std::string& labelText) { m_label.findComponent<TextRenderer>()->setText(labelText); }
+
   private:
     typedef UIObject Inherited;
 

@@ -43,6 +43,7 @@ namespace OpenGL
     Handle<Button> exitGameButton = screen->getUIManager().allocateAndInitializeButton();
     exitGameButton->addOnLeftClickEvent(std::bind(&ScreenManager::exitCallback, GameManager::getScreenManager(), std::placeholders::_1));
     exitGameButton->getTransform()->translate(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
+    exitGameButton->setText("Exit");
 
     return screen;
   }

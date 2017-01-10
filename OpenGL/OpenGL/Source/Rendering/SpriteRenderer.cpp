@@ -10,11 +10,7 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   SpriteRenderer::SpriteRenderer() :
-    m_texture(nullptr),
-    m_colour(1, 1, 1, 1),
-    m_scale(1, 1),
-    m_vbo(0),
-    m_vao(0)
+    m_texture(nullptr)
   {
   }
 
@@ -31,6 +27,9 @@ namespace OpenGL
       ASSERT_FAIL();
       return;
     }
+
+    // Only allocate buffers & arrays if we have a texture, otherwise we will just leak resources
+    Inherited::setupGLBuffers();
 
     float screenWidth = GameManager::getScreenManager()->getViewportWidth();
     float screenHeight = GameManager::getScreenManager()->getViewportHeight();
@@ -55,9 +54,7 @@ namespace OpenGL
       1, 2, 3  // Second Triangle
     };
 
-    // Generate the vertex attribute array for the renderer
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
+    // Generate the edge buffer for the renderer
     glGenBuffers(1, &m_ebo);
 
     glBindVertexArray(m_vao);
@@ -84,16 +81,13 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void SpriteRenderer::cleanupGLBuffers()
   {
-    if (!m_texture.get() ||
-         m_vao == 0 ||
-         m_vbo == 0)
+    Inherited::cleanupGLBuffers();
+
+    if (!m_texture.get())
     {
       ASSERT_FAIL();
       return;
     }
-
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -132,11 +126,25 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void SpriteRenderer::die()
+  glm::vec2 SpriteRenderer::getDimensions() const
   {
-    Inherited::die();
+    if (!m_texture.get())
+    {
+      return glm::vec2();
+    }
 
-    cleanupGLBuffers();
+    return glm::vec2(m_texture->getWidth() * m_scale.x, m_texture->getHeight() * m_scale.y);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec2 SpriteRenderer::getTextureDimensions() const
+  {
+    if (!m_texture.get())
+    {
+      return glm::vec2();
+    }
+
+    return glm::vec2(m_texture->getWidth(), m_texture->getHeight());
   }
 
   //------------------------------------------------------------------------------------------------

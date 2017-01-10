@@ -1,10 +1,7 @@
 #pragma once
 
 #include "Resources/Texture2D.h"
-#include "Resources/Shader.h"
-#include "StringInterning/StringId.h"
-#include "Objects/Component.h"
-#include "Maths/Transform.h"
+#include "Renderer.h"
 
 #include <string>
 
@@ -12,41 +9,35 @@
 namespace OpenGL
 {
 // A class which is responsible for rendering a texture using the sprite shader
-class SpriteRenderer : public Component
+class SpriteRenderer : public Renderer
 {
   DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, SpriteRenderer, 10, RenderManager);
 
   public:
     void render(GLfloat lag) override;
-    void die() override;
 
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
     void setTexture(const std::string& textureString);
 
-    const glm::vec4& getColour() const { return m_colour; }
-    void setColour(const glm::vec4& colour) { m_colour = colour; }
+    /// \brief Returns the scaled dimensions of the texture being rendered
+    glm::vec2 getDimensions() const override;
 
-    glm::vec2 getTextureDimensions() const { return glm::vec2(m_texture->getWidth(), m_texture->getHeight()); }
+    /// \brief Returns the width and height of the texture being rendered
+    glm::vec2 getTextureDimensions() const;
 
-    void setScale(const glm::vec2& scale) { m_scale = scale; }
-
-  private:
-    typedef Component Inherited;
-
+  protected:
     /// \brief Uses the set texture to allocate buffers on the graphics card
-    void setupGLBuffers();
+    void setupGLBuffers() override;
 
     /// \brief Deallocate all the buffered data on the graphics card
-    void cleanupGLBuffers();
+    void cleanupGLBuffers() override;
 
     Handle<Texture2D> m_texture;
 
-    glm::vec4 m_colour;
-    glm::vec2 m_scale;
+  private:
+    typedef Renderer Inherited;
 
-    GLuint m_vbo;
     GLuint m_ebo;
-    GLuint m_vao;
 };
 
 }

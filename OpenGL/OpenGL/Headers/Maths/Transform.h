@@ -19,7 +19,14 @@ class Transform
       return m_allocator.allocate();
     }
 
-    static void deallocate(Handle<Transform> item) { m_allocator.deallocate(item.get()); }
+    static void deallocate(Handle<Transform> item) 
+    { 
+      // Reset the transform when we deallocate
+      item->setLocalMatrix(glm::mat4());
+      item->setParent(Handle<Transform>());
+
+      m_allocator.deallocate(item.get()); 
+    }
 
     Transform(glm::mat4 localMatrix = glm::mat4());
 

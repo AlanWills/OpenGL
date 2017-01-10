@@ -16,6 +16,12 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void StackPanel::addChild(Handle<UIObject> uiObject)
+  {
+    m_children.push_back(uiObject);
+  }
+
+  //------------------------------------------------------------------------------------------------
   void StackPanel::calculateLayout()
   {
     // Iterate over all items and arrange them accordingly

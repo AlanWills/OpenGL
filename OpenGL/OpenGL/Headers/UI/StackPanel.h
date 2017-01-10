@@ -15,8 +15,7 @@ class StackPanel : public UIObject
     StackPanel();
     virtual ~StackPanel();
 
-    template <ManagementType MType, typename T>
-    void addComponent(Handle<T> component) override;
+    void addChild(Handle<UIObject> uiObject);
 
   private:
     typedef UIObject Inherited;
@@ -26,17 +25,5 @@ class StackPanel : public UIObject
     // All of the UIObjects that have been added to this stack panel
     std::vector<Handle<UIObject>> m_children;
 };
-
-//------------------------------------------------------------------------------------------------
-template <ManagementType MType, typename T>
-void StackPanel::addComponent(Handle<T> component)
-{
-  Inherited::addComponent(component);
-
-  if (component.is<UIObject>())
-  {
-    m_children.push_back(component.as<UIObject>());
-  }
-}
 
 }

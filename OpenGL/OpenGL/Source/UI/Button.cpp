@@ -36,7 +36,7 @@ namespace OpenGL
 
     m_spriteRenderer.setTexture("ButtonDefault");
 
-    m_collider.setDimensions(m_spriteRenderer.getTextureDimensions());
+    m_collider.setDimensions(m_spriteRenderer.getDimensions());
 
     m_mouseInteraction.addOnEnterEvent(std::bind(&Button::onEnter, this, std::placeholders::_1));
     m_mouseInteraction.addOnLeaveEvent(std::bind(&Button::onLeave, this, std::placeholders::_1));

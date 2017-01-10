@@ -12,19 +12,13 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   TextRenderer::TextRenderer() :
     m_font(nullptr),
-    m_text(""),
-    m_colour(1, 1, 1, 1),
-    m_scale(1),
-    m_vbo(0),
-    m_vao(0)
+    m_text("")
   {
   }
 
   //------------------------------------------------------------------------------------------------
   TextRenderer::~TextRenderer()
   {
-    glDeleteVertexArrays(1, &m_vao);
-    glDeleteBuffers(1, &m_vbo);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -32,27 +26,7 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    glGenVertexArrays(1, &m_vao);
-    glGenBuffers(1, &m_vbo);
-
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 5, NULL, GL_DYNAMIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-
-    if (!m_font.get())
-    {
-      // If we have not created a font, set a default one
-      setFont("Arial");
-    }
+    setupGLBuffers();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -85,11 +59,11 @@ namespace OpenGL
       {
         const Character& character = m_font->getCharacter(letter);
 
-        GLfloat xpos = x + character.m_bearing.x * m_scale;
-        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y) * m_scale;
+        GLfloat xpos = x + character.m_bearing.x * m_scale.x;
+        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y) * m_scale.y;
 
-        GLfloat w = character.m_size.x * m_scale;
-        GLfloat h = character.m_size.y * m_scale;
+        GLfloat w = character.m_size.x * m_scale.x;
+        GLfloat h = character.m_size.y * m_scale.y;
 
         // Update VBO for each character
         GLfloat vertices[30] = {
@@ -114,11 +88,36 @@ namespace OpenGL
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (character.m_advance >> 6) * m_scale; // Bitshift by 6 to get value in pixels (2^6 = 64)
+        x += (character.m_advance >> 6) * m_scale.x; // Bitshift by 6 to get value in pixels (2^6 = 64)
       }
 
       glBindVertexArray(0);
       glBindTexture(GL_TEXTURE_2D, 0);
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void TextRenderer::setupGLBuffers()
+  {
+    Inherited::setupGLBuffers();
+
+    glBindVertexArray(m_vao);
+    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 5, NULL, GL_DYNAMIC_DRAW);
+
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
+
+    if (!m_font.get())
+    {
+      // If we have not created a font, set a default one
+      setFont("Arial");
     }
   }
 
@@ -129,5 +128,16 @@ namespace OpenGL
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
     m_font = GameManager::getResourceManager()->getFont(internStringFast(fontString));
     ASSERT(m_font.get());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec2 TextRenderer::getDimensions() const
+  {
+    if (!m_font.get())
+    {
+      return glm::vec2();
+    }
+
+    return m_font->measureString(m_text);
   }
 }

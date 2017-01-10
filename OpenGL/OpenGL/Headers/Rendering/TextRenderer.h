@@ -1,19 +1,17 @@
 #pragma once
 
-#include "StringInterning/StringId.h"
 #include "Resources/Font.h"
-#include "Objects/Component.h"
+#include "Renderer.h"
 
 
 namespace OpenGL
 {
 // A class which is responsible for rendering text in a specific font
-class TextRenderer : public Component
+class TextRenderer : public Renderer
 {
   DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, TextRenderer, 10, RenderManager);
 
   public:
-    /// \brief Set up the gl buffers
     void initialize(Handle<Component> allocHandle) override;
     void render(GLfloat lag) override;
 
@@ -23,22 +21,16 @@ class TextRenderer : public Component
     /// \brief Sets the text which will be rendered
     void setText(const std::string& text) { m_text = text; }
 
-    const glm::vec4& getColour() const { return m_colour; }
-    void setColour(const glm::vec4& colour) { m_colour = colour; }
+    glm::vec2 getDimensions() const override;
 
-    void setScale(GLfloat scale) { m_scale = scale; }
+  protected:
+    void setupGLBuffers() override;
 
   private:
-    typedef Component Inherited;
+    typedef Renderer Inherited;
 
     Handle<Font> m_font;
     std::string m_text;
-
-    glm::vec4 m_colour;
-    GLfloat m_scale;
-
-    GLuint m_vbo;
-    GLuint m_vao;
 };
 
 }

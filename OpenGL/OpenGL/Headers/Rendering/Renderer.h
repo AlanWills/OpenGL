@@ -18,7 +18,8 @@ class Renderer : public Component
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
-    virtual glm::vec2 getTextureDimensions() const = 0;
+    /// \brief Returns the to scale dimensions of the object being rendered
+    virtual glm::vec2 getDimensions() const = 0;
   
     void setScale(const glm::vec2& scale) { m_scale = scale; }
 
