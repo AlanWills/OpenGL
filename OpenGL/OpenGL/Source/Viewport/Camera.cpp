@@ -3,7 +3,6 @@
 #include "Viewport/Camera.h"
 #include "Game/GameManager.h"
 #include "Scripts/ScriptManager.h"
-#include "Input/KeyboardMovementScript.h"
 
 
 namespace OpenGL
@@ -27,17 +26,6 @@ namespace OpenGL
     Inherited::initialize(allocHandle);
 
     getTransform()->setLocalMatrix(glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(), glm::vec3(0, 1, 0)));
-
-    if (KeyboardMovementScript::canAllocate())
-    {
-      Handle<KeyboardMovementScript> keyboardMovementScript = addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
-      keyboardMovementScript->setMoveUpKey(GLFW_KEY_S);
-      keyboardMovementScript->setMoveDownKey(GLFW_KEY_W);
-    }
-    else
-    {
-      ASSERT_FAIL();
-    }
   }
 
   //------------------------------------------------------------------------------------------------

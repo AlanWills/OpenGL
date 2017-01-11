@@ -39,6 +39,7 @@ struct Handle
     }
 
     bool operator==(const Handle<T>& handle) const { return m_ptr == handle.m_ptr; }
+    bool operator!=(const Handle<T>& handle) const { return !(m_ptr == handle.m_ptr); }
 
     T* get() const { return m_ptr ? *m_ptr : nullptr; }
 

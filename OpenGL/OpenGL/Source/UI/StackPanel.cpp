@@ -8,7 +8,8 @@ namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   StackPanel::StackPanel() :
-    m_orientation(kVertical)
+    m_orientation(kVertical),
+    m_padding(5)
   {
   }
 
@@ -41,6 +42,8 @@ namespace OpenGL
       totalSize += child->findComponent<Renderer>()->getDimensions();
     }
 
+    totalSize += (float)(m_children.size() - 1) * glm::vec2(m_padding);
+
     if (m_orientation == kHorizontal)
     {
       // Stack all the children horizontally with the first added on the left
@@ -51,9 +54,19 @@ namespace OpenGL
         Handle<Renderer> renderer = child->findComponent<Renderer>();
         float halfWidth = renderer->getDimensions().x * 0.5f;
 
+        if (child != m_children.front())
+        {
+          currentLeft += m_padding * 0.5f;
+        }
+
         child->getTransform()->setLocalTranslation(glm::vec3(currentLeft + halfWidth, 0, 0));
 
         currentLeft += 2 * halfWidth;
+
+        if (child != m_children.back())
+        {
+          currentLeft += m_padding * 0.5f;
+        }
       }
     }
     else
@@ -66,9 +79,19 @@ namespace OpenGL
         Handle<Renderer> renderer = child->findComponent<Renderer>();
         float halfHeight = renderer->getDimensions().y * 0.5f;
 
+        if (child != m_children.front())
+        {
+          currentTop -= m_padding * 0.5f;
+        }
+
         child->getTransform()->setLocalTranslation(glm::vec3(0, currentTop - halfHeight, 0));
 
         currentTop -= 2 * halfHeight;
+
+        if (child != m_children.back())
+        {
+          currentTop -= m_padding * 0.5f;
+        }
       }
     }
   }

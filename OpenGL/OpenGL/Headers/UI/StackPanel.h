@@ -26,6 +26,7 @@ class StackPanel : public UIObject
     void addChild(Handle<UIObject> uiObject);
 
     void setOrientation(Orientation orientation) { m_orientation = orientation; }
+    void setPadding(float padding) { m_padding = padding; }
 
   private:
     typedef UIObject Inherited;
@@ -38,6 +39,9 @@ class StackPanel : public UIObject
 
     /// \brief The direction around which we will stack the children
     Orientation m_orientation;
+
+    /// \brief The padding we apply between successive elements
+    float m_padding;
 };
 
 }
