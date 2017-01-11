@@ -21,7 +21,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void StackPanel::addChild(Handle<UIObject> uiObject)
   {
-    // We use the renderers to calculate the bounds of an object for layout
+    // We use the objects renderer to calculate the bounds of an object for layout, so any object added to this must have one
     ASSERT(uiObject->hasComponent<Renderer>());
 
     uiObject->getTransform()->setParent(getTransform());
