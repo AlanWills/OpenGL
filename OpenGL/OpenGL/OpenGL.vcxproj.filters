@@ -186,6 +186,24 @@
     <Image Include="Assets\Textures\Logo.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\Textures\GreenLaserRay.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ChainBlasterFrame0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ChainBlasterFrame2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ChainBlasterFrame1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\HellfireMissileTurret.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\HellfireMissile.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h">
@@ -362,5 +380,16 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\ButtonHover.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\Audio\ButtonPressedSound.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="Assets\Audio\GL016_Horror_of_Self_Full.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

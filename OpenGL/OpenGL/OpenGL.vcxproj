@@ -70,7 +70,13 @@
     <Image Include="Assets\Textures\ButtonDefault.png" />
     <Image Include="Assets\Textures\ButtonHighlighted.png" />
     <Image Include="Assets\Textures\ButtonPressed.png" />
+    <Image Include="Assets\Textures\ChainBlasterFrame0.png" />
+    <Image Include="Assets\Textures\ChainBlasterFrame1.png" />
+    <Image Include="Assets\Textures\ChainBlasterFrame2.png" />
     <Image Include="Assets\Textures\Fiirkan.png" />
+    <Image Include="Assets\Textures\GreenLaserRay.png" />
+    <Image Include="Assets\Textures\HellfireMissileTurret.png" />
+    <Image Include="Assets\Textures\HellfireMissile.png" />
     <Image Include="Assets\Textures\Logo.png" />
   </ItemGroup>
   <ItemGroup>
@@ -134,6 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\arial.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Audio\ButtonHover.wav" />
+    <Media Include="Assets\Audio\ButtonPressedSound.wav" />
+    <Media Include="Assets\Audio\GL016_Horror_of_Self_Full.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
