@@ -6,7 +6,7 @@
 
 namespace OpenGL
 {
-  const float Button::s_maxTime = 10;
+  const float Button::s_maxTime = 0.1f;
 
   //------------------------------------------------------------------------------------------------
   Button::Button() :
