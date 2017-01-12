@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "Game/GameManager.h"
+#include "OpenAL/al.h"
+#include "OpenAL/alc.h"
 
 
 namespace OpenGL
