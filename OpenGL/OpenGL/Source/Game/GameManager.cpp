@@ -1,8 +1,7 @@
 #include "stdafx.h"
 
 #include "Game/GameManager.h"
-#include "OpenAL/al.h"
-#include "OpenAL/alc.h"
+#include "alut/alut.h"
 
 
 namespace OpenGL
@@ -37,6 +36,44 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::run()
   {
+    ALboolean result = alutInit(nullptr, nullptr);
+    ASSERT(result == AL_TRUE);
+
+    /*ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
+    alListener3f(AL_POSITION, 0, 0, 1.0f);
+    alListener3f(AL_VELOCITY, 0, 0, 0);
+    alListenerfv(AL_ORIENTATION, listenerOri);*/
+
+    ALuint source;
+    alGenSources(1, &source);
+    alSourcef(source, AL_PITCH, 1);
+    alSourcef(source, AL_GAIN, 1);
+    alSource3f(source, AL_POSITION, 0, 0, 0);
+    alSource3f(source, AL_VELOCITY, 0, 0, 0);
+    alSourcei(source, AL_LOOPING, AL_FALSE);
+    
+    Path path(getResourceManager()->getResourceDirectoryPath());
+    path.combine("Audio");
+    path.combine("HorrorOfSelf.wav");
+
+    ALuint buffer = alutCreateBufferFromFile((ALbyte*)path.asString().c_str());
+    alSourcei(source, AL_BUFFER, buffer);
+    alSourcePlay(source);
+
+    ALint source_state = 0;
+
+    alGetSourcei(source, AL_SOURCE_STATE, &source_state);
+    // check for errors
+    while (source_state == AL_PLAYING) {
+      alGetSourcei(source, AL_SOURCE_STATE, &source_state);
+      // check for errors
+    }
+
+    // cleanup context
+    alDeleteSources(1, &source);
+    alDeleteBuffers(1, &buffer);
+    alutExit();
+
     // DeltaTime variables
     GLfloat lag = 0.0f;
 

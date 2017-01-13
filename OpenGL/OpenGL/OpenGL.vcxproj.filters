@@ -397,7 +397,7 @@
     <Media Include="Assets\Audio\ButtonPressedSound.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Assets\Audio\GL016_Horror_of_Self_Full.wav">
+    <Media Include="Assets\Audio\HorrorOfSelf.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
