@@ -24,7 +24,7 @@ namespace OpenGL
   void AudioSource::initialize(Handle<Component> allocHandle)
   {
     Inherited::initialize(allocHandle);
-
+    
     alGenSources(1, &m_source);
     alSourcef(m_source, AL_PITCH, 1);
     alSourcef(m_source, AL_GAIN, 1);
@@ -45,6 +45,15 @@ namespace OpenGL
   void AudioSource::setAudio(const std::string& wavFileRelativePath)
   {
     m_audio = GameManager::getResourceManager()->loadAudio(wavFileRelativePath);
+    ASSERT(m_audio.get());
+
+    alSourcei(m_source, AL_BUFFER, m_audio->getBuffer());
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void AudioSource::setAudio(const Handle<Audio>& audio)
+  {
+    m_audio = audio;
     ASSERT(m_audio.get());
 
     alSourcei(m_source, AL_BUFFER, m_audio->getBuffer());

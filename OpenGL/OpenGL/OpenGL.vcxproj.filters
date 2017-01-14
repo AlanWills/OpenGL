@@ -412,10 +412,10 @@
     <Media Include="Assets\Audio\ButtonHover.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Assets\Audio\ButtonPressedSound.wav">
+    <Media Include="Assets\Audio\HorrorOfSelf.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Assets\Audio\HorrorOfSelf.wav">
+    <Media Include="Assets\Audio\ButtonPressed.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

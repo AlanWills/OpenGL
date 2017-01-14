@@ -42,11 +42,15 @@ class Button : public UIObject
     DECLARE_CLASS_COMPONENT(RectangleCollider, m_collider)
     DECLARE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer)
     DECLARE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction)
-    DECLARE_CLASS_COMPONENT(Label, m_label);
+    DECLARE_CLASS_COMPONENT(AudioSource, m_audio)
+    DECLARE_CLASS_COMPONENT(Label, m_label)
 
     Handle<Texture2D> m_defaultTexture;
     Handle<Texture2D> m_highlightedTexture;
     Handle<Texture2D> m_clickedTexture;
+
+    Handle<Audio> m_highlightedAudio;
+    Handle<Audio> m_clickedAudio;
 
     static const float s_maxTime;
     float m_clickTimer;

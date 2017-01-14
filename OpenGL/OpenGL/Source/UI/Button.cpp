@@ -14,7 +14,9 @@ namespace OpenGL
     m_state(kIdle),
     m_defaultTexture(nullptr),
     m_highlightedTexture(nullptr),
-    m_clickedTexture(nullptr)
+    m_clickedTexture(nullptr),
+    m_highlightedAudio(nullptr),
+    m_clickedAudio(nullptr)
   {
   }
 
@@ -31,6 +33,7 @@ namespace OpenGL
     ADD_AND_INITIALIZE_CLASS_COMPONENT(RectangleCollider, m_collider);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction);
+    ADD_AND_INITIALIZE_CLASS_COMPONENT(AudioSource, m_audio);
     ADD_AND_INITIALIZE_CLASS_COMPONENT(Label, m_label);
 
     // Anchor the label to this button and move it in front of it slightly
@@ -54,6 +57,12 @@ namespace OpenGL
     m_mouseInteraction.addOnEnterEvent(std::bind(&Button::onEnter, this, std::placeholders::_1));
     m_mouseInteraction.addOnLeaveEvent(std::bind(&Button::onLeave, this, std::placeholders::_1));
     m_mouseInteraction.addOnLeftClickEvent(std::bind(&Button::onLeftClick, this, std::placeholders::_1));
+
+    m_highlightedAudio = resourceManager->loadAudio("ButtonHover.wav");
+    ASSERT(m_highlightedAudio.get());
+
+    m_clickedAudio = resourceManager->loadAudio("ButtonPressed.wav");
+    ASSERT(m_clickedAudio.get());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -82,6 +91,9 @@ namespace OpenGL
   void Button::onEnter(Handle<GameObject> sender)
   {
     m_spriteRenderer.setTexture(m_highlightedTexture);
+    m_audio.setAudio(m_highlightedAudio);
+    m_audio.play();
+
     m_state = kHighlighted;
   }
 
@@ -97,6 +109,9 @@ namespace OpenGL
     if (m_state != kClicked)
     {
       m_spriteRenderer.setTexture(m_clickedTexture);
+      m_audio.setAudio(m_clickedAudio);
+      m_audio.play();
+
       m_state = kClicked;
       m_clickTimer = 0;
     }

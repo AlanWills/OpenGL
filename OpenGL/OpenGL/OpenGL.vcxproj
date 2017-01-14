@@ -152,7 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Audio\ButtonHover.wav" />
-    <Media Include="Assets\Audio\ButtonPressedSound.wav" />
+    <Media Include="Assets\Audio\ButtonPressed.wav" />
     <Media Include="Assets\Audio\HorrorOfSelf.wav" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

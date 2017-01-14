@@ -16,6 +16,7 @@ class AudioSource : public Component
     void die() override;
 
     void setAudio(const std::string& wavFileRelativePath);
+    void setAudio(const Handle<Audio>& audio);
 
     void play() const;
 
