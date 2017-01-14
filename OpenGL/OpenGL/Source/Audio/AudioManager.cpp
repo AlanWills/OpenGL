@@ -57,4 +57,12 @@ namespace OpenGL
 
     AudioSource::m_componentAllocator.render(lag);
   }
+
+  //------------------------------------------------------------------------------------------------
+  void AudioManager::die()
+  {
+    Inherited::die();
+
+    alutExit();
+  }
 }

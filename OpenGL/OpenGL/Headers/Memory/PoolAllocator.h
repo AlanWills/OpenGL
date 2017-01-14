@@ -86,7 +86,6 @@ void PoolAllocator<T, PoolSize>::deallocate(T* item)
   int index = (item - m_pool) / sizeof(T);
 
   ASSERT(index >= 0 && (index < PoolSize))
-  ASSERT(m_handles[index]);
 
   // If we have deallocated an element that is not on the end of the block of allocated elements, this pool needs defragmenting
   m_needsDefragmenting = m_needsDefragmenting || (index != m_head - 1);
@@ -97,8 +96,9 @@ void PoolAllocator<T, PoolSize>::deallocate(T* item)
 template <typename T, size_t PoolSize>
 void PoolAllocator<T, PoolSize>::deallocateAll()
 {
-  for (int i = 0; i < PoolSize; ++i)
+  for (int i = 0; i < m_head; ++i)
   {
+    // Nothing past the head will need deallocating
     deallocate(&m_pool[i]);
   }
 

@@ -138,6 +138,11 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::setScreenManager(ScreenManager* screenManager)
   {
+    if (m_screenManager.get())
+    {
+      m_screenManager->die();
+    }
+
     ASSERT(screenManager);
     m_screenManager.reset(screenManager);
   }
@@ -152,6 +157,11 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::setInputManager(InputManager* inputManager)
   {
+    if (m_inputManager.get())
+    {
+      m_inputManager->die();
+    }
+
     ASSERT(inputManager);
     m_inputManager.reset(inputManager);
   }
@@ -166,6 +176,11 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void GameManager::setAudioManager(AudioManager* audioManager)
   {
+    if (m_audioManager.get())
+    {
+      m_audioManager->die();
+    }
+
     ASSERT(audioManager);
     m_audioManager.reset(audioManager);
   }
@@ -188,6 +203,9 @@ namespace OpenGL
   void GameManager::exit()
   {
     glfwSetWindowShouldClose(getScreenManager()->getViewport()->getGLWindow(), GL_TRUE);
-    alutExit();
+
+    getScreenManager()->die();
+    getInputManager()->die();
+    getAudioManager()->die();
   }
 }
