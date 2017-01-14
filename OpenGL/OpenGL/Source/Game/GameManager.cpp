@@ -10,6 +10,7 @@ namespace OpenGL
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<ScreenManager> GameManager::m_screenManager(new ScreenManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
+  std::unique_ptr<AudioManager> GameManager::m_audioManager(new AudioManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
 
   //------------------------------------------------------------------------------------------------
@@ -29,51 +30,16 @@ namespace OpenGL
     // ScreenManager initialize MUST be called first - it sets up the opengl context
     // Initialize these managers with an empty allocator handler - they are taken care of here by unique_ptr
     getScreenManager()->initialize(Handle<Component>());
-    getResourceManager()->initialize();
     getInputManager()->initialize(Handle<Component>());
+    getAudioManager()->initialize(Handle<Component>());
+
+    // Initialize resource manager last, so that all contexts are set up correctly
+    getResourceManager()->initialize();
   }
 
   //------------------------------------------------------------------------------------------------
   void GameManager::run()
   {
-    ALboolean result = alutInit(nullptr, nullptr);
-    ASSERT(result == AL_TRUE);
-
-    /*ALfloat listenerOri[] = { 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f };
-    alListener3f(AL_POSITION, 0, 0, 1.0f);
-    alListener3f(AL_VELOCITY, 0, 0, 0);
-    alListenerfv(AL_ORIENTATION, listenerOri);*/
-
-    ALuint source;
-    alGenSources(1, &source);
-    alSourcef(source, AL_PITCH, 1);
-    alSourcef(source, AL_GAIN, 1);
-    alSource3f(source, AL_POSITION, 0, 0, 0);
-    alSource3f(source, AL_VELOCITY, 0, 0, 0);
-    alSourcei(source, AL_LOOPING, AL_FALSE);
-    
-    Path path(getResourceManager()->getResourceDirectoryPath());
-    path.combine("Audio");
-    path.combine("HorrorOfSelf.wav");
-
-    ALuint buffer = alutCreateBufferFromFile((ALbyte*)path.as_string().c_str());
-    alSourcei(source, AL_BUFFER, buffer);
-    alSourcePlay(source);
-
-    ALint source_state = 0;
-
-    //alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-    // check for errors
-    //while (source_state == AL_PLAYING) {
-    //  alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-    //  // check for errors
-    //}
-
-    // cleanup context
-    alDeleteSources(1, &source);
-    alDeleteBuffers(1, &buffer);
-    alutExit();
-
     // DeltaTime variables
     GLfloat lag = 0.0f;
 
@@ -116,6 +82,7 @@ namespace OpenGL
   {
     getInputManager()->awake();
     getScreenManager()->awake();
+    getAudioManager()->awake();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -123,6 +90,7 @@ namespace OpenGL
   {
     getInputManager()->handleInput(elapsedGameTime);
     getScreenManager()->handleInput(elapsedGameTime);
+    getAudioManager()->handleInput(elapsedGameTime);
 
     if (getInputManager()->getKeyboard()->isKeyDown(GLFW_KEY_ESCAPE))
     {
@@ -135,6 +103,7 @@ namespace OpenGL
   {
     getInputManager()->update(elapsedGameTime);
     getScreenManager()->update(elapsedGameTime);
+    getAudioManager()->update(elapsedGameTime);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -142,6 +111,7 @@ namespace OpenGL
   {
     getInputManager()->render(lag);
     getScreenManager()->render(lag);
+    getAudioManager()->render(lag);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -187,6 +157,20 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  AudioManager* GameManager::getAudioManager()
+  {
+    ASSERT(m_audioManager.get());
+    return m_audioManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setAudioManager(AudioManager* audioManager)
+  {
+    ASSERT(audioManager);
+    m_audioManager.reset(audioManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
   Clock* GameManager::getGameClock()
   {
     ASSERT(m_gameClock.get());
@@ -204,5 +188,6 @@ namespace OpenGL
   void GameManager::exit()
   {
     glfwSetWindowShouldClose(getScreenManager()->getViewport()->getGLWindow(), GL_TRUE);
+    alutExit();
   }
 }

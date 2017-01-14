@@ -1,17 +1,16 @@
 #pragma once
 
-#include "Resources/Shader.h"
 #include "Objects/Component.h"
 
 
 namespace OpenGL
 {
 
-class RenderManager : public Component
+class AudioManager : public Component
 {
   public:
-    RenderManager();
-    virtual ~RenderManager();
+    AudioManager();
+    virtual ~AudioManager();
 
     void initialize(Handle<Component> allocHandle) override;
     void awake() override;
@@ -19,14 +18,8 @@ class RenderManager : public Component
     void update(GLfloat secondsPerUpdate) override;
     void render(GLfloat lag) override;
 
-    Handle<Shader> getSpriteShader() const { return m_spriteShader; }
-    Handle<Shader> getTextShader() const { return m_textShader; }
-
   private:
     typedef Component Inherited;
-
-    Handle<Shader> m_spriteShader;
-    Handle<Shader> m_textShader;
 };
 
 }

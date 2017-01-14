@@ -4,6 +4,7 @@
 #include "Game/GameManager.h"
 #include "Screens/MenuScreen.h"
 #include "Resources/LoadResourcesAsyncScript.h"
+#include "Audio/AudioSource.h"
 
 
 namespace OpenGL
@@ -53,6 +54,11 @@ namespace OpenGL
 
     buttonStackPanel->addChild(playGameButton);
     buttonStackPanel->addChild(exitGameButton);
+
+    Handle<GameObject> testAudio = screen->allocateAndInitializeGameObject();
+    Handle<AudioSource> audio = testAudio->addComponent<kManaged>(AudioSource::allocateAndInitialize());
+    audio->setAudio("HorrorOfSelf.wav");
+    audio->play();
 
     return screen;
   }

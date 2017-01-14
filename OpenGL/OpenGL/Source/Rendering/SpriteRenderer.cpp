@@ -57,10 +57,10 @@ namespace OpenGL
     // Generate the edge buffer for the renderer
     glGenBuffers(1, &m_ebo);
 
-    glBindVertexArray(m_vao);
+    bindVertexArray();
 
     // Bind the buffer data to the graphics card
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    bindVertexBuffer();
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
@@ -101,13 +101,13 @@ namespace OpenGL
       glCheckError();
       Handle<Shader> spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
 
-      spriteShader->setVector4f("spriteColour", m_colour);
+      spriteShader->setVector4f("spriteColour", getColour());
 
       Handle<GameObject> parent = getParent();
       ASSERT(parent.get());
 
       glm::mat4 modelMatrix = parent.get() ? parent->getTransform()->getWorldMatrix() : glm::mat4();
-      modelMatrix = glm::scale(modelMatrix, glm::vec3(m_scale, 1));
+      modelMatrix = glm::scale(modelMatrix, glm::vec3(getScale(), 1));
       spriteShader->setMatrix4("model", modelMatrix);
 
       glActiveTexture(GL_TEXTURE0);
@@ -115,7 +115,7 @@ namespace OpenGL
       glUniform1i(glGetUniformLocation(spriteShader->getProgram(), "sprite"), 0);
       glCheckError();
 
-      glBindVertexArray(m_vao);
+      bindVertexArray();
       glCheckError();
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);
@@ -133,7 +133,7 @@ namespace OpenGL
       return glm::vec2();
     }
 
-    return glm::vec2(m_texture->getWidth() * m_scale.x, m_texture->getHeight() * m_scale.y);
+    return glm::vec2(m_texture->getWidth(), m_texture->getHeight()) * getScale();
   }
 
   //------------------------------------------------------------------------------------------------

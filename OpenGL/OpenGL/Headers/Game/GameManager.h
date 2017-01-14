@@ -3,6 +3,7 @@
 #include "Resources/ResourceManager.h"
 #include "Screens/ScreenManager.h"
 #include "Input/InputManager.h"
+#include "Audio/AudioManager.h"
 #include "Time/Clock.h"
 
 #include <memory>
@@ -34,8 +35,12 @@ class GameManager
     static ScreenManager* getScreenManager();
 
     /// \brief GameManager takes responsibility for managing the input manager
-    static void setInputManager(InputManager* resourceManager);
+    static void setInputManager(InputManager* inputManager);
     static InputManager* getInputManager();
+
+    /// \brief GameManager takes responsibility for managing the audio manager
+    static void setAudioManager(AudioManager* audioManager);
+    static AudioManager* getAudioManager();
 
     /// \brief GameManager takes responsibility for manager the clock
     static void setGameClock(Clock* clock);
@@ -58,6 +63,9 @@ class GameManager
 
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;
+
+    /// \brief The manager responsible for playing and maintaining audio
+    static std::unique_ptr<AudioManager> m_audioManager;
 
     /// \brief The game clock responsible for managing game time
     /// This clock can have it's speed altered to change the speed of the game, but not the game loop itself

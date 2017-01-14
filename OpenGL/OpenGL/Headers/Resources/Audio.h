@@ -16,6 +16,8 @@ class Audio
 
     void generate(const std::string& wavFullFilePath);
 
+    ALuint getBuffer() const { return m_buffer; }
+
   private:
     ALuint m_buffer;
 };

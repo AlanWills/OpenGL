@@ -8,10 +8,6 @@
 
 namespace OpenGL
 {
-  // Initialise static variables
-  StringId RenderManager::s_spriteShaderId = internString("sprite");
-  StringId RenderManager::s_textShaderId = internString("text");
-
   //------------------------------------------------------------------------------------------------
   RenderManager::RenderManager() :
     m_spriteShader(nullptr),

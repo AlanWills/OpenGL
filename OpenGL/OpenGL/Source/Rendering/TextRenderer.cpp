@@ -38,10 +38,10 @@ namespace OpenGL
     {
       glCheckError();
       Handle<Shader> textShader = GameManager::getResourceManager()->loadShader("text.vert", "text.frag");
-      textShader->setVector4f("textColour", m_colour);
+      textShader->setVector4f("textColour", getColour());
 
       glActiveTexture(GL_TEXTURE0);
-      glBindVertexArray(m_vao);
+      bindVertexArray();
 
       Handle<GameObject> parent = getParent();
       ASSERT(parent.get());
@@ -51,6 +51,7 @@ namespace OpenGL
       textShader->setMatrix4("model", modelMatrix);
 
       const glm::vec2& size = m_font->measureString(m_text);
+      const glm::vec2& scale = getScale();
 
       GLfloat x = -size.x * 0.5f;
       GLfloat y = 0;
@@ -59,11 +60,11 @@ namespace OpenGL
       {
         const Character& character = m_font->getCharacter(letter);
 
-        GLfloat xpos = x + character.m_bearing.x * m_scale.x;
-        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y) * m_scale.y;
+        GLfloat xpos = x + character.m_bearing.x * scale.x;
+        GLfloat ypos = y - (character.m_size.y - character.m_bearing.y) * scale.y;
 
-        GLfloat w = character.m_size.x * m_scale.x;
-        GLfloat h = character.m_size.y * m_scale.y;
+        GLfloat w = character.m_size.x * scale.x;
+        GLfloat h = character.m_size.y * scale.y;
 
         // Update VBO for each character
         GLfloat vertices[30] = {
@@ -80,7 +81,7 @@ namespace OpenGL
         glBindTexture(GL_TEXTURE_2D, character.m_textureId);
 
         // Update content of m_vbo memory
-        glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+        bindVertexBuffer();
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
@@ -88,7 +89,7 @@ namespace OpenGL
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        x += (character.m_advance >> 6) * m_scale.x; // Bitshift by 6 to get value in pixels (2^6 = 64)
+        x += (character.m_advance >> 6) * scale.x; // Bitshift by 6 to get value in pixels (2^6 = 64)
       }
 
       glBindVertexArray(0);
@@ -101,8 +102,8 @@ namespace OpenGL
   {
     Inherited::setupGLBuffers();
 
-    glBindVertexArray(m_vao);
-    glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+    bindVertexArray();
+    bindVertexBuffer();
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 5, NULL, GL_DYNAMIC_DRAW);
 
     glEnableVertexAttribArray(0);
