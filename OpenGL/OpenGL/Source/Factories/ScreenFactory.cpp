@@ -24,7 +24,7 @@ namespace OpenGL
     resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
 
     // Add a background image
-    screen->addBackground("Logo");
+    screen->addBackground("Logo.png");
     
     return screen;
   }

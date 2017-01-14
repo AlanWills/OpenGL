@@ -13,6 +13,7 @@ namespace OpenGL
     m_shaderDirectoryPath(resourceDirectory),
     m_textureDirectoryPath(resourceDirectory),
     m_fontDirectoryPath(resourceDirectory),
+    m_audioDirectoryPath(resourceDirectory),
     m_vertexShaderDirectoryPath(resourceDirectory),
     m_fragmentShaderDirectoryPath(resourceDirectory)
   {
@@ -29,41 +30,53 @@ namespace OpenGL
   void ResourceManager::initialize()
   {
     std::vector<File> shaderFiles;
-    Directory::findFiles(m_vertexShaderDirectoryPath.asString(), shaderFiles, ".vs", true);
+    Directory::findFiles(m_vertexShaderDirectoryPath.as_string(), shaderFiles, ".vs", true);
 
     for (const File& file : shaderFiles)
     {
       const std::string& extensionlessFileName = file.getExtensionlessFileName();
 
-      loadShader(extensionlessFileName + ".vs", extensionlessFileName + ".frag", internString(extensionlessFileName));
+      loadShader(extensionlessFileName + ".vs", extensionlessFileName + ".frag");
     }
 
     std::vector<File> textures;
-    Directory::findFiles(m_textureDirectoryPath.asString(), textures, ".", true);
+    Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".", true);
 
     for (const File& file : textures)
     {
-      loadTexture(file.getFileName(), GL_TRUE, internString(file.getExtensionlessFileName()));
+      loadTexture(file.getFileName());
     }
 
     std::vector<File> fonts;
-    Directory::findFiles(m_fontDirectoryPath.asString(), fonts, ".ttf", true);
+    Directory::findFiles(m_fontDirectoryPath.as_string(), fonts, ".ttf", true);
 
     for (const File& file : fonts)
     {
-      loadFont(file.getFileName(), internString(file.getExtensionlessFileName()));
+      loadFont(file.getFileName());
+    }
+
+    std::vector<File> audio;
+    Directory::findFiles(m_audioDirectoryPath.as_string(), audio, ".wav", true);
+
+    for (const File& file : fonts)
+    {
+      loadAudio(file.getFileName());
     }
   }
 
   //------------------------------------------------------------------------------------------------
   Handle<Shader> ResourceManager::loadShader(
     const std::string& vShaderRelativeFilePath,
-    const std::string& fShaderRelativeFilePath,
-    StringId name)
+    const std::string& fShaderRelativeFilePath)
   {
+    const std::string& extensionlessFileName = File::getExtensionlessFileName(vShaderRelativeFilePath);
+    ASSERT(extensionlessFileName == File::getExtensionlessFileName(fShaderRelativeFilePath));
+
+    StringId name = internString(extensionlessFileName);
+
     if (m_shaders.find(name) != m_shaders.end())
     {
-      // If the shaderHandle already exists in our dictionary just return it rather than loading it
+      // If the name already exists in our dictionary just return it rather than loading it
       return m_shaders[name];
     }
 
@@ -71,85 +84,66 @@ namespace OpenGL
     vertexShader.combine(vShaderRelativeFilePath);
     fragmentShader.combine(fShaderRelativeFilePath);
 
-    Handle<Shader> shader = loadShaderFromFile(vertexShader.asString(), fragmentShader.asString());
+    Handle<Shader> shader = loadShaderFromFile(vertexShader.as_string(), fragmentShader.as_string());
     m_shaders[name] = shader;
     return shader;
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Shader> ResourceManager::getShader(StringId name)
+  Handle<Texture2D> ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha)
   {
-    if (m_shaders.find(name) == m_shaders.end())
-    {
-      ASSERT_FAIL_MSG("Shader file does not exist");
+    StringId name = internString(relativeFilePath);
 
-      /// TODO: Return a default shaderHandle or something?
-      return nullptr;
-    }
-
-    return m_shaders[name];
-  }
-
-  //------------------------------------------------------------------------------------------------
-  Handle<Texture2D> ResourceManager::loadTexture(const std::string& relativeFilePath, GLboolean alpha, StringId name)
-  {
     if (m_textures.find(name) != m_textures.end())
     {
-      // If the textureHandle already exists in our dictionary then we just return it
+      // If the name already exists in our dictionary then we just return it
       return m_textures[name];
     }
 
     Path fullPath(m_textureDirectoryPath);
     fullPath.combine(relativeFilePath);
 
-    Handle<Texture2D> texture = loadTextureFromFile(fullPath.asString(), alpha);
+    Handle<Texture2D> texture = loadTextureFromFile(fullPath.as_string(), alpha);
     m_textures[name] = texture;
     return texture;
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Texture2D> ResourceManager::getTexture(StringId name)
+  Handle<Font> ResourceManager::loadFont(const std::string& relativeFilePath)
   {
-    if (m_textures.find(name) == m_textures.end())
-    {
-      ASSERT_FAIL_MSG("Texture does not exist");
+    StringId name = internString(relativeFilePath);
 
-      /// TODO: Return a default textureHandle or something?
-      return nullptr;
-    }
-
-    return m_textures[name];
-  }
-
-  //------------------------------------------------------------------------------------------------
-  Handle<Font> ResourceManager::loadFont(const std::string& relativeFilePath, StringId name)
-  {
     if (m_fonts.find(name) != m_fonts.end())
     {
-      // If the textureHandle already exists in our dictionary then we just return it
+      // If the name already exists in our dictionary then we just return it
       return m_fonts[name];
     }
 
     Path fullPath(m_fontDirectoryPath);
     fullPath.combine(relativeFilePath);
 
-    Handle<Font> font = loadFontFromFile(fullPath.asString());
+    Handle<Font> font = loadFontFromFile(fullPath.as_string());
     m_fonts[name] = font;
     return font;
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Font> ResourceManager::getFont(StringId name)
+  Handle<Audio> ResourceManager::loadAudio(const std::string& relativeFilePath)
   {
-    if (m_fonts.find(name) == m_fonts.end())
-    {
-      ASSERT_FAIL_MSG("Font does not exist");
+    StringId name = internString(relativeFilePath);
 
-      /// TODO: Return a default fontHandle or something?
-      return nullptr;
+    if (m_fonts.find(name) != m_fonts.end())
+    {
+      // If the name already exists in our dictionary then we just return it
+      return m_audio[name];
     }
 
-    return m_fonts[name];
+    Path fullPath(m_audioDirectoryPath);
+    fullPath.combine(relativeFilePath);
+
+    Handle<Audio> audio = loadAudioFromFile(fullPath.as_string());
+    m_audio[name] = audio;
+    return audio;
   }
 
   //------------------------------------------------------------------------------------------------
@@ -256,6 +250,33 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  Handle<Audio> ResourceManager::loadAudioFromFile(const std::string& fullFilePath)
+  {
+    // Create Audio object
+    Handle<Audio> audioHandle(nullptr);
+    if (m_audioPool.canAllocate())
+    {
+      // If we have room left in the pool we just allocate a new entry
+      audioHandle = m_audioPool.allocate();
+    }
+    else
+    {
+      // If we have run out of room in our pool, we dynamically create a new AudioHandle and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Audio pool allocator out of memory.  Consider incremeneting the size.");
+      Audio* audio = new Audio();
+
+      // This isn't going to work - assigning address of temp variable
+      audioHandle = Handle<Audio>(&audio);
+      m_audioOverflow.push_back(std::unique_ptr<Audio>(audio));
+    }
+
+    ASSERT(audioHandle.get());
+
+    audioHandle->generate(fullFilePath);
+    return audioHandle;
+  }
+
+  //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadShaders()
   {
     // Clear all the references in our shaderHandle map
@@ -295,11 +316,25 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadAudio()
+  {
+    // Clear all the references in our audio map
+    m_audio.clear();
+
+    // Resets our pooled memory
+    m_audioPool.deallocateAll();
+
+    // Clear the overflow
+    m_audioOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadAllAssets()
   {
     unloadShaders();
     unloadTextures();
     unloadFonts();
+    unloadAudio();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -310,26 +345,39 @@ namespace OpenGL
   {
     m_resourceDirectoryPath = resourceDirectoryPath;
     
-    // Update shaderHandle directory path
+    // Update shader directory path
     {
       Path newShaderPath(m_resourceDirectoryPath);
       newShaderPath.combine(SHADER_DIR);
       setShaderDirectoryPath(newShaderPath);
     }
 
-    // Update textureHandle directory path
+    // Update texture directory path
     {
       Path newTexturePath(m_resourceDirectoryPath);
       newTexturePath.combine(TEXTURE_DIR);
       setTextureDirectoryPath(newTexturePath);
     }
 
-    // Update fontHandle directory path
+    // Update font directory path
     {
       Path newFontPath(m_resourceDirectoryPath);
       newFontPath.combine(FONT_DIR);
       setFontDirectoryPath(newFontPath);
     }
+
+    // Update audio directory path
+    {
+      Path newAudioPath(m_resourceDirectoryPath);
+      newAudioPath.combine(AUDIO_DIR);
+      setAudioDirectoryPath(newAudioPath);
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setAudioDirectoryPath(const Path& audioDirectoryPath)
+  {
+    m_audioDirectoryPath = audioDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------

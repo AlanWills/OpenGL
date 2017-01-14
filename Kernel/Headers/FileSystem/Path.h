@@ -43,7 +43,7 @@ class DllExport Path
     void reset(const std::string& parentPath, const std::string& relativePath);
 
     /// \brief Returns the path represented by this object as a string
-    const std::string& asString() const { return m_path; }
+    const std::string& as_string() const { return m_path; }
 
   private:
     std::string m_path;

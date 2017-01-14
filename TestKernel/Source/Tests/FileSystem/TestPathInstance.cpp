@@ -21,7 +21,7 @@ namespace TestKernel
 
       Path path(expected);
 
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ namespace TestKernel
 
       Path path(expected);
 
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -42,14 +42,14 @@ namespace TestKernel
       std::string expected("Root");
 
       Path path(expected);
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
 
       expected.push_back(PATH_DELIMITER);
       expected.append("Directory.txt");
 
       path.reset(expected);
 
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -58,14 +58,14 @@ namespace TestKernel
       std::string expected("Root");
 
       Path path(expected);
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
 
       expected.push_back(PATH_DELIMITER);
       expected.append("Directory.txt");
 
       path.reset("Root", "Directory.txt");
 
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -76,10 +76,10 @@ namespace TestKernel
       expected.append("Directory.txt");
 
       Path original(expected);
-      Assert::AreEqual(expected, original.asString());
+      Assert::AreEqual(expected, original.as_string());
 
       Path copy(original);
-      Assert::AreEqual(expected, copy.asString());
+      Assert::AreEqual(expected, copy.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -90,10 +90,10 @@ namespace TestKernel
       expected.append("Directory.txt");
 
       Path original(expected);
-      Assert::AreEqual(expected, original.asString());
+      Assert::AreEqual(expected, original.as_string());
 
       Path copy = original;
-      Assert::AreEqual(expected, copy.asString());
+      Assert::AreEqual(expected, copy.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ namespace TestKernel
       path.combine("Path");
 
       // Test neither has delim
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ namespace TestKernel
       path.combine("Path");
 
       // Test neither has delim
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -155,7 +155,7 @@ namespace TestKernel
       path.combine(second);
 
       // Test neither has delim
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -175,7 +175,7 @@ namespace TestKernel
       path.combine(second);
 
       // Test neither has delim
-      Assert::AreEqual(expected, path.asString());
+      Assert::AreEqual(expected, path.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -189,7 +189,7 @@ namespace TestKernel
       actual.combine("Test");
 
       // Test this didn't crash with an empty string and just squelched the empty one
-      Assert::AreEqual(expected, actual.asString());
+      Assert::AreEqual(expected, actual.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -203,7 +203,7 @@ namespace TestKernel
       actual.combine("");
 
       // Test this didn't crash with an empty string and just squelched the empty one
-      Assert::AreEqual(expected, actual.asString());
+      Assert::AreEqual(expected, actual.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -217,7 +217,7 @@ namespace TestKernel
       actual.combine("");
 
       // Test this didn't crash with an empty string and just squelched the empty one
-      Assert::AreEqual(expected, actual.asString());
+      Assert::AreEqual(expected, actual.as_string());
     }
 
     //------------------------------------------------------------------------------------------------

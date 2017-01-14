@@ -32,18 +32,18 @@ class DllExport File
 
     /// \brief Returns true if the file exists
     static bool exists(const std::string& fullFilePath);
-    bool exists() const { return exists(m_filePath.asString()); }
+    bool exists() const { return exists(m_filePath.as_string()); }
 
     /// \brief Opens a file and adds the inputted string to the end of it followed by std::endl
     /// Therefore, every call to this function will append the input onto a new line
     /// Will create the file if it does not exist
     static void append(const std::string& fullFilePath, const std::string& stringToAppend);
-    void append(const std::string& stringToAppend) const { append(m_filePath.asString(), stringToAppend); }
+    void append(const std::string& stringToAppend) const { append(m_filePath.as_string(), stringToAppend); }
 
     /// \brief Creates a file if it does not exist.
     /// Does nothing if it does exist
     static void create(const std::string& fullFilePath, bool clearIfAlreadyExists = true);
-    void create(bool clearIfAlreadyExists = true) const { create(m_filePath.asString(), clearIfAlreadyExists); }
+    void create(bool clearIfAlreadyExists = true) const { create(m_filePath.as_string(), clearIfAlreadyExists); }
 
     /// \brief Creates a file within the inputted directory
     /// Does nothing if it does exist
@@ -51,23 +51,24 @@ class DllExport File
 
     /// \brief Deletes a file if it exists
     static void remove(const std::string& fullFilePath);
-    void remove() const { remove(m_filePath.asString()); }
+    void remove() const { remove(m_filePath.as_string()); }
 
     /// \brief Opens a file if it exists and stores the contents in the outFileContents parameter
     static void read(const std::string& fullFilePath, std::string& outFileContents);
-    void read(std::string& outFileContents) const { read(m_filePath.asString(), outFileContents); }
+    void read(std::string& outFileContents) const { read(m_filePath.as_string(), outFileContents); }
 
     /// \brief Adds all the lines for the file onto the end of the inputted vector, without altering any contents that might already be inside it
     static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);
-    void readLines(std::vector<std::string>& outLines) const { readLines(m_filePath.asString(), outLines); }
+    void readLines(std::vector<std::string>& outLines) const { readLines(m_filePath.as_string(), outLines); }
 
-    const std::string& getFilePath() const { return m_filePath.asString(); }
+    const std::string& getFilePath() const { return m_filePath.as_string(); }
 
     /// \brief Obtains the name of the file relative to it's parent directory including extension
     std::string getFileName() const;
 
     /// \brief Obtains the name of the file relative to it's parent directory not including extension
-    std::string getExtensionlessFileName() const;
+    static std::string getExtensionlessFileName(const std::string& filePath);
+    std::string getExtensionlessFileName() const { return getExtensionlessFileName(m_filePath.as_string()); }
 
   private:
     Path m_filePath;

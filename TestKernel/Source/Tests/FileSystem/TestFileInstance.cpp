@@ -132,14 +132,14 @@ namespace TestKernel
       checkTestFileExists();
 
       // Now remove test file
-      std::remove(path.asString().c_str());
-      std::fstream fileStream(path.asString());
+      std::remove(path.as_string().c_str());
+      std::fstream fileStream(path.as_string());
       Assert::IsFalse(fileStream.good());
 
       File file2(file);
 
       // Check the test file still does not exist
-      fileStream = std::fstream(path.asString());
+      fileStream = std::fstream(path.as_string());
       Assert::IsFalse(fileStream.good());
     }
 
@@ -151,14 +151,14 @@ namespace TestKernel
       checkTestFileExists();
 
       // Now remove test file
-      std::remove(path.asString().c_str());
-      std::fstream fileStream(path.asString());
+      std::remove(path.as_string().c_str());
+      std::fstream fileStream(path.as_string());
       Assert::IsFalse(fileStream.good());
 
       File file2 = file;
 
       // Check the test file still does not exist
-      fileStream = std::fstream(path.asString());
+      fileStream = std::fstream(path.as_string());
       Assert::IsFalse(fileStream.good());
     }
 

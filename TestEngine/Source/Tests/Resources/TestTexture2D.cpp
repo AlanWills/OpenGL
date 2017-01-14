@@ -26,14 +26,14 @@ namespace TestEngine
       Texture2D texture;
 
       int width, height;
-      unsigned char* image = SOIL_load_image(texturePath.asString().c_str(), &width, &height, 0, GL_FALSE);
+      unsigned char* image = SOIL_load_image(texturePath.as_string().c_str(), &width, &height, 0, GL_FALSE);
       texture.generate(1, 1, image);
     }
 
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Texture2D_Bind)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Texture2D* texture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
       Assert::IsNotNull(texture);

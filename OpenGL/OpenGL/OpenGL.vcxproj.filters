@@ -159,6 +159,9 @@
     <ClCompile Include="Source\Rendering\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Resources\Audio.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag">
@@ -384,6 +387,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Rendering\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Resources\Audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

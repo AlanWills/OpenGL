@@ -34,7 +34,7 @@ namespace OpenGL
     m_label.getTransform()->setParent(getTransform());
     m_label.getTransform()->translate(glm::vec3(0, 0, 0.1f));
 
-    m_spriteRenderer.setTexture("ButtonDefault");
+    m_spriteRenderer.setTexture("ButtonDefault.png");
 
     m_collider.setDimensions(m_spriteRenderer.getDimensions());
 
@@ -54,12 +54,12 @@ namespace OpenGL
     {
       if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
       {
-        m_spriteRenderer.setTexture("ButtonHighlighted");
+        m_spriteRenderer.setTexture("ButtonHighlighted.png");
         m_state = kHighlighted;
       }
       else
       {
-        m_spriteRenderer.setTexture("ButtonDefault");
+        m_spriteRenderer.setTexture("ButtonDefault.png");
         m_state = kIdle;
       }
     }
@@ -68,14 +68,14 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Button::onEnter(Handle<GameObject> sender)
   {
-    m_spriteRenderer.setTexture("ButtonHighlighted");
+    m_spriteRenderer.setTexture("ButtonHighlighted.png");
     m_state = kHighlighted;
   }
 
   //------------------------------------------------------------------------------------------------
   void Button::onLeave(Handle<GameObject> sender)
   {
-    m_spriteRenderer.setTexture("ButtonDefault");
+    m_spriteRenderer.setTexture("ButtonDefault.png");
   }
 
   //------------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ namespace OpenGL
   {
     if (m_state != kClicked)
     {
-      m_spriteRenderer.setTexture("ButtonPressed");
+      m_spriteRenderer.setTexture("ButtonPressed.png");
       m_state = kClicked;
       m_clickTimer = 0;
     }

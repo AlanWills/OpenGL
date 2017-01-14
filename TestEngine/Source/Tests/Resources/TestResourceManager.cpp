@@ -18,7 +18,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetResourceDirectoryPath)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Path expected(Directory::getExecutingAppDirectory(), "Res");
       resourceManager.setResourceDirectoryPath(expected);
@@ -27,12 +27,12 @@ namespace TestEngine
 
       // Check shader and texture dirs have been updated
       {
-        Path expectedText(expected.asString(), TEXTURE_DIR);
+        Path expectedText(expected.as_string(), TEXTURE_DIR);
         Assert::AreEqual(expectedText, resourceManager.getTextureDirectoryPath());
       }
 
       {
-        Path expectedShad(expected.asString(), SHADER_DIR);
+        Path expectedShad(expected.as_string(), SHADER_DIR);
         Assert::AreEqual(expectedShad, resourceManager.getShaderDirectoryPath());
       }
     }
@@ -40,9 +40,9 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetTextureDirectoryPath)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
-      Path expected(resourceDirPath.asString(), "Tex");
+      Path expected(resourceDirPath.as_string(), "Tex");
       resourceManager.setTextureDirectoryPath(expected);
       Assert::AreEqual(expected, resourceManager.getTextureDirectoryPath());
     }
@@ -50,20 +50,20 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetShaderDirectoryPath)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
-      Path expected(resourceManager.getResourceDirectoryPath().asString(), "Sha");
+      Path expected(resourceManager.getResourceDirectoryPath().as_string(), "Sha");
       resourceManager.setShaderDirectoryPath(expected);
       Assert::AreEqual(expected, resourceManager.getShaderDirectoryPath());
 
       // Check the shader sub directories are correct
       {
-        Path expectedVert(expected.asString(), VERTEX_SHADER_DIR);
+        Path expectedVert(expected.as_string(), VERTEX_SHADER_DIR);
         Assert::AreEqual(expectedVert, resourceManager.getVertexShaderDirectoryPath());
       }
 
       {
-        Path expectedFrag(expected.asString(), FRAGMENT_SHADER_DIR);
+        Path expectedFrag(expected.as_string(), FRAGMENT_SHADER_DIR);
         Assert::AreEqual(expectedFrag, resourceManager.getFragmentShaderDirectoryPath());
       }
     }
@@ -71,9 +71,9 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetVertexShaderDirectoryPath)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
-      Path expected(resourceManager.getShaderDirectoryPath().asString(), "Vert");
+      Path expected(resourceManager.getShaderDirectoryPath().as_string(), "Vert");
       resourceManager.setVertexShaderDirectoryPath(expected);
       Assert::AreEqual(expected, resourceManager.getVertexShaderDirectoryPath());
     }
@@ -81,9 +81,9 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_SetFragmentShaderDirectoryPath)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
-      Path expected(resourceManager.getShaderDirectoryPath().asString(), "Frag");
+      Path expected(resourceManager.getShaderDirectoryPath().as_string(), "Frag");
       resourceManager.setFragmentShaderDirectoryPath(expected);
       Assert::AreEqual(expected, resourceManager.getFragmentShaderDirectoryPath());
     }
@@ -91,7 +91,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_UnloadTextures)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
       AssertDisabler assertDisabler;
 
       // Load a texture
@@ -110,7 +110,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_UnloadShaders)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       // Disable asserts because geom shader code might not be legit (as it's just a test resource)
       AssertDisabler assertDisabler;
@@ -131,7 +131,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_UnloadAllAssets)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       AssertDisabler assertDisabler;
 
@@ -160,7 +160,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_CollectAllAssetsOnInit)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       resourceManager.init();
 
@@ -194,7 +194,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadShader)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Shader* shader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
       Assert::IsNotNull(shader);
@@ -206,7 +206,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetShader)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Shader* expectedShader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
       Shader* actualShader = resourceManager.getShader(shaderStringId);
@@ -217,7 +217,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_LoadTexture)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Texture2D* texture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
       Assert::IsNotNull(texture);
@@ -226,7 +226,7 @@ namespace TestEngine
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_ResourceManager_GetTexture)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Texture2D* expectedTexture = resourceManager.loadTexture("block.png", GL_TRUE, textureStringId);
       Texture2D* actualTexture = resourceManager.getTexture(textureStringId);
@@ -256,7 +256,7 @@ namespace Microsoft {
       template<>
       static std::wstring ToString<Path>(const Path& path)
       {
-        const std::string& directoryPath = path.asString();
+        const std::string& directoryPath = path.as_string();
         wchar_t buffer[1024];
         StringUtils::charToWchar(directoryPath.c_str(), buffer, 1024);
 

@@ -29,12 +29,12 @@ namespace OpenGL
   void Label::render(GLfloat lag)
   {
     // Unbind the sprite shader
-    Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
+    Handle<Shader> spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
     spriteShader->unbind();
 
     Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
 
-    Handle<Shader> textShader = GameManager::getResourceManager()->getShader(internStringFast("text"));
+    Handle<Shader> textShader = GameManager::getResourceManager()->loadShader("text.vert", "text.frag");
 
     textShader->bind();
     textShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());

@@ -99,7 +99,7 @@ namespace OpenGL
     if (m_texture.get())
     {
       glCheckError();
-      Handle<Shader> spriteShader = GameManager::getResourceManager()->getShader(internStringFast("sprite"));
+      Handle<Shader> spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
 
       spriteShader->setVector4f("spriteColour", m_colour);
 
@@ -152,7 +152,7 @@ namespace OpenGL
   {
     // Now load the texture from the ResourceManager
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
-    m_texture = GameManager::getResourceManager()->getTexture(internStringFast(textureString));
+    m_texture = GameManager::getResourceManager()->loadTexture(textureString);
     ASSERT(m_texture.get());
 
     setupGLBuffers();

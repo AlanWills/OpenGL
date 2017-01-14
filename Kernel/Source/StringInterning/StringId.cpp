@@ -9,6 +9,12 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   StringId internString(const std::string& str)
   {
+    // Attempt a quick intern
+    if (g_idStringTable.find(str) != g_idStringTable.end())
+    {
+      return g_idStringTable[str];
+    }
+
     StringId strId = stringToStringId(str.c_str());
 
     if (g_stringIdTable.find(strId) == g_stringIdTable.end())

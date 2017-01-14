@@ -11,7 +11,7 @@ namespace Kernel
   File::File(const std::string& filePath, bool clearIfAlreadyExists) :
     m_filePath(filePath)
   {
-    create(m_filePath.asString(), clearIfAlreadyExists);
+    create(m_filePath.as_string(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -19,14 +19,14 @@ namespace Kernel
     m_filePath(fullParentDirectoryPath)
   {
     m_filePath.combine(relativeFilePath);
-    create(m_filePath.asString(), clearIfAlreadyExists);
+    create(m_filePath.as_string(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
   File::File(const Path& path, bool clearIfAlreadyExists) :
     m_filePath(path)
   {
-    create(m_filePath.asString(), clearIfAlreadyExists);
+    create(m_filePath.as_string(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -142,7 +142,7 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   std::string File::getFileName() const
   {
-    const std::string& filePath = m_filePath.asString();
+    const std::string& filePath = m_filePath.as_string();
 
     if (filePath.empty())
     {
@@ -164,25 +164,31 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  std::string File::getExtensionlessFileName() const
+  std::string File::getExtensionlessFileName(const std::string& filePath)
   {
-    const std::string& filePath = m_filePath.asString();
-
     if (filePath.empty())
     {
       ASSERT_FAIL();
       return "";
     }
 
-    std::string fileName(filePath);
-    size_t delimIndex = fileName.find_last_of(PATH_DELIMITER);
-    size_t extIndex = fileName.find_last_of('.');   // Find last here in case we have a \\..\\ in our file path
+    size_t extIndex = filePath.find_last_of('.');   // Find last here in case we have a \\..\\ in our file path
+    size_t delimIndex = filePath.find_last_of(PATH_DELIMITER);
 
-    if (delimIndex < fileName.npos && 
-        extIndex < fileName.npos && 
-        delimIndex < extIndex)
+    if (extIndex == filePath.npos &&
+        delimIndex != filePath.npos)
     {
-      return fileName.substr(delimIndex + 1, extIndex - (delimIndex + 1));
+      return filePath.substr(delimIndex + 1, filePath.size());
+    }
+    else if (extIndex != filePath.npos &&
+             delimIndex == filePath.npos)
+    {
+      return filePath.substr(0, extIndex);
+    }
+    else if (extIndex != filePath.npos &&
+             delimIndex != filePath.npos)
+    {
+      return filePath.substr(delimIndex + 1, extIndex - (delimIndex + 1));
     }
     else
     {

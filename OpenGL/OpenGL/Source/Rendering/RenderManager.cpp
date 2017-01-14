@@ -29,10 +29,10 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
+    m_spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
     ASSERT(m_spriteShader.get());
 
-    m_textShader = GameManager::getResourceManager()->getShader(s_textShaderId);
+    m_textShader = GameManager::getResourceManager()->loadShader("text.vert", "text.frag");
     ASSERT(m_textShader.get());
   }
 

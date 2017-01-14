@@ -18,7 +18,7 @@ namespace TestEngine
       Path path(Directory::getExecutingAppDirectory(), "..");
       path.combine("OpenGL");
 
-      ResourceManager* resourceManager = new ResourceManager(path.asString());
+      ResourceManager* resourceManager = new ResourceManager(path.as_string());
       GameManager::setResourceManager(resourceManager);
       GameManager::init();
 

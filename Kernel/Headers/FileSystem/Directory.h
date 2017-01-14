@@ -32,15 +32,15 @@ class DllExport Directory
     /// \brief Checks to see if a directory exists
     /// Returns true if it does
     static bool exists(const std::string& directoryFullPath);
-    bool exists() const { return exists(m_dirPath.asString()); }
+    bool exists() const { return exists(m_dirPath.as_string()); }
 
     /// \brief Creates a directory and any necessary parent directories if it does not already exist
     static void create(const std::string& directoryFullPath);
-    void create() const { create(m_dirPath.asString()); }
+    void create() const { create(m_dirPath.as_string()); }
 
     /// \brief Removes a directory and all of the contents inside it if it exists
     static void remove(const std::string& directoryFullPath);
-    void remove() const { remove(m_dirPath.asString()); }
+    void remove() const { remove(m_dirPath.as_string()); }
 
     /// \brief Obtain all of the files in the current directory and add them to the inputted vector
     /// Can provide a file extension filter to limit the files we are considering - by default considers all files
@@ -56,7 +56,7 @@ class DllExport Directory
       const std::string& extension = ".",
       bool includeSubDirectories = false) const 
     {
-      findFiles(m_dirPath.asString(), files, extension, includeSubDirectories);
+      findFiles(m_dirPath.as_string(), files, extension, includeSubDirectories);
     }
 
     /// \brief Obtain all of the directories in the current directory and add them to the inputted vector
@@ -70,7 +70,7 @@ class DllExport Directory
       std::vector<Directory>& directories,
       bool includeSubDirectories = false)
     {
-      findDirectories(m_dirPath.asString(), directories, includeSubDirectories);
+      findDirectories(m_dirPath.as_string(), directories, includeSubDirectories);
     }
 
     /// \brief Various creation functions for objects relative to this directory
@@ -79,9 +79,9 @@ class DllExport Directory
 
     /// \brief Returns the name of this directory relative to it's parent.  Contains no path delimiters
     static std::string getDirectoryName(const std::string& directoryFullPath);
-    std::string getDirectoryName() const { return getDirectoryName(m_dirPath.asString()); }
+    std::string getDirectoryName() const { return getDirectoryName(m_dirPath.as_string()); }
 
-    const std::string& getDirectoryPath() const { return m_dirPath.asString(); }
+    const std::string& getDirectoryPath() const { return m_dirPath.as_string(); }
 
   private:
     Path m_dirPath;

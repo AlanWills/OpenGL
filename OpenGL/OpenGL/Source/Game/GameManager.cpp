@@ -56,18 +56,18 @@ namespace OpenGL
     path.combine("Audio");
     path.combine("HorrorOfSelf.wav");
 
-    ALuint buffer = alutCreateBufferFromFile((ALbyte*)path.asString().c_str());
+    ALuint buffer = alutCreateBufferFromFile((ALbyte*)path.as_string().c_str());
     alSourcei(source, AL_BUFFER, buffer);
     alSourcePlay(source);
 
     ALint source_state = 0;
 
-    alGetSourcei(source, AL_SOURCE_STATE, &source_state);
+    //alGetSourcei(source, AL_SOURCE_STATE, &source_state);
     // check for errors
-    while (source_state == AL_PLAYING) {
-      alGetSourcei(source, AL_SOURCE_STATE, &source_state);
-      // check for errors
-    }
+    //while (source_state == AL_PLAYING) {
+    //  alGetSourcei(source, AL_SOURCE_STATE, &source_state);
+    //  // check for errors
+    //}
 
     // cleanup context
     alDeleteSources(1, &source);

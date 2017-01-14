@@ -10,7 +10,7 @@ namespace Kernel
   Directory::Directory(const std::string& fullDirectoryPath) :
     m_dirPath(fullDirectoryPath)
   {
-    create(m_dirPath.asString());
+    create(m_dirPath.as_string());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -18,14 +18,14 @@ namespace Kernel
     m_dirPath(parentDirectoryPath)
   {
     m_dirPath.combine(relativePathFromParent);
-    create(m_dirPath.asString());
+    create(m_dirPath.as_string());
   }
 
   //------------------------------------------------------------------------------------------------
   Directory::Directory(const Path& path) :
     m_dirPath(path)
   {
-    create(m_dirPath.asString());
+    create(m_dirPath.as_string());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -170,7 +170,7 @@ namespace Kernel
         Path subDirPath(fullDirectoryPath);
         subDirPath.combine(dirent->d_name);
         
-        findFiles(subDirPath.asString(), files, extension, includeSubDirectories);
+        findFiles(subDirPath.as_string(), files, extension, includeSubDirectories);
       }
     }
 
@@ -206,7 +206,7 @@ namespace Kernel
         dirBuffer.combine(dirent->d_name);
         directories.push_back(dirBuffer);
 
-        findDirectories(dirBuffer.asString(), directories, includeSubDirectories);
+        findDirectories(dirBuffer.as_string(), directories, includeSubDirectories);
       }
     }
 
@@ -217,13 +217,13 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   File Directory::createFile(const std::string& fileName)
   {
-    return File(m_dirPath.asString(), fileName);
+    return File(m_dirPath.as_string(), fileName);
   }
 
   //------------------------------------------------------------------------------------------------
   Directory Directory::createDirectory(const std::string& directoryName)
   {
-    return Directory(m_dirPath.asString(), directoryName);
+    return Directory(m_dirPath.as_string(), directoryName);
   }
 
   //------------------------------------------------------------------------------------------------

@@ -6,10 +6,6 @@
 
 namespace OpenGL
 {
-  // Initialise static variables
-  StringId UIManager::s_spriteShaderId = internString("sprite");
-  StringId UIManager::s_textShaderId = internString("text");
-
   //------------------------------------------------------------------------------------------------
   UIManager::UIManager()
   {
@@ -25,10 +21,10 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    m_spriteShader = GameManager::getResourceManager()->getShader(s_spriteShaderId);
+    m_spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
     ASSERT(m_spriteShader.get());
 
-    m_textShader = GameManager::getResourceManager()->getShader(s_textShaderId);
+    m_textShader = GameManager::getResourceManager()->loadShader("text.vert", "text.frag");
     ASSERT(m_textShader.get());
 
     m_screenRoot.setLocalMatrix(glm::scale(glm::mat4(), glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1)));

@@ -30,10 +30,7 @@ class UIManager : public Component
   private:
     typedef Component Inherited;
 
-    static StringId s_spriteShaderId;
     Handle<Shader> m_spriteShader;
-
-    static StringId s_textShaderId;
     Handle<Shader> m_textShader;
 
     DECLARE_CLASS_COMPONENT(Transform, m_screenRoot)

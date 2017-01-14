@@ -36,7 +36,7 @@ namespace TestEngine
     TEST_METHOD(Test_Profiler_Constructor)
     {
       Profiler profiler;
-      AssertExt::assertFileExists(resultsFilePath.asString());
+      AssertExt::assertFileExists(resultsFilePath.as_string());
     }
 
     //------------------------------------------------------------------------------------------------
@@ -163,7 +163,7 @@ namespace TestEngine
       StringUtils::numericToStringAppend(lastTime, expectedFileContents);
       expectedFileContents.append("\n");
 
-      AssertExt::assertFileContents(resultsFilePath.asString(), expectedFileContents);
+      AssertExt::assertFileContents(resultsFilePath.as_string(), expectedFileContents);
     }
 
     //------------------------------------------------------------------------------------------------

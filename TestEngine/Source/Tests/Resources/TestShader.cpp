@@ -20,14 +20,14 @@ namespace TestEngine
     TEST_METHOD(Test_Shader_Compile)
     {
       std::string vertexShaderCode, fragmentShaderCode;
-      Path vertexPath(resourceDirPath.asString(), "Shaders");
+      Path vertexPath(resourceDirPath.as_string(), "Shaders");
       vertexPath.combine("Vertex").combine("sprite.vs");
 
-      Path fragmentPath(resourceDirPath.asString(), "Shaders");
+      Path fragmentPath(resourceDirPath.as_string(), "Shaders");
       fragmentPath.combine("Fragment").combine("sprite.frag");
 
-      File::read(vertexPath.asString(), vertexShaderCode);
-      File::read(fragmentPath.asString(), fragmentShaderCode);
+      File::read(vertexPath.as_string(), vertexShaderCode);
+      File::read(fragmentPath.as_string(), fragmentShaderCode);
 
       Shader shader;
       shader.compile(vertexShaderCode, fragmentShaderCode);
@@ -36,7 +36,7 @@ namespace TestEngine
     //----------------------------------------------------------------------------------------------------------
     TEST_METHOD(Test_Shader_Use)
     {
-      ResourceManager resourceManager(resourceDirPath.asString());
+      ResourceManager resourceManager(resourceDirPath.as_string());
 
       Shader* shader = resourceManager.loadShader("sprite.vs", "sprite.frag", shaderStringId);
       Assert::IsNotNull(shader);

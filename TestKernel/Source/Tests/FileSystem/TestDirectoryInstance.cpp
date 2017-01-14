@@ -94,7 +94,7 @@ namespace TestKernel
       Assert::IsTrue(dir.exists());
 
       // Now remove the directory
-      rmdir(path.asString().c_str());
+      rmdir(path.as_string().c_str());
       Assert::IsFalse(dir.exists());
 
       Directory dirCopy(dir);
@@ -111,7 +111,7 @@ namespace TestKernel
       Assert::IsTrue(dir.exists());
 
       // Now remove the directory
-      rmdir(path.asString().c_str());
+      rmdir(path.as_string().c_str());
       Assert::IsFalse(dir.exists());
 
       Directory dirCopy = dir;
