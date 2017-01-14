@@ -66,8 +66,8 @@
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag" />
     <None Include="Assets\Shaders\Fragment\text.frag" />
-    <None Include="Assets\Shaders\Vertex\sprite.vs" />
-    <None Include="Assets\Shaders\Vertex\text.vs" />
+    <None Include="Assets\Shaders\Vertex\sprite.vert" />
+    <None Include="Assets\Shaders\Vertex\text.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\ButtonDefault.png" />

@@ -10,7 +10,7 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Handle<Screen> ScreenFactory::createStartupLogoScreen() const
+  Handle<Screen> ScreenFactory::createSplashScreen() const
   {
     Handle<MenuScreen> screen = allocateScreenAndTransition<MenuScreen>();
 
@@ -22,10 +22,13 @@ namespace OpenGL
 
     // Attach the async resource loader to a game object
     Handle<GameObject> resourceLoader = screen->allocateAndInitializeGameObject();
-    resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
-
+    
     // Add a background image
     screen->addBackground("Logo.png");
+
+    // Add resource loading whilst we display the splash screen
+    resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
+
     
     return screen;
   }

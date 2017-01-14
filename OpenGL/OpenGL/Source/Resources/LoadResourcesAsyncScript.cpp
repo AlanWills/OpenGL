@@ -10,8 +10,8 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   LoadResourcesAsyncScript::LoadResourcesAsyncScript() :
-    m_timeElapsed(0)
-    //m_loadingThread(nullptr)
+    m_timeElapsed(0)/*,
+    m_loadingThread(nullptr)*/
   {
   }
 
@@ -35,12 +35,7 @@ namespace OpenGL
 
     m_timeElapsed += secondsPerUpdate;
 
-    /*if (m_loadingThread->joinable())
-    {
-      GameManager::getScreenManager()->transitionToScreen(Screen::allocateAndInitialize());
-    }*/
-
-    if (m_timeElapsed > MIN_WAIT_TIME)
+    if (/*m_loadingThread->joinable() &&*/ m_timeElapsed > MIN_WAIT_TIME)
     {
       GameManager::getScreenManager()->getScreenFactory()->createMainMenuScreen();
     }
@@ -52,9 +47,9 @@ namespace OpenGL
     Inherited::die();
 
     //if (m_loadingThread)
-    //{
-    //  // Delete our allocated thread
-    //  delete m_loadingThread;
-    //}
+    {
+      // Delete our allocated thread
+      //delete m_loadingThread;
+    }
   }
 }

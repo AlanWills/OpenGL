@@ -12,7 +12,7 @@ class ScreenFactory
     ScreenFactory() { }
     ~ScreenFactory() { }
 
-    Handle<Screen> createStartupLogoScreen() const;
+    Handle<Screen> createSplashScreen() const;
     Handle<Screen> createMainMenuScreen() const;
 
   private:

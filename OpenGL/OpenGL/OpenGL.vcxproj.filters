@@ -174,10 +174,8 @@
       <Filter>Resource Files\Shaders\Fragment</Filter>
     </None>
     <None Include="Assets\Shaders\Fragment\text.frag" />
-    <None Include="Assets\Shaders\Vertex\sprite.vs">
-      <Filter>Resource Files\Shaders\Vertex</Filter>
-    </None>
-    <None Include="Assets\Shaders\Vertex\text.vs" />
+    <None Include="Assets\Shaders\Vertex\sprite.vert" />
+    <None Include="Assets\Shaders\Vertex\text.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Textures\Fiirkan.png">

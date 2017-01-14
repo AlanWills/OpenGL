@@ -30,17 +30,17 @@ namespace OpenGL
   void ResourceManager::initialize()
   {
     std::vector<File> shaderFiles;
-    Directory::findFiles(m_vertexShaderDirectoryPath.as_string(), shaderFiles, ".vs", true);
+    Directory::findFiles(m_vertexShaderDirectoryPath.as_string(), shaderFiles, ".vert", true);
 
     for (const File& file : shaderFiles)
     {
       const std::string& extensionlessFileName = file.getExtensionlessFileName();
 
-      loadShader(extensionlessFileName + ".vs", extensionlessFileName + ".frag");
+      loadShader(extensionlessFileName + ".vert", extensionlessFileName + ".frag");
     }
 
     std::vector<File> textures;
-    Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".", true);
+    Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".png", true);
 
     for (const File& file : textures)
     {
