@@ -29,14 +29,14 @@ class GameObject : public Component
     void render(GLfloat lag) override;
     void die() override;
 
-    Handle<Transform> getTransform() { return m_transform; }
-    const Handle<Transform> getTransform() const { return m_transform; }
+    const Handle<Transform>& getTransform() { return m_transform; }
+    const Handle<Transform>& getTransform() const { return m_transform; }
 
     StringId getName() const { return m_name; }
 
     /// \brief Inserts the inputted component into the components associated with this game object
     template <ManagementType MType, typename T>
-    Handle<T> addComponent(Handle<T> component);
+    const Handle<T>& addComponent(const Handle<T>& component);
 
     template <typename T>
     Handle<T> findComponent() const;
@@ -59,7 +59,7 @@ class GameObject : public Component
 
 //------------------------------------------------------------------------------------------------
 template <ManagementType MType, typename T>
-Handle<T> GameObject::addComponent(Handle<T> component)
+const Handle<T>& GameObject::addComponent(const Handle<T>& component)
 {
   if (!component.get())
   {

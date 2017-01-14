@@ -6,6 +6,8 @@
 
 namespace OpenGL
 {
+  REGISTER_COMPONENT(Screen);
+
   //------------------------------------------------------------------------------------------------
   Screen::Screen()
   {
@@ -73,16 +75,5 @@ namespace OpenGL
     m_renderManager.die();
     m_gameObjects.die();
     m_uiManager.die();
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void Screen::addBackground(const std::string& backgroundImage)
-  {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
-
-    Handle<Image> image = m_uiManager.allocateAndInitializeImage();
-    image->setImage(backgroundImage);
-    image->setSize(screenDimensions);
-    image->getTransform()->translate(screenDimensions * 0.5f);
   }
 }

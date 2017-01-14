@@ -2,7 +2,6 @@
 
 #include "Factories/ScreenFactory.h"
 #include "Game/GameManager.h"
-#include "Screens/MenuScreen.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Audio/AudioSource.h"
 
@@ -10,9 +9,24 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
+  Handle<Screen> ScreenFactory::allocateScreenAndTransition() const
+  {
+    if (!Screen::canAllocate())
+    {
+      ASSERT_FAIL();
+      return Handle<Screen>();
+    }
+
+    Handle<Screen> screen = Screen::allocateAndInitialize();
+    GameManager::getScreenManager()->transitionToScreen(screen);
+
+    return screen;
+  }
+
+  //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::createSplashScreen() const
   {
-    Handle<MenuScreen> screen = allocateScreenAndTransition<MenuScreen>();
+    Handle<Screen> screen = allocateScreenAndTransition();
 
     if (!screen->canAllocateGameObject())
     {
@@ -24,19 +38,18 @@ namespace OpenGL
     Handle<GameObject> resourceLoader = screen->allocateAndInitializeGameObject();
     
     // Add a background image
-    screen->addBackground("Logo.png");
+    addScreenBackground(screen, "Logo.png");
 
     // Add resource loading whilst we display the splash screen
     resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
 
-    
     return screen;
   }
 
   //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::createMainMenuScreen() const
   {
-    Handle<MenuScreen> screen = allocateScreenAndTransition<MenuScreen>();
+    Handle<Screen> screen = allocateScreenAndTransition();
 
     if (!screen->getUIManager().canAllocateButton())
     {
@@ -59,5 +72,17 @@ namespace OpenGL
     buttonStackPanel->addChild(exitGameButton);
 
     return screen;
+  }
+
+
+  //------------------------------------------------------------------------------------------------
+  void ScreenFactory::addScreenBackground(const Handle<Screen>& screen, const std::string& backgroundImage) const
+  {
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
+    image->setImage(backgroundImage);
+    image->setSize(screenDimensions);
+    image->getTransform()->translate(screenDimensions * 0.5f);
   }
 }

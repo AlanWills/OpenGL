@@ -12,10 +12,9 @@ namespace OpenGL
 
 class Screen : public Component
 {
-  public:
-    Screen();
-    virtual ~Screen();
+  DECLARE_COMPONENT_WITH_MANAGER(GapAllocator, Screen, 10, ScreenManager);
 
+  public:
     void initialize(Handle<Component> allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;

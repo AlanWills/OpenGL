@@ -12,28 +12,15 @@ class ScreenFactory
     ScreenFactory() { }
     ~ScreenFactory() { }
 
+    // Creation functions
     Handle<Screen> createSplashScreen() const;
     Handle<Screen> createMainMenuScreen() const;
 
+    // Utility functions
+    void addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const;
+
   private:
-    template <typename T>
-    Handle<T> allocateScreenAndTransition() const;
+    Handle<Screen> allocateScreenAndTransition() const;
 };
-
-//------------------------------------------------------------------------------------------------
-template <typename T>
-Handle<T> ScreenFactory::allocateScreenAndTransition() const
-{
-  if (!MenuScreen::canAllocate())
-  {
-    ASSERT_FAIL();
-    return Handle<T>();
-  }
-
-  Handle<T> screen = T::allocateAndInitialize();
-  GameManager::getScreenManager()->transitionToScreen(screen);
-
-  return screen;
-}
 
 }
