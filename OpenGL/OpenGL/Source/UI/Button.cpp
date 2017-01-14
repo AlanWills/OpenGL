@@ -11,7 +11,10 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Button::Button() :
     m_clickTimer(0),
-    m_state(kIdle)
+    m_state(kIdle),
+    m_defaultTexture(nullptr),
+    m_highlightedTexture(nullptr),
+    m_clickedTexture(nullptr)
   {
   }
 
@@ -34,7 +37,17 @@ namespace OpenGL
     m_label.getTransform()->setParent(getTransform());
     m_label.getTransform()->translate(glm::vec3(0, 0, 0.1f));
 
-    m_spriteRenderer.setTexture("ButtonDefault.png");
+    ResourceManager* resourceManager = GameManager::getResourceManager();
+    m_defaultTexture = resourceManager->loadTexture("ButtonDefault.png");
+    ASSERT(m_defaultTexture.get());
+
+    m_highlightedTexture = resourceManager->loadTexture("ButtonHighlighted.png");
+    ASSERT(m_highlightedTexture.get());
+
+    m_clickedTexture = resourceManager->loadTexture("ButtonPressed.png");
+    ASSERT(m_clickedTexture.get());
+
+    m_spriteRenderer.setTexture(m_defaultTexture);
 
     m_collider.setDimensions(m_spriteRenderer.getDimensions());
 
@@ -54,12 +67,12 @@ namespace OpenGL
     {
       if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
       {
-        m_spriteRenderer.setTexture("ButtonHighlighted.png");
+        m_spriteRenderer.setTexture(m_highlightedTexture);
         m_state = kHighlighted;
       }
       else
       {
-        m_spriteRenderer.setTexture("ButtonDefault.png");
+        m_spriteRenderer.setTexture(m_defaultTexture);
         m_state = kIdle;
       }
     }
@@ -68,14 +81,14 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void Button::onEnter(Handle<GameObject> sender)
   {
-    m_spriteRenderer.setTexture("ButtonHighlighted.png");
+    m_spriteRenderer.setTexture(m_highlightedTexture);
     m_state = kHighlighted;
   }
 
   //------------------------------------------------------------------------------------------------
   void Button::onLeave(Handle<GameObject> sender)
   {
-    m_spriteRenderer.setTexture("ButtonDefault.png");
+    m_spriteRenderer.setTexture(m_defaultTexture);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -83,7 +96,7 @@ namespace OpenGL
   {
     if (m_state != kClicked)
     {
-      m_spriteRenderer.setTexture("ButtonPressed.png");
+      m_spriteRenderer.setTexture(m_clickedTexture);
       m_state = kClicked;
       m_clickTimer = 0;
     }

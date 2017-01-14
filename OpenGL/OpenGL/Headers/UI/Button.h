@@ -4,6 +4,7 @@
 #include "Physics/RectangleCollider.h"
 #include "Rendering/SpriteRenderer.h"
 #include "Input/MouseInteractionHandler.h"
+#include "Audio/AudioSource.h"
 #include "UI/Label.h"
 
 
@@ -42,6 +43,10 @@ class Button : public UIObject
     DECLARE_CLASS_COMPONENT(SpriteRenderer, m_spriteRenderer)
     DECLARE_CLASS_COMPONENT(MouseInteractionHandler, m_mouseInteraction)
     DECLARE_CLASS_COMPONENT(Label, m_label);
+
+    Handle<Texture2D> m_defaultTexture;
+    Handle<Texture2D> m_highlightedTexture;
+    Handle<Texture2D> m_clickedTexture;
 
     static const float s_maxTime;
     float m_clickTimer;

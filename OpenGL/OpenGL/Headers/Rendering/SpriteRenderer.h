@@ -19,6 +19,9 @@ class SpriteRenderer : public Renderer
     /// \brief Load a texture from the resource manager and set it as the texture to render on this sprite renderer
     void setTexture(const std::string& textureString);
 
+    /// \brief Sets the current rendered texture to be the inputted value
+    void setTexture(const Handle<Texture2D>& texture);
+
     /// \brief Returns the scaled dimensions of the texture being rendered
     glm::vec2 getDimensions() const override;
 
@@ -32,10 +35,10 @@ class SpriteRenderer : public Renderer
     /// \brief Deallocate all the buffered data on the graphics card
     void cleanupGLBuffers() override;
 
-    Handle<Texture2D> m_texture;
-
   private:
     typedef Renderer Inherited;
+
+    Handle<Texture2D> m_texture;
 
     GLuint m_ebo;
 };

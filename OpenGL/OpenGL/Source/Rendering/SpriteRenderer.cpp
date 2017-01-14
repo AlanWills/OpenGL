@@ -150,9 +150,28 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void SpriteRenderer::setTexture(const std::string& textureString)
   {
+    if (m_texture.get())
+    {
+      cleanupGLBuffers();
+    }
+
     // Now load the texture from the ResourceManager
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
     m_texture = GameManager::getResourceManager()->loadTexture(textureString);
+    ASSERT(m_texture.get());
+
+    setupGLBuffers();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void SpriteRenderer::setTexture(const Handle<Texture2D>& texture)
+  {
+    if (m_texture.get())
+    {
+      cleanupGLBuffers();
+    }
+
+    m_texture = texture;
     ASSERT(m_texture.get());
 
     setupGLBuffers();
