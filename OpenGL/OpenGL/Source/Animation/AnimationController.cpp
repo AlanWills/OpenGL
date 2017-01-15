@@ -12,7 +12,9 @@ namespace OpenGL
   AnimationController::AnimationController() : 
     m_currentFrame(0),
     m_secondsPerFrame(0.1f),
-    m_currentSecondsPerFrame(0)
+    m_currentSecondsPerFrame(0),
+    m_loop(true),
+    m_playing(false)
   {
   }
 
@@ -28,6 +30,17 @@ namespace OpenGL
 
     // This controller alters the attached sprite renderer's texture at regular intervals
     m_spriteRenderer = getParent()->findComponent<SpriteRenderer>();
+    ASSERT(m_spriteRenderer.get());
+
+    if (!m_frames.empty())
+    {
+      m_spriteRenderer->setTexture(m_frames.front());
+    }
+    else
+    {
+      // Shouldn't have an animation controller with no frames by this point
+      ASSERT_FAIL();
+    }
   }
 
   //------------------------------------------------------------------------------------------------
@@ -35,16 +48,36 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
-    m_currentSecondsPerFrame += secondsPerUpdate;
-
-    if (m_currentSecondsPerFrame > m_secondsPerFrame)
+    if (m_playing)
     {
-      m_currentSecondsPerFrame -= m_secondsPerFrame;
+      m_currentSecondsPerFrame += secondsPerUpdate;
 
-      m_currentFrame++;
-      m_currentFrame %= m_frames.size();
+      if (m_currentSecondsPerFrame > m_secondsPerFrame)
+      {
+        m_currentSecondsPerFrame -= m_secondsPerFrame;
 
-      m_spriteRenderer->setTexture(m_frames[m_currentFrame]);
+        m_currentFrame++;
+        m_currentFrame %= m_frames.size();
+
+        m_spriteRenderer->setTexture(m_frames[m_currentFrame]);
+        
+        if (!m_loop && (m_currentFrame == m_frames.size() - 1))
+        {
+          // If we are not looping and we have reached the end of the animation frames we stop playing the animation
+          // This will freeze the sprite renderer on the final frame
+          m_playing = false;
+        }
+      }
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void AnimationController::resume()
+  {
+    if (m_loop || (m_currentFrame != m_frames.size() - 1))
+    {
+      // If we are looping or have not reached the end of a non-looping animation we continue playing
+      m_playing = true;
     }
   }
 

@@ -21,6 +21,12 @@ class AnimationController : public Component
     void addFrame(const std::string& textureRelativePath);
 
     void setSecondsPerFrame(float secondsPerFrame) { m_secondsPerFrame = secondsPerFrame; }
+    void setLoop(bool shouldLoop) { m_loop = shouldLoop; }
+
+    /// \brief Will continue the animation at the current frame it was on
+    /// With the current time left until the next one
+    /// If we resume a non-looping animation that reached it's end, nothing will happen
+    void resume();
 
   public:
     typedef Component Inherited;
@@ -32,6 +38,9 @@ class AnimationController : public Component
 
     float m_secondsPerFrame;
     float m_currentSecondsPerFrame;
+
+    bool m_loop;
+    bool m_playing;
 };
 
 }

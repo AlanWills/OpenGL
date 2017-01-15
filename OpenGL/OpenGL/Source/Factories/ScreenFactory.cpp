@@ -88,6 +88,7 @@ namespace OpenGL
     animation->addFrame("ChainBlasterFrame1.png");
     animation->addFrame("ChainBlasterFrame2.png");
     animation->setSecondsPerFrame(0.1f);
+    animation->resume();
 
     return screen;
   }

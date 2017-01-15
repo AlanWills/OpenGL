@@ -77,8 +77,8 @@
     <Image Include="Assets\Textures\ButtonHighlightedOld.png" />
     <Image Include="Assets\Textures\ButtonPressedOld.png" />
     <Image Include="Assets\Textures\ChainBlasterFrame0.png" />
-    <Image Include="Assets\Textures\ChainBlasterFrame1.png" />
     <Image Include="Assets\Textures\ChainBlasterFrame2.png" />
+    <Image Include="Assets\Textures\ChainBlasterFrame1.png" />
     <Image Include="Assets\Textures\Fiirkan.png" />
     <Image Include="Assets\Textures\GreenLaserRay.png" />
     <Image Include="Assets\Textures\HellfireMissileTurret.png" />

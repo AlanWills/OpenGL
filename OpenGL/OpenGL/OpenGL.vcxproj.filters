@@ -190,12 +190,6 @@
     <Image Include="Assets\Textures\ChainBlasterFrame0.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\ChainBlasterFrame2.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ChainBlasterFrame1.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Assets\Textures\HellfireMissileTurret.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -218,6 +212,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Textures\ButtonPressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ChainBlasterFrame2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\ChainBlasterFrame1.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
