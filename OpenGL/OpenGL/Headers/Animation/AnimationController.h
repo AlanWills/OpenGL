@@ -24,9 +24,18 @@ class AnimationController : public Component
     void setLoop(bool shouldLoop) { m_loop = shouldLoop; }
 
     /// \brief Will continue the animation at the current frame it was on
-    /// With the current time left until the next one
+    /// With the current time left until the next frame
     /// If we resume a non-looping animation that reached it's end, nothing will happen
     void resume();
+
+    /// \brief Will stop the animation at the current frame it was on
+    /// With the current time left until the next frame
+    /// If we pause a non-looping animation that reached it's end, nothing will happen
+    void pause() { m_playing = false; }
+
+    /// \brief Will set the animation to the first frame and reset the current timer
+    /// Whether the animation is playing or not will not be affected
+    void restart();
 
   public:
     typedef Component Inherited;

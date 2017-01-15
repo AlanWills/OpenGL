@@ -4,7 +4,7 @@
 #include "Game/GameManager.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Audio/AudioSource.h"
-#include "Animation/AnimationController.h"
+#include "Animation/StateMachine.h"
 
 
 namespace OpenGL
@@ -82,13 +82,22 @@ namespace OpenGL
     Handle<Screen> screen = allocateScreenAndTransition();
     Handle<GameObject> gameObject = screen->allocateAndInitializeGameObject();
     Handle<SpriteRenderer> renderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-    Handle<AnimationController> animation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+    Handle<StateMachine> stateMachine = gameObject->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
 
-    animation->addFrame("ChainBlasterFrame0.png");
-    animation->addFrame("ChainBlasterFrame1.png");
-    animation->addFrame("ChainBlasterFrame2.png");
-    animation->setSecondsPerFrame(0.1f);
-    animation->resume();
+    Handle<AnimationController> idleAnimation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+    idleAnimation->addFrame("ChainBlasterFrame0.png");
+    idleAnimation->setSecondsPerFrame(0.1f);
+    idleAnimation->setLoop(false);
+
+    Handle<AnimationController> firingAnimation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+    idleAnimation->addFrame("ChainBlasterFrame0.png");
+    firingAnimation->addFrame("ChainBlasterFrame1.png");
+    firingAnimation->addFrame("ChainBlasterFrame2.png");
+
+    stateMachine->setStartingAnimState(idleAnimation);
+    stateMachine->addState(idleAnimation);
+    stateMachine->addState(firingAnimation);
+    stateMachine->addTransition(idleAnimation, firingAnimation, std::bind(&ScreenFactory::firing, *this));
 
     return screen;
   }
@@ -108,5 +117,11 @@ namespace OpenGL
   void ScreenFactory::transitionCallback(Handle<GameObject> sender)
   {
     transitionToGameplayScreen();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  bool ScreenFactory::firing()
+  {
+    return GameManager::getInputManager()->getKeyboard()->isKeyDown(GLFW_KEY_SPACE);
   }
 }

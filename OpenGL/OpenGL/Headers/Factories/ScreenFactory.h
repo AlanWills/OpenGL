@@ -22,6 +22,7 @@ class ScreenFactory
 
   private:
     void transitionCallback(Handle<GameObject> sender);
+    bool firing();
 
     Handle<Screen> allocateScreenAndTransition() const;
 };

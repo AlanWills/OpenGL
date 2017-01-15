@@ -7,11 +7,13 @@
 namespace OpenGL
 {
 
-template <typename ReturnType, typename ArgType>
+/// \brief Currently we only support one argument and no return type
+/// How do we extend this to a return type if we have multiple possible invokers
+template <typename ArgType>
 class Event
 {
   private:
-    typedef std::function<ReturnType(ArgType)> Function;
+    typedef std::function<void(ArgType)> Function;
 
   public:
     void subscribe(const Function& callback) { m_callbacks.push_back(callback); }
@@ -23,8 +25,8 @@ class Event
 };
 
 //------------------------------------------------------------------------------------------------
-template <typename ReturnType, typename ArgType>
-void Event<ReturnType, ArgType>::invoke(ArgType arg)
+template <typename ArgType>
+void Event<ArgType>::invoke(ArgType arg)
 {
   for (const Function& func : m_callbacks)
   {

@@ -42,7 +42,7 @@ class MouseInteractionHandler : public Component
 
   private:
     typedef Component Inherited;
-    typedef Event<void, Handle<GameObject>> GameObjectEvent;
+    typedef Event<Handle<GameObject>> GameObjectEvent;
 
     GameObjectEvent m_onEnter;
     GameObjectEvent m_onLeave;

@@ -16,6 +16,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Animation\AnimationController.cpp" />
+    <ClCompile Include="Source\Animation\StateMachine.cpp" />
+    <ClCompile Include="Source\Animation\Transition.cpp" />
     <ClCompile Include="Source\Audio\AudioManager.cpp" />
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Factories\ScreenFactory.cpp" />
@@ -87,6 +89,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Animation\AnimationController.h" />
+    <ClInclude Include="Headers\Animation\StateMachine.h" />
+    <ClInclude Include="Headers\Animation\Transition.h" />
     <ClInclude Include="Headers\Audio\AudioManager.h" />
     <ClInclude Include="Headers\Audio\AudioSource.h" />
     <ClInclude Include="Headers\Events\Event.h" />

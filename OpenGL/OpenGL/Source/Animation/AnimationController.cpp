@@ -34,7 +34,7 @@ namespace OpenGL
 
     if (!m_frames.empty())
     {
-      m_spriteRenderer->setTexture(m_frames.front());
+      restart();
     }
     else
     {
@@ -79,6 +79,17 @@ namespace OpenGL
       // If we are looping or have not reached the end of a non-looping animation we continue playing
       m_playing = true;
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void AnimationController::restart()
+  {
+    if (!m_frames.empty())
+    {
+      m_spriteRenderer->setTexture(m_frames.front());
+    }
+
+    m_currentSecondsPerFrame = 0;
   }
 
   //------------------------------------------------------------------------------------------------
