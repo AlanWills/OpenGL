@@ -13,7 +13,7 @@ class Image : public UIObject
     Image();
     virtual ~Image();
 
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
 
     void setImage(const std::string& image) { m_spriteRenderer.setTexture(image); }
 

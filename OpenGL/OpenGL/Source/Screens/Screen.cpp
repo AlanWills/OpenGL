@@ -19,7 +19,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Screen::initialize(Handle<Component> allocHandle)
+  void Screen::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 

@@ -21,7 +21,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenManager::initialize(Handle<Component> allocHandle)
+  void ScreenManager::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 
@@ -76,7 +76,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenManager::transitionToScreen(Handle<Screen> screenToTransitionTo)
+  void ScreenManager::transitionToScreen(const Handle<Screen>& screenToTransitionTo)
   {
     if (m_activeScreen.get())
     {

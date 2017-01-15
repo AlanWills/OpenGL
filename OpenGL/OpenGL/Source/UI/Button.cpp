@@ -26,7 +26,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Button::initialize(Handle<Component> allocHandle)
+  void Button::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 

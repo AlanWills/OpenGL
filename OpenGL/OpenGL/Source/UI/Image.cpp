@@ -18,7 +18,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Image::initialize(Handle<Component> allocHandle)
+  void Image::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 

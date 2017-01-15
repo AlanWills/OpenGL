@@ -13,7 +13,7 @@ class Label : public UIObject
     Label();
     virtual ~Label();
 
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void render(GLfloat lag) override;
 
   private:

@@ -22,7 +22,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void TextRenderer::initialize(Handle<Component> allocHandle)
+  void TextRenderer::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 

@@ -15,6 +15,7 @@ class ScreenFactory
     // Creation functions
     Handle<Screen> createSplashScreen() const;
     Handle<Screen> createMainMenuScreen() const;
+    Handle<Screen> createGameplayScreen() const;
 
     // Utility functions
     void addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const;

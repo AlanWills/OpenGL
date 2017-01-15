@@ -12,7 +12,7 @@ class AudioSource : public Component
   DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, AudioSource, 10, AudioManager);
 
   public:
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void die() override;
 
     void setAudio(const std::string& wavFileRelativePath);

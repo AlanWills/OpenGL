@@ -12,7 +12,7 @@ class TextRenderer : public Renderer
   DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, TextRenderer, 10, RenderManager);
 
   public:
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void render(GLfloat lag) override;
 
     /// \brief Loads a font from the resource manager and sets it to be the font this renderer uses

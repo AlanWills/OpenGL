@@ -21,7 +21,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void AudioSource::initialize(Handle<Component> allocHandle)
+  void AudioSource::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
     

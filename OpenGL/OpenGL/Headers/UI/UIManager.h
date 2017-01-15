@@ -18,7 +18,7 @@ class UIManager : public Component
     UIManager();
     virtual ~UIManager();
 
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;

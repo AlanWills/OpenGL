@@ -69,7 +69,7 @@ class Component
     virtual ~Component();
 
     /// \brief Sets the object to be alive and sets it's allocator handle to the inputted value
-    virtual void initialize(Handle<Component> allocHandle);
+    virtual void initialize(const Handle<Component>& allocHandle);
     virtual void awake();
     virtual void handleInput(GLfloat elapsedGameTime) {}
     virtual void update(GLfloat secondsPerUpdate);
@@ -79,11 +79,11 @@ class Component
     bool isAlive() const { return m_alive; }
     bool isAwake() const { return m_awake; }
 
-    Handle<Component> getAllocatorHandle() const { return m_allocatorHandle; }
-    Handle<GameObject> getParent() const { return m_owner; }
+    const Handle<Component>& getAllocatorHandle() const { return m_allocatorHandle; }
+    const Handle<GameObject>& getParent() const { return m_owner; }
 
     // Don't like this, but can't think of an alternative right now
-    void setParent(Handle<GameObject> gameObject);
+    void setParent(const Handle<GameObject>& gameObject);
 
   private:
     bool m_alive;

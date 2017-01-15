@@ -20,7 +20,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Component::initialize(Handle<Component> allocHandle)
+  void Component::initialize(const Handle<Component>& allocHandle)
   {
     m_allocatorHandle = allocHandle;
 
@@ -65,7 +65,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Component::setParent(Handle<GameObject> owner)
+  void Component::setParent(const Handle<GameObject>& owner)
   {
     if (!owner.get() ||
          m_owner.get())

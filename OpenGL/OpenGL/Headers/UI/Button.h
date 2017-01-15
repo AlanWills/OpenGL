@@ -24,7 +24,7 @@ class Button : public UIObject
     Button();
     virtual ~Button();
 
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void update(GLfloat secondsPerUpdate) override;
 
     /// \brief Subscribes a callback to the onLeftClick event in the MouseInteractionHandler component on this object

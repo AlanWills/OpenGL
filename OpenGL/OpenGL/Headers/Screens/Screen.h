@@ -15,14 +15,12 @@ class Screen : public Component
   DECLARE_COMPONENT_WITH_MANAGER(GapAllocator, Screen, 10, ScreenManager);
 
   public:
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat elapsedGameTime) override;
     void render(GLfloat elapsedGameTime) override;
     void die() override;
-
-    void addBackground(const std::string& backgroundImage);
 
     UIManager& getUIManager() { return m_uiManager; }
     const UIManager& getUIManager() const { return m_uiManager; }

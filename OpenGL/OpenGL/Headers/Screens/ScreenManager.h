@@ -14,14 +14,14 @@ class ScreenManager : public Component
     ScreenManager();
     virtual ~ScreenManager();
 
-    void initialize(Handle<Component> allocHandle) override;
+    void initialize(const Handle<Component>& allocHandle) override;
     void awake() override;
     void handleInput(GLfloat elapsedGameTime) override;
     void update(GLfloat secondsPerUpdate) override;
     void render(GLfloat lag) override;
 
     /// \brief Sets the inputted screen as the now current main screen and calls initialize on the inputted screen.
-    void transitionToScreen(Handle<Screen> screenToTransitionTo);
+    void transitionToScreen(const Handle<Screen>& screenToTransitionTo);
 
     /// \brief Get the window
     OpenGLViewport* getViewport() const;
@@ -31,7 +31,7 @@ class ScreenManager : public Component
     void setScreenFactory(ScreenFactory* screenFactory);
 
     /// \brief Get the current active screen
-    Handle<Screen> getCurrentScreen() const { return m_activeScreen; }
+    const Handle<Screen>& getCurrentScreen() const { return m_activeScreen; }
 
     /// \brief Shorthand for obtaining the viewport width
     inline float getViewportWidth() { return getViewport()->getWidth(); }

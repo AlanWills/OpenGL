@@ -18,7 +18,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameObject::initialize(Handle<Component> allocHandle)
+  void GameObject::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);
 

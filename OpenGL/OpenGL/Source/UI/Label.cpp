@@ -18,7 +18,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void Label::initialize(Handle<Component> allocHandle)
+  void Label::initialize(const Handle<Component>&allocHandle)
   {
     Inherited::initialize(allocHandle);
 
