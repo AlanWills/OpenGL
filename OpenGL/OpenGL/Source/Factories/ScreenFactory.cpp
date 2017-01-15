@@ -4,6 +4,7 @@
 #include "Game/GameManager.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Audio/AudioSource.h"
+#include "Animation/AnimationController.h"
 
 
 namespace OpenGL
@@ -24,7 +25,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Screen> ScreenFactory::createSplashScreen() const
+  Handle<Screen> ScreenFactory::transitionToSplashScreen() const
   {
     Handle<Screen> screen = allocateScreenAndTransition();
 
@@ -47,7 +48,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Screen> ScreenFactory::createMainMenuScreen() const
+  Handle<Screen> ScreenFactory::transitionToMainMenuScreen() const
   {
     Handle<Screen> screen = allocateScreenAndTransition();
 
@@ -62,6 +63,7 @@ namespace OpenGL
     buttonStackPanel->getTransform()->setLocalTranslation(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
 
     Handle<Button> playGameButton = screen->getUIManager().allocateAndInitializeButton();
+    playGameButton->addOnLeftClickEvent(std::bind(&ScreenFactory::transitionCallback, *this, std::placeholders::_1));
     playGameButton->setText("Play");
 
     Handle<Button> exitGameButton = screen->getUIManager().allocateAndInitializeButton();
@@ -74,6 +76,21 @@ namespace OpenGL
     return screen;
   }
 
+  //------------------------------------------------------------------------------------------------
+  Handle<Screen> ScreenFactory::transitionToGameplayScreen() const
+  {
+    Handle<Screen> screen = allocateScreenAndTransition();
+    Handle<GameObject> gameObject = screen->allocateAndInitializeGameObject();
+    Handle<SpriteRenderer> renderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+    Handle<AnimationController> animation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+
+    animation->addFrame("ChainBlasterFrame0.png");
+    animation->addFrame("ChainBlasterFrame1.png");
+    animation->addFrame("ChainBlasterFrame2.png");
+    animation->setSecondsPerFrame(0.1f);
+
+    return screen;
+  }
 
   //------------------------------------------------------------------------------------------------
   void ScreenFactory::addScreenBackground(const Handle<Screen>& screen, const std::string& backgroundImage) const
@@ -84,5 +101,11 @@ namespace OpenGL
     image->setImage(backgroundImage);
     image->setSize(screenDimensions);
     image->getTransform()->translate(screenDimensions * 0.5f);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ScreenFactory::transitionCallback(Handle<GameObject> sender)
+  {
+    transitionToGameplayScreen();
   }
 }

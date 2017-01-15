@@ -13,14 +13,16 @@ class ScreenFactory
     ~ScreenFactory() { }
 
     // Creation functions
-    Handle<Screen> createSplashScreen() const;
-    Handle<Screen> createMainMenuScreen() const;
-    Handle<Screen> createGameplayScreen() const;
+    Handle<Screen> transitionToSplashScreen() const;
+    Handle<Screen> transitionToMainMenuScreen() const;
+    Handle<Screen> transitionToGameplayScreen() const;
 
     // Utility functions
     void addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const;
 
   private:
+    void transitionCallback(Handle<GameObject> sender);
+
     Handle<Screen> allocateScreenAndTransition() const;
 };
 

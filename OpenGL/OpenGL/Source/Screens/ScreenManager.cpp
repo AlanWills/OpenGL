@@ -44,7 +44,7 @@ namespace OpenGL
   {
     Inherited::awake();
 
-    getScreenFactory()->createSplashScreen();
+    getScreenFactory()->transitionToSplashScreen();
   }
 
   //------------------------------------------------------------------------------------------------
