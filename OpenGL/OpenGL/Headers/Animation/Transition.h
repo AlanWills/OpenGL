@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Animation.h"
 
 #include <functional>
 
@@ -10,28 +9,28 @@ namespace OpenGL
 
 class Transition
 {
-  public:
-    typedef std::function<bool()> TransitionFunc;
+public:
+  typedef std::function<bool()> TransitionFunc;
 
-    Transition();
+  Transition();
 
-    void setSourceState(const Handle<Animation>& sourceAnimState) { m_sourceAnimState = sourceAnimState; }
+  //void setDestinationState(const Handle<AnimationState>& destinationAnimState);
+  //const Handle<AnimationState>& getDestinationState() const { return m_destinationAnimState; }
+  void setDestinationState(const std::string& stateName) { m_destinationStateName = stateName; }
+  const std::string& getDestinationState() const { return m_destinationStateName; }
 
-    void setDestinationState(const Handle<Animation>& destinationAnimState) { m_destinationAnimState = destinationAnimState; }
-    const Handle<Animation>& getDestinationState() const { return m_destinationAnimState; }
+  void setTransitionFunction(const TransitionFunc& transitionFunc) { m_transitionFunc = transitionFunc; }
 
-    void setTransitionFunction(const TransitionFunc& transitionFunc) { m_transitionFunc = transitionFunc; }
+  /// \brief Invoke the transition function to test for successful transition
+  bool testTransitionFunction() const;
 
-    /// \brief Invoke the transition function for this transition to test for successful transition
-    bool testTransitionFunction() const;
+private:
 
-  private:
+  /// \brief A function which we use to determine whether this transition should fire
+  TransitionFunc m_transitionFunc;
 
-    /// \brief A function which we use to determine whether this transition should fire
-    TransitionFunc m_transitionFunc;
-
-    Handle<Animation> m_sourceAnimState;
-    Handle<Animation> m_destinationAnimState;
+  //Handle<AnimationState> m_destinationAnimState;
+  std::string m_destinationStateName;
 };
 
 }

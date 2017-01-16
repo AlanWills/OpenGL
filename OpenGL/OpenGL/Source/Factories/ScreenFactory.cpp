@@ -94,10 +94,10 @@ namespace OpenGL
     firingAnimation->addFrame("ChainBlasterFrame1.png");
     firingAnimation->addFrame("ChainBlasterFrame2.png");
 
-    stateMachine->setStartingAnimState(idleAnimation);
-    stateMachine->addState(idleAnimation);
-    stateMachine->addState(firingAnimation);
-    stateMachine->addTransition(idleAnimation, firingAnimation, std::bind(&ScreenFactory::firing, *this));
+    Handle<AnimationState> idleState = stateMachine->addState(idleAnimation);
+    Handle<AnimationState> firingState = stateMachine->addState(firingAnimation);
+    stateMachine->setStartingState(idleState);
+    idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
 
     return screen;
   }

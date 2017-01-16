@@ -1,22 +1,28 @@
 #include "stdafx.h"
 
 #include "Animation/Transition.h"
+#include "Animation/AnimationState.h"
 
 
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
   Transition::Transition() :
-    m_sourceAnimState(nullptr),
-    m_destinationAnimState(nullptr)
+    m_destinationStateName("")
   {
   }
 
   //------------------------------------------------------------------------------------------------
+  /*void Transition::setDestinationState(const std::string& destinationAnimState)
+  {
+    m_destinationStateName = destinationAnimState;
+  }*/
+
+  //------------------------------------------------------------------------------------------------
   bool Transition::testTransitionFunction() const
   {
-    // Our source state can be null (global transition), but our destination state cannot be
-    ASSERT(m_destinationAnimState.get());
+    // Our destination state cannot be empty
+    ASSERT(!m_destinationStateName.empty());
 
     // The transition func cannot be nullptr either
     return m_transitionFunc();
