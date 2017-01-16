@@ -51,8 +51,8 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   const Handle<Transition>& StateMachine::addTransition(
-    const Handle<AnimationController>& from,
-    const Handle<AnimationController>& to,
+    const Handle<Animation>& from,
+    const Handle<Animation>& to,
     const Transition::TransitionFunc& transitionFunc)
   {
     if (!m_transitionAllocator.canAllocate())
@@ -75,7 +75,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void StateMachine::setStartingAnimState(const Handle<AnimationController>& animState)
+  void StateMachine::setStartingAnimState(const Handle<Animation>& animState)
   {
     ASSERT(!isAwake());
     ASSERT(animState.get());

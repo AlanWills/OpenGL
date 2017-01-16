@@ -1,15 +1,15 @@
 #include "stdafx.h"
 
-#include "Animation/AnimationController.h"
+#include "Animation/Animation.h"
 #include "Game/GameManager.h"
 
 
 namespace OpenGL
 {
-  REGISTER_COMPONENT(AnimationController);
+  REGISTER_COMPONENT(Animation);
 
   //------------------------------------------------------------------------------------------------
-  AnimationController::AnimationController() : 
+  Animation::Animation() : 
     m_currentFrame(0),
     m_secondsPerFrame(0.1f),
     m_currentSecondsPerFrame(0),
@@ -19,12 +19,12 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  AnimationController::~AnimationController()
+  Animation::~Animation()
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  void AnimationController::awake()
+  void Animation::awake()
   {
     Inherited::awake();
 
@@ -44,7 +44,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void AnimationController::update(GLfloat secondsPerUpdate)
+  void Animation::update(GLfloat secondsPerUpdate)
   {
     Inherited::update(secondsPerUpdate);
 
@@ -72,7 +72,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void AnimationController::resume()
+  void Animation::resume()
   {
     if (m_loop || (m_currentFrame != m_frames.size() - 1))
     {
@@ -82,7 +82,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void AnimationController::restart()
+  void Animation::restart()
   {
     if (!m_frames.empty())
     {
@@ -93,7 +93,7 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void AnimationController::addFrame(const std::string& textureRelativePath)
+  void Animation::addFrame(const std::string& textureRelativePath)
   {
     // For safety's sake we shouldn't add frames after the initialization step
     // This is because we could be adding frames whilst altering the current frame

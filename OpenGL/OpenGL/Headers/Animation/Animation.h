@@ -8,9 +8,9 @@
 namespace OpenGL
 {
 
-class AnimationController : public Component
+class Animation : public Component
 {
-  DECLARE_COMPONENT(PoolAllocator, AnimationController, 10);
+  DECLARE_COMPONENT(PoolAllocator, Animation, 10);
 
   public:
     void awake() override;

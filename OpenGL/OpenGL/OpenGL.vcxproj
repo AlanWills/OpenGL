@@ -15,7 +15,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Animation\AnimationController.cpp" />
+    <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\Animation\StateMachine.cpp" />
     <ClCompile Include="Source\Animation\Transition.cpp" />
     <ClCompile Include="Source\Audio\AudioManager.cpp" />
@@ -88,7 +88,7 @@
     <Image Include="Assets\Textures\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\Animation\AnimationController.h" />
+    <ClInclude Include="Headers\Animation\Animation.h" />
     <ClInclude Include="Headers\Animation\StateMachine.h" />
     <ClInclude Include="Headers\Animation\Transition.h" />
     <ClInclude Include="Headers\Audio\AudioManager.h" />

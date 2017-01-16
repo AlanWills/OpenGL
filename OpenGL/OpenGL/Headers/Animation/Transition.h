@@ -1,6 +1,6 @@
 #pragma once
 
-#include "AnimationController.h"
+#include "Animation.h"
 
 #include <functional>
 
@@ -15,10 +15,10 @@ class Transition
 
     Transition();
 
-    void setSourceState(const Handle<AnimationController>& sourceAnimState) { m_sourceAnimState = sourceAnimState; }
+    void setSourceState(const Handle<Animation>& sourceAnimState) { m_sourceAnimState = sourceAnimState; }
 
-    void setDestinationState(const Handle<AnimationController>& destinationAnimState) { m_destinationAnimState = destinationAnimState; }
-    const Handle<AnimationController>& getDestinationState() const { return m_destinationAnimState; }
+    void setDestinationState(const Handle<Animation>& destinationAnimState) { m_destinationAnimState = destinationAnimState; }
+    const Handle<Animation>& getDestinationState() const { return m_destinationAnimState; }
 
     void setTransitionFunction(const TransitionFunc& transitionFunc) { m_transitionFunc = transitionFunc; }
 
@@ -30,8 +30,8 @@ class Transition
     /// \brief A function which we use to determine whether this transition should fire
     TransitionFunc m_transitionFunc;
 
-    Handle<AnimationController> m_sourceAnimState;
-    Handle<AnimationController> m_destinationAnimState;
+    Handle<Animation> m_sourceAnimState;
+    Handle<Animation> m_destinationAnimState;
 };
 
 }

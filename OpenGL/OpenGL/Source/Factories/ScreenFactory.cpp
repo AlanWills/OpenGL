@@ -84,12 +84,12 @@ namespace OpenGL
     Handle<SpriteRenderer> renderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
     Handle<StateMachine> stateMachine = gameObject->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
 
-    Handle<AnimationController> idleAnimation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+    Handle<Animation> idleAnimation = gameObject->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
     idleAnimation->addFrame("ChainBlasterFrame0.png");
     idleAnimation->setSecondsPerFrame(0.1f);
     idleAnimation->setLoop(false);
 
-    Handle<AnimationController> firingAnimation = gameObject->addComponent<kUnmanaged>(AnimationController::allocateAndInitialize());
+    Handle<Animation> firingAnimation = gameObject->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
     idleAnimation->addFrame("ChainBlasterFrame0.png");
     firingAnimation->addFrame("ChainBlasterFrame1.png");
     firingAnimation->addFrame("ChainBlasterFrame2.png");
