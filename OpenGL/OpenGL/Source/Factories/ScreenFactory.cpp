@@ -98,6 +98,7 @@ namespace OpenGL
     Handle<AnimationState> firingState = stateMachine->addState(firingAnimation);
     stateMachine->setStartingState(idleState);
     idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
+    firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
 
     return screen;
   }

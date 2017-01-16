@@ -25,26 +25,15 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Transition> AnimationState::addTransition(
+  void AnimationState::addTransition(
     const Handle<AnimationState>& to,
-    const Transition::TransitionFunc& transitionFunc)
+    const TransitionFunc& transitionFunc)
   {
-    if (!m_transitionAllocator.canAllocate())
-    {
-      ASSERT_FAIL("Run out of transitions.  Consider increasing the pool size");
-    }
-
     // Cannot have a self transition
     ASSERT(getAllocatorHandle() != to);
 
-    // Set up the transition properties
-    Handle<Transition> transition = m_transitionAllocator.allocate();
-    transition->setDestinationState("This isn't going to work");
-    transition->setTransitionFunction(transitionFunc);
-
-    m_transitions.push_back(transition);
-
-    return transition;
+    // Add the transition to the map
+    m_transitions.emplace(to, transitionFunc);
   }
 
   //------------------------------------------------------------------------------------------------

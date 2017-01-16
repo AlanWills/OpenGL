@@ -25,16 +25,16 @@ namespace OpenGL
 
     ASSERT(m_currentAnimState.get());
 
-    for (const Handle<Transition>& transition : *m_currentAnimState)
+    for (const AnimationState::Transition& transition : *m_currentAnimState)
     {
       // The first check is due to this current implementation - we normally wouldn't need to test transition to current animstate
-      if (transition->testTransitionFunction())
+      if (transition.second())
       {
         // Stop this current animation from playing and reset it back to it's beginning
         m_currentAnimState->stopAnimation();
 
         // Now update the current animation state to the destination state of the transition and play it
-        m_currentAnimState = m_states[1];
+        m_currentAnimState = transition.first;
         m_currentAnimState->startAnimation();
 
         // Currently we transition on the first one that passes

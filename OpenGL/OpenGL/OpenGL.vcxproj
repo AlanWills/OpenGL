@@ -18,7 +18,6 @@
     <ClCompile Include="Source\Animation\Animation.cpp" />
     <ClCompile Include="Source\Animation\AnimationState.cpp" />
     <ClCompile Include="Source\Animation\StateMachine.cpp" />
-    <ClCompile Include="Source\Animation\Transition.cpp" />
     <ClCompile Include="Source\Audio\AudioManager.cpp" />
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Factories\ScreenFactory.cpp" />
@@ -92,7 +91,6 @@
     <ClInclude Include="Headers\Animation\Animation.h" />
     <ClInclude Include="Headers\Animation\AnimationState.h" />
     <ClInclude Include="Headers\Animation\StateMachine.h" />
-    <ClInclude Include="Headers\Animation\Transition.h" />
     <ClInclude Include="Headers\Audio\AudioManager.h" />
     <ClInclude Include="Headers\Audio\AudioSource.h" />
     <ClInclude Include="Headers\Events\Event.h" />

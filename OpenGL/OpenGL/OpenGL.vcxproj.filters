@@ -168,9 +168,6 @@
     <ClCompile Include="Source\Animation\StateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Animation\Transition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Animation\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -415,9 +412,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Animation\AnimationState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\Animation\Transition.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
