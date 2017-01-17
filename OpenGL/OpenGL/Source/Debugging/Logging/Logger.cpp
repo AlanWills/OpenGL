@@ -19,7 +19,7 @@ namespace OpenGL
     m_backLogBufferStr.clear();
 
     Directory::getExecutingAppDirectory(m_logFileFullPath);
-    Path::combine(m_logFileFullPath, logRelativePath);
+    m_logFileFullPath = Path(m_logFileFullPath, logRelativePath).as_string();
     File::create(m_logFileFullPath);  // Clears the log file if it already exists
   }
 

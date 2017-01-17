@@ -4,18 +4,11 @@
 namespace Kernel
 {
   //------------------------------------------------------------------------------------------------
-  Path::Path(const std::string& path) :
-    m_path(path)
+  Path::Path(const std::string& fullPath) :
+    m_path(fullPath)
   {
     // Creating an empty path is a little odd
     ASSERT(!m_path.empty());
-  }
-
-  //------------------------------------------------------------------------------------------------
-  Path::Path(const std::string& parentPath, const std::string& relativePath) :
-    m_path(parentPath)
-  {
-    reset(parentPath, relativePath);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -39,55 +32,55 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void Path::reset(const std::string& fullPath)
+  void Path::reset(const char* path, ...)
   {
+    m_path.clear();
+    m_path.append(path);
+
     // Creating an empty path is a little odd
-    ASSERT(!fullPath.empty());
+    ASSERT(path && path != "");
 
-    m_path = fullPath;
+    va_list args;
+    va_start(args, path);
+    combine(args);
+    va_end(args);
   }
 
   //------------------------------------------------------------------------------------------------
-  void Path::reset(const std::string& parentPath, const std::string& relativePath)
+  void Path::combine(const char* path, ...)
   {
-    // Creating an empty path is a little odd and calling this with an empty relative path is odd too (though still valid)
-    ASSERT(!parentPath.empty() && !relativePath.empty());
-
-    m_path = parentPath;
-    combine(m_path, relativePath);
+    va_list args;
+    va_start(args, path);
+    combine(args); 
+    va_end(args);
   }
 
   //------------------------------------------------------------------------------------------------
-  void Path::combine(std::string& firstPath, const std::string& secondPath)
+  void Path::combine(va_list paths)
   {
-    if (secondPath.empty())
+    while (*paths != '\0')
     {
-      // Check that the first path is not empty - if it is, this is a weird situation (although still valid)
-      // Appending nothing to a non-empty path seems ok, but appending two empty paths is odd
-      ASSERT(!firstPath.empty());
-      return;
+      std::string secondPath(paths);
+      combine(secondPath);
+      ++paths;
     }
+  }
 
-    if (firstPath.empty())
+  //------------------------------------------------------------------------------------------------
+  void Path::combine(const std::string& path)
+  {
+    // If the first path doesn't end in the delimiter and the second doesn't start with the delimiter we should append the delimiter to the first path
+    if ((m_path.back() != PATH_DELIMITER) && (path.front() != PATH_DELIMITER))
     {
-      // I don't feel like this is a good situation to be in - it is valid, but odd
-      ASSERT_FAIL();
-      firstPath.append(secondPath);
-      return;
-    }
-
-    // If the first path doesn't end in the delimiter and the second doesn't awake with the delimiter we should append the delimiter to the first path
-    if ((firstPath.back() != PATH_DELIMITER) && (secondPath.front() != PATH_DELIMITER))
-    {
-      firstPath.push_back(PATH_DELIMITER);
+      m_path.push_back(PATH_DELIMITER);
     }
     // If the first path ends in the delimiter and the second beings with the delimiter we remove it from the end of the first path
-    else if ((firstPath.back() == PATH_DELIMITER) && (secondPath.front() == PATH_DELIMITER))
+    else if ((m_path.back() == PATH_DELIMITER) && (path.front() == PATH_DELIMITER))
     {
-      firstPath.pop_back();
+      m_path.pop_back();
     }
 
-    firstPath.append(secondPath);
+    m_path.append(path);
   }
 
   //------------------------------------------------------------------------------------------------

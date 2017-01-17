@@ -28,12 +28,14 @@
     <ClCompile Include="Source\Objects\UIObject.cpp" />
     <ClCompile Include="Source\Physics\Collider.cpp" />
     <ClCompile Include="Source\Physics\RectangleCollider.cpp" />
+    <ClCompile Include="Source\Physics\RigidBody2D.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Resources\LoadResourcesAsyncScript.cpp" />
     <ClCompile Include="Source\Resources\Audio.cpp" />
+    <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Scripts\Script.cpp" />
     <ClCompile Include="Source\Rendering\RenderManager.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -72,6 +74,11 @@
     <None Include="Assets\Shaders\Vertex\text.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidHuge.png" />
+    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidLarge.png" />
+    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidSmall.png" />
+    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png" />
+    <Image Include="Assets\Textures\Backgrounds\RainbowNebula.png" />
     <Image Include="Assets\Textures\ButtonDefault.png" />
     <Image Include="Assets\Textures\ButtonHighlighted.png" />
     <Image Include="Assets\Textures\ButtonPressed.png" />
@@ -110,12 +117,14 @@
     <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Physics\Collider.h" />
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />
+    <ClInclude Include="Headers\Physics\RigidBody2D.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />
     <ClInclude Include="Headers\Rendering\TextRenderer.h" />
     <ClInclude Include="Headers\Resources\Font.h" />
     <ClInclude Include="Headers\Input\KeyboardMovementScript.h" />
     <ClInclude Include="Headers\Resources\LoadResourcesAsyncScript.h" />
     <ClInclude Include="Headers\Resources\Audio.h" />
+    <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
     <ClInclude Include="Headers\Scripts\Script.h" />
     <ClInclude Include="Headers\Rendering\SpriteRenderer.h" />
     <ClInclude Include="Headers\Debugging\DebugManager.h" />

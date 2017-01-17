@@ -15,9 +15,8 @@ namespace Kernel
 
   //------------------------------------------------------------------------------------------------
   Directory::Directory(const std::string& parentDirectoryPath, const std::string& relativePathFromParent) :
-    m_dirPath(parentDirectoryPath)
+    m_dirPath(parentDirectoryPath, parentDirectoryPath)
   {
-    m_dirPath.combine(relativePathFromParent);
     create(m_dirPath.as_string());
   }
 
@@ -147,7 +146,7 @@ namespace Kernel
       if (dirent->d_type == DT_REG)
       {
         Path filePath(fullDirectoryPath);
-        filePath.combine(dirent->d_name);
+        filePath.combine(std::string(dirent->d_name));
 
         // Check the extension here
         if (extension != ".")
@@ -168,7 +167,7 @@ namespace Kernel
       else if (includeSubDirectories && dirent->d_type == DT_DIR)
       {
         Path subDirPath(fullDirectoryPath);
-        subDirPath.combine(dirent->d_name);
+        subDirPath.combine(std::string(dirent->d_name));
         
         findFiles(subDirPath.as_string(), files, extension, includeSubDirectories);
       }
@@ -203,7 +202,7 @@ namespace Kernel
       if (dirent->d_type == DT_DIR)
       {
         Path dirBuffer(fullDirectoryPath);
-        dirBuffer.combine(dirent->d_name);
+        dirBuffer.combine(std::string(dirent->d_name));
         directories.push_back(dirBuffer);
 
         findDirectories(dirBuffer.as_string(), directories, includeSubDirectories);

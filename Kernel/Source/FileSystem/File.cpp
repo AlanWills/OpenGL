@@ -16,9 +16,8 @@ namespace Kernel
 
   //------------------------------------------------------------------------------------------------
   File::File(const std::string& fullParentDirectoryPath, const std::string& relativeFilePath, bool clearIfAlreadyExists) :
-    m_filePath(fullParentDirectoryPath)
+    m_filePath(fullParentDirectoryPath, relativeFilePath)
   {
-    m_filePath.combine(relativeFilePath);
     create(m_filePath.as_string(), clearIfAlreadyExists);
   }
 
@@ -94,10 +93,7 @@ namespace Kernel
   //------------------------------------------------------------------------------------------------
   void File::createInDirectory(const std::string& directoryFullPath, const std::string& relativeFilePath, bool clearIfAlreadyExists)
   {
-    std::string fullFilePath(directoryFullPath);
-    Path::combine(fullFilePath, relativeFilePath);
-
-    create(fullFilePath, clearIfAlreadyExists);
+    create(Path(directoryFullPath, relativeFilePath).as_string(), clearIfAlreadyExists);
   }
 
   //------------------------------------------------------------------------------------------------

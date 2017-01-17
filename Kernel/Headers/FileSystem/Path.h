@@ -3,6 +3,7 @@
 #include "DllExport.h"
 
 #include <string>
+#include <stdarg.h>
 
 namespace Kernel
 {
@@ -17,7 +18,10 @@ class DllExport Path
 {
   public:
     Path(const std::string& fullPath);
-    Path(const std::string& parentPath, const std::string& relativePath);
+
+    template <typename... T>
+    Path(const std::string& path, const T&... paths);
+
     Path(const Path& path);   // Copy constructor just copies underlying string
     ~Path();
 
@@ -27,8 +31,12 @@ class DllExport Path
     /// \brief Appends a PATH_DELIMITER and the secondPath onto the firstPath
     /// std::string first("first\\path"), second("second\\path");
     /// e.g. combine(first, second) would change firstPath to "first\\path\\second\\path";
-    static void combine(std::string& firstPath, const std::string& secondPath);
-    Path& combine(const std::string& secondPath) { combine(m_path, secondPath); return *this; }   // Return a reference to this so we can use builder pattern for combining
+    void combine(const char* path, ...);
+
+    template <typename T, typename... Args>
+    void combine(const T& path, const Args&... args);
+
+    void combine(const std::string& path);
 
     /// \brief Returns the directory the object represented by the inputted path is in.
     /// e.g. for Root\\Directory\\File.txt this would return Root\\Directory
@@ -39,14 +47,31 @@ class DllExport Path
 
     /// \brief Sets the stored string path to be the new inputted values
     /// Allows a way to reuse the same Path object rather than constructing a new one
-    void reset(const std::string& fullPath);
-    void reset(const std::string& parentPath, const std::string& relativePath);
+    void reset(const char* path, ...);
 
     /// \brief Returns the path represented by this object as a string
     const std::string& as_string() const { return m_path; }
 
   private:
+    void combine(va_list strings);
+
     std::string m_path;
 };
+
+//------------------------------------------------------------------------------------------------
+template <typename... T>
+Path::Path(const std::string& path, const T&... paths) :
+  m_path("")
+{
+  combine(path, paths...);
+}
+
+//------------------------------------------------------------------------------------------------
+template <typename T, typename... Args>
+void Path::combine(const T& path, const Args&... paths)
+{
+  combine(path);
+  combine(paths...);
+}
 
 };
