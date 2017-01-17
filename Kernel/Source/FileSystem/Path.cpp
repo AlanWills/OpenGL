@@ -47,15 +47,6 @@ namespace Kernel
   }
 
   //------------------------------------------------------------------------------------------------
-  void Path::combine(const char* path, ...)
-  {
-    va_list args;
-    va_start(args, path);
-    combine(args); 
-    va_end(args);
-  }
-
-  //------------------------------------------------------------------------------------------------
   void Path::combine(va_list paths)
   {
     while (*paths != '\0')
@@ -101,5 +92,31 @@ namespace Kernel
     {
       outParentDirectory.pop_back();
     }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  std::string Path::relativeTo(const Path& parent) const
+  {
+    const std::string& parentStr = parent.as_string();
+    std::string result(m_path.substr(parentStr.size() + 1));
+
+    ASSERT(parentStr.size() < m_path.size());
+
+    for (int i = 0; i < parentStr.size(); ++i)
+    {
+      if (parentStr[i] != m_path[i])
+      {
+        result = m_path.substr(i);
+        break;
+      }
+    }
+
+    if (result.front() == PATH_DELIMITER)
+    {
+      result = result.substr(1);
+    }
+
+    ASSERT(result.front() != PATH_DELIMITER);
+    return result;
   }
 }

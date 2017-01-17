@@ -31,12 +31,12 @@ class DllExport Path
     /// \brief Appends a PATH_DELIMITER and the secondPath onto the firstPath
     /// std::string first("first\\path"), second("second\\path");
     /// e.g. combine(first, second) would change firstPath to "first\\path\\second\\path";
-    void combine(const char* path, ...);
-
     template <typename T, typename... Args>
     void combine(const T& path, const Args&... args);
 
     void combine(const std::string& path);
+    void combine(const char* path) { combine(std::string(path)); }
+
 
     /// \brief Returns the directory the object represented by the inputted path is in.
     /// e.g. for Root\\Directory\\File.txt this would return Root\\Directory
@@ -48,6 +48,11 @@ class DllExport Path
     /// \brief Sets the stored string path to be the new inputted values
     /// Allows a way to reuse the same Path object rather than constructing a new one
     void reset(const char* path, ...);
+
+    /// \brief Will remove the inputted path from this instance's path and return the value as a string
+    /// Will fail and return "" if the inputted path is not an ancestor of this path.
+    /// Leading delimiters will be trimmed
+    std::string relativeTo(const Path& path) const;
 
     /// \brief Returns the path represented by this object as a string
     const std::string& as_string() const { return m_path; }
@@ -61,9 +66,9 @@ class DllExport Path
 //------------------------------------------------------------------------------------------------
 template <typename... T>
 Path::Path(const std::string& path, const T&... paths) :
-  m_path("")
+  m_path(path)
 {
-  combine(path, paths...);
+  combine(paths...);
 }
 
 //------------------------------------------------------------------------------------------------

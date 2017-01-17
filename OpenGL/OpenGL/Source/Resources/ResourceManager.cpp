@@ -29,38 +29,50 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void ResourceManager::initialize()
   {
-    std::vector<File> shaderFiles;
-    Directory::findFiles(m_vertexShaderDirectoryPath.as_string(), shaderFiles, ".vert", true);
-
-    for (const File& file : shaderFiles)
+    // Load shader files
     {
-      const std::string& extensionlessFileName = file.getExtensionlessFileName();
+      std::vector<File> shaderFiles;
+      Directory::findFiles(m_vertexShaderDirectoryPath.as_string(), shaderFiles, ".vert", true);
 
-      loadShader(extensionlessFileName + ".vert", extensionlessFileName + ".frag");
+      for (const File& file : shaderFiles)
+      {
+        const std::string& extensionlessFileName = file.getExtensionlessFileName();
+
+        loadShader(extensionlessFileName + ".vert", extensionlessFileName + ".frag");
+      }
     }
 
-    std::vector<File> textures;
-    Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".png", true);
-
-    for (const File& file : textures)
+    // Load texture files
     {
-      loadTexture(file.getFileName());
+      std::vector<File> textures;
+      Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".png", true);
+
+      for (const File& file : textures)
+      {
+        loadTexture(file.getFilePath().relativeTo(m_textureDirectoryPath));
+      }
     }
 
-    std::vector<File> fonts;
-    Directory::findFiles(m_fontDirectoryPath.as_string(), fonts, ".ttf", true);
-
-    for (const File& file : fonts)
+    // Load font files
     {
-      loadFont(file.getFileName());
+      std::vector<File> fonts;
+      Directory::findFiles(m_fontDirectoryPath.as_string(), fonts, ".ttf", true);
+
+      for (const File& file : fonts)
+      {
+        loadFont(file.getFilePath().relativeTo(m_fontDirectoryPath));
+      }
     }
 
-    std::vector<File> audio;
-    Directory::findFiles(m_audioDirectoryPath.as_string(), audio, ".wav", true);
-
-    for (const File& file : fonts)
+    // Load audio files
     {
-      loadAudio(file.getFileName());
+      std::vector<File> audio;
+      Directory::findFiles(m_audioDirectoryPath.as_string(), audio, ".wav", true);
+
+      for (const File& file : audio)
+      {
+        loadAudio(file.getFilePath().relativeTo(m_audioDirectoryPath));
+      }
     }
   }
 

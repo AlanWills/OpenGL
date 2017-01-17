@@ -166,9 +166,7 @@ namespace Kernel
       }
       else if (includeSubDirectories && dirent->d_type == DT_DIR)
       {
-        Path subDirPath(fullDirectoryPath);
-        subDirPath.combine(std::string(dirent->d_name));
-        
+        Path subDirPath(fullDirectoryPath, std::string(dirent->d_name));
         findFiles(subDirPath.as_string(), files, extension, includeSubDirectories);
       }
     }

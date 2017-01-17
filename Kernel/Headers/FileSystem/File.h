@@ -61,7 +61,7 @@ class DllExport File
     static void readLines(const std::string& fullFilePath, std::vector<std::string>& outLines);
     void readLines(std::vector<std::string>& outLines) const { readLines(m_filePath.as_string(), outLines); }
 
-    const std::string& getFilePath() const { return m_filePath.as_string(); }
+    const Path& getFilePath() const { return m_filePath; }
 
     /// \brief Obtains the name of the file relative to it's parent directory including extension
     std::string getFileName() const;
