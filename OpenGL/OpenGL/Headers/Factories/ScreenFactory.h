@@ -17,9 +17,6 @@ class ScreenFactory
     Handle<Screen> transitionToMainMenuScreen() const;
     Handle<Screen> transitionToGameplayScreen() const;
 
-    // Utility functions
-    void addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const;
-
   private:
     void transitionCallback(Handle<GameObject> sender);
     bool firing();

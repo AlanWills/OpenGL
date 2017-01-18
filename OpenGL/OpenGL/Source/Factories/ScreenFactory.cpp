@@ -40,7 +40,12 @@ namespace OpenGL
     Handle<GameObject> resourceLoader = screen->allocateAndInitializeGameObject();
     
     // Add a background image
-    addScreenBackground(screen, "Logo.png");
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
+    image->setImage("Logo.png");
+    image->setSize(screenDimensions);
+    image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
     resourceLoader->addComponent<kUnmanaged>(LoadResourcesAsyncScript::allocateAndInitialize());
@@ -81,8 +86,6 @@ namespace OpenGL
   Handle<Screen> ScreenFactory::transitionToGameplayScreen() const
   {
     Handle<Screen> screen = allocateScreenAndTransition();
-    //addScreenBackground(screen, Path("Backgrounds", "RainbowNebula.png").as_string());
-
     Handle<GameObject> asteroidSpawner = screen->allocateAndInitializeGameObject();
     {
       Handle<RectangleCollider> asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
@@ -92,7 +95,7 @@ namespace OpenGL
       /*asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
       asteroidSpawning->setLargeAsteroidCount(10);*/
-      asteroidSpawning->setHugeAsteroidCount(3);
+      asteroidSpawning->setHugeAsteroidCount(1);
     }
 
     Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
@@ -118,17 +121,6 @@ namespace OpenGL
     }
 
     return screen;
-  }
-
-  //------------------------------------------------------------------------------------------------
-  void ScreenFactory::addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const
-  {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
-
-    Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
-    image->setImage(relativeImagePath);
-    image->setSize(screenDimensions);
-    image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, -0.1f));
   }
 
   //------------------------------------------------------------------------------------------------
