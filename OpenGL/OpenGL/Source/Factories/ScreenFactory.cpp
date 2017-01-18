@@ -5,6 +5,7 @@
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Audio/AudioSource.h"
 #include "Animation/StateMachine.h"
+#include "Scripts/AsteroidSpawningScript.h"
 
 
 namespace OpenGL
@@ -80,38 +81,54 @@ namespace OpenGL
   Handle<Screen> ScreenFactory::transitionToGameplayScreen() const
   {
     Handle<Screen> screen = allocateScreenAndTransition();
-    Handle<GameObject> gameObject = screen->allocateAndInitializeGameObject();
-    Handle<SpriteRenderer> renderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-    Handle<StateMachine> stateMachine = gameObject->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
+    //addScreenBackground(screen, Path("Backgrounds", "RainbowNebula.png").as_string());
 
-    Handle<Animation> idleAnimation = gameObject->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-    idleAnimation->addFrame("ChainBlasterFrame0.png");
-    idleAnimation->setSecondsPerFrame(0.1f);
-    idleAnimation->setLoop(false);
+    Handle<GameObject> asteroidSpawner = screen->allocateAndInitializeGameObject();
+    {
+      Handle<RectangleCollider> asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
+      asteroidCollider->setDimensions(GameManager::getScreenManager()->getViewportDimensions());
 
-    Handle<Animation> firingAnimation = gameObject->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-    idleAnimation->addFrame("ChainBlasterFrame0.png");
-    firingAnimation->addFrame("ChainBlasterFrame1.png");
-    firingAnimation->addFrame("ChainBlasterFrame2.png");
+      Handle<AsteroidSpawningScript> asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
+      /*asteroidSpawning->setTinyAsteroidCount(30);
+      asteroidSpawning->setSmallAsteroidCount(20);
+      asteroidSpawning->setLargeAsteroidCount(10);*/
+      asteroidSpawning->setHugeAsteroidCount(3);
+    }
 
-    Handle<AnimationState> idleState = stateMachine->addState(idleAnimation);
-    Handle<AnimationState> firingState = stateMachine->addState(firingAnimation);
-    stateMachine->setStartingState(idleState);
-    idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
-    firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
+    Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
+    {
+      Handle<SpriteRenderer> renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+      Handle<StateMachine> stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
+
+      Handle<Animation> idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      idleAnimation->addFrame("ChainBlasterFrame0.png");
+      idleAnimation->setSecondsPerFrame(0.1f);
+      idleAnimation->setLoop(false);
+
+      Handle<Animation> firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      idleAnimation->addFrame("ChainBlasterFrame0.png");
+      firingAnimation->addFrame("ChainBlasterFrame1.png");
+      firingAnimation->addFrame("ChainBlasterFrame2.png");
+
+      Handle<AnimationState> idleState = stateMachine->addState(idleAnimation);
+      Handle<AnimationState> firingState = stateMachine->addState(firingAnimation);
+      stateMachine->setStartingState(idleState);
+      idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
+      firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
+    }
 
     return screen;
   }
 
   //------------------------------------------------------------------------------------------------
-  void ScreenFactory::addScreenBackground(const Handle<Screen>& screen, const std::string& backgroundImage) const
+  void ScreenFactory::addScreenBackground(const Handle<Screen>& screen, const std::string& relativeImagePath) const
   {
     const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
 
     Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
-    image->setImage(backgroundImage);
+    image->setImage(relativeImagePath);
     image->setSize(screenDimensions);
-    image->getTransform()->translate(screenDimensions * 0.5f);
+    image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, -0.1f));
   }
 
   //------------------------------------------------------------------------------------------------

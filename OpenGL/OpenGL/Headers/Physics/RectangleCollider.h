@@ -16,6 +16,7 @@ class RectangleCollider : public Collider
     bool intersectsRay(const Ray& ray) const override;
     bool intersectsPoint(const glm::vec2& point) const override;
 
+    const glm::vec2& getDimensions() const { return m_dimensions; }
     void setDimensions(glm::vec2& dimensions) { m_dimensions = dimensions; }
 
   private:
