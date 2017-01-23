@@ -34,7 +34,8 @@ namespace OpenGL
 
     if (m_angularVelocity != 0)
     {
-      transform->applyTransform(glm::rotate(glm::mat4(), m_angularVelocity * secondsPerUpdate, glm::vec3(0, 0, 1)));
+      const glm::mat4& matrix = glm::rotate(glm::mat4(), m_angularVelocity * secondsPerUpdate, glm::vec3(0, 0, 1));
+      transform->applyTransform(matrix);
     }
   }
 }

@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Game/GameManager.h"
-#include "alut/alut.h"
 
 
 namespace OpenGL
@@ -10,6 +9,7 @@ namespace OpenGL
   std::unique_ptr<ResourceManager> GameManager::m_resourceManager(new ResourceManager());
   std::unique_ptr<ScreenManager> GameManager::m_screenManager(new ScreenManager());
   std::unique_ptr<InputManager> GameManager::m_inputManager(new InputManager());
+  std::unique_ptr<PhysicsManager> GameManager::m_physicsManager(new PhysicsManager());
   std::unique_ptr<AudioManager> GameManager::m_audioManager(new AudioManager());
   std::unique_ptr<Clock> GameManager::m_gameClock(new Clock());
 
@@ -31,6 +31,7 @@ namespace OpenGL
     // Initialize these managers with an empty allocator handler - they are taken care of here by unique_ptr
     getScreenManager()->initialize(Handle<Component>());
     getInputManager()->initialize(Handle<Component>());
+    getPhysicsManager()->initialize(Handle<Component>());
     getAudioManager()->initialize(Handle<Component>());
 
     // Initialize resource manager last, so that all contexts are set up correctly
@@ -82,6 +83,7 @@ namespace OpenGL
   {
     getInputManager()->awake();
     getScreenManager()->awake();
+    getPhysicsManager()->awake();
     getAudioManager()->awake();
   }
 
@@ -90,6 +92,7 @@ namespace OpenGL
   {
     getInputManager()->handleInput(elapsedGameTime);
     getScreenManager()->handleInput(elapsedGameTime);
+    getPhysicsManager()->handleInput(elapsedGameTime);
     getAudioManager()->handleInput(elapsedGameTime);
 
     if (getInputManager()->getKeyboard()->isKeyDown(GLFW_KEY_ESCAPE))
@@ -103,6 +106,7 @@ namespace OpenGL
   {
     getInputManager()->update(elapsedGameTime);
     getScreenManager()->update(elapsedGameTime);
+    getPhysicsManager()->update(elapsedGameTime);
     getAudioManager()->update(elapsedGameTime);
   }
 
@@ -164,6 +168,25 @@ namespace OpenGL
 
     ASSERT(inputManager);
     m_inputManager.reset(inputManager);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  PhysicsManager* GameManager::getPhysicsManager()
+  {
+    ASSERT(m_physicsManager.get());
+    return m_physicsManager.get();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameManager::setPhysicsManager(PhysicsManager* physicsManager)
+  {
+    if (m_physicsManager.get())
+    {
+      m_physicsManager->die();
+    }
+
+    ASSERT(physicsManager);
+    m_physicsManager.reset(physicsManager);
   }
 
   //------------------------------------------------------------------------------------------------

@@ -11,7 +11,6 @@ class RenderManager : public Component
 {
   public:
     RenderManager();
-    virtual ~RenderManager();
 
     void initialize(const Handle<Component>& allocHandle) override;
     void awake() override;

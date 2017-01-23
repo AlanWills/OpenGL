@@ -27,6 +27,7 @@
     <ClCompile Include="Source\Objects\GameObject.cpp" />
     <ClCompile Include="Source\Objects\UIObject.cpp" />
     <ClCompile Include="Source\Physics\Collider.cpp" />
+    <ClCompile Include="Source\Physics\PhysicsManager.cpp" />
     <ClCompile Include="Source\Physics\RectangleCollider.cpp" />
     <ClCompile Include="Source\Physics\RigidBody2D.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Headers\Objects\UIObject.h" />
     <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Physics\Collider.h" />
+    <ClInclude Include="Headers\Physics\PhysicsManager.h" />
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />
     <ClInclude Include="Headers\Physics\RigidBody2D.h" />
     <ClInclude Include="Headers\Rendering\Renderer.h" />

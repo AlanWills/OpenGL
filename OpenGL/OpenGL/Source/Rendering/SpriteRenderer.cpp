@@ -99,16 +99,17 @@ namespace OpenGL
     if (m_texture.get())
     {
       glCheckError();
-      Handle<Shader> spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
+      const Handle<Shader>& spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
 
       spriteShader->setVector4f("spriteColour", getColour());
 
-      Handle<GameObject> parent = getParent();
+      const Handle<GameObject>& parent = getParent();
       ASSERT(parent.get());
 
-      glm::mat4 modelMatrix = parent.get() ? parent->getTransform()->getWorldMatrix() : glm::mat4();
-      modelMatrix = glm::scale(modelMatrix, glm::vec3(getScale(), 1));
-      spriteShader->setMatrix4("model", modelMatrix);
+      const glm::mat4& modelMatrix = parent.get() ? parent->getTransform()->getWorldMatrix() : glm::mat4();
+      glm::mat4 finalMatrix = glm::scale(modelMatrix, glm::vec3(getScale(), 1));
+
+      spriteShader->setMatrix4("model", finalMatrix);
 
       glActiveTexture(GL_TEXTURE0);
       m_texture->bind();
@@ -120,8 +121,6 @@ namespace OpenGL
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
       glBindVertexArray(0);
       glCheckError();
-
-      m_texture->unbind();
     }
   }
 

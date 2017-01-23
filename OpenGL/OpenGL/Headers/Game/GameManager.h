@@ -3,10 +3,13 @@
 #include "Resources/ResourceManager.h"
 #include "Screens/ScreenManager.h"
 #include "Input/InputManager.h"
+#include "Physics/PhysicsManager.h"
 #include "Audio/AudioManager.h"
 #include "Time/Clock.h"
 
 #include <memory>
+
+class PhysicsManager;
 
 
 namespace OpenGL
@@ -38,6 +41,10 @@ class GameManager
     static void setInputManager(InputManager* inputManager);
     static InputManager* getInputManager();
 
+    /// \brief GameManager takes responsibility for managing the physics manager
+    static void setPhysicsManager(PhysicsManager* physicsManager);
+    static PhysicsManager* getPhysicsManager();
+
     /// \brief GameManager takes responsibility for managing the audio manager
     static void setAudioManager(AudioManager* audioManager);
     static AudioManager* getAudioManager();
@@ -64,6 +71,9 @@ class GameManager
     /// \brief The manager responsible for handling and processing human input
     static std::unique_ptr<InputManager> m_inputManager;
 
+    /// \brief The manager responsible for handling and simulating physics
+    static std::unique_ptr<PhysicsManager> m_physicsManager;
+    
     /// \brief The manager responsible for playing and maintaining audio
     static std::unique_ptr<AudioManager> m_audioManager;
 

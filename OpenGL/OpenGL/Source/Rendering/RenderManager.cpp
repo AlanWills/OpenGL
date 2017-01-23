@@ -16,11 +16,6 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  RenderManager::~RenderManager()
-  {
-  }
-
-  //------------------------------------------------------------------------------------------------
   void RenderManager::initialize(const Handle<Component>& allocHandle)
   {
     Inherited::initialize(allocHandle);

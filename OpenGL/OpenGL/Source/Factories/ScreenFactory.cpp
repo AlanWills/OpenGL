@@ -6,6 +6,7 @@
 #include "Audio/AudioSource.h"
 #include "Animation/StateMachine.h"
 #include "Scripts/AsteroidSpawningScript.h"
+#include "Physics/RigidBody2D.h"
 
 
 namespace OpenGL
@@ -88,10 +89,10 @@ namespace OpenGL
     Handle<Screen> screen = allocateScreenAndTransition();
     Handle<GameObject> asteroidSpawner = screen->allocateAndInitializeGameObject();
     {
-      Handle<RectangleCollider> asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
+      const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
       asteroidCollider->setDimensions(GameManager::getScreenManager()->getViewportDimensions());
 
-      Handle<AsteroidSpawningScript> asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
+      const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
       /*asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
       asteroidSpawning->setLargeAsteroidCount(10);*/
@@ -100,21 +101,24 @@ namespace OpenGL
 
     Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {
-      Handle<SpriteRenderer> renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-      Handle<StateMachine> stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
+      const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
+      rigidBody2D->setAngularVelocity(0.1f);
 
-      Handle<Animation> idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+      const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
+
+      const Handle<Animation>& idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
       idleAnimation->addFrame("ChainBlasterFrame0.png");
       idleAnimation->setSecondsPerFrame(0.1f);
       idleAnimation->setLoop(false);
 
-      Handle<Animation> firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
       idleAnimation->addFrame("ChainBlasterFrame0.png");
       firingAnimation->addFrame("ChainBlasterFrame1.png");
       firingAnimation->addFrame("ChainBlasterFrame2.png");
 
-      Handle<AnimationState> idleState = stateMachine->addState(idleAnimation);
-      Handle<AnimationState> firingState = stateMachine->addState(firingAnimation);
+      const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
+      const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
       stateMachine->setStartingState(idleState);
       idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
       firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));

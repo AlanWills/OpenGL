@@ -27,8 +27,8 @@ class AsteroidSpawningScript : public Script
     void createAsteroids();
     void createAsteroid(const Path& asteroidTexturePath);
 
-    glm::vec2 generateAsteroidPosition() const { return 0.5f * glm::vec2((float)rand() / RAND_MAX, (float)rand() / RAND_MAX); }
-    glm::vec2 generateAsteroidLinearVelocity() const { return glm::vec2(); }
+    glm::vec2 generateAsteroidPosition() const { return /*0.5f * glm::vec2((float)rand() / RAND_MAX, (float)rand() / RAND_MAX);*/glm::vec2(); }
+    glm::vec2 generateAsteroidLinearVelocity() const { return glm::vec2(/*(float)rand() / RAND_MAX*/0, 0); }
     float generateAsteroidAngularVelocity() const { return (float)rand() / RAND_MAX; }
 
     std::vector<Handle<GameObject>> m_asteroids;

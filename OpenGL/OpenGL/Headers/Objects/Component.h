@@ -20,7 +20,7 @@ public: \
   } \
   \
   ComponentType(); \
-  virtual ~ComponentType(); \
+  ~ComponentType(); \
   \
 private: \
   typedef ComponentAllocator<AllocatorType<ComponentType, PoolSize>, ComponentType, PoolSize> Alloc; \
