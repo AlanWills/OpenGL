@@ -44,6 +44,23 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void AsteroidSpawningScript::update(GLfloat secondsPerUpdate)
+  {
+    Inherited::update(secondsPerUpdate);
+
+    for (const Handle<GameObject>& asteroid : m_asteroids)
+    {
+      const Handle<RectangleCollider>& collider = asteroid->findComponent<RectangleCollider>();
+      ASSERT(collider.get());
+
+      if (collider->left() > m_bounds->right())
+      {
+        asteroid->getTransform()->translate(-m_bounds->width() - collider->width(), 0, 0);
+      }
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
   void AsteroidSpawningScript::createAsteroids()
   {
     for (int i = 0; i < m_tinyAsteroidCount; ++i)
@@ -78,7 +95,7 @@ namespace OpenGL
       return;
     }
 
-    Handle<GameObject> asteroid = currentScreen->allocateAndInitializeGameObject();
+    const Handle<GameObject>& asteroid = currentScreen->allocateAndInitializeGameObject();
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
@@ -88,7 +105,7 @@ namespace OpenGL
       return;
     }
 
-    Handle<SpriteRenderer> renderer = asteroid->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+    const Handle<SpriteRenderer>& renderer = asteroid->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
     renderer->setTexture(asteroidTexturePath.as_string());
 
     if (!RigidBody2D::canAllocate())
@@ -97,9 +114,12 @@ namespace OpenGL
       return;
     }
 
-    Handle<RigidBody2D> rigidBody = asteroid->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
+    const Handle<RigidBody2D>& rigidBody = asteroid->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
     rigidBody->setLinearVelocity(generateAsteroidLinearVelocity());
     rigidBody->setAngularVelocity(generateAsteroidAngularVelocity());
+
+    const Handle<RectangleCollider>& collider = asteroid->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
+    collider->setDimensions(renderer->getDimensions());
 
     m_asteroids.push_back(asteroid);
   }
@@ -107,7 +127,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   glm::vec2 AsteroidSpawningScript::generateAsteroidPosition() const
   {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
-    return glm::vec2(m_random.generate(0, screenDimensions.x), m_random.generate(0, screenDimensions.y));
+    const glm::vec2& halfScreenDims = GameManager::getScreenManager()->getViewportDimensions() * 0.5f;
+    return glm::vec2(m_random.generate(-halfScreenDims.x, halfScreenDims.x), m_random.generate(-halfScreenDims.y, halfScreenDims.y));
   }
 }

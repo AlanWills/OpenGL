@@ -186,6 +186,9 @@
     <ClCompile Include="Source\Maths\RandomGenerator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Maths\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag">
@@ -451,6 +454,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Maths\RandomGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Maths\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,6 +16,7 @@ class AsteroidSpawningScript : public Script
 
   public:
     void awake() override;
+    void update(GLfloat secondsPerUpdate) override;
 
     void setTinyAsteroidCount(int tinyAsteroidCount) { m_tinyAsteroidCount = tinyAsteroidCount; }
     void setSmallAsteroidCount(int smallAsteroidCount) { m_smallAsteroidCount = smallAsteroidCount; }
@@ -34,7 +35,7 @@ class AsteroidSpawningScript : public Script
 
     std::vector<Handle<GameObject>> m_asteroids;
 
-    /// \brief The bounds of this script's parent, which we will use to determine when asteroids have left the area
+    /// \brief The dimensions of this script's parent, which we will use to determine when asteroids have left the area
     Handle<RectangleCollider> m_bounds;
 
     int m_tinyAsteroidCount;

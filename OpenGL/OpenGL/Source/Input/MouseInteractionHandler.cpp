@@ -37,7 +37,7 @@ namespace OpenGL
 
     Mouse* mouse = GameManager::getInputManager()->getMouse();
 
-    bool mouseOverThisFrame = m_collider->intersectsPoint(mouse->getMousePosition());
+    bool mouseOverThisFrame = m_collider->intersects(mouse->getMousePosition());
 
     if (mouseOverThisFrame)
     {

@@ -74,7 +74,7 @@ namespace OpenGL
     
     if (m_state == kClicked && m_clickTimer > s_maxTime)
     {
-      if (m_collider.intersectsPoint(GameManager::getInputManager()->getMouse()->getMousePosition()))
+      if (m_collider.intersects(GameManager::getInputManager()->getMouse()->getMousePosition()))
       {
         m_spriteRenderer.setTexture(m_highlightedTexture);
         m_state = kHighlighted;

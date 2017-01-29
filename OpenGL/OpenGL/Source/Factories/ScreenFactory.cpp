@@ -86,17 +86,21 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Handle<Screen> ScreenFactory::transitionToGameplayScreen() const
   {
-    Handle<Screen> screen = allocateScreenAndTransition();
-    Handle<GameObject> asteroidSpawner = screen->allocateAndInitializeGameObject();
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    const Handle<Screen>& screen = allocateScreenAndTransition();
+    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
     {
+      asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
+
       const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-      asteroidCollider->setDimensions(GameManager::getScreenManager()->getViewportDimensions());
+      asteroidCollider->setDimensions(screenDimensions);
 
       const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
       /*asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
       asteroidSpawning->setLargeAsteroidCount(10);*/
-      asteroidSpawning->setHugeAsteroidCount(10);
+      asteroidSpawning->setHugeAsteroidCount(3);
     }
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();

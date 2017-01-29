@@ -3,6 +3,7 @@
 #include "Objects/Component.h"
 #include "Maths/Ray.h"
 #include "Maths/Transform.h"
+#include "Maths/Rectangle.h"
 
 
 namespace OpenGL
@@ -16,8 +17,9 @@ namespace OpenGL
 
     void awake() override;
 
-    virtual bool intersectsRay(const Ray& ray) const = 0;
-    virtual bool intersectsPoint(const glm::vec2& point) const = 0;
+    virtual bool intersects(const Ray& ray) const = 0;
+    virtual bool intersects(const glm::vec2& point) const = 0;
+    virtual bool intersects(const Rectangle& collider) const = 0;
 
   protected:
     typedef Component Inherited;
