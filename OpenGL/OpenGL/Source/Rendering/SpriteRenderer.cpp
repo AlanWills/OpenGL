@@ -36,13 +36,13 @@ namespace OpenGL
 
     // Scale the texture by the screen dimensions * 2 because we will have the quad centred on the middle and extending
     // In each direction by half
-    float ratioX = m_texture->getWidth() / (screenWidth * 2);
-    float ratioY = m_texture->getHeight() / (screenHeight * 2);
+    float ratioX = m_texture->getWidth() * 0.5f;
+    float ratioY = m_texture->getHeight() * 0.5f;
 
     // Configure the vbo/vao
     GLfloat vertices[] =
     {
-      // Pos    // Tex
+      // Pos          // Tex
       ratioX,  ratioY, 0, 1.0f, 1.0f,   // Top Right
       ratioX, -ratioY, 0, 1.0f, 0.0f,   // Bottom Right
       -ratioX, -ratioY, 0, 0.0f, 0.0f,   // Bottom Left

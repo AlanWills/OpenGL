@@ -84,7 +84,7 @@ namespace OpenGL
 
     Handle<GameObject> asteroid = currentScreen->allocateAndInitializeGameObject();
     asteroid->getTransform()->setParent(getParent()->getTransform());
-    asteroid->getTransform()->setLocalTranslation(glm::vec3(generateAsteroidPosition(), 0));
+    asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
     if (!SpriteRenderer::canAllocate())
     {

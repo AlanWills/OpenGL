@@ -22,7 +22,9 @@ class Transform
     static void deallocate(Handle<Transform> item) 
     { 
       // Reset the transform when we deallocate
-      item->setLocalMatrix(glm::mat4());
+      item->setRotation(0);
+      item->setTranslation(glm::zero<glm::vec3>());
+      item->setScale(glm::one<glm::vec3>());
       item->setParent(Handle<Transform>());
 
       m_allocator.deallocate(item.get()); 
@@ -30,28 +32,38 @@ class Transform
 
     Transform(glm::mat4 localMatrix = glm::mat4());
 
-    glm::mat4 getWorldMatrix() const { return m_parent.get() ? m_localMatrix * m_parent->getWorldMatrix() : m_localMatrix; }
-    glm::vec3 getWorldTranslation() const;
-
-    const glm::mat4& getLocalMatrix() const { return m_localMatrix; }
-    void setLocalMatrix(const glm::mat4& localMatrix) { m_localMatrix = localMatrix; }
-
-    void applyTransform(const glm::mat4& transform) { m_localMatrix *= transform; }
-      
-    void translate(const glm::vec2& translation);
-    void translate(const glm::vec3& translation);
-
-    void setLocalTranslation(const glm::vec3& translation);
-    glm::vec3 getLocalTranslation() const;
-
     void setParent(Handle<Transform> parent) { m_parent = parent; }
+
+    glm::mat4 getWorldMatrix() const;
+    glm::vec3 getWorldTranslation() const;
+    glm::vec3 getWorldScale() const;
+    float getWorldRotation() const;
+
+    glm::mat4 getLocalMatrix() const;
+
+    void rotate(float deltaRotation) { m_rotation += deltaRotation; }
+    void setRotation(float rotation) { m_rotation = rotation; }
+    float getRotation() const { return m_rotation; }
+
+    void translate(const glm::vec2& translation) { translate(glm::vec3(translation, 0)); }
+    void translate(const glm::vec3& translation) { m_translation += translation; }
+    void setTranslation(const glm::vec3& translation) { m_translation = translation; }
+    const glm::vec3& getTranslation() const { return m_translation; }
+
+    void scale(const glm::vec2& scalingFactor) { scale(glm::vec3(scalingFactor, 1)); }
+    void scale(const glm::vec3& scalingFactor) { m_scale * scalingFactor; }
+    void setScale(const glm::vec3& scale) { m_scale = scale; }
+    const glm::vec3& getScale() const { return m_scale; }
 
   private:
     typedef GapAllocator<Transform, 10> Alloc; \
     static Alloc m_allocator;
 
     Handle<Transform> m_parent;
-    glm::mat4 m_localMatrix;
+
+    float m_rotation;
+    glm::vec3 m_translation;
+    glm::vec3 m_scale;
 };
 
 }

@@ -11,44 +11,52 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   Transform::Transform(glm::mat4 localMatrix) :
     m_parent(nullptr),
-    m_localMatrix(localMatrix)
+    m_rotation(0),
+    m_translation(glm::zero<glm::vec3>()),
+    m_scale(glm::one<glm::vec3>())
   {
   }
 
   //------------------------------------------------------------------------------------------------
-  void Transform::translate(const glm::vec2& translation)
+  glm::mat4 Transform::getLocalMatrix() const
   {
-    m_localMatrix[3].x += translation.x;
-    m_localMatrix[3].y += translation.y;
+    glm::mat4 localMatrix = glm::scale(glm::mat4(), m_scale);
+    localMatrix = glm::rotate(localMatrix, m_rotation, glm::vec3(0, 0, 1));
+    localMatrix = glm::translate(localMatrix, m_translation);
+
+    return localMatrix;
   }
 
   //------------------------------------------------------------------------------------------------
-  void Transform::translate(const glm::vec3& translation)
+  glm::mat4 Transform::getWorldMatrix() const
   {
-    m_localMatrix[3].x += translation.x;
-    m_localMatrix[3].y += translation.y;
-    m_localMatrix[3].z += translation.z;
-  }
+    if (m_parent.get())
+    {
+      glm::mat4 worldMatrix = glm::scale(glm::mat4(), getWorldScale());
+      worldMatrix = glm::rotate(worldMatrix, getWorldRotation(), glm::vec3(0, 0, 1));
+      worldMatrix[3] = glm::vec4(getWorldTranslation(), 1);
 
-  //------------------------------------------------------------------------------------------------
-  void Transform::setLocalTranslation(const glm::vec3& translation)
-  {
-    m_localMatrix[3].x = translation.x;
-    m_localMatrix[3].y = translation.y;
-    m_localMatrix[3].z = translation.z;
-  }
+      return worldMatrix;
+    }
 
-  //------------------------------------------------------------------------------------------------
-  glm::vec3 Transform::getLocalTranslation() const
-  {
-    const glm::vec4& translation = m_localMatrix[3];
-    return glm::vec3(translation.x, translation.y, translation.z);
+    return getLocalMatrix();
   }
 
   //------------------------------------------------------------------------------------------------
   glm::vec3 Transform::getWorldTranslation() const
   {
-    const glm::vec4& translation = getWorldMatrix()[3];
-    return glm::vec3(translation.x, translation.y, translation.z);
+    return m_parent.get() ? m_parent->getWorldTranslation() + m_translation : m_translation;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec3 Transform::getWorldScale() const
+  {
+    return m_parent.get() ? m_parent->getWorldScale() * m_scale : m_scale;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  float Transform::getWorldRotation() const
+  {
+    return m_parent.get() ? m_parent->getWorldRotation() + m_rotation : m_rotation;
   }
 }

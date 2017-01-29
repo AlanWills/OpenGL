@@ -60,7 +60,7 @@ namespace OpenGL
         }
 
         Handle<Transform> transform = child->getTransform();
-        transform->setLocalTranslation(glm::vec3(currentLeft + halfWidth, transform->getLocalTranslation().y, transform->getLocalTranslation().z));
+        transform->setTranslation(glm::vec3(currentLeft + halfWidth, transform->getTranslation().y, transform->getTranslation().z));
 
         currentLeft += 2 * halfWidth;
 
@@ -86,7 +86,7 @@ namespace OpenGL
         }
 
         Handle<Transform> transform = child->getTransform();
-        transform->setLocalTranslation(glm::vec3(transform->getLocalTranslation().x, currentTop - halfHeight, transform->getLocalTranslation().z));
+        transform->setTranslation(glm::vec3(transform->getTranslation().x, currentTop - halfHeight, transform->getTranslation().z));
 
         currentTop -= 2 * halfHeight;
 

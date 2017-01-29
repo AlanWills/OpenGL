@@ -25,7 +25,7 @@ namespace OpenGL
   {
     Inherited::initialize(allocHandle);
 
-    getTransform()->setLocalMatrix(glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(), glm::vec3(0, 1, 0)));
+    getTransform()->setTranslation(glm::vec3(0, 0, 1));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -47,17 +47,17 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  const glm::mat4& Camera::getViewMatrix() const
+  glm::mat4 Camera::getViewMatrix() const
   {
     // Maybe expand this later, but for now it's going to be a top down camera
-    return getTransform()->getLocalMatrix();
+    return glm::lookAt(getTransform()->getTranslation(), glm::vec3(), glm::vec3(0, 1, 0));
   }
 
   //------------------------------------------------------------------------------------------------
   Ray Camera::createRay(const glm::vec2& screenPosition) const
   {
     Ray ray;
-    ray.m_origin = getTransform()->getLocalTranslation();
+    ray.m_origin = getTransform()->getTranslation();
 
     float screenWidth = GameManager::getScreenManager()->getViewportWidth();
     float screenHeight = GameManager::getScreenManager()->getViewportHeight();

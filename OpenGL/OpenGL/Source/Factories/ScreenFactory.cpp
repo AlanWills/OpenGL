@@ -67,7 +67,7 @@ namespace OpenGL
 
     Handle<StackPanel> buttonStackPanel = screen->getUIManager().allocateAndInitializeStackPanel();
     buttonStackPanel->setOrientation(StackPanel::kVertical);
-    buttonStackPanel->getTransform()->setLocalTranslation(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
+    buttonStackPanel->getTransform()->setTranslation(glm::vec3(GameManager::getScreenManager()->getViewportDimensions() * 0.5f, 0));
 
     Handle<Button> playGameButton = screen->getUIManager().allocateAndInitializeButton();
     playGameButton->addOnLeftClickEvent(std::bind(&ScreenFactory::transitionCallback, *this, std::placeholders::_1));
@@ -96,7 +96,7 @@ namespace OpenGL
       /*asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
       asteroidSpawning->setLargeAsteroidCount(10);*/
-      asteroidSpawning->setHugeAsteroidCount(1);
+      asteroidSpawning->setHugeAsteroidCount(0);
     }
 
     Handle<GameObject> turret = screen->allocateAndInitializeGameObject();

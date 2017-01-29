@@ -27,7 +27,7 @@ namespace OpenGL
     m_textShader = GameManager::getResourceManager()->loadShader("text.vert", "text.frag");
     ASSERT(m_textShader.get());
 
-    m_screenRoot.setLocalMatrix(glm::scale(glm::mat4(), glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1)));
+    //m_screenRoot.setScale(glm::vec3(GameManager::getScreenManager()->getViewportDimensions(), 1));
   }
 
   //------------------------------------------------------------------------------------------------
