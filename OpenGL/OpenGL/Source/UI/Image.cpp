@@ -34,6 +34,6 @@ namespace OpenGL
     // We wish to maintain the aspect ratio of the object we are rendering
     float ratio = std::min(size.x / imageDimensions.x, size.y / imageDimensions.y);
 
-    m_spriteRenderer.setScale(glm::vec2(ratio));
+    getTransform()->scale(glm::vec2(ratio));
   }
 }

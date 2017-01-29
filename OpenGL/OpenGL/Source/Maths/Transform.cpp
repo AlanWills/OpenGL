@@ -22,7 +22,7 @@ namespace OpenGL
   {
     glm::mat4 localMatrix = glm::scale(glm::mat4(), m_scale);
     localMatrix = glm::rotate(localMatrix, m_rotation, glm::vec3(0, 0, 1));
-    localMatrix = glm::translate(localMatrix, m_translation);
+    localMatrix[3] = glm::vec4(m_translation, 1);
 
     return localMatrix;
   }

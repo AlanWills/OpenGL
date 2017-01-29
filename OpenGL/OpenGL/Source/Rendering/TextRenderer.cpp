@@ -51,7 +51,7 @@ namespace OpenGL
       textShader->setMatrix4("model", modelMatrix);
 
       const glm::vec2& size = m_font->measureString(m_text);
-      const glm::vec2& scale = getScale();
+      const glm::vec3& scale = getParent()->getTransform()->getWorldScale();
 
       GLfloat x = -size.x * 0.5f;
       GLfloat y = 0;

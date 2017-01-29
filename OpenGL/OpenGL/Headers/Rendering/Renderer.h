@@ -18,12 +18,9 @@ class Renderer : public Component
     const glm::vec4& getColour() const { return m_colour; }
     void setColour(const glm::vec4& colour) { m_colour = colour; }
 
-    /// \brief Returns the to scale dimensions of the object being rendered
+    /// \brief Returns the size of the texture being rendered multiplied by the attached object's scale
     virtual glm::vec2 getDimensions() const = 0;
   
-    const glm::vec2& getScale() const { return m_scale; }
-    void setScale(const glm::vec2& scale) { m_scale = scale; }
-
   protected:
     /// \brief Generates the vertex arrays and buffers for the m_vao and m_vbo objects
     virtual void setupGLBuffers();
@@ -41,7 +38,6 @@ class Renderer : public Component
     GLuint m_vao;
 
     glm::vec4 m_colour;
-    glm::vec2 m_scale;
 };
 
 }

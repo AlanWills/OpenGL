@@ -64,7 +64,7 @@ namespace OpenGL
     // Render world space sprites
     {
       m_spriteShader->bind();
-      m_spriteShader->setMatrix4("projection", camera->getPerspectiveProjectionMatrix());
+      m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
       m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
       SpriteRenderer::m_componentAllocator.render(lag);
@@ -75,8 +75,7 @@ namespace OpenGL
     // Render world space text
     {
       m_textShader->bind();
-      m_textShader->setMatrix4("projection", 
-        glm::perspective(45.0f, GameManager::getScreenManager()->getViewportWidth() / GameManager::getScreenManager()->getViewportHeight(), 0.1f, 100.0f));
+      m_textShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
       m_textShader->setMatrix4("view", camera->getViewMatrix());
 
       TextRenderer::m_componentAllocator.render(lag);

@@ -45,13 +45,15 @@ class Transform
     void setRotation(float rotation) { m_rotation = rotation; }
     float getRotation() const { return m_rotation; }
 
+    void translate(float x, float y) { translate(x, y, 0); }
     void translate(const glm::vec2& translation) { translate(glm::vec3(translation, 0)); }
+    void translate(float x, float y, float z) { translate(glm::vec3(x, y, z)); }
     void translate(const glm::vec3& translation) { m_translation += translation; }
     void setTranslation(const glm::vec3& translation) { m_translation = translation; }
     const glm::vec3& getTranslation() const { return m_translation; }
 
     void scale(const glm::vec2& scalingFactor) { scale(glm::vec3(scalingFactor, 1)); }
-    void scale(const glm::vec3& scalingFactor) { m_scale * scalingFactor; }
+    void scale(const glm::vec3& scalingFactor) { m_scale *= scalingFactor; }
     void setScale(const glm::vec3& scale) { m_scale = scale; }
     const glm::vec3& getScale() const { return m_scale; }
 

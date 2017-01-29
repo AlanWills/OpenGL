@@ -101,6 +101,8 @@ namespace OpenGL
 
     Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {
+      turret->getTransform()->translate(100, 100, 0);
+
       const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
       rigidBody2D->setAngularVelocity(0.1f);
 

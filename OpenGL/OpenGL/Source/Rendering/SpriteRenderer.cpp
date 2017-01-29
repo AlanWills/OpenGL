@@ -107,9 +107,7 @@ namespace OpenGL
       ASSERT(parent.get());
 
       const glm::mat4& modelMatrix = parent.get() ? parent->getTransform()->getWorldMatrix() : glm::mat4();
-      glm::mat4 finalMatrix = glm::scale(modelMatrix, glm::vec3(getScale(), 1));
-
-      spriteShader->setMatrix4("model", finalMatrix);
+      spriteShader->setMatrix4("model", modelMatrix);
 
       glActiveTexture(GL_TEXTURE0);
       m_texture->bind();
@@ -132,7 +130,11 @@ namespace OpenGL
       return glm::vec2();
     }
 
-    return glm::vec2(m_texture->getWidth(), m_texture->getHeight()) * getScale();
+    const Handle<GameObject>& parent = getParent();
+    ASSERT(parent.get());
+
+    const glm::vec3& scale = parent.get() ? parent->getTransform()->getScale() : glm::vec3();
+    return glm::vec2(m_texture->getWidth(), m_texture->getHeight()) * glm::vec2(scale.x, scale.y);
   }
 
   //------------------------------------------------------------------------------------------------

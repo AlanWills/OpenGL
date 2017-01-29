@@ -50,7 +50,7 @@ namespace OpenGL
   glm::mat4 Camera::getViewMatrix() const
   {
     // Maybe expand this later, but for now it's going to be a top down camera
-    return glm::lookAt(getTransform()->getTranslation(), glm::vec3(), glm::vec3(0, 1, 0));
+    return glm::translate(glm::mat4(), getTransform()->getTranslation());
   }
 
   //------------------------------------------------------------------------------------------------
