@@ -4,6 +4,7 @@
 #include "Objects/GameObject.h"
 #include "Physics/RectangleCollider.h"
 #include "FileSystem/Path.h"
+#include "Maths/RandomGenerator.h"
 
 
 namespace OpenGL
@@ -27,9 +28,9 @@ class AsteroidSpawningScript : public Script
     void createAsteroids();
     void createAsteroid(const Path& asteroidTexturePath);
 
-    glm::vec2 generateAsteroidPosition() const { return /*0.5f * glm::vec2((float)rand() / RAND_MAX, (float)rand() / RAND_MAX);*/glm::vec2(); }
-    glm::vec2 generateAsteroidLinearVelocity() const { return glm::vec2(/*(float)rand() / RAND_MAX*/0, 0); }
-    float generateAsteroidAngularVelocity() const { return (float)rand() / RAND_MAX; }
+    glm::vec2 generateAsteroidPosition() const;
+    glm::vec2 generateAsteroidLinearVelocity() const { return glm::vec2(m_random.generate(0, 100), 0); }
+    float generateAsteroidAngularVelocity() const { return m_random.generate(-0.5f, 0.5f); }
 
     std::vector<Handle<GameObject>> m_asteroids;
 
@@ -45,6 +46,8 @@ class AsteroidSpawningScript : public Script
     static Path m_smallAsteroidTexturePath;
     static Path m_largeAsteroidTexturePath;
     static Path m_hugeAsteroidTexturePath;
+
+    RandomGenerator m_random;
 };
 
 }

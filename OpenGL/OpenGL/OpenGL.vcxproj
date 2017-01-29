@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Factories\ScreenFactory.cpp" />
     <ClCompile Include="Source\Input\MouseInteractionHandler.cpp" />
+    <ClCompile Include="Source\Maths\RandomGenerator.cpp" />
     <ClCompile Include="Source\Maths\Transform.cpp" />
     <ClCompile Include="Source\Objects\Component.cpp" />
     <ClCompile Include="Source\Objects\GameObject.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="Headers\Events\Event.h" />
     <ClInclude Include="Headers\Factories\ScreenFactory.h" />
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
+    <ClInclude Include="Headers\Maths\RandomGenerator.h" />
     <ClInclude Include="Headers\Maths\Ray.h" />
     <ClInclude Include="Headers\Maths\Transform.h" />
     <ClInclude Include="Headers\Memory\Allocator.h" />

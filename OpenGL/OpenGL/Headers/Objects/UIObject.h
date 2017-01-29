@@ -12,8 +12,6 @@ class UIObject : public GameObject
     UIObject();
     virtual ~UIObject();
 
-    void initialize(const Handle<Component>& allocHandle) override;
-  
   private:
     typedef GameObject Inherited;
 };

@@ -4,8 +4,6 @@
 #include "Game/GameManager.h"
 #include "Physics/RigidBody2D.h"
 
-#include <random>
-
 
 namespace OpenGL
 {
@@ -23,7 +21,8 @@ namespace OpenGL
     m_tinyAsteroidCount(0),
     m_smallAsteroidCount(0),
     m_largeAsteroidCount(0),
-    m_hugeAsteroidCount(0)
+    m_hugeAsteroidCount(0),
+    m_random(time(nullptr))
   {
   }
 
@@ -36,9 +35,6 @@ namespace OpenGL
   void AsteroidSpawningScript::awake()
   {
     Inherited::awake();
-
-    // Seed the random generator
-    srand(time(nullptr));
 
     ASSERT(getParent().get());
     m_bounds = getParent()->findComponent<RectangleCollider>();
@@ -106,5 +102,12 @@ namespace OpenGL
     rigidBody->setAngularVelocity(generateAsteroidAngularVelocity());
 
     m_asteroids.push_back(asteroid);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  glm::vec2 AsteroidSpawningScript::generateAsteroidPosition() const
+  {
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+    return glm::vec2(m_random.generate(0, screenDimensions.x), m_random.generate(0, screenDimensions.y));
   }
 }

@@ -25,15 +25,11 @@ class UIManager : public Component
     void render(GLfloat lag) override;
     void die() override;
 
-    Handle<Transform> getSceneRoot() { return Handle<Transform>(&m_screenRootPtr); }
-
   private:
     typedef Component Inherited;
 
     Handle<Shader> m_spriteShader;
     Handle<Shader> m_textShader;
-
-    DECLARE_CLASS_COMPONENT(Transform, m_screenRoot)
 
     DECLARE_CLASS_COMPONENT_ALLOCATOR(Button, 10, m_buttons)
     DECLARE_CLASS_COMPONENT_ALLOCATOR(Image, 10, m_images)

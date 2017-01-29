@@ -15,12 +15,4 @@ namespace OpenGL
   UIObject::~UIObject()
   {
   }
-
-  //------------------------------------------------------------------------------------------------
-  void UIObject::initialize(const Handle<Component>& allocHandle)
-  {
-    Inherited::initialize(allocHandle);
-
-    getTransform()->setParent(GameManager::getScreenManager()->getCurrentScreen()->getUIManager().getSceneRoot());
-  }
 }

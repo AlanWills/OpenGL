@@ -96,13 +96,11 @@ namespace OpenGL
       /*asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
       asteroidSpawning->setLargeAsteroidCount(10);*/
-      asteroidSpawning->setHugeAsteroidCount(0);
+      asteroidSpawning->setHugeAsteroidCount(10);
     }
 
-    Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
+    /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {
-      turret->getTransform()->translate(100, 100, 0);
-
       const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
       rigidBody2D->setAngularVelocity(0.1f);
 
@@ -124,7 +122,7 @@ namespace OpenGL
       stateMachine->setStartingState(idleState);
       idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
       firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
-    }
+    }*/
 
     return screen;
   }
