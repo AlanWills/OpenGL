@@ -36,4 +36,7 @@ class Camera : public GameObject
     float m_farPlane;
 };
 
+//------------------------------------------------------------------------------------------------
+void attachToCamera(const Handle<GameObject>& gameObject);
+
 }

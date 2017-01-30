@@ -38,7 +38,6 @@ namespace OpenGL
 
     // Anchor the label to this button and move it in front of it slightly
     m_label.getTransform()->setParent(getTransform());
-    m_label.getTransform()->translate(glm::vec3(0, 0, 0.1f));
 
     ResourceManager* resourceManager = GameManager::getResourceManager();
     m_defaultTexture = resourceManager->loadTexture("ButtonDefault.png");

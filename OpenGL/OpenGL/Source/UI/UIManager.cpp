@@ -72,7 +72,7 @@ namespace OpenGL
     {
       m_spriteShader->bind();
       m_spriteShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
-      m_spriteShader->setMatrix4("view", glm::mat4());
+      m_spriteShader->setMatrix4("view", camera->getViewMatrix());
 
       m_stackPanels.render(lag);
       m_buttons.render(lag);

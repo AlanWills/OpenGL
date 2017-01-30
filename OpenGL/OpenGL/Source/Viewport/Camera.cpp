@@ -87,4 +87,11 @@ namespace OpenGL
 
     m_aspectRatio = aspectRatio;
   }
+
+  //------------------------------------------------------------------------------------------------
+  void attachToCamera(const Handle<GameObject>& gameObject)
+  {
+    Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
+    gameObject->getTransform()->setParent(camera->getTransform());
+  }
 }

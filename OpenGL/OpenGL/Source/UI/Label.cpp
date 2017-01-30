@@ -38,7 +38,7 @@ namespace OpenGL
 
     textShader->bind();
     textShader->setMatrix4("projection", camera->getOrthographicProjectionMatrix());
-    textShader->setMatrix4("view", glm::mat4());
+    textShader->setMatrix4("view", camera->getViewMatrix());
 
     m_textRenderer.render(lag);
 

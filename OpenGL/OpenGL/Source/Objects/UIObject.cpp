@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "Objects/UIObject.h"
-#include "Game/GameManager.h"
+#include "Viewport/Camera.h"
 
 
 namespace OpenGL
@@ -14,5 +14,13 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   UIObject::~UIObject()
   {
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void UIObject::initialize(const Handle<Component>& allocHandle)
+  {
+    Inherited::initialize(allocHandle);
+
+    attachToCamera(allocHandle.as<GameObject>());
   }
 }

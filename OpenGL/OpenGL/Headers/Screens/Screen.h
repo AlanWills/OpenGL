@@ -42,4 +42,8 @@ class Screen : public Component
 void addBackground(const Handle<Screen>& screen, const std::string& relativeBackgroundImageFilePath);
 void addBackground(const Handle<Screen>& screen, const Path& relativeBackgroundImageFilePath);
 
+/// \brief Get the viewport dimensions from the screen manager
+//------------------------------------------------------------------------------------------------
+glm::vec2 getViewportDimensions();
+
 }
