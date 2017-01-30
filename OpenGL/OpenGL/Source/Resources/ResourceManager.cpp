@@ -10,10 +10,11 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   ResourceManager::ResourceManager(const std::string& resourceDirectory) :
     m_resourceDirectoryPath(resourceDirectory),
-    m_shaderDirectoryPath(resourceDirectory),
-    m_textureDirectoryPath(resourceDirectory),
+    m_texture2DDirectoryPath(resourceDirectory),
     m_fontDirectoryPath(resourceDirectory),
     m_audioDirectoryPath(resourceDirectory),
+    m_dataDirectoryPath(resourceDirectory),
+    m_shaderDirectoryPath(resourceDirectory),
     m_vertexShaderDirectoryPath(resourceDirectory),
     m_fragmentShaderDirectoryPath(resourceDirectory)
   {
@@ -45,11 +46,11 @@ namespace OpenGL
     // Load texture files
     {
       std::vector<File> textures;
-      Directory::findFiles(m_textureDirectoryPath.as_string(), textures, ".png", true);
+      Directory::findFiles(m_texture2DDirectoryPath.as_string(), textures, ".png", true);
 
       for (const File& file : textures)
       {
-        loadTexture(file.getFilePath().relativeTo(m_textureDirectoryPath));
+        loadTexture(file.getFilePath().relativeTo(m_texture2DDirectoryPath));
       }
     }
 
@@ -72,6 +73,17 @@ namespace OpenGL
       for (const File& file : audio)
       {
         loadAudio(file.getFilePath().relativeTo(m_audioDirectoryPath));
+      }
+    }
+
+    // Load data files
+    {
+      std::vector<File> data;
+      Directory::findFiles(m_dataDirectoryPath.as_string(), data, ".xml", true);
+
+      for (const File& file : data)
+      {
+        loadData(file.getFilePath().relativeTo(m_dataDirectoryPath));
       }
     }
   }
@@ -112,7 +124,7 @@ namespace OpenGL
       return m_textures[name];
     }
 
-    Path fullPath(m_textureDirectoryPath);
+    Path fullPath(m_texture2DDirectoryPath);
     fullPath.combine(relativeFilePath);
 
     Handle<Texture2D> texture = loadTextureFromFile(fullPath.as_string(), alpha);
@@ -144,7 +156,7 @@ namespace OpenGL
   {
     StringId name = internString(relativeFilePath);
 
-    if (m_fonts.find(name) != m_fonts.end())
+    if (m_audio.find(name) != m_audio.end())
     {
       // If the name already exists in our dictionary then we just return it
       return m_audio[name];
@@ -156,6 +168,25 @@ namespace OpenGL
     Handle<Audio> audio = loadAudioFromFile(fullPath.as_string());
     m_audio[name] = audio;
     return audio;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  Handle<Data> ResourceManager::loadData(const std::string& relativeFilePath)
+  {
+    StringId name = internString(relativeFilePath);
+
+    if (m_data.find(name) != m_data.end())
+    {
+      // If the name already exists in our dictionary then we just return it
+      return m_data[name];
+    }
+
+    Path fullPath(m_dataDirectoryPath);
+    fullPath.combine(relativeFilePath);
+
+    const Handle<Data>& data = loadDataFromFile(fullPath.as_string());
+    m_data[name] = data;
+    return data;
   }
 
   //------------------------------------------------------------------------------------------------
@@ -289,6 +320,33 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  Handle<Data> ResourceManager::loadDataFromFile(const std::string& fullFilePath)
+  {
+    // Create Data object
+    Handle<Data> dataHandle(nullptr);
+    if (m_dataPool.canAllocate())
+    {
+      // If we have room left in the pool we just allocate a new entry
+      dataHandle = m_dataPool.allocate();
+    }
+    else
+    {
+      // If we have run out of room in our pool, we dynamically create a new AudioHandle and then store it in the overflow vector
+      ASSERT_FAIL_MSG("Data pool allocator out of memory.  Consider incremeneting the size.");
+      Data* data = new Data();
+
+      // This isn't going to work - assigning address of temp variable
+      dataHandle = Handle<Data>(&data);
+      m_dataOverflow.push_back(std::unique_ptr<Data>(data));
+    }
+
+    ASSERT(dataHandle.get());
+
+    dataHandle->generate(fullFilePath);
+    return dataHandle;
+  }
+
+  //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadShaders()
   {
     // Clear all the references in our shaderHandle map
@@ -341,12 +399,26 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
+  void ResourceManager::unloadData()
+  {
+    // Clear all the references in our audio map
+    m_data.clear();
+
+    // Resets our pooled memory
+    m_dataPool.deallocateAll();
+
+    // Clear the overflow
+    m_dataOverflow.clear();
+  }
+
+  //------------------------------------------------------------------------------------------------
   void ResourceManager::unloadAllAssets()
   {
     unloadShaders();
     unloadTextures();
     unloadFonts();
     unloadAudio();
+    unloadData();
   }
 
   //------------------------------------------------------------------------------------------------
@@ -368,7 +440,7 @@ namespace OpenGL
     {
       Path newTexturePath(m_resourceDirectoryPath);
       newTexturePath.combine(TEXTURE_DIR);
-      setTextureDirectoryPath(newTexturePath);
+      setTexture2DDirectoryPath(newTexturePath);
     }
 
     // Update font directory path
@@ -384,6 +456,13 @@ namespace OpenGL
       newAudioPath.combine(AUDIO_DIR);
       setAudioDirectoryPath(newAudioPath);
     }
+
+    // Update data directory path
+    {
+      Path newDataPath(m_resourceDirectoryPath);
+      newDataPath.combine(DATA_DIR);
+      setDataDirectoryPath(newDataPath);
+    }
   }
 
   //------------------------------------------------------------------------------------------------
@@ -393,9 +472,15 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  void ResourceManager::setTextureDirectoryPath(const Path& textureDirectoryPath)
+  void ResourceManager::setDataDirectoryPath(const Path& dataDirectoryPath)
   {
-    m_textureDirectoryPath = textureDirectoryPath;
+    m_dataDirectoryPath = dataDirectoryPath;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void ResourceManager::setTexture2DDirectoryPath(const Path& textureDirectoryPath)
+  {
+    m_texture2DDirectoryPath = textureDirectoryPath;
   }
 
   //------------------------------------------------------------------------------------------------

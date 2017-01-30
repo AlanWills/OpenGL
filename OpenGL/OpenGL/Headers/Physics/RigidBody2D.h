@@ -8,7 +8,7 @@ namespace OpenGL
   
 class RigidBody2D : public Component
 {
-  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, RigidBody2D, 10, PhysicsManager);
+  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, RigidBody2D, 100, PhysicsManager);
 
   public:
     void update(GLfloat secondsPerUpdate) override;

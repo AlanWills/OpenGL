@@ -10,12 +10,13 @@
 #include "Texture2D.h"
 #include "Font.h"
 #include "Audio.h"
+#include "Data.h"
 #include "FileSystem/File.h"
 #include "FileSystem/Directory.h"
 #include "FileSystem/Path.h"
 #include "StringInterning/StringId.h"
 
-#include "Memory/PoolAllocator.h"
+#include "Memory/GapAllocator.h"
 
 using namespace Kernel;
 
@@ -24,6 +25,7 @@ namespace OpenGL
 
 #define ASSETS_DIR "Assets"
 #define AUDIO_DIR "Audio"
+#define DATA_DIR "Data"
 #define TEXTURE_DIR "Textures"
 #define FONT_DIR "Fonts"
 #define SHADER_DIR "Shaders"
@@ -65,49 +67,46 @@ class ResourceManager
     /// If the file has already been loaded, we simply return a handle to the loaded instance
     Handle<Audio> loadAudio(const std::string& relativeFilePath);
 
-    /// \brief These setters allow changing the location of the common asset folders on disc
-    /// However, since the static variables representing these locations form a tree, changing certain ones requires changing others - these functions take care of this
-    /// As a result, these are non-trivial and we cannot simplify by exposing the variables globally for fear of invalidating the others on change
-    void setResourceDirectoryPath(const Path& resourceDirectoryPath);
-    void setAudioDirectoryPath(const Path& audioDirectoryPath);
-    void setTextureDirectoryPath(const Path& textureDirectoryPath);
-    void setFontDirectoryPath(const Path& fontDirectoryPath);
-    void setShaderDirectoryPath(const Path& shaderDirectoryPath);
-    void setVertexShaderDirectoryPath(const Path& vertexShaderDirectoryPath);
-    void setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath);
-    
-    /// \brief Getters for the common asset folders on disc
-    const Path& getResourceDirectoryPath() const { return m_resourceDirectoryPath; }
-    const Path& getAudioDirectoryPath() const { return m_audioDirectoryPath; }
-    const Path& getTextureDirectoryPath() const { return m_textureDirectoryPath; }
-    const Path& getFontDirectoryPath() const { return m_fontDirectoryPath; }
-    const Path& getShaderDirectoryPath() const { return m_shaderDirectoryPath; }
-    const Path& getVertexShaderDirectoryPath() const { return m_vertexShaderDirectoryPath; }
-    const Path& getFragmentShaderDirectoryPath() const { return m_fragmentShaderDirectoryPath; }
+    /// \brief Loads (and generates) data from a file
+    /// The inputted path should relative to the data directory
+    /// If the file has already been loaded, we simply return a handle to the loaded instance
+    Handle<Data> loadData(const std::string& relativeFilePath);
 
     /// \brief Frees the relevant resources from the resource manager's memory
     void unloadShaders();
     void unloadTextures();
     void unloadFonts();
     void unloadAudio();
+    void unloadData();
     void unloadAllAssets();
 
+#define DEFINE_RESOURCE_DIRECTORY(ResourceType, MemberName) \
+      public: \
+        void set##ResourceType##DirectoryPath(const Path& ResourceType##DirectoryPath); \
+        const Path& get##ResourceType##DirectoryPath() const { return MemberName; } \
+      private: \
+        Path MemberName;
+
+    DEFINE_RESOURCE_DIRECTORY(Resource, m_resourceDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(Audio, m_audioDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(Data, m_dataDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(Texture2D, m_texture2DDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(Font, m_fontDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(Shader, m_shaderDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(VertexShader, m_vertexShaderDirectoryPath)
+    DEFINE_RESOURCE_DIRECTORY(FragmentShader, m_fragmentShaderDirectoryPath)
+
   private:
-    typedef std::map<StringId, Handle<Shader>>              ShaderMap;
-    typedef PoolAllocator<Shader, 10>                       ShaderPool;
-    typedef std::vector<std::unique_ptr<Shader>>            ShaderPoolOverflow;
+    #define RESOURCE_TYPE_DEFS(ResourceType, PoolSize) \
+      typedef std::map<StringId, Handle<ResourceType>>              ResourceType##Map; \
+      typedef GapAllocator<ResourceType, PoolSize>                 ResourceType##Pool; \
+      typedef std::vector<std::unique_ptr<ResourceType>>            ResourceType##PoolOverflow;
 
-    typedef std::map<StringId, Handle<Texture2D>>           TextureMap;
-    typedef PoolAllocator<Texture2D, 100>                   TexturePool;
-    typedef std::vector<std::unique_ptr<Texture2D>>         TexturePoolOverflow;
-
-    typedef std::map<StringId, Handle<Font>>                FontMap;
-    typedef PoolAllocator<Font, 10>                         FontPool;
-    typedef std::vector<std::unique_ptr<Font>>              FontPoolOverflow;
-
-    typedef std::map<StringId, Handle<Audio>>               AudioMap;
-    typedef PoolAllocator<Audio, 10>                        AudioPool;
-    typedef std::vector<std::unique_ptr<Audio>>             AudioPoolOverflow;
+    RESOURCE_TYPE_DEFS(Shader, 10)
+    RESOURCE_TYPE_DEFS(Texture2D, 100)
+    RESOURCE_TYPE_DEFS(Font, 10)
+    RESOURCE_TYPE_DEFS(Audio, 10)
+    RESOURCE_TYPE_DEFS(Data, 10)
 
     /// \brief Loads and generates a shader from file.  Memory will be allocated so this class will already manage the object.
     Handle<Shader> loadShaderFromFile(
@@ -123,36 +122,30 @@ class ResourceManager
     /// \brief Loads a single wav file - requires the full audio file path as input.  Memory will be allocated so this class will already manage the object.
     Handle<Audio> loadAudioFromFile(const std::string& fullFilePath);
 
+    /// \brief Loads a single xml file - requires the full data file path as input.  Memory will be allocated so this class will already manage the object.
+    Handle<Data> loadDataFromFile(const std::string& fullFilePath);
+
     // Resource storage
-    ShaderMap   m_shaders;
-    TextureMap  m_textures;
-    FontMap     m_fonts;
-    AudioMap    m_audio;
+    ShaderMap     m_shaders;
+    Texture2DMap  m_textures;
+    FontMap       m_fonts;
+    AudioMap      m_audio;
+    DataMap       m_data;
 
     // Pre-allocated memory for resources - we can overrun this, but it will be less efficient as memory will have to be dynamically allocated.
-    ShaderPool  m_shaderPool;
-    TexturePool m_texturePool;
-    FontPool    m_fontPool;
-    AudioPool   m_audioPool;
+    ShaderPool    m_shaderPool;
+    Texture2DPool m_texturePool;
+    FontPool      m_fontPool;
+    AudioPool     m_audioPool;
+    DataPool      m_dataPool;
 
     // The overflow vectors we use to store pointers to dynamically created resources
     // Ideally we want the pools to be large enough to never use these, but unexpected things may happen that we should account for
-    ShaderPoolOverflow   m_shaderOverflow;
-    TexturePoolOverflow  m_textureOverflow;
-    FontPoolOverflow     m_fontOverflow;
-    AudioPoolOverflow    m_audioOverflow;
-
-    // Static variables representing the paths to commonly used resource directories
-    // They can be changed by the appropriate set functions, but since they represent a directory tree
-    // Updating a higher level directory requires updating lower level directory paths too
-    // As a result, the setters are not trivial and we cannot just expose these as global variables for risk of invalidating some variables by changing others
-    Path     m_resourceDirectoryPath;
-    Path     m_audioDirectoryPath;
-    Path     m_textureDirectoryPath;
-    Path     m_fontDirectoryPath;
-    Path     m_shaderDirectoryPath;
-    Path     m_vertexShaderDirectoryPath;
-    Path     m_fragmentShaderDirectoryPath;
+    ShaderPoolOverflow     m_shaderOverflow;
+    Texture2DPoolOverflow  m_textureOverflow;
+    FontPoolOverflow       m_fontOverflow;
+    AudioPoolOverflow      m_audioOverflow;
+    DataPoolOverflow       m_dataOverflow;
 };
 
 }

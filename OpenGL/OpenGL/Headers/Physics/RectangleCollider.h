@@ -8,7 +8,7 @@ namespace OpenGL
 
 class RectangleCollider : public Collider
 {
-  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, RectangleCollider, 10, InputManager);
+  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, RectangleCollider, 100, InputManager);
 
   public:
     void update(GLfloat secondsPerUpdate) override;

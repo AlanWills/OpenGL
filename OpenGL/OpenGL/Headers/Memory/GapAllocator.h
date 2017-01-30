@@ -26,6 +26,9 @@ class GapAllocator : public Allocator<T, PoolSize>
     /// No defragmentation takes place because the PoolSize is small.
     void deallocate(T* item) override;
 
+    /// \brief Free all of the allocated items in this and reset the hint to 0.
+    void deallocateAll() override;
+
     /// \brief Do not defragment this allocator
     void defragment() override { }
 
@@ -115,6 +118,20 @@ void GapAllocator<T, PoolSize>::deallocate(T* item)
       return;
     }
   }
+}
+
+
+//------------------------------------------------------------------------------------------------
+template <typename T, size_t PoolSize>
+void GapAllocator<T, PoolSize>::deallocateAll()
+{
+  for (int i = 0; i < PoolSize; ++i)
+  {
+    // Nothing past the head will need deallocating
+    deallocate(&m_pool[i]);
+  }
+
+  m_hint = 0;
 }
 
 }

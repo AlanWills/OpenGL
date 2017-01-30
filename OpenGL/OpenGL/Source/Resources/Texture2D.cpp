@@ -6,8 +6,8 @@
 namespace OpenGL
 {
   //------------------------------------------------------------------------------------------------
-  Texture2D::Texture2D()
-    : m_textureHandle(0),
+  Texture2D::Texture2D() : 
+    m_textureHandle(0),
     m_width(0),
     m_height(0),
     m_internalFormat(GL_RGB),

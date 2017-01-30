@@ -8,7 +8,7 @@
 
 namespace OpenGL
 {
-#define SCREEN_GAMEOBJECT_POOL_SIZE 10
+#define SCREEN_GAMEOBJECT_POOL_SIZE 100
 
 class Screen : public Component
 {

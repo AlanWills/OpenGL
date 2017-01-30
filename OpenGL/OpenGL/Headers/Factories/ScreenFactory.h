@@ -15,7 +15,7 @@ class ScreenFactory
     // Creation functions
     Handle<Screen> transitionToSplashScreen() const;
     Handle<Screen> transitionToMainMenuScreen() const;
-    Handle<Screen> transitionToGameplayScreen() const;
+    Handle<Screen> transitionToGameplayScreen(const Path& relativeLevelDataFilePath) const;
 
   private:
     void transitionCallback(Handle<GameObject> sender);

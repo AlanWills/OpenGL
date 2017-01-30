@@ -189,6 +189,12 @@
     <ClCompile Include="Source\Maths\Rectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Resources\Data.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Levels\SpaceLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag">
@@ -459,6 +465,12 @@
     <ClInclude Include="Headers\Maths\Rectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\Resources\Data.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Levels\SpaceLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\arial.ttf" />
@@ -473,5 +485,8 @@
     <Media Include="Assets\Audio\ButtonPressed.wav">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\AsteroidLevel.xml" />
   </ItemGroup>
 </Project>

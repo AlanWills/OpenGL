@@ -4,9 +4,7 @@
 #include "Game/GameManager.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Audio/AudioSource.h"
-#include "Animation/StateMachine.h"
-#include "Scripts/AsteroidSpawningScript.h"
-#include "Physics/RigidBody2D.h"
+#include "Levels/SpaceLevel.h"
 
 
 namespace OpenGL
@@ -84,12 +82,12 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  Handle<Screen> ScreenFactory::transitionToGameplayScreen() const
+  Handle<Screen> ScreenFactory::transitionToGameplayScreen(const Path& relativeLevelDataFilePath) const
   {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
-
     const Handle<Screen>& screen = allocateScreenAndTransition();
-    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
+    SpaceLevel::load(relativeLevelDataFilePath, screen);
+    
+    /*const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
     {
       asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
@@ -97,11 +95,11 @@ namespace OpenGL
       asteroidCollider->setDimensions(screenDimensions);
 
       const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
-      /*asteroidSpawning->setTinyAsteroidCount(30);
+      asteroidSpawning->setTinyAsteroidCount(30);
       asteroidSpawning->setSmallAsteroidCount(20);
-      asteroidSpawning->setLargeAsteroidCount(10);*/
+      asteroidSpawning->setLargeAsteroidCount(10);
       asteroidSpawning->setHugeAsteroidCount(3);
-    }
+    }*/
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {
@@ -134,7 +132,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void ScreenFactory::transitionCallback(Handle<GameObject> sender)
   {
-    transitionToGameplayScreen();
+    transitionToGameplayScreen(Path("AsteroidLevel.xml"));
   }
 
   //------------------------------------------------------------------------------------------------

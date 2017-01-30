@@ -7,6 +7,8 @@
 namespace OpenGL
 {
 
+#define TRANSFORM_ALLOCATOR_SIZE 100
+
 /// A class representing a transformation in 3D space with various utility functions for manipulation and hierarchy.
 class Transform
 {
@@ -58,7 +60,7 @@ class Transform
     const glm::vec3& getScale() const { return m_scale; }
 
   private:
-    typedef GapAllocator<Transform, 10> Alloc; \
+    typedef GapAllocator<Transform, TRANSFORM_ALLOCATOR_SIZE> Alloc; \
     static Alloc m_allocator;
 
     Handle<Transform> m_parent;

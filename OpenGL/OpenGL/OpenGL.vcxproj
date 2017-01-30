@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Audio\AudioSource.cpp" />
     <ClCompile Include="Source\Factories\ScreenFactory.cpp" />
     <ClCompile Include="Source\Input\MouseInteractionHandler.cpp" />
+    <ClCompile Include="Source\Levels\SpaceLevel.cpp" />
     <ClCompile Include="Source\Maths\RandomGenerator.cpp" />
     <ClCompile Include="Source\Maths\Rectangle.cpp" />
     <ClCompile Include="Source\Maths\Transform.cpp" />
@@ -34,6 +35,7 @@
     <ClCompile Include="Source\Physics\RigidBody2D.cpp" />
     <ClCompile Include="Source\Rendering\Renderer.cpp" />
     <ClCompile Include="Source\Rendering\TextRenderer.cpp" />
+    <ClCompile Include="Source\Resources\Data.cpp" />
     <ClCompile Include="Source\Resources\Font.cpp" />
     <ClCompile Include="Source\Input\KeyboardMovementScript.cpp" />
     <ClCompile Include="Source\Resources\LoadResourcesAsyncScript.cpp" />
@@ -103,6 +105,8 @@
     <ClInclude Include="Headers\Animation\StateMachine.h" />
     <ClInclude Include="Headers\Audio\AudioManager.h" />
     <ClInclude Include="Headers\Audio\AudioSource.h" />
+    <ClInclude Include="Headers\Levels\SpaceLevel.h" />
+    <ClInclude Include="Headers\Resources\Data.h" />
     <ClInclude Include="Headers\Events\Event.h" />
     <ClInclude Include="Headers\Factories\ScreenFactory.h" />
     <ClInclude Include="Headers\Input\MouseInteractionHandler.h" />
@@ -174,6 +178,9 @@
     <Media Include="Assets\Audio\ButtonPressed.wav" />
     <Media Include="Assets\Audio\HorrorOfSelf.wav" />
   </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Assets\Data\AsteroidLevel.xml" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
     <RootNamespace>OpenGL</RootNamespace>
@@ -233,7 +240,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
@@ -245,7 +252,8 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"</Command>
+copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
@@ -258,7 +266,7 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"</Command>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
@@ -270,7 +278,8 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"</Command>
+copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -286,7 +295,7 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"</Command>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
@@ -298,7 +307,8 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
 copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"</Command>
+copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

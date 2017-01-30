@@ -32,7 +32,7 @@ class PoolAllocator : public Allocator<T, PoolSize>
     void deallocate(T* item) override;
 
     /// \brief Resets the head to the start of the pool
-    void deallocateAll();
+    void deallocateAll() override;
 
     /// \brief Sorts the underlying objects so that all the allocated objects are at the front of the buffer
     /// in a contiguous block.  Handle pointers are updated when we swap memory around to preserve the obejcts they are handles to.

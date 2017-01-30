@@ -17,6 +17,7 @@ class Allocator
     virtual bool canAllocate() const = 0;
     virtual Handle<T> allocate() = 0;
     virtual void deallocate(T* item) = 0;
+    virtual void deallocateAll() = 0;
     virtual void defragment() = 0;
 
     /// \brief Do not want to unnecessarily defragment this allocator

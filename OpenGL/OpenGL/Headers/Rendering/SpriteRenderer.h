@@ -8,10 +8,11 @@
 
 namespace OpenGL
 {
+
 // A class which is responsible for rendering a texture using the sprite shader
 class SpriteRenderer : public Renderer
 {
-  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, SpriteRenderer, 10, RenderManager);
+  DECLARE_COMPONENT_WITH_MANAGER(PoolAllocator, SpriteRenderer, 100, RenderManager);
 
   public:
     void render(GLfloat lag) override;
