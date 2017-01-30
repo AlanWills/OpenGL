@@ -86,20 +86,6 @@ namespace OpenGL
   {
     const Handle<Screen>& screen = allocateScreenAndTransition();
     SpaceLevel::load(relativeLevelDataFilePath, screen);
-    
-    /*const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
-    {
-      asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
-
-      const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-      asteroidCollider->setDimensions(screenDimensions);
-
-      const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
-      asteroidSpawning->setTinyAsteroidCount(30);
-      asteroidSpawning->setSmallAsteroidCount(20);
-      asteroidSpawning->setLargeAsteroidCount(10);
-      asteroidSpawning->setHugeAsteroidCount(3);
-    }*/
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {

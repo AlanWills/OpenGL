@@ -28,11 +28,27 @@ namespace OpenGL
   }
 
   //------------------------------------------------------------------------------------------------
-  const char* Data::getNodeText(const std::string& nodeName) const
+  const char* Data::getNodeDataAsText(const std::string& nodeName) const
   {
     const XMLElement* node = getNode(nodeName);
     ASSERT(node);
 
-    return node->GetText();
+    const char* value = node->GetText();
+    ASSERT(value);
+    
+    return value;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  float Data::getNodeDataAsFloat(const std::string& nodeName) const
+  {
+    const XMLElement* node = getNode(nodeName);
+    ASSERT(node);
+
+    float value = 0;
+    XMLError result = node->QueryFloatText(&value);
+    ASSERT(result == XML_SUCCESS);
+
+    return value;
   }
 }

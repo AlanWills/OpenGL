@@ -1,3 +1,7 @@
 <Root>
   <BackgroundRelativeFilePath>Backgrounds\RainbowNebula.png</BackgroundRelativeFilePath>
+  <TinyAsteroidCount>30</TinyAsteroidCount>
+  <SmallAsteroidCount>20</SmallAsteroidCount>
+  <LargeAsteroidCount>10</LargeAsteroidCount>
+  <HugeAsteroidCount>3</HugeAsteroidCount>
 </Root>

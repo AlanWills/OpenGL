@@ -21,7 +21,8 @@ class Data
     void generate(const Path& fullFilePath);
 
     const XMLElement* getNode(const std::string& nodeName) const;
-    const char* getNodeText(const std::string& nodeName) const;
+    const char* getNodeDataAsText(const std::string& nodeName) const;
+    float getNodeDataAsFloat(const std::string& nodeName) const;
 
   private:
     tinyxml2::XMLDocument m_document;
