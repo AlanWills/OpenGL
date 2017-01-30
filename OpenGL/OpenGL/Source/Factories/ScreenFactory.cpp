@@ -85,7 +85,7 @@ namespace OpenGL
   Handle<Screen> ScreenFactory::transitionToGameplayScreen(const Path& relativeLevelDataFilePath) const
   {
     const Handle<Screen>& screen = allocateScreenAndTransition();
-    SpaceLevel::load(relativeLevelDataFilePath, screen);
+    SpaceLevel::load(screen, relativeLevelDataFilePath);
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {

@@ -20,7 +20,7 @@ class GameObject : public Component
 {
   public:
     GameObject();
-    virtual ~GameObject();
+    ~GameObject();
 
     void initialize(const Handle<Component>& allocHandle) override;
     void awake() override;
@@ -32,6 +32,8 @@ class GameObject : public Component
     const Handle<Transform>& getTransform() { return m_transform; }
     const Handle<Transform>& getTransform() const { return m_transform; }
 
+    void setName(const std::string& name) { m_name = internString(name); }
+    void setName(StringId name) { m_name = name; }
     StringId getName() const { return m_name; }
 
     /// \brief Inserts the inputted component into the components associated with this game object

@@ -88,4 +88,21 @@ namespace OpenGL
       m_transform->translate(m_directionVector * m_panSpeed * secondsPerUpdate);
     }
   }
+
+  //------------------------------------------------------------------------------------------------
+  void addKeyboardMovementScript(
+    const Handle<GameObject>& gameObject,
+    int moveLeftKey,
+    int moveRightKey,
+    int moveUpKey,
+    int moveDownKey,
+    float panSpeed)
+  {
+    const Handle<KeyboardMovementScript>& movement = gameObject->addComponent<kUnmanaged>(KeyboardMovementScript::allocateAndInitialize());
+    movement->setMoveLeftKey(moveLeftKey);
+    movement->setMoveRightKey(moveRightKey);
+    movement->setMoveUpKey(moveUpKey);
+    movement->setMoveDownKey(moveDownKey);
+    movement->setPanSpeed(panSpeed);
+  }
 }

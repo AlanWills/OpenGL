@@ -37,4 +37,9 @@ class Screen : public Component
     UIManager m_uiManager;
 };
 
+/// \brief Adds a game object with a sprite renderer to simulate a background
+//------------------------------------------------------------------------------------------------
+void addBackground(const Handle<Screen>& screen, const std::string& relativeBackgroundImageFilePath);
+void addBackground(const Handle<Screen>& screen, const Path& relativeBackgroundImageFilePath);
+
 }

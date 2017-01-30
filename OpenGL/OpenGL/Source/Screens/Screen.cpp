@@ -2,6 +2,7 @@
 
 #include "Screens/Screen.h"
 #include "Game/GameManager.h"
+#include "Input/KeyboardMovementScript.h"
 
 
 namespace OpenGL
@@ -75,5 +76,35 @@ namespace OpenGL
     m_renderManager.die();
     m_gameObjects.die();
     m_uiManager.die();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void addBackground(const Handle<Screen>& screen, const std::string& relativeBackgroundImageFilePath)
+  {
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    const Handle<GameObject>& background = screen->allocateAndInitializeGameObject();
+    {
+      const Handle<SpriteRenderer>& renderer = background->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+      renderer->setTexture(relativeBackgroundImageFilePath);
+
+      const glm::vec2& textureDims = renderer->getTextureDimensions();
+
+      const Handle<Transform>& transform = background->getTransform();
+      Camera* camera = GameManager::getScreenManager()->getViewport()->getCamera();
+
+      transform->scale(screenDimensions / textureDims);
+      transform->translate(glm::vec3(screenDimensions * 0.5f, -camera->getTransform()->getWorldTranslation().z));
+      // Parenting the background under the camera means it will be invariant to camera movement
+      transform->setParent(camera->getTransform());
+
+      background->setName("Background");
+    }
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void addBackground(const Handle<Screen>& screen, const Path& relativeBackgroundImageFilePath)
+  {
+    addBackground(screen, relativeBackgroundImageFilePath.as_string());
   }
 }

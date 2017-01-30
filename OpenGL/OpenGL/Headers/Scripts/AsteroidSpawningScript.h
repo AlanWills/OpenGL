@@ -5,6 +5,7 @@
 #include "Physics/RectangleCollider.h"
 #include "FileSystem/Path.h"
 #include "Maths/RandomGenerator.h"
+#include "Screens/Screen.h"
 
 
 namespace OpenGL
@@ -50,5 +51,13 @@ class AsteroidSpawningScript : public Script
 
     RandomGenerator m_random;
 };
+
+//------------------------------------------------------------------------------------------------
+void addAsteroidSpawningScript(
+  const Handle<Screen>& screen,
+  float tinyAsteroidCount,
+  float smallAsteroidCount,
+  float largeAsteroidCount,
+  float hugeAsteroidCount);
 
 }

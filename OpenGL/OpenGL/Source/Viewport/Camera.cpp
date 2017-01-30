@@ -2,7 +2,7 @@
 
 #include "Viewport/Camera.h"
 #include "Game/GameManager.h"
-#include "Scripts/ScriptManager.h"
+#include "Input/KeyboardMovementScript.h"
 
 
 namespace OpenGL
@@ -26,6 +26,8 @@ namespace OpenGL
     Inherited::initialize(allocHandle);
 
     getTransform()->setTranslation(glm::vec3(0, 0, 1));
+
+    addKeyboardMovementScript(allocHandle.as<GameObject>(), GLFW_KEY_A, GLFW_KEY_D, GLFW_KEY_W, GLFW_KEY_S, 100);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ namespace OpenGL
   glm::mat4 Camera::getViewMatrix() const
   {
     // Maybe expand this later, but for now it's going to be a top down camera
-    return glm::translate(glm::mat4(), getTransform()->getTranslation());
+    return glm::translate(glm::mat4(), -getTransform()->getTranslation());
   }
 
   //------------------------------------------------------------------------------------------------

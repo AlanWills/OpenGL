@@ -130,4 +130,29 @@ namespace OpenGL
     const glm::vec2& halfScreenDims = GameManager::getScreenManager()->getViewportDimensions() * 0.5f;
     return glm::vec2(m_random.generate(-halfScreenDims.x, halfScreenDims.x), m_random.generate(-halfScreenDims.y, halfScreenDims.y));
   }
+
+  //------------------------------------------------------------------------------------------------
+  void addAsteroidSpawningScript(
+    const Handle<Screen>& screen,
+    float tinyAsteroidCount,
+    float smallAsteroidCount,
+    float largeAsteroidCount,
+    float hugeAsteroidCount)
+  {
+    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+
+    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
+    {
+      asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
+
+      const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
+      asteroidCollider->setDimensions(screenDimensions);
+
+      const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
+      asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
+      asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
+      asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);
+      asteroidSpawning->setHugeAsteroidCount(hugeAsteroidCount);
+    }
+  }
 }
