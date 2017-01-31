@@ -148,4 +148,7 @@ class ResourceManager
     DataPoolOverflow       m_dataOverflow;
 };
 
+//------------------------------------------------------------------------------------------------
+ResourceManager* getResourceManager();
+
 }

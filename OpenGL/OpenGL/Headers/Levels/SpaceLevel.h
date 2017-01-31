@@ -23,6 +23,9 @@ class SpaceLevel
     static std::string m_smallAsteroidNodeName;
     static std::string m_largeAsteroidNodeName;
     static std::string m_hugeAsteroidNodeName;
+
+    /// \brief The xml element tag name which holds the spawn point positions
+    static std::string m_spawnPoints;
 };
 
 }

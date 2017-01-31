@@ -113,4 +113,10 @@ namespace OpenGL
   {
     return GameManager::getScreenManager()->getViewportDimensions();
   }
+
+  //------------------------------------------------------------------------------------------------
+  const Handle<Screen>& getCurrentScreen()
+  {
+    return GameManager::getScreenManager()->getCurrentScreen();
+  }
 }

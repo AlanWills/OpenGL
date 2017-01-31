@@ -52,9 +52,10 @@ class AsteroidSpawningScript : public Script
     RandomGenerator m_random;
 };
 
+/// \brief Configures the inputted GameObject to become an asteroid spawner with the inputted densities
 //------------------------------------------------------------------------------------------------
-void addAsteroidSpawningScript(
-  const Handle<Screen>& screen,
+void createAsteroidSpawner(
+  const Handle<GameObject>& asteroidSpawner,
   float tinyAsteroidCount,
   float smallAsteroidCount,
   float largeAsteroidCount,

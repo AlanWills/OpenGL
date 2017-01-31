@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 #include "Scripts/AsteroidSpawningScript.h"
-#include "Game/GameManager.h"
 #include "Physics/RigidBody2D.h"
+#include "Screens/Screen.h"
 
 
 namespace OpenGL
@@ -48,6 +48,7 @@ namespace OpenGL
   {
     Inherited::update(secondsPerUpdate);
 
+    // These asteroids will be contiguous in memory so this is still efficient iterating
     for (const Handle<GameObject>& asteroid : m_asteroids)
     {
       const Handle<RectangleCollider>& collider = asteroid->findComponent<RectangleCollider>();
@@ -87,7 +88,7 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   void AsteroidSpawningScript::createAsteroid(const Path& asteroidTexturePath)
   {
-    const Handle<Screen>& currentScreen = GameManager::getScreenManager()->getCurrentScreen();
+    const Handle<Screen>& currentScreen = getCurrentScreen();
     
     if (!currentScreen->canAllocateGameObject())
     {
@@ -127,32 +128,28 @@ namespace OpenGL
   //------------------------------------------------------------------------------------------------
   glm::vec2 AsteroidSpawningScript::generateAsteroidPosition() const
   {
-    const glm::vec2& halfScreenDims = GameManager::getScreenManager()->getViewportDimensions() * 0.5f;
+    const glm::vec2& halfScreenDims = getViewportDimensions() * 0.5f;
     return glm::vec2(m_random.generate(-halfScreenDims.x, halfScreenDims.x), m_random.generate(-halfScreenDims.y, halfScreenDims.y));
   }
 
   //------------------------------------------------------------------------------------------------
-  void addAsteroidSpawningScript(
-    const Handle<Screen>& screen,
+  void createAsteroidSpawner(
+    const Handle<GameObject>& asteroidSpawner,
     float tinyAsteroidCount,
     float smallAsteroidCount,
     float largeAsteroidCount,
     float hugeAsteroidCount)
   {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+    const glm::vec2& screenDimensions = getViewportDimensions();
+    asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
-    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
-    {
-      asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
+    const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
+    asteroidCollider->setDimensions(screenDimensions);
 
-      const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-      asteroidCollider->setDimensions(screenDimensions);
-
-      const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
-      asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
-      asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
-      asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);
-      asteroidSpawning->setHugeAsteroidCount(hugeAsteroidCount);
-    }
+    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
+    asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
+    asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
+    asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);
+    asteroidSpawning->setHugeAsteroidCount(hugeAsteroidCount);
   }
 }

@@ -46,4 +46,8 @@ void addBackground(const Handle<Screen>& screen, const Path& relativeBackgroundI
 //------------------------------------------------------------------------------------------------
 glm::vec2 getViewportDimensions();
 
+/// \brief Get the current screen from the screen manager
+//------------------------------------------------------------------------------------------------
+const Handle<Screen>& getCurrentScreen();
+
 }

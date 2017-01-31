@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "Resources/ResourceManager.h"
+#include "Game/GameManager.h"
 
 #include <SOIL/SOIL.h>
 
@@ -513,5 +514,11 @@ namespace OpenGL
   void ResourceManager::setFragmentShaderDirectoryPath(const Path& fragmentShaderDirectoryPath)
   {
     m_fragmentShaderDirectoryPath = fragmentShaderDirectoryPath;
+  }
+
+  //------------------------------------------------------------------------------------------------
+  ResourceManager* getResourceManager()
+  {
+    return GameManager::getResourceManager();
   }
 }

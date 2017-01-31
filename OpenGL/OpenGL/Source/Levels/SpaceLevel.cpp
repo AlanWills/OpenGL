@@ -1,9 +1,10 @@
 #include "stdafx.h"
 
 #include "Levels/SpaceLevel.h"
-#include "Game/GameManager.h"
+#include "Resources/ResourceManager.h"
 #include "Scripts/AsteroidSpawningScript.h"
 #include "Physics/RectangleCollider.h"
+#include "Viewport/Camera.h"
 
 
 namespace OpenGL
@@ -13,22 +14,38 @@ namespace OpenGL
   std::string SpaceLevel::m_smallAsteroidNodeName = "SmallAsteroidCount";
   std::string SpaceLevel::m_largeAsteroidNodeName = "LargeAsteroidCount";
   std::string SpaceLevel::m_hugeAsteroidNodeName = "HugeAsteroidCount";
+  std::string SpaceLevel::m_spawnPoints = "SpawnPoints";
 
   //------------------------------------------------------------------------------------------------
   void SpaceLevel::load(const Handle<Screen>& screen, const Path& relativeDataFilePath)
   {
-    const glm::vec2& screenDimensions = GameManager::getScreenManager()->getViewportDimensions();
+    const glm::vec2& screenDimensions = getViewportDimensions();
 
-    const Handle<Data>& levelData = GameManager::getResourceManager()->loadData(relativeDataFilePath.as_string());
+    const Handle<Data>& levelData = getResourceManager()->loadData(relativeDataFilePath.as_string());
     ASSERT(levelData.get());
 
+    // Add the background image corresponding to the image in the data file
     addBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
 
-    addAsteroidSpawningScript(
-      screen,
+    // Add asteroids with densities corresponding to the values in the data file
+    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
+    createAsteroidSpawner(
+      asteroidSpawner,
       levelData->getNodeDataAsFloat(m_tinyAsteroidNodeName),
       levelData->getNodeDataAsFloat(m_smallAsteroidNodeName),
       levelData->getNodeDataAsFloat(m_largeAsteroidNodeName),
       levelData->getNodeDataAsFloat(m_hugeAsteroidNodeName));
+
+    // Attach to camera so the asteroids are invariant of the camera position
+    attachToCamera(asteroidSpawner);
+
+    const XMLNode* spawnPoints = levelData->getNode(m_spawnPoints);
+    if (!spawnPoints->NoChildren())
+    {
+      for (const XMLNode* node = spawnPoints->FirstChild(); node != nullptr; node = node->NextSibling())
+      {
+
+      }
+    }
   }
 }

@@ -18,5 +18,6 @@
 #include "Utils/StringUtils.h"
 #include <memory>
 #include <assert.h>
+#include <time.h>
 
 using namespace Kernel;
