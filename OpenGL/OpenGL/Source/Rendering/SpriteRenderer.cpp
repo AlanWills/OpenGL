@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 #include "Rendering/SpriteRenderer.h"
+#include "Resources/ResourceManager.h"
+#include "Objects/GameObject.h"
 
 
 namespace OpenGL
@@ -39,10 +41,10 @@ namespace OpenGL
     GLfloat vertices[] =
     {
       // Pos          // Tex
-      ratioX,  ratioY, 0, 1.0f, 1.0f,   // Top Right
-      ratioX, -ratioY, 0, 1.0f, 0.0f,   // Bottom Right
-      -ratioX, -ratioY, 0, 0.0f, 0.0f,   // Bottom Left
-      -ratioX,  ratioY, 0, 0.0f, 1.0f,   // Top Left
+      ratioX,  ratioY, 1.0f, 1.0f,   // Top Right
+      ratioX, -ratioY, 1.0f, 0.0f,   // Bottom Right
+      -ratioX, -ratioY, 0.0f, 0.0f,   // Bottom Left
+      -ratioX,  ratioY, 0.0f, 1.0f,   // Top Left
     };
 
     GLuint indices[] = {  // Note that we start from 0!
@@ -62,10 +64,10 @@ namespace OpenGL
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), (GLvoid*)(2 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
     // Now reset the graphics card state
@@ -95,7 +97,7 @@ namespace OpenGL
     if (m_texture.get())
     {
       glCheckError();
-      const Handle<Shader>& spriteShader = GameManager::getResourceManager()->loadShader("sprite.vert", "sprite.frag");
+      const Handle<Shader>& spriteShader = getResourceManager()->loadShader("sprite.vert", "sprite.frag");
 
       spriteShader->setVector4f("spriteColour", getColour());
 
@@ -154,7 +156,7 @@ namespace OpenGL
 
     // Now load the texture from the ResourceManager
     // We can use fast interning as if it has been preloaded the string intern has already been calculated
-    m_texture = GameManager::getResourceManager()->loadTexture(textureString);
+    m_texture = getResourceManager()->loadTexture(textureString);
     ASSERT(m_texture.get());
 
     setupGLBuffers();

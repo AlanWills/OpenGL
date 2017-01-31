@@ -25,7 +25,7 @@ namespace OpenGL
     ASSERT(levelData.get());
 
     // Add the background image corresponding to the image in the data file
-    //addBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
+    addBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
 
     // Add asteroids with densities corresponding to the values in the data file
     const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
@@ -50,6 +50,7 @@ namespace OpenGL
         child->QueryFloatAttribute("y", &y);
 
         const Handle<GameObject>& navBuoy = screen->allocateAndInitializeGameObject();
+        navBuoy->getTransform()->translate(x, y, 1);
 
         createSprite(navBuoy, Path("Sprites", "Stations", "NavBuoy.png"));
       }
