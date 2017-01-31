@@ -98,6 +98,7 @@
     <Image Include="Assets\Textures\HellfireMissileTurret.png" />
     <Image Include="Assets\Textures\HellfireMissile.png" />
     <Image Include="Assets\Textures\Logo.png" />
+    <Image Include="Assets\Textures\Sprites\Stations\NavBuoy.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Animation\Animation.h" />

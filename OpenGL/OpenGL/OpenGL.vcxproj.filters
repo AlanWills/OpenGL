@@ -262,6 +262,9 @@
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\Textures\Sprites\Stations\NavBuoy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Debugging\Logging\ErrorLogger.h">

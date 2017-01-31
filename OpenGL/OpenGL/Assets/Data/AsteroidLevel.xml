@@ -4,4 +4,8 @@
   <SmallAsteroidCount>20</SmallAsteroidCount>
   <LargeAsteroidCount>10</LargeAsteroidCount>
   <HugeAsteroidCount>3</HugeAsteroidCount>
+  <SpawnPoints>
+    <Item x="-1000" y="-1000"/>
+    <Item x="1000" y="1000"/>
+  </SpawnPoints>
 </Root>

@@ -44,4 +44,8 @@ class SpriteRenderer : public Renderer
     GLuint m_ebo;
 };
 
+//------------------------------------------------------------------------------------------------
+void createSprite(const Handle<GameObject>& gameObject, const std::string& textureRelativePath);
+void createSprite(const Handle<GameObject>& gameObject, const Path& textureRelativePath);
+
 }

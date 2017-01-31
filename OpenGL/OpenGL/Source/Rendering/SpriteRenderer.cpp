@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Rendering/SpriteRenderer.h"
-#include "Game/GameManager.h"
 
 
 namespace OpenGL
@@ -30,9 +29,6 @@ namespace OpenGL
 
     // Only allocate buffers & arrays if we have a texture, otherwise we will just leak resources
     Inherited::setupGLBuffers();
-
-    float screenWidth = GameManager::getScreenManager()->getViewportWidth();
-    float screenHeight = GameManager::getScreenManager()->getViewportHeight();
 
     // Scale the texture by the screen dimensions * 2 because we will have the quad centred on the middle and extending
     // In each direction by half
@@ -176,5 +172,24 @@ namespace OpenGL
     ASSERT(m_texture.get());
 
     setupGLBuffers();
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void createSprite(const Handle<GameObject>& gameObject, const std::string& textureRelativePath)
+  {
+    if (!SpriteRenderer::canAllocate())
+    {
+      ASSERT_FAIL();
+      return;
+    }
+
+    const Handle<SpriteRenderer>& renderer = gameObject->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+    renderer->setTexture(textureRelativePath);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void createSprite(const Handle<GameObject>& gameObject, const Path& textureRelativePath)
+  {
+    createSprite(gameObject, textureRelativePath.as_string());
   }
 }
