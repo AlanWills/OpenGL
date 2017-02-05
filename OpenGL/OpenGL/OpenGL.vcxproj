@@ -70,7 +70,6 @@
     <ClCompile Include="Source\Resources\Shader.cpp" />
     <ClCompile Include="Source\Resources\Texture2D.cpp" />
     <ClCompile Include="Source\stdafx.cpp" />
-    <ClCompile Include="Source\Time\Clock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag" />
@@ -124,7 +123,6 @@
     <ClInclude Include="Headers\Objects\Component.h" />
     <ClInclude Include="Headers\Objects\GameObject.h" />
     <ClInclude Include="Headers\Objects\UIObject.h" />
-    <ClInclude Include="Headers\OpenGL\GLHeaders.h" />
     <ClInclude Include="Headers\Physics\Collider.h" />
     <ClInclude Include="Headers\Physics\PhysicsManager.h" />
     <ClInclude Include="Headers\Physics\RectangleCollider.h" />
@@ -168,7 +166,6 @@
     <ClInclude Include="Headers\Resources\Texture2D.h" />
     <ClInclude Include="Headers\stdafx.h" />
     <ClInclude Include="Headers\targetver.h" />
-    <ClInclude Include="Headers\Time\Clock.h" />
     <ClInclude Include="Headers\Rendering\RenderManager.h" />
   </ItemGroup>
   <ItemGroup>
@@ -236,12 +233,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CelesteEnginePlus.lib;tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
@@ -262,12 +259,12 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CelesteEnginePlus.lib;tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
@@ -290,13 +287,13 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;Engine.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>CelesteEnginePlus.lib;tinyxml2.lib;alut.lib;OpenAL32.lib;Kernel.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
