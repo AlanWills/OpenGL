@@ -11,6 +11,8 @@
 
 class PhysicsManager;
 
+using namespace CelesteEngine;
+
 
 namespace OpenGL
 {

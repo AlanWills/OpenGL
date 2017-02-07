@@ -1,4 +1,0 @@
-C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/3rd Party/SOIL/build/CMakeFiles/SOIL.dir
-C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/3rd Party/SOIL/build/CMakeFiles/INSTALL.dir
-C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/3rd Party/SOIL/build/CMakeFiles/ALL_BUILD.dir
-C:/Users/Alan/Documents/Visual Studio 2015/Projects/OpenGL/3rd Party/SOIL/build/CMakeFiles/ZERO_CHECK.dir

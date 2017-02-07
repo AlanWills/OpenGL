@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GLHeaders.h"
+#include "OpenGL/GLHeaders.h"
 #include "DebugUtils/Debug.h"
 
 // Temporary context that can be used in places where GL misbehaves across dll boundaries

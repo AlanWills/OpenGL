@@ -218,22 +218,22 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Kernel\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -245,13 +245,8 @@
       </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)..\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
@@ -259,7 +254,7 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Kernel\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -271,13 +266,8 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)..\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -287,7 +277,7 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\..\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\Headers;$(ProjectDir)..\..\3rd Party\Include;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\..\Kernel\Kernel\Headers;$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -300,13 +290,8 @@ copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
       </EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)..\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glew32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\alut.dll" "$(TargetDir)"
-copy /Y "$(SolutionDir)..\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
