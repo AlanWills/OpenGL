@@ -4,26 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL", "OpenGL\OpenGL.vcxproj", "{7FF626A5-BD48-43BA-BAB3-B06426F9D854}"
-	ProjectSection(ProjectDependencies) = postProject
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3} = {7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestEngine", "..\TestEngine\TestEngine.vcxproj", "{7E98CFB2-61D5-4CEB-90B6-B9A4E0E392DB}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A} = {7F06E53E-178C-4E7E-8F24-061F18AA402A}
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3} = {7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{4F5F8855-63D0-438A-81F9-EB06DF585635}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Kernel", "..\..\Kernel\Kernel\Kernel.vcxproj", "{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUtils", "..\TestUtils\TestUtils.vcxproj", "{7F06E53E-178C-4E7E-8F24-061F18AA402A}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestKernel", "..\..\Kernel\TestKernel\TestKernel.vcxproj", "{5EF3B49F-A65D-4997-B857-433E84DCD36A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A} = {7F06E53E-178C-4E7E-8F24-061F18AA402A}
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3} = {7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CelesteEnginePlus", "..\..\CelesteEnginePlus\CelesteEnginePlus\CelesteEnginePlus.vcxproj", "{E9980A8D-828E-44F0-978E-A57ABC348F47}"
@@ -59,18 +52,6 @@ Global
 		{7E98CFB2-61D5-4CEB-90B6-B9A4E0E392DB}.Testing|Win32.Build.0 = Testing|Win32
 		{7E98CFB2-61D5-4CEB-90B6-B9A4E0E392DB}.Testing|x64.ActiveCfg = Testing|x64
 		{7E98CFB2-61D5-4CEB-90B6-B9A4E0E392DB}.Testing|x64.Build.0 = Testing|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Debug|Win32.ActiveCfg = Debug|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Debug|Win32.Build.0 = Debug|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Debug|x64.ActiveCfg = Debug|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Debug|x64.Build.0 = Debug|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Release|Win32.ActiveCfg = Release|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Release|Win32.Build.0 = Release|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Release|x64.ActiveCfg = Release|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Release|x64.Build.0 = Release|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Testing|Win32.ActiveCfg = Testing|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Testing|Win32.Build.0 = Testing|Win32
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Testing|x64.ActiveCfg = Testing|x64
-		{7CB5F0D1-F3E9-4323-8DD5-D2B7CC98B0F3}.Testing|x64.Build.0 = Testing|x64
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Debug|Win32.Build.0 = Debug|Win32
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Debug|x64.ActiveCfg = Debug|x64

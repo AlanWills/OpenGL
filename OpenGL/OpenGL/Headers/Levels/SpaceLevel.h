@@ -3,7 +3,7 @@
 #include "FileSystem/Path.h"
 #include "Screens/Screen.h"
 
-using namespace Kernel;
+using namespace CelesteEngine;
 
 
 namespace OpenGL

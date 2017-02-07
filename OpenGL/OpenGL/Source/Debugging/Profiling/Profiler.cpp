@@ -5,7 +5,8 @@
 
 #include <chrono>
 
-using namespace Kernel;
+using namespace CelesteEngine;
+
 
 namespace OpenGL
 {

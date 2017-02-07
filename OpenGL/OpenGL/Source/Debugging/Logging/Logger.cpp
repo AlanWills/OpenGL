@@ -7,7 +7,8 @@
 
 #include <thread>
 
-using namespace Kernel;
+using namespace CelesteEngine;
+
 
 namespace OpenGL
 {

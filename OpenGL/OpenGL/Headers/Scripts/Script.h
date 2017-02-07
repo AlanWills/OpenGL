@@ -2,8 +2,6 @@
 
 #include "Objects/Component.h"
 
-using namespace Kernel;
-
 
 namespace OpenGL
 {

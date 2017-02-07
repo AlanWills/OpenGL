@@ -18,7 +18,6 @@
 
 #include "Memory/GapAllocator.h"
 
-using namespace Kernel;
 
 namespace OpenGL
 {

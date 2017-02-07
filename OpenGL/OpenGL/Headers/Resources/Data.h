@@ -4,7 +4,7 @@
 #include "tinyxml2.h"
 
 using namespace tinyxml2;
-using namespace Kernel;
+using namespace CelesteEngine;
 
 
 namespace OpenGL

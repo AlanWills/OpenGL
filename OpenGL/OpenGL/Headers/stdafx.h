@@ -20,4 +20,4 @@
 #include <assert.h>
 #include <time.h>
 
-using namespace Kernel;
+using namespace CelesteEngine;

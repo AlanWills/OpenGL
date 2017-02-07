@@ -3,10 +3,6 @@
 #include "DebugUtils/Debug.h"
 #include "FileSystem/File.h"
 
-#ifdef _DEBUG
-#include "OpenGL/TemporaryGLContext.h"
-#endif
-
 #include <iostream>
 
 
@@ -34,7 +30,7 @@ namespace OpenGL
     std::string vertexCode;
     std::string fragmentCode;
 
-    Kernel::File file(vertexShaderFilePath);
+    File file(vertexShaderFilePath);
     ASSERT(file.exists());
     file.read(vertexCode);
 

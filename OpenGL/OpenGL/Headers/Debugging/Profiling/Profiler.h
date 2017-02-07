@@ -7,7 +7,6 @@
 
 #include <unordered_map>
 
-using namespace Kernel;
 
 namespace OpenGL
 {
