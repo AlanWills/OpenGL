@@ -160,7 +160,6 @@
     <ClInclude Include="Headers\UI\UIManager.h" />
     <ClInclude Include="Headers\Viewport\Camera.h" />
     <ClInclude Include="Headers\Viewport\OpenGLViewport.h" />
-    <ClInclude Include="Headers\OpenGL\TemporaryGLContext.h" />
     <ClInclude Include="Headers\Resources\ResourceManager.h" />
     <ClInclude Include="Headers\Resources\Shader.h" />
     <ClInclude Include="Headers\Resources\Texture2D.h" />
