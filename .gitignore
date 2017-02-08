@@ -5,5 +5,6 @@ Release/
 *.opendb
 *.TMP
 ipch/
+.vs/
 ErrorLog.txt
 Profiling.txt
