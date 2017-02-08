@@ -5,7 +5,7 @@
 #include <thread>
 #include <chrono>
 
-using namespace OpenGL;
+using namespace CelesteEngine;
 
 
 // The MAIN function, from here we start the application and run the game loop

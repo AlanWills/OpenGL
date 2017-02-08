@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Script.h"
+#include "Scripts/Script.h"
 #include "Objects/GameObject.h"
 #include "Physics/RectangleCollider.h"
 #include "FileSystem/Path.h"
@@ -34,7 +34,7 @@ class AsteroidSpawningScript : public Script
     glm::vec2 generateAsteroidLinearVelocity() const { return glm::vec2(m_random.generate(0, 100), 0); }
     float generateAsteroidAngularVelocity() const { return m_random.generate(-0.5f, 0.5f); }
 
-    std::vector<Handle<GameObject>> m_asteroids;
+    std::vector<Handle<CelesteEngine::GameObject>> m_asteroids;
 
     /// \brief The dimensions of this script's parent, which we will use to determine when asteroids have left the area
     Handle<RectangleCollider> m_bounds;
@@ -55,7 +55,7 @@ class AsteroidSpawningScript : public Script
 /// \brief Configures the inputted GameObject to become an asteroid spawner with the inputted densities
 //------------------------------------------------------------------------------------------------
 void createAsteroidSpawner(
-  const Handle<GameObject>& asteroidSpawner,
+  const Handle<CelesteEngine::GameObject>& asteroidSpawner,
   float tinyAsteroidCount,
   float smallAsteroidCount,
   float largeAsteroidCount,

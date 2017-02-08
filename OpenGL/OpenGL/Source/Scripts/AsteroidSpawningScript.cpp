@@ -49,7 +49,7 @@ namespace OpenGL
     Inherited::update(secondsPerUpdate);
 
     // These asteroids will be contiguous in memory so this is still efficient iterating
-    for (const Handle<GameObject>& asteroid : m_asteroids)
+    for (const Handle<CelesteEngine::GameObject>& asteroid : m_asteroids)
     {
       const Handle<RectangleCollider>& collider = asteroid->findComponent<RectangleCollider>();
       ASSERT(collider.get());
@@ -96,7 +96,7 @@ namespace OpenGL
       return;
     }
 
-    const Handle<GameObject>& asteroid = currentScreen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& asteroid = currentScreen->allocateAndInitializeGameObject();
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
@@ -134,7 +134,7 @@ namespace OpenGL
 
   //------------------------------------------------------------------------------------------------
   void createAsteroidSpawner(
-    const Handle<GameObject>& asteroidSpawner,
+    const Handle<CelesteEngine::GameObject>& asteroidSpawner,
     float tinyAsteroidCount,
     float smallAsteroidCount,
     float largeAsteroidCount,

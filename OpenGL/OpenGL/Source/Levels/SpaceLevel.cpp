@@ -28,7 +28,7 @@ namespace OpenGL
     addBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
 
     // Add asteroids with densities corresponding to the values in the data file
-    const Handle<GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
     createAsteroidSpawner(
       asteroidSpawner,
       levelData->getNodeDataAsFloat(m_tinyAsteroidNodeName),
@@ -49,7 +49,7 @@ namespace OpenGL
         child->QueryFloatAttribute("x", &x);
         child->QueryFloatAttribute("y", &y);
 
-        const Handle<GameObject>& navBuoy = screen->allocateAndInitializeGameObject();
+        const Handle<CelesteEngine::GameObject>& navBuoy = screen->allocateAndInitializeGameObject();
         navBuoy->getTransform()->translate(x, y, 1);
 
         createSprite(navBuoy, Path("Sprites", "Stations", "NavBuoy.png"));
