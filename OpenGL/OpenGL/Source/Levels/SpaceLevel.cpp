@@ -25,7 +25,7 @@ namespace OpenGL
     ASSERT(levelData.get());
 
     // Add the background image corresponding to the image in the data file
-    addBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
+    addStaticBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
 
     // Add asteroids with densities corresponding to the values in the data file
     const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
