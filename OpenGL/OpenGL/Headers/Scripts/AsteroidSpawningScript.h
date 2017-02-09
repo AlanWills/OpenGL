@@ -7,8 +7,10 @@
 #include "Maths/RandomGenerator.h"
 #include "Screens/Screen.h"
 
+using namespace CelesteEngine;
 
-namespace OpenGL
+
+namespace Space
 {
 
 class AsteroidSpawningScript : public Script

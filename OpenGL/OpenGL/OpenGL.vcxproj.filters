@@ -30,13 +30,13 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Levels\SpaceLevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Factories\SpaceScreenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -111,16 +111,13 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Headers\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Headers\targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Levels\SpaceLevel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Factories\SpaceScreenFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

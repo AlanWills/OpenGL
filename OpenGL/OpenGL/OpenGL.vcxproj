@@ -15,10 +15,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Factories\SpaceScreenFactory.cpp" />
     <ClCompile Include="Source\Levels\SpaceLevel.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\Fragment\sprite.frag" />
@@ -49,10 +49,9 @@
     <Image Include="Assets\Textures\Sprites\Stations\NavBuoy.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Factories\SpaceScreenFactory.h" />
     <ClInclude Include="Headers\Levels\SpaceLevel.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
-    <ClInclude Include="Headers\stdafx.h" />
-    <ClInclude Include="Headers\targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Assets\Fonts\arial.ttf" />
@@ -68,6 +67,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
     <RootNamespace>OpenGL</RootNamespace>
+    <ProjectName>SpaceGame</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

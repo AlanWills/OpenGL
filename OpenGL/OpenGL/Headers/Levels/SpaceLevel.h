@@ -6,7 +6,7 @@
 using namespace CelesteEngine;
 
 
-namespace OpenGL
+namespace Space
 {
 
 class SpaceLevel

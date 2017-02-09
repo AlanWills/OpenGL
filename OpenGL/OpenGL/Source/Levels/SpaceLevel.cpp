@@ -7,7 +7,7 @@
 #include "Viewport/Camera.h"
 
 
-namespace OpenGL
+namespace Space
 {
   std::string SpaceLevel::m_backgroundNodeName = "BackgroundRelativeFilePath";
   std::string SpaceLevel::m_tinyAsteroidNodeName = "TinyAsteroidCount";

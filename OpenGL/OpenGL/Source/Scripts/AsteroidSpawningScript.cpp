@@ -5,7 +5,7 @@
 #include "Screens/Screen.h"
 
 
-namespace OpenGL
+namespace Space
 {
   // Initialize static variables
   Path AsteroidSpawningScript::m_tinyAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidTiny.png");
@@ -100,27 +100,12 @@ namespace OpenGL
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
-    if (!SpriteRenderer::canAllocate())
-    {
-      ASSERT_FAIL("Out of SpriteRenderers.  Consider increasing pool size");
-      return;
-    }
+    createSprite(asteroid, asteroidTexturePath);
+    createRigidBody2D(asteroid, generateAsteroidLinearVelocity(), generateAsteroidAngularVelocity());
 
-    const Handle<SpriteRenderer>& renderer = asteroid->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-    renderer->setTexture(asteroidTexturePath.as_string());
+    const Handle<SpriteRenderer>& renderer = asteroid->findComponent<SpriteRenderer>();
 
-    if (!RigidBody2D::canAllocate())
-    {
-      ASSERT_FAIL("Out of RigidBody2Ds.  Consider increasing pool size");
-      return;
-    }
-
-    const Handle<RigidBody2D>& rigidBody = asteroid->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
-    rigidBody->setLinearVelocity(generateAsteroidLinearVelocity());
-    rigidBody->setAngularVelocity(generateAsteroidAngularVelocity());
-
-    const Handle<RectangleCollider>& collider = asteroid->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-    collider->setDimensions(renderer->getDimensions());
+    createRectangleCollider(asteroid, renderer->getDimensions());
 
     m_asteroids.push_back(asteroid);
   }
@@ -143,8 +128,7 @@ namespace OpenGL
     const glm::vec2& screenDimensions = getViewportDimensions();
     asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
-    const Handle<RectangleCollider>& asteroidCollider = asteroidSpawner->addComponent<kManaged>(RectangleCollider::allocateAndInitialize());
-    asteroidCollider->setDimensions(screenDimensions);
+    createRectangleCollider(asteroidSpawner, screenDimensions);
 
     const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
