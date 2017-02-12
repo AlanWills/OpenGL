@@ -33,8 +33,7 @@ namespace Space
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
-    image->setImage("Logo.png");
-    image->setSize(screenDimensions);
+    createImage(image, "Logo.png");
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
@@ -62,21 +61,19 @@ namespace Space
       return;
     }
 
+    const Handle<Button>& playGameButton = screen->getUIManager().allocateAndInitializeButton();
+    createButton(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1), "AsteroidLevel.xml");
+
+    const Handle<Button>& exitGameButton = screen->getUIManager().allocateAndInitializeButton();
+    createButton(exitGameButton, "Exit", std::bind(&GameManager::exitCallback, std::placeholders::_1));
+
     const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateAndInitializeStackPanel();
     buttonStackPanel->setOrientation(StackPanel::kVertical);
     buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
+    /*buttonStackPanel->addChild(playGameButton);
+    buttonStackPanel->addChild(exitGameButton);*/
 
-    const Handle<Button>& playGameButton = screen->getUIManager().allocateAndInitializeButton();
-    playGameButton->addOnLeftClickEvent(std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
-    playGameButton->setText("Play");
-    playGameButton->setUserData("AsteroidLevel.xml");
-
-    const Handle<Button>& exitGameButton = screen->getUIManager().allocateAndInitializeButton();
-    exitGameButton->addOnLeftClickEvent(std::bind(&GameManager::exitCallback, std::placeholders::_1));
-    exitGameButton->setText("Exit");
-
-    buttonStackPanel->addChild(playGameButton);
-    buttonStackPanel->addChild(exitGameButton);
+    createStackPanel(buttonStackPanel, playGameButton, exitGameButton);
 
     transitionToScreen(screen);
   }
