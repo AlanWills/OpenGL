@@ -2,6 +2,7 @@
 
 #include "FileSystem/Path.h"
 #include "Screens/Screen.h"
+#include "Resources/Data.h"
 
 using namespace CelesteEngine;
 
@@ -15,6 +16,9 @@ class SpaceLevel
     static void load(const Handle<Screen>& screen, const Path& relativeDataFilePath);
 
   private:
+    static void createAsteroids(const Handle<Screen>& screen, const Handle<Data>& levelData);
+    static void createSpawnPoints(const Handle<Screen>& screen, const Handle<Data>& levelData);
+
     /// \brief The xml element tag name which holds the relative path to the sprite we will use as a background
     static std::string m_backgroundNodeName;
 

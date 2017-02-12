@@ -1,9 +1,6 @@
 #include "Game/GameManager.h"
-#include "Screens/ScreenManager.h"
-#include "Time/Clock.h"
+#include "Factories/GameScreenFactory.h"
 
-#include <thread>
-#include <chrono>
 
 using namespace CelesteEngine;
 
@@ -12,6 +9,8 @@ using namespace CelesteEngine;
 int main()
 {
   GameManager::init();
+
+  Space::transitionToSplashScreen();
 
   GameManager::run();
 

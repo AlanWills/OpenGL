@@ -36,7 +36,7 @@
     <ClCompile Include="Source\Levels\SpaceLevel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Factories\SpaceScreenFactory.cpp">
+    <ClCompile Include="Source\Factories\GameScreenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -106,7 +106,7 @@
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Stations\NavBuoy.png">
+    <Image Include="Assets\Textures\Sprites\Spawn Points\NavBuoy.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -117,7 +117,7 @@
     <ClInclude Include="Headers\Levels\SpaceLevel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Factories\SpaceScreenFactory.h">
+    <ClInclude Include="Headers\Factories\GameScreenFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

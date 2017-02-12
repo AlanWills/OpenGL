@@ -28,6 +28,15 @@ namespace Space
     addStaticBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
 
     // Add asteroids with densities corresponding to the values in the data file
+    createAsteroids(screen, levelData);
+
+    // Add the spawn points in the locations described in the data file
+    createSpawnPoints(screen, levelData);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void SpaceLevel::createAsteroids(const Handle<Screen>& screen, const Handle<Data>& levelData)
+  {
     const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
     createAsteroidSpawner(
       asteroidSpawner,
@@ -38,13 +47,17 @@ namespace Space
 
     // Attach to camera so the asteroids are invariant of the camera position
     attachToCamera(asteroidSpawner);
+  }
 
+  //------------------------------------------------------------------------------------------------
+  void SpaceLevel::createSpawnPoints(const Handle<Screen>& screen, const Handle<Data>& levelData)
+  {
     const XMLNode* spawnPoints = levelData->getNode(m_spawnPoints);
     if (!spawnPoints->NoChildren())
     {
       for (const XMLElement* child = spawnPoints->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
       {
-        float x = 0, y= 0;
+        float x = 0, y = 0;
 
         child->QueryFloatAttribute("x", &x);
         child->QueryFloatAttribute("y", &y);
@@ -52,7 +65,7 @@ namespace Space
         const Handle<CelesteEngine::GameObject>& navBuoy = screen->allocateAndInitializeGameObject();
         navBuoy->getTransform()->translate(x, y, 1);
 
-        createSprite(navBuoy, Path("Sprites", "Stations", "NavBuoy.png"));
+        createSprite(navBuoy, child->GetText());
       }
     }
   }

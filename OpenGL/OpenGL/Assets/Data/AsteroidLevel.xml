@@ -5,7 +5,7 @@
   <LargeAsteroidCount>10</LargeAsteroidCount>
   <HugeAsteroidCount>3</HugeAsteroidCount>
   <SpawnPoints>
-    <Item x="-1000" y="-1000"/>
-    <Item x="1000" y="1000"/>
+    <Item x="-1000" y="-1000">Sprites\Spawn Points\NavBuoy.png</Item>
+    <Item x="1000" y="1000">Sprites\Spawn Points\NavBuoy.png</Item>
   </SpawnPoints>
 </Root>
