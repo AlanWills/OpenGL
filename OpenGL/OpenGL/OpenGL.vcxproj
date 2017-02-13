@@ -32,12 +32,9 @@
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidSmall.png" />
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png" />
     <Image Include="Assets\Textures\Backgrounds\RainbowNebula.png" />
-    <Image Include="Assets\Textures\ButtonDefault.png" />
-    <Image Include="Assets\Textures\ButtonHighlighted.png" />
-    <Image Include="Assets\Textures\ButtonPressed.png" />
-    <Image Include="Assets\Textures\ButtonDefaultOld.png" />
-    <Image Include="Assets\Textures\ButtonHighlightedOld.png" />
-    <Image Include="Assets\Textures\ButtonPressedOld.png" />
+    <Image Include="Assets\Textures\Sprites\UI\ButtonDefault.png" />
+    <Image Include="Assets\Textures\Sprites\UI\ButtonHighlighted.png" />
+    <Image Include="Assets\Textures\Sprites\UI\ButtonPressed.png" />
     <Image Include="Assets\Textures\ChainBlasterFrame0.png" />
     <Image Include="Assets\Textures\ChainBlasterFrame2.png" />
     <Image Include="Assets\Textures\ChainBlasterFrame1.png" />
@@ -47,6 +44,7 @@
     <Image Include="Assets\Textures\HellfireMissile.png" />
     <Image Include="Assets\Textures\Logo.png" />
     <Image Include="Assets\Textures\Sprites\Spawn Points\NavBuoy.png" />
+    <Image Include="Assets\Textures\Sprites\UI\Rectangle.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />

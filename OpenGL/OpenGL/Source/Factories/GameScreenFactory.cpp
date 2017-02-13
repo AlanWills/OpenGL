@@ -33,7 +33,7 @@ namespace Space
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
-    createImage(image, "Logo.png");
+    createImage(image, "Logo.png", screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
@@ -55,7 +55,7 @@ namespace Space
 
     const Handle<Screen>& screen = Screen::allocateAndInitialize();
 
-    if (!screen->getUIManager().canAllocateButton())
+    if (!screen->getUIManager().canAllocateButton(2))
     {
       ASSERT_FAIL();
       return;
@@ -70,10 +70,8 @@ namespace Space
     const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateAndInitializeStackPanel();
     buttonStackPanel->setOrientation(StackPanel::kVertical);
     buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
-    /*buttonStackPanel->addChild(playGameButton);
-    buttonStackPanel->addChild(exitGameButton);*/
-
-    createStackPanel(buttonStackPanel, playGameButton, exitGameButton);
+    buttonStackPanel->addChild(playGameButton);
+    buttonStackPanel->addChild(exitGameButton);
 
     transitionToScreen(screen);
   }
@@ -95,34 +93,42 @@ namespace Space
   //------------------------------------------------------------------------------------------------
   void transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath)
   {
-      SpaceLevel::load(screen, relativeLevelDataFilePath);
+    // Take the data file and process the contents
+    SpaceLevel::load(screen, relativeLevelDataFilePath);
 
-      /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
-      {
-        const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
-        rigidBody2D->setAngularVelocity(0.1f);
+    // Find all the spawn points and create the map UI
+    if (screen->getUIManager().canAllocateImage())
+    {
+      const Handle<Image>& map = screen->getUIManager().allocateAndInitializeImage();
+      createImage(map, Path("UI", "Rectangle.png"), getViewportDimensions() * 0.5f);
+    }
 
-        const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-        const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
+    /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
+    {
+      const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
+      rigidBody2D->setAngularVelocity(0.1f);
 
-        const Handle<Animation>& idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-        idleAnimation->addFrame("ChainBlasterFrame0.png");
-        idleAnimation->setSecondsPerFrame(0.1f);
-        idleAnimation->setLoop(false);
+      const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
+      const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
 
-        const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-        idleAnimation->addFrame("ChainBlasterFrame0.png");
-        firingAnimation->addFrame("ChainBlasterFrame1.png");
-        firingAnimation->addFrame("ChainBlasterFrame2.png");
+      const Handle<Animation>& idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      idleAnimation->addFrame("ChainBlasterFrame0.png");
+      idleAnimation->setSecondsPerFrame(0.1f);
+      idleAnimation->setLoop(false);
 
-        const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
-        const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
-        stateMachine->setStartingState(idleState);
-        idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
-        firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
-      }*/
+      const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
+      idleAnimation->addFrame("ChainBlasterFrame0.png");
+      firingAnimation->addFrame("ChainBlasterFrame1.png");
+      firingAnimation->addFrame("ChainBlasterFrame2.png");
 
-      transitionToScreen(screen);
+      const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
+      const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
+      stateMachine->setStartingState(idleState);
+      idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
+      firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
+    }*/
+
+    transitionToScreen(screen);
   }
 
   //------------------------------------------------------------------------------------------------

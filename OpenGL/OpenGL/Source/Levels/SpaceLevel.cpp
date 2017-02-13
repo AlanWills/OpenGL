@@ -62,10 +62,11 @@ namespace Space
         child->QueryFloatAttribute("x", &x);
         child->QueryFloatAttribute("y", &y);
 
-        const Handle<CelesteEngine::GameObject>& navBuoy = screen->allocateAndInitializeGameObject();
-        navBuoy->getTransform()->translate(x, y, 1);
+        const Handle<CelesteEngine::GameObject>& spawnPoint = screen->allocateAndInitializeGameObject();
+        spawnPoint->getTransform()->translate(x, y, 1);
+        spawnPoint->setTag("SpawnPoint");
 
-        createSprite(navBuoy, child->GetText());
+        createSprite(spawnPoint, child->GetText());
       }
     }
   }
