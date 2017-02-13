@@ -10,6 +10,6 @@ uniform vec4 spriteColour;
 
 void main()
 {
-	vec4 actualColour = vec4(spriteColour.xyz * spriteColour.w, 1);
+	vec4 actualColour = spriteColour;
 	color = actualColour * texture(sprite, TexCoord);
 }

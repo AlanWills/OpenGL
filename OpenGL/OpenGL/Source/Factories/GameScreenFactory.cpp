@@ -96,11 +96,16 @@ namespace Space
     // Take the data file and process the contents
     SpaceLevel::load(screen, relativeLevelDataFilePath);
 
+    const glm::vec2& screenDimensions = getViewportDimensions();
+
     // Find all the spawn points and create the map UI
     if (screen->getUIManager().canAllocateImage())
     {
       const Handle<Image>& map = screen->getUIManager().allocateAndInitializeImage();
-      createImage(map, Path("UI", "Rectangle.png"), getViewportDimensions() * 0.5f);
+      createImage(map, Path("Sprites", "UI", "Rectangle.png"), screenDimensions * 0.5f);
+      map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
+      map->setColour(0, 0, 0.5f, 0.5f);
+      map->setShouldRender(false);
     }
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
