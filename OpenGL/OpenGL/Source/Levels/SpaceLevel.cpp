@@ -7,7 +7,7 @@
 #include "Viewport/Camera.h"
 
 
-namespace Space
+namespace Game
 {
   std::string SpaceLevel::m_backgroundNodeName = "BackgroundRelativeFilePath";
   std::string SpaceLevel::m_tinyAsteroidNodeName = "TinyAsteroidCount";

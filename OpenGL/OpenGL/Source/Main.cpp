@@ -10,7 +10,7 @@ int main()
 {
   GameManager::init();
 
-  Space::transitionToSplashScreen();
+  Game::transitionToSplashScreen();
 
   GameManager::run();
 

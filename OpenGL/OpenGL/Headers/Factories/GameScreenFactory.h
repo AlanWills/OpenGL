@@ -5,7 +5,7 @@
 using namespace CelesteEngine;
 
 
-namespace Space
+namespace Game
 {
   //------------------------------------------------------------------------------------------------
   void transitionToSplashScreen();

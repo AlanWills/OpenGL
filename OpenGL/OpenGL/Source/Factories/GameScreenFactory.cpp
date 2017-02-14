@@ -5,9 +5,10 @@
 #include "Objects/GameObject.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Game/GameManager.h"
+#include "Input/KeyboardVisibilityScript.h"
 
 
-namespace Space
+namespace Game
 {
   //------------------------------------------------------------------------------------------------
   void transitionToSplashScreen()
@@ -103,6 +104,8 @@ namespace Space
     {
       const Handle<Image>& map = screen->getUIManager().allocateAndInitializeImage();
       createImage(map, Path("Sprites", "UI", "Rectangle.png"), screenDimensions * 0.5f);
+      addKeyboardVisibilityScript(map, GLFW_KEY_TAB, KeyboardVisibilityScript::kContinuous);
+
       map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
       map->setColour(0, 0, 0.5f, 0.5f);
       map->setShouldRender(false);

@@ -7,7 +7,7 @@
 using namespace CelesteEngine;
 
 
-namespace Space
+namespace Game
 {
 
 class SpaceLevel

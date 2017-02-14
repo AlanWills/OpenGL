@@ -10,7 +10,7 @@
 using namespace CelesteEngine;
 
 
-namespace Space
+namespace Game
 {
 
 class AsteroidSpawningScript : public Script
