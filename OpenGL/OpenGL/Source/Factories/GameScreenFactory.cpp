@@ -109,6 +109,12 @@ namespace Game
       map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
       map->setColour(0, 0, 0.5f, 0.5f);
       map->setShouldRender(false);
+
+      FindComponentIterator<CelesteEngine::GameObject> spawnPoints = screen->findGameObjects(
+      [](CelesteEngine::GameObject* gameObject) 
+      { 
+        return true; 
+      });
     }
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
