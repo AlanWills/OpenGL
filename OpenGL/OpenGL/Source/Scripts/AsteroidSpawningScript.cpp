@@ -105,7 +105,7 @@ namespace Game
 
     const Handle<SpriteRenderer>& renderer = asteroid->findComponent<SpriteRenderer>();
 
-    createRectangleCollider(asteroid, renderer->getDimensions());
+    addRectangleCollider(asteroid, renderer->getDimensions());
 
     m_asteroids.push_back(asteroid);
   }
@@ -128,7 +128,7 @@ namespace Game
     const glm::vec2& screenDimensions = getViewportDimensions();
     asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
-    createRectangleCollider(asteroidSpawner, screenDimensions);
+    addRectangleCollider(asteroidSpawner, screenDimensions);
 
     const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);

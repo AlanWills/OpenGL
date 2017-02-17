@@ -32,6 +32,7 @@
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidSmall.png" />
     <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png" />
     <Image Include="Assets\Textures\Backgrounds\RainbowNebula.png" />
+    <Image Include="Assets\Textures\Sprites\Icons\SpawnPoint.png" />
     <Image Include="Assets\Textures\Sprites\UI\ButtonDefault.png" />
     <Image Include="Assets\Textures\Sprites\UI\ButtonHighlighted.png" />
     <Image Include="Assets\Textures\Sprites\UI\ButtonPressed.png" />

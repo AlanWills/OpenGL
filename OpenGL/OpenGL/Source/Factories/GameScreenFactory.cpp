@@ -110,11 +110,13 @@ namespace Game
       map->setColour(0, 0, 0.5f, 0.5f);
       map->setShouldRender(false);
 
-      FindComponentIterator<CelesteEngine::GameObject> spawnPoints = screen->findGameObjects(
-      [](CelesteEngine::GameObject* gameObject) 
-      { 
-        return true; 
-      });
+      for (const Handle<CelesteEngine::GameObject>& spawnPoint : screen->findGameObjectsWithTag(internString("SpawnPoint")))
+      {
+        const Handle<Image>& spawnPointImage = screen->getUIManager().allocateAndInitializeImage();
+        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), glm::vec2(10, 10));
+
+        spawnPointImage->getTransform()->setParent(map->getTransform());
+      }
     }
 
     /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();

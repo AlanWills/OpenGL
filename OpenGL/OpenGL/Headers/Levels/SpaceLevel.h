@@ -17,6 +17,7 @@ class SpaceLevel
 
   private:
     static void createAsteroids(const Handle<Screen>& screen, const Handle<Data>& levelData);
+    static void createLevelBounds(const Handle<Screen>& screen, const Handle<Data>& levelData);
     static void createSpawnPoints(const Handle<Screen>& screen, const Handle<Data>& levelData);
 
     /// \brief The xml element tag name which holds the relative path to the sprite we will use as a background
@@ -28,8 +29,11 @@ class SpaceLevel
     static std::string m_largeAsteroidNodeName;
     static std::string m_hugeAsteroidNodeName;
 
+    /// \brief The xml element tag name which holds the level bound positions
+    static std::string m_levelBoundsNodeName;
+
     /// \brief The xml element tag name which holds the spawn point positions
-    static std::string m_spawnPoints;
+    static std::string m_spawnPointsNodeName;
 };
 
 }

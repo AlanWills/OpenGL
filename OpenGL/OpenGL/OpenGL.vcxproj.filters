@@ -67,24 +67,6 @@
     <Image Include="Assets\Textures\HellfireMissile.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\ButtonDefaultOld.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ButtonHighlightedOld.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ButtonPressedOld.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ButtonDefault.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ButtonHighlighted.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Assets\Textures\ButtonPressed.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Assets\Textures\ChainBlasterFrame2.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -107,6 +89,21 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Assets\Textures\Sprites\Spawn Points\NavBuoy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Sprites\UI\ButtonDefault.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Sprites\UI\ButtonHighlighted.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Sprites\UI\ButtonPressed.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Sprites\UI\Rectangle.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\Textures\Sprites\Icons\SpawnPoint.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
