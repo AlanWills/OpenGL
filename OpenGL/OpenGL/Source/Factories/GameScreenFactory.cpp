@@ -34,7 +34,7 @@ namespace Game
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
-    createImage(image, "Logo.png", screenDimensions);
+    createImage(image, "Logo.png", Image::kPreserveAspect, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
@@ -97,25 +97,44 @@ namespace Game
     // Take the data file and process the contents
     SpaceLevel::load(screen, relativeLevelDataFilePath);
 
+    const Handle<CelesteEngine::GameObject>& screenBounds = screen->findGameObjectWithName("LevelBounds");
+    if (!screenBounds.get())
+    {
+      ASSERT_FAIL();
+      return;
+    }
+
     const glm::vec2& screenDimensions = getViewportDimensions();
+    const glm::vec2& levelDimensions = screenBounds->findComponent<RectangleCollider>()->getDimensions();
+    
+    // Need to make map aspect ratio respect level bounds & screen size
+    // Still don't think this is 100% correct
+    glm::vec2 mapSize = levelDimensions * 0.5f * glm::vec2(std::min(screenDimensions.x / levelDimensions.x, screenDimensions.y / levelDimensions.y));
 
     // Find all the spawn points and create the map UI
     if (screen->getUIManager().canAllocateImage())
     {
       const Handle<Image>& map = screen->getUIManager().allocateAndInitializeImage();
-      createImage(map, Path("Sprites", "UI", "Rectangle.png"), screenDimensions * 0.5f);
+      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kFree, mapSize);
       addKeyboardVisibilityScript(map, GLFW_KEY_TAB, KeyboardVisibilityScript::kContinuous);
 
       map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
       map->setColour(0, 0, 0.5f, 0.5f);
       map->setShouldRender(false);
 
-      for (const Handle<CelesteEngine::GameObject>& spawnPoint : screen->findGameObjectsWithTag(internString("SpawnPoint")))
+      for (const Handle<CelesteEngine::GameObject>& spawnPoint : screen->findGameObjectsWithTag("SpawnPoint"))
       {
         const Handle<Image>& spawnPointImage = screen->getUIManager().allocateAndInitializeImage();
-        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), glm::vec2(10, 10));
 
+        const glm::vec3 localTranslation = spawnPoint->getTransform()->getTranslation();
+        float relativeX = (localTranslation.x * mapSize.x) / levelDimensions.x;
+        float relativeY = (localTranslation.y * mapSize.y) / levelDimensions.y;
+
+        spawnPointImage->getTransform()->setTranslation(relativeX, relativeY, 1);
         spawnPointImage->getTransform()->setParent(map->getTransform());
+
+        // Parent first so that when we create the image, we take into account the parent's scale
+        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), Image::kPreserveAspect, glm::vec2(10, 10));
       }
     }
 

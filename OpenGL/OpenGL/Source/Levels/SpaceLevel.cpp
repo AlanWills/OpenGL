@@ -65,7 +65,7 @@ namespace Game
 
     const Handle<CelesteEngine::GameObject>& levelBounds = screen->allocateAndInitializeGameObject();
     addRectangleCollider(levelBounds, glm::vec2(width, height));
-    levelBounds->setTag("LevelBounds");
+    levelBounds->setName("LevelBounds");
   }
 
   //------------------------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ namespace Game
         child->QueryFloatAttribute("y", &y);
 
         const Handle<CelesteEngine::GameObject>& spawnPoint = screen->allocateAndInitializeGameObject();
-        spawnPoint->getTransform()->translate(x, y, 1);
+        spawnPoint->getTransform()->setTranslation(x, y, 1);
         spawnPoint->setTag("SpawnPoint");
 
         createSprite(spawnPoint, child->GetText());
