@@ -108,7 +108,6 @@ namespace Game
     const glm::vec2& levelDimensions = screenBounds->findComponent<RectangleCollider>()->getDimensions();
     
     // Need to make map aspect ratio respect level bounds & screen size
-    // Still don't think this is 100% correct
     glm::vec2 mapSize = levelDimensions * 0.5f * glm::vec2(std::min(screenDimensions.x / levelDimensions.x, screenDimensions.y / levelDimensions.y));
 
     // Find all the spawn points and create the map UI
