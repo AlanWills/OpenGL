@@ -67,6 +67,7 @@
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
     <RootNamespace>OpenGL</RootNamespace>
     <ProjectName>SpaceGame</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -104,14 +105,20 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -128,10 +135,17 @@
       </SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glew32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
@@ -149,10 +163,17 @@
       </SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glew32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -173,10 +194,17 @@
       </SubSystem>
       <EntryPointSymbol>
       </EntryPointSymbol>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\freetype6.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glew32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\glfw3.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\OpenAL32.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\zlib1.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\alut.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\tinyxml2.dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
