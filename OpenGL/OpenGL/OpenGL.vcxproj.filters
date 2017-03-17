@@ -41,69 +41,69 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Fragment\sprite.frag">
+    <None Include="Resources\Vertex Shaders\sprite.vert" />
+    <None Include="Resources\Vertex Shaders\text.vert" />
+    <None Include="Resources\Fragment Shaders\sprite.frag">
       <Filter>Resource Files\Shaders\Fragment</Filter>
     </None>
-    <None Include="Assets\Shaders\Fragment\text.frag" />
-    <None Include="Assets\Shaders\Vertex\sprite.vert" />
-    <None Include="Assets\Shaders\Vertex\text.vert" />
+    <None Include="Resources\Fragment Shaders\text.frag" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\Fiirkan.png">
+    <Image Include="Resources\Textures\Backgrounds\RainbowNebula.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Logo.png">
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidHuge.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\GreenLaserRay.png">
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidLarge.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\ChainBlasterFrame0.png">
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidSmall.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\HellfireMissileTurret.png">
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidTiny.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\HellfireMissile.png">
+    <Image Include="Resources\Textures\Sprites\Icons\SpawnPoint.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\ChainBlasterFrame2.png">
+    <Image Include="Resources\Textures\Sprites\Spawn Points\NavBuoy.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\ChainBlasterFrame1.png">
+    <Image Include="Resources\Textures\Sprites\UI\ButtonDefault.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Backgrounds\RainbowNebula.png">
+    <Image Include="Resources\Textures\Sprites\UI\ButtonHighlighted.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidHuge.png">
+    <Image Include="Resources\Textures\Sprites\UI\ButtonPressed.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidLarge.png">
+    <Image Include="Resources\Textures\Sprites\UI\Rectangle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidSmall.png">
+    <Image Include="Resources\Textures\ChainBlasterFrame0.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png">
+    <Image Include="Resources\Textures\ChainBlasterFrame1.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Spawn Points\NavBuoy.png">
+    <Image Include="Resources\Textures\ChainBlasterFrame2.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\UI\ButtonDefault.png">
+    <Image Include="Resources\Textures\Fiirkan.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\UI\ButtonHighlighted.png">
+    <Image Include="Resources\Textures\GreenLaserRay.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\UI\ButtonPressed.png">
+    <Image Include="Resources\Textures\HellfireMissile.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\UI\Rectangle.png">
+    <Image Include="Resources\Textures\HellfireMissileTurret.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Textures\Sprites\Icons\SpawnPoint.png">
+    <Image Include="Resources\Textures\Logo.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -119,20 +119,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\Fonts\arial.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Assets\Audio\ButtonHover.wav">
+    <Media Include="Resources\Audio\ButtonHover.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Assets\Audio\HorrorOfSelf.wav">
+    <Media Include="Resources\Audio\ButtonPressed.wav">
       <Filter>Resource Files</Filter>
     </Media>
-    <Media Include="Assets\Audio\ButtonPressed.wav">
+    <Media Include="Resources\Audio\HorrorOfSelf.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Assets\Data\AsteroidLevel.xml" />
+    <Xml Include="Resources\Data\AsteroidLevel.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Fonts\arial.ttf" />
   </ItemGroup>
 </Project>

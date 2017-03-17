@@ -21,31 +21,31 @@
     <ClCompile Include="Source\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Shaders\Fragment\sprite.frag" />
-    <None Include="Assets\Shaders\Fragment\text.frag" />
-    <None Include="Assets\Shaders\Vertex\sprite.vert" />
-    <None Include="Assets\Shaders\Vertex\text.vert" />
+    <None Include="Resources\Fragment Shaders\sprite.frag" />
+    <None Include="Resources\Fragment Shaders\text.frag" />
+    <None Include="Resources\Vertex Shaders\sprite.vert" />
+    <None Include="Resources\Vertex Shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidHuge.png" />
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidLarge.png" />
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidSmall.png" />
-    <Image Include="Assets\Textures\Sprites\Asteroids\AsteroidTiny.png" />
-    <Image Include="Assets\Textures\Backgrounds\RainbowNebula.png" />
-    <Image Include="Assets\Textures\Sprites\Icons\SpawnPoint.png" />
-    <Image Include="Assets\Textures\Sprites\UI\ButtonDefault.png" />
-    <Image Include="Assets\Textures\Sprites\UI\ButtonHighlighted.png" />
-    <Image Include="Assets\Textures\Sprites\UI\ButtonPressed.png" />
-    <Image Include="Assets\Textures\ChainBlasterFrame0.png" />
-    <Image Include="Assets\Textures\ChainBlasterFrame2.png" />
-    <Image Include="Assets\Textures\ChainBlasterFrame1.png" />
-    <Image Include="Assets\Textures\Fiirkan.png" />
-    <Image Include="Assets\Textures\GreenLaserRay.png" />
-    <Image Include="Assets\Textures\HellfireMissileTurret.png" />
-    <Image Include="Assets\Textures\HellfireMissile.png" />
-    <Image Include="Assets\Textures\Logo.png" />
-    <Image Include="Assets\Textures\Sprites\Spawn Points\NavBuoy.png" />
-    <Image Include="Assets\Textures\Sprites\UI\Rectangle.png" />
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidHuge.png" />
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidLarge.png" />
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidSmall.png" />
+    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidTiny.png" />
+    <Image Include="Resources\Textures\Backgrounds\RainbowNebula.png" />
+    <Image Include="Resources\Textures\Sprites\Icons\SpawnPoint.png" />
+    <Image Include="Resources\Textures\Sprites\UI\ButtonDefault.png" />
+    <Image Include="Resources\Textures\Sprites\UI\ButtonHighlighted.png" />
+    <Image Include="Resources\Textures\Sprites\UI\ButtonPressed.png" />
+    <Image Include="Resources\Textures\ChainBlasterFrame0.png" />
+    <Image Include="Resources\Textures\ChainBlasterFrame2.png" />
+    <Image Include="Resources\Textures\ChainBlasterFrame1.png" />
+    <Image Include="Resources\Textures\Fiirkan.png" />
+    <Image Include="Resources\Textures\GreenLaserRay.png" />
+    <Image Include="Resources\Textures\HellfireMissileTurret.png" />
+    <Image Include="Resources\Textures\HellfireMissile.png" />
+    <Image Include="Resources\Textures\Logo.png" />
+    <Image Include="Resources\Textures\Sprites\Spawn Points\NavBuoy.png" />
+    <Image Include="Resources\Textures\Sprites\UI\Rectangle.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />
@@ -53,15 +53,15 @@
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Assets\Fonts\arial.ttf" />
+    <Font Include="Resources\Fonts\arial.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="Assets\Audio\ButtonHover.wav" />
-    <Media Include="Assets\Audio\ButtonPressed.wav" />
-    <Media Include="Assets\Audio\HorrorOfSelf.wav" />
+    <Media Include="Resources\Audio\ButtonHover.wav" />
+    <Media Include="Resources\Audio\ButtonPressed.wav" />
+    <Media Include="Resources\Audio\HorrorOfSelf.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Assets\Data\AsteroidLevel.xml" />
+    <Xml Include="Resources\Data\AsteroidLevel.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>
@@ -138,9 +138,8 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>robocopy /S "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\" "$(TargetDir)"
-
-copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
@@ -161,9 +160,8 @@ copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platfor
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>robocopy /S "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\" "$(TargetDir)"
-
-copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -187,9 +185,8 @@ copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platfor
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>robocopy /S "$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\DLL\" "$(TargetDir)"
-
-copy /Y "$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration)\CelesteEnginePlus.dll" "$(TargetDir)"</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

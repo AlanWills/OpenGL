@@ -137,7 +137,7 @@ namespace Game
       }
     }
 
-    /*Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
+   /* Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
     {
       const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
       rigidBody2D->setAngularVelocity(0.1f);
