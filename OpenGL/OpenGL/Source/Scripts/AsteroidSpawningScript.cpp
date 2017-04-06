@@ -17,7 +17,7 @@ namespace Game
 
   //------------------------------------------------------------------------------------------------
   AsteroidSpawningScript::AsteroidSpawningScript() :
-    m_bounds(nullptr),
+    m_bounds(),
     m_tinyAsteroidCount(0),
     m_smallAsteroidCount(0),
     m_largeAsteroidCount(0),
@@ -54,7 +54,7 @@ namespace Game
       const Handle<RectangleCollider>& collider = asteroid->findComponent<RectangleCollider>();
       ASSERT(collider.get());
 
-      if (collider->left() > m_bounds->right())
+      if (collider->left().x > m_bounds->right().x)
       {
         asteroid->getTransform()->translate(-m_bounds->width() - collider->width(), 0, 0);
       }
@@ -96,7 +96,7 @@ namespace Game
       return;
     }
 
-    const Handle<CelesteEngine::GameObject>& asteroid = currentScreen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& asteroid = currentScreen->allocateGameObject();
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
@@ -130,7 +130,7 @@ namespace Game
 
     addRectangleCollider(asteroidSpawner, screenDimensions);
 
-    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocateAndInitialize());
+    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocate());
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
     asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
     asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);

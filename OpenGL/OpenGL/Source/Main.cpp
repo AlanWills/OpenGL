@@ -1,5 +1,6 @@
 #include "Game/GameManager.h"
 #include "Factories/GameScreenFactory.h"
+#include "Viewport/TopDownCamera.h"
 
 
 using namespace CelesteEngine;
@@ -9,6 +10,10 @@ using namespace CelesteEngine;
 int main()
 {
   GameManager::init();
+
+  TopDownCamera* camera = new TopDownCamera();
+  camera->initialize(Handle<TopDownCamera>(&camera));
+  GameManager::getScreenManager()->getViewport()->setCamera(camera);
 
   Game::transitionToSplashScreen();
 

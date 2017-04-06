@@ -19,7 +19,7 @@ namespace Game
       return;
     }
 
-    const Handle<Screen>& screen = Screen::allocateAndInitialize();
+    const Handle<Screen>& screen = Screen::allocate();
 
     if (!screen->canAllocateGameObject())
     {
@@ -28,17 +28,17 @@ namespace Game
     }
 
     // Attach the async resource loader to a game object
-    const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateGameObject();
 
     // Add a background image
     const glm::vec2& screenDimensions = getViewportDimensions();
 
-    Handle<Image> image = screen->getUIManager().allocateAndInitializeImage();
+    Handle<Image> image = screen->getUIManager().allocateImage();
     createImage(image, "Logo.png", Image::kPreserveAspect, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
-    const Handle<LoadResourcesAsyncScript>& loadResourcesScript = LoadResourcesAsyncScript::allocateAndInitialize();
+    const Handle<LoadResourcesAsyncScript>& loadResourcesScript = LoadResourcesAsyncScript::allocate();
     loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
     resourceLoader->addComponent<kUnmanaged>(loadResourcesScript);
 
@@ -54,7 +54,7 @@ namespace Game
       return;
     }
 
-    const Handle<Screen>& screen = Screen::allocateAndInitialize();
+    const Handle<Screen>& screen = Screen::allocate();
 
     if (!screen->getUIManager().canAllocateButton(2))
     {
@@ -62,13 +62,13 @@ namespace Game
       return;
     }
 
-    const Handle<Button>& playGameButton = screen->getUIManager().allocateAndInitializeButton();
+    const Handle<Button>& playGameButton = screen->getUIManager().allocateButton();
     createButton(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1), "AsteroidLevel.xml");
 
-    const Handle<Button>& exitGameButton = screen->getUIManager().allocateAndInitializeButton();
+    const Handle<Button>& exitGameButton = screen->getUIManager().allocateButton();
     createButton(exitGameButton, "Exit", std::bind(&GameManager::exitCallback, std::placeholders::_1));
 
-    const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateAndInitializeStackPanel();
+    const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateStackPanel();
     buttonStackPanel->setOrientation(StackPanel::kVertical);
     buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
     buttonStackPanel->addChild(playGameButton);
@@ -85,7 +85,7 @@ namespace Game
       ASSERT_FAIL();
       return;
     }
-    const Handle<Screen>& screen = Screen::allocateAndInitialize();
+    const Handle<Screen>& screen = Screen::allocate();
 
     ASSERT(sender.is<Button>());
     transitionToGameplayScreen(screen, sender.as<Button>()->getUserData());
@@ -113,8 +113,8 @@ namespace Game
     // Find all the spawn points and create the map UI
     if (screen->getUIManager().canAllocateImage())
     {
-      const Handle<Image>& map = screen->getUIManager().allocateAndInitializeImage();
-      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kFree, mapSize);
+      const Handle<Image>& map = screen->getUIManager().allocateImage();
+      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kFreeAspect, mapSize);
       addKeyboardVisibilityScript(map, GLFW_KEY_TAB, KeyboardVisibilityScript::kContinuous);
 
       map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
@@ -123,7 +123,7 @@ namespace Game
 
       for (const Handle<CelesteEngine::GameObject>& spawnPoint : screen->findGameObjectsWithTag("SpawnPoint"))
       {
-        const Handle<Image>& spawnPointImage = screen->getUIManager().allocateAndInitializeImage();
+        const Handle<Image>& spawnPointImage = screen->getUIManager().allocateImage();
 
         const glm::vec3 localTranslation = spawnPoint->getTransform()->getTranslation();
         float relativeX = (localTranslation.x * mapSize.x) / levelDimensions.x;

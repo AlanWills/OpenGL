@@ -26,7 +26,7 @@ namespace Game
     ASSERT(levelData.get());
 
     // Add the background image corresponding to the image in the data file
-    addStaticBackground(screen, levelData->getNodeDataAsText(m_backgroundNodeName));
+    addStaticBackground(screen, levelData->getElementDataAsText(m_backgroundNodeName));
 
     // Add asteroids with densities corresponding to the values in the data file
     createAsteroids(screen, levelData);
@@ -41,13 +41,13 @@ namespace Game
   //------------------------------------------------------------------------------------------------
   void SpaceLevel::createAsteroids(const Handle<Screen>& screen, const Handle<Data>& levelData)
   {
-    const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateGameObject();
     createAsteroidSpawner(
       asteroidSpawner,
-      levelData->getNodeDataAsFloat(m_tinyAsteroidNodeName),
-      levelData->getNodeDataAsFloat(m_smallAsteroidNodeName),
-      levelData->getNodeDataAsFloat(m_largeAsteroidNodeName),
-      levelData->getNodeDataAsFloat(m_hugeAsteroidNodeName));
+      levelData->getElementDataAsFloat(m_tinyAsteroidNodeName),
+      levelData->getElementDataAsFloat(m_smallAsteroidNodeName),
+      levelData->getElementDataAsFloat(m_largeAsteroidNodeName),
+      levelData->getElementDataAsFloat(m_hugeAsteroidNodeName));
 
     // Attach to camera so the asteroids are invariant of the camera position
     attachToCamera(asteroidSpawner);
@@ -56,14 +56,14 @@ namespace Game
   //------------------------------------------------------------------------------------------------
   void SpaceLevel::createLevelBounds(const Handle<Screen>& screen, const Handle<Data>& levelData)
   {
-    const XMLElement* levelBoundsElement = levelData->getNode(m_levelBoundsNodeName);
+    const XMLElement* levelBoundsElement = levelData->getElement(m_levelBoundsNodeName);
 
     float width = 0, height = 0;
 
     levelBoundsElement->QueryFloatAttribute("width", &width);
     levelBoundsElement->QueryFloatAttribute("height", &height);
 
-    const Handle<CelesteEngine::GameObject>& levelBounds = screen->allocateAndInitializeGameObject();
+    const Handle<CelesteEngine::GameObject>& levelBounds = screen->allocateGameObject();
     addRectangleCollider(levelBounds, glm::vec2(width, height));
     levelBounds->setName("LevelBounds");
   }
@@ -71,7 +71,7 @@ namespace Game
   //------------------------------------------------------------------------------------------------
   void SpaceLevel::createSpawnPoints(const Handle<Screen>& screen, const Handle<Data>& levelData)
   {
-    const XMLNode* spawnPoints = levelData->getNode(m_spawnPointsNodeName);
+    const XMLNode* spawnPoints = levelData->getElement(m_spawnPointsNodeName);
     if (!spawnPoints->NoChildren())
     {
       for (const XMLElement* child = spawnPoints->FirstChildElement(); child != nullptr; child = child->NextSiblingElement())
@@ -81,7 +81,7 @@ namespace Game
         child->QueryFloatAttribute("x", &x);
         child->QueryFloatAttribute("y", &y);
 
-        const Handle<CelesteEngine::GameObject>& spawnPoint = screen->allocateAndInitializeGameObject();
+        const Handle<CelesteEngine::GameObject>& spawnPoint = screen->allocateGameObject();
         spawnPoint->getTransform()->setTranslation(x, y, 1);
         spawnPoint->setTag("SpawnPoint");
 
