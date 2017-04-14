@@ -5,7 +5,7 @@
 #include "Screens/Screen.h"
 
 
-namespace Game
+namespace SpaceGame
 {
   // Initialize static variables
   Path AsteroidSpawningScript::m_tinyAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidTiny.png");

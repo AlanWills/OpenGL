@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Levels\SpaceLevel.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\SpaceGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Fragment Shaders\sprite.frag" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />
     <ClInclude Include="Headers\Levels\SpaceLevel.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
+    <ClInclude Include="Headers\SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\arial.ttf" />

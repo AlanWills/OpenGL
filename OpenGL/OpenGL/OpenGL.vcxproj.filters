@@ -39,6 +39,9 @@
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SpaceGame.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Vertex Shaders\sprite.vert" />
@@ -115,6 +118,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Factories\GameScreenFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\SpaceGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

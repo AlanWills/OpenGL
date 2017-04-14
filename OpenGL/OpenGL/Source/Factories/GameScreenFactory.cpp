@@ -4,11 +4,11 @@
 #include "Levels/SpaceLevel.h"
 #include "Objects/GameObject.h"
 #include "Resources/LoadResourcesAsyncScript.h"
-#include "Game/GameManager.h"
+#include "Game/Game.h"
 #include "Input/KeyboardVisibilityScript.h"
 
 
-namespace Game
+namespace SpaceGame
 {
   //------------------------------------------------------------------------------------------------
   void transitionToSplashScreen()
@@ -66,7 +66,7 @@ namespace Game
     createButton(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1), "AsteroidLevel.xml");
 
     const Handle<Button>& exitGameButton = screen->getUIManager().allocateButton();
-    createButton(exitGameButton, "Exit", std::bind(&GameManager::exitCallback, std::placeholders::_1));
+    createButton(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
 
     const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateStackPanel();
     buttonStackPanel->setOrientation(StackPanel::kVertical);
