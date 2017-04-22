@@ -19,6 +19,8 @@
     <ClCompile Include="Source\Levels\SpaceLevel.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Main.cpp" />
+    <ClCompile Include="Source\Ship\KeyboardShipController.cpp" />
+    <ClCompile Include="Source\Ship\Ship.cpp" />
     <ClCompile Include="Source\SpaceGame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +54,8 @@
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />
     <ClInclude Include="Headers\Levels\SpaceLevel.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
+    <ClInclude Include="Headers\Ship\KeyboardShipController.h" />
+    <ClInclude Include="Headers\Ship\Ship.h" />
     <ClInclude Include="Headers\SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>

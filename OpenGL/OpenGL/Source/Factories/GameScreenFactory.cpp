@@ -8,6 +8,7 @@
 #include "Input/KeyboardVisibilityScript.h"
 #include "Physics/RigidBody2D.h"
 #include "Animation/StateMachine.h"
+#include "Ship/Ship.h"
 
 
 namespace SpaceGame
@@ -76,25 +77,6 @@ namespace SpaceGame
     buttonStackPanel->addChild(playGameButton);
     buttonStackPanel->addChild(exitGameButton);
 
-    Handle<CelesteEngine::GameObject> turret = screen->allocateGameObject();
-    turret->getTransform()->setWorldTranslation(500, 500);
-    {
-      const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocate());
-      const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocate());
-
-      const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocate());
-      firingAnimation->addFrame("ChainBlasterFrame0.png");
-      firingAnimation->addFrame("ChainBlasterFrame1.png");
-      firingAnimation->addFrame("ChainBlasterFrame2.png");
-      firingAnimation->setSecondsPerFrame(0.1f);
-      firingAnimation->setLooping(true);
-
-      //const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
-      const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
-      stateMachine->setStartingState(firingState);
-    }
-
-    getWindow()->getCamera()->getTransform()->translate(100, 100);
     transitionToScreen(screen);
   }
 
@@ -115,80 +97,9 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath)
   {
-    // Take the data file and process the contents
-    SpaceLevel::load(screen, relativeLevelDataFilePath);
-
-    const Handle<CelesteEngine::GameObject>& screenBounds = screen->findGameObjectWithName("LevelBounds");
-    if (screenBounds.is_null())
-    {
-      ASSERT_FAIL();
-      return;
-    }
-
-    const glm::vec2& screenDimensions = getViewportDimensions();
-    const glm::vec2& levelDimensions = screenBounds->findComponent<RectangleCollider>()->getDimensions();
-    
-    // Need to make map aspect ratio respect level bounds & screen size
-    glm::vec2 mapSize = levelDimensions * 0.5f * glm::vec2(std::min(screenDimensions.x / levelDimensions.x, screenDimensions.y / levelDimensions.y));
-
-    // Find all the spawn points and create the map UI
-    if (screen->getUIManager().canAllocateImage())
-    {
-      const Handle<Image>& map = screen->getUIManager().allocateImage();
-      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kDontPreserveAspectRatio, mapSize);
-      addKeyboardVisibilityScript(map, GLFW_KEY_TAB, KeyboardVisibilityScript::kContinuous);
-
-      map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
-      map->setColour(0, 0, 0.5f, 0.5f);
-      map->setShouldRender(false);
-
-      for (const Handle<CelesteEngine::GameObject>& spawnPoint : screen->findGameObjectsWithTag("SpawnPoint"))
-      {
-        const Handle<Image>& spawnPointImage = screen->getUIManager().allocateImage();
-
-        const glm::vec3 localTranslation = spawnPoint->getTransform()->getTranslation();
-        float relativeX = (localTranslation.x * mapSize.x) / levelDimensions.x;
-        float relativeY = (localTranslation.y * mapSize.y) / levelDimensions.y;
-
-        spawnPointImage->getTransform()->setTranslation(relativeX, relativeY, 1);
-        spawnPointImage->getTransform()->setParent(map->getTransform());
-
-        // Parent first so that when we create the image, we take into account the parent's scale
-        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), Image::kPreserveAspectRatio, glm::vec2(10, 10));
-      }
-    }
-
-   /* Handle<GameObject> turret = screen->allocateAndInitializeGameObject();
-    {
-      const Handle<RigidBody2D>& rigidBody2D = turret->addComponent<kManaged>(RigidBody2D::allocateAndInitialize());
-      rigidBody2D->setAngularVelocity(0.1f);
-
-      const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocateAndInitialize());
-      const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocateAndInitialize());
-
-      const Handle<Animation>& idleAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-      idleAnimation->addFrame("ChainBlasterFrame0.png");
-      idleAnimation->setSecondsPerFrame(0.1f);
-      idleAnimation->setLoop(false);
-
-      const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocateAndInitialize());
-      idleAnimation->addFrame("ChainBlasterFrame0.png");
-      firingAnimation->addFrame("ChainBlasterFrame1.png");
-      firingAnimation->addFrame("ChainBlasterFrame2.png");
-
-      const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
-      const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
-      stateMachine->setStartingState(idleState);
-      idleState->addTransition(firingState, std::bind(&ScreenFactory::firing, *this));
-      firingState->addTransition(idleState, std::bind(&ScreenFactory::notFiring, *this));
-    }*/
-
     transitionToScreen(screen);
-  }
 
-  //------------------------------------------------------------------------------------------------
-  void transitionToGameplayScreen(const Handle<Screen>& screen, const Path& relativeLevelDataFilePath)
-  {
-    transitionToGameplayScreen(screen, relativeLevelDataFilePath.as_string());
+    const Handle<CelesteEngine::GameObject>& ship = screen->allocateGameObject();
+    Ship::createShip(ship);
   }
 }
