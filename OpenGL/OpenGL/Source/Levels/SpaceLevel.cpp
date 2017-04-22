@@ -23,7 +23,7 @@ namespace SpaceGame
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     const Handle<Data>& levelData = getResourceManager()->loadData(relativeDataFilePath.as_string());
-    ASSERT(levelData.get());
+    ASSERT(!levelData.is_null());
 
     // Add the background image corresponding to the image in the data file
     addStaticBackground(screen, levelData->getElementDataAsText(m_backgroundNodeName));

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Scripts/Script.h"
 #include "Objects/GameObject.h"
 #include "Physics/RectangleCollider.h"
 #include "FileSystem/Path.h"
@@ -13,7 +12,7 @@ using namespace CelesteEngine;
 namespace SpaceGame
 {
 
-class AsteroidSpawningScript : public Script
+class AsteroidSpawningScript : public Component
 {
   DECLARE_COMPONENT(GapAllocator, AsteroidSpawningScript, 2);
 
@@ -27,7 +26,7 @@ class AsteroidSpawningScript : public Script
     void setHugeAsteroidCount(int hugeAsteroidCount) { m_hugeAsteroidCount = hugeAsteroidCount; }
 
   private:
-    typedef Script Inherited;
+    typedef Component Inherited;
 
     void createAsteroids();
     void createAsteroid(const Path& asteroidTexturePath);

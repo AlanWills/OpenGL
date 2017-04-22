@@ -6,6 +6,8 @@
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Game/Game.h"
 #include "Input/KeyboardVisibilityScript.h"
+#include "Physics/RigidBody2D.h"
+#include "Animation/StateMachine.h"
 
 
 namespace SpaceGame
@@ -34,7 +36,7 @@ namespace SpaceGame
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     Handle<Image> image = screen->getUIManager().allocateImage();
-    createImage(image, "Logo.png", Image::kPreserveAspect, screenDimensions);
+    createImage(image, "Logo.png", Image::kPreserveAspectRatio, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
@@ -74,6 +76,25 @@ namespace SpaceGame
     buttonStackPanel->addChild(playGameButton);
     buttonStackPanel->addChild(exitGameButton);
 
+    Handle<CelesteEngine::GameObject> turret = screen->allocateGameObject();
+    turret->getTransform()->setWorldTranslation(500, 500);
+    {
+      const Handle<SpriteRenderer>& renderer = turret->addComponent<kManaged>(SpriteRenderer::allocate());
+      const Handle<StateMachine>& stateMachine = turret->addComponent<kUnmanaged>(StateMachine::allocate());
+
+      const Handle<Animation>& firingAnimation = turret->addComponent<kUnmanaged>(Animation::allocate());
+      firingAnimation->addFrame("ChainBlasterFrame0.png");
+      firingAnimation->addFrame("ChainBlasterFrame1.png");
+      firingAnimation->addFrame("ChainBlasterFrame2.png");
+      firingAnimation->setSecondsPerFrame(0.1f);
+      firingAnimation->setLooping(true);
+
+      //const Handle<AnimationState>& idleState = stateMachine->addState(idleAnimation);
+      const Handle<AnimationState>& firingState = stateMachine->addState(firingAnimation);
+      stateMachine->setStartingState(firingState);
+    }
+
+    getWindow()->getCamera()->getTransform()->translate(100, 100);
     transitionToScreen(screen);
   }
 
@@ -98,7 +119,7 @@ namespace SpaceGame
     SpaceLevel::load(screen, relativeLevelDataFilePath);
 
     const Handle<CelesteEngine::GameObject>& screenBounds = screen->findGameObjectWithName("LevelBounds");
-    if (!screenBounds.get())
+    if (screenBounds.is_null())
     {
       ASSERT_FAIL();
       return;
@@ -114,7 +135,7 @@ namespace SpaceGame
     if (screen->getUIManager().canAllocateImage())
     {
       const Handle<Image>& map = screen->getUIManager().allocateImage();
-      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kFreeAspect, mapSize);
+      createImage(map, Path("Sprites", "UI", "Rectangle.png"), Image::kDontPreserveAspectRatio, mapSize);
       addKeyboardVisibilityScript(map, GLFW_KEY_TAB, KeyboardVisibilityScript::kContinuous);
 
       map->getTransform()->setTranslation(glm::vec3(screenDimensions.x * 0.5f, screenDimensions.y * 0.5f, 0));
@@ -133,7 +154,7 @@ namespace SpaceGame
         spawnPointImage->getTransform()->setParent(map->getTransform());
 
         // Parent first so that when we create the image, we take into account the parent's scale
-        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), Image::kPreserveAspect, glm::vec2(10, 10));
+        createImage(spawnPointImage, Path("Sprites", "Icons", "SpawnPoint.png"), Image::kPreserveAspectRatio, glm::vec2(10, 10));
       }
     }
 

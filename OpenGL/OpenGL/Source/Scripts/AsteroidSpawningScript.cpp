@@ -36,9 +36,9 @@ namespace SpaceGame
   {
     Inherited::awake();
 
-    ASSERT(getParent().get());
+    ASSERT(!getParent().is_null());
     m_bounds = getParent()->findComponent<RectangleCollider>();
-    ASSERT(m_bounds.get());
+    ASSERT(!m_bounds.is_null());
 
     createAsteroids();
   }
@@ -52,7 +52,7 @@ namespace SpaceGame
     for (const Handle<CelesteEngine::GameObject>& asteroid : m_asteroids)
     {
       const Handle<RectangleCollider>& collider = asteroid->findComponent<RectangleCollider>();
-      ASSERT(collider.get());
+      ASSERT(!collider.is_null());
 
       if (collider->left().x > m_bounds->right().x)
       {
