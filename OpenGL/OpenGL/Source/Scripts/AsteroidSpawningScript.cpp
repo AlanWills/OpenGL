@@ -130,7 +130,7 @@ namespace SpaceGame
 
     addRectangleCollider(asteroidSpawner, screenDimensions);
 
-    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<kUnmanaged>(AsteroidSpawningScript::allocate());
+    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent(AsteroidSpawningScript::allocate());
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
     asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
     asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);

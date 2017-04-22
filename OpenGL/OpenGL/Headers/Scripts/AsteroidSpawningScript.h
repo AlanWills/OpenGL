@@ -12,7 +12,7 @@ using namespace CelesteEngine;
 namespace SpaceGame
 {
 
-class AsteroidSpawningScript : public Component
+class AsteroidSpawningScript : public Script
 {
   DECLARE_COMPONENT(GapAllocator, AsteroidSpawningScript, 2);
 

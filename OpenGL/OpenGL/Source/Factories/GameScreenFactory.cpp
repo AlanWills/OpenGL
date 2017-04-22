@@ -43,7 +43,7 @@ namespace SpaceGame
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = LoadResourcesAsyncScript::allocate();
     loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
-    resourceLoader->addComponent<kUnmanaged>(loadResourcesScript);
+    resourceLoader->addComponent(loadResourcesScript);
 
     transitionToScreen(screen);
   }
