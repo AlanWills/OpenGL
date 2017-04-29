@@ -23,6 +23,7 @@ namespace SpaceGame
     }
 
     const Handle<Screen>& screen = Screen::allocate();
+    transitionToScreen(screen);
 
     if (!screen->canAllocateGameObject())
     {
@@ -36,16 +37,14 @@ namespace SpaceGame
     // Add a background image
     const glm::vec2& screenDimensions = getViewportDimensions();
 
-    Handle<Image> image = screen->getUIManager().allocateImage();
-    createImage(image, "Logo.png", Image::kPreserveAspectRatio, screenDimensions);
+    const Handle<GameObject>& image = screen->allocateGameObject();
+    Image::create(image, "Logo.png", Image::kPreserveAspectRatio, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = LoadResourcesAsyncScript::allocate();
     loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
     resourceLoader->addComponent(loadResourcesScript);
-
-    transitionToScreen(screen);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -58,26 +57,17 @@ namespace SpaceGame
     }
 
     const Handle<Screen>& screen = Screen::allocate();
-
-    if (!screen->getUIManager().canAllocateButton(2))
-    {
-      ASSERT_FAIL();
-      return;
-    }
-
-    const Handle<Button>& playGameButton = screen->getUIManager().allocateButton();
-    createButton(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1), "AsteroidLevel.xml");
-
-    const Handle<Button>& exitGameButton = screen->getUIManager().allocateButton();
-    createButton(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
-
-    const Handle<StackPanel>& buttonStackPanel = screen->getUIManager().allocateStackPanel();
-    buttonStackPanel->setOrientation(StackPanel::kVertical);
-    buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
-    buttonStackPanel->addChild(playGameButton);
-    buttonStackPanel->addChild(exitGameButton);
-
     transitionToScreen(screen);
+
+    const Handle<GameObject>& playGameButton = screen->allocateGameObject();
+    Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1), "AsteroidLevel.xml");
+
+    const Handle<GameObject>& exitGameButton = screen->allocateGameObject();
+    Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
+
+    const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject();
+    StackPanel::create(buttonStackPanel, StackPanel::kVertical, {playGameButton, exitGameButton});
+    buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
   }
 
   //------------------------------------------------------------------------------------------------
@@ -91,7 +81,7 @@ namespace SpaceGame
     const Handle<Screen>& screen = Screen::allocate();
 
     ASSERT(sender.is<Button>());
-    transitionToGameplayScreen(screen, sender.as<Button>()->getUserData());
+    //transitionToGameplayScreen(screen, sender.as<Button>()->getUserData());
   }
 
   //------------------------------------------------------------------------------------------------
