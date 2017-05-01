@@ -8,11 +8,11 @@
 namespace SpaceGame
 {
   //------------------------------------------------------------------------------------------------
-  void Ship::createShip(const Handle<GameObject>& gameObject)
+  void Ship::create(const Handle<GameObject>& gameObject)
   {
-    const Handle<SpriteRenderer>& renderer = gameObject->addComponent(SpriteRenderer::allocate());
+    const Handle<SpriteRenderer>& renderer = gameObject->addComponent<SpriteRenderer>();
     renderer->setTexture("Fiirkan.png");
 
-    gameObject->addComponent(KeyboardShipController::allocate());
+    gameObject->addComponent<KeyboardShipController>();
   }
 }

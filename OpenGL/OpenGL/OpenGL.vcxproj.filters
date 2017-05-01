@@ -48,6 +48,9 @@
     <ClCompile Include="Source\Ship\KeyboardShipController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Ship\Shield.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Vertex Shaders\sprite.vert" />
@@ -115,6 +118,9 @@
     <Image Include="Resources\Textures\Logo.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\Textures\EnergyShield.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h">
@@ -133,6 +139,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Ship\KeyboardShipController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Ship\Shield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

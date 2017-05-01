@@ -10,7 +10,7 @@ namespace SpaceGame
 class DllExport Ship
 {
   public:
-    static void createShip(const Handle<CelesteEngine::GameObject>& gameObject);
+    static void create(const Handle<CelesteEngine::GameObject>& gameObject);
 };
 
 }

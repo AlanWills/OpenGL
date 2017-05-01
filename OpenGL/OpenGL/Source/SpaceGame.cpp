@@ -18,6 +18,6 @@ namespace SpaceGame
     // Viewport takes ownership of camera now
     getWindow()->setCamera(m_topDownCamera);
 
-    transitionToSplashScreen();
+    GameScreenFactory::transitionToSplashScreen();
   }
 }

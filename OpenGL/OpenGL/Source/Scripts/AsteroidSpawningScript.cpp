@@ -100,12 +100,12 @@ namespace SpaceGame
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
-    createSprite(asteroid, asteroidTexturePath);
-    createRigidBody2D(asteroid, generateAsteroidLinearVelocity(), generateAsteroidAngularVelocity());
+    SpriteRenderer::create(asteroid, asteroidTexturePath);
+    RigidBody2D::create(asteroid, generateAsteroidLinearVelocity(), generateAsteroidAngularVelocity());
 
     const Handle<SpriteRenderer>& renderer = asteroid->findComponent<SpriteRenderer>();
 
-    addRectangleCollider(asteroid, renderer->getDimensions());
+    RectangleCollider::create(asteroid, renderer->getDimensions());
 
     m_asteroids.push_back(asteroid);
   }
@@ -128,7 +128,7 @@ namespace SpaceGame
     const glm::vec2& screenDimensions = getViewportDimensions();
     asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
-    addRectangleCollider(asteroidSpawner, screenDimensions);
+    RectangleCollider::create(asteroidSpawner, screenDimensions);
 
     const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent(AsteroidSpawningScript::allocate());
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);

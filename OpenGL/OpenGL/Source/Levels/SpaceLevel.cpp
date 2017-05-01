@@ -64,7 +64,7 @@ namespace SpaceGame
     levelBoundsElement->QueryFloatAttribute("height", &height);
 
     const Handle<CelesteEngine::GameObject>& levelBounds = screen->allocateGameObject();
-    addRectangleCollider(levelBounds, glm::vec2(width, height));
+    RectangleCollider::create(levelBounds, glm::vec2(width, height));
     levelBounds->setName("LevelBounds");
   }
 
@@ -85,7 +85,7 @@ namespace SpaceGame
         spawnPoint->getTransform()->setTranslation(x, y, 1);
         spawnPoint->setTag("SpawnPoint");
 
-        createSprite(spawnPoint, child->GetText());
+        SpriteRenderer::create(spawnPoint, child->GetText());
       }
     }
   }

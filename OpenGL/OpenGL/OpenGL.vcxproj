@@ -20,6 +20,7 @@
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Ship\KeyboardShipController.cpp" />
+    <ClCompile Include="Source\Ship\Shield.cpp" />
     <ClCompile Include="Source\Ship\Ship.cpp" />
     <ClCompile Include="Source\SpaceGame.cpp" />
   </ItemGroup>
@@ -30,6 +31,7 @@
     <None Include="Resources\Vertex Shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Textures\EnergyShield.png" />
     <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidHuge.png" />
     <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidLarge.png" />
     <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidSmall.png" />
@@ -55,6 +57,7 @@
     <ClInclude Include="Headers\Levels\SpaceLevel.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
     <ClInclude Include="Headers\Ship\KeyboardShipController.h" />
+    <ClInclude Include="Headers\Ship\Shield.h" />
     <ClInclude Include="Headers\Ship\Ship.h" />
     <ClInclude Include="Headers\SpaceGame.h" />
   </ItemGroup>

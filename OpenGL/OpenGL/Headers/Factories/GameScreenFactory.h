@@ -7,11 +7,19 @@ using namespace CelesteEngine;
 
 namespace SpaceGame
 {
-  //------------------------------------------------------------------------------------------------
-  void transitionToSplashScreen();
-  void transitionToMainMenuScreen();
 
-  void transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath);
-  void transitionToGameplayScreen(const Handle<Screen>& screen, const Path& relativeLevelDataFilePath);
-  void transitionToGameplayScreenCallback(const Handle<Component>& screen);
+class GameScreenFactory
+{
+  public:
+    //------------------------------------------------------------------------------------------------
+    static void transitionToSplashScreen();
+    static void transitionToMainMenuScreen();
+    
+    static void transitionToGameplayScreenCallback(const Handle<GameObject>& screen);
+    static void transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath);
+    static void transitionToGameplayScreen(const Handle<Screen>& screen, const Path& relativeLevelDataFilePath) 
+    { 
+      transitionToGameplayScreen(screen, relativeLevelDataFilePath.as_string()); 
+    }
+};
 }
