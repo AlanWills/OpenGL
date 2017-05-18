@@ -9,10 +9,6 @@
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Testing|Win32">
-      <Configuration>Testing</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp" />
@@ -87,12 +83,6 @@
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -106,22 +96,13 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
-    <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -136,34 +117,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Include\freetype2;$(ProjectDir)..\..\3rdParty\Include\freetype2;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>CelesteEnginePlus.lib;tinyxml2.lib;alut.lib;OpenAL32.lib;SOIL.lib;glew32.lib;opengl32.lib;glfw3dll.lib;freetype.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <SubSystem>
-      </SubSystem>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\CelesteEnginePlus\CelesteEnginePlus\bin\$(Platform)\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-    </Link>
-    <PostBuildEvent>
-      <Command>
-      </Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Testing|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>CelesteEnginePlus.lib;tinyxml2.lib;alut.lib;OpenAL32.lib;SOIL.lib;glew32s.lib;opengl32.lib;glfw3dll.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>
       </SubSystem>
       <EntryPointSymbol>
