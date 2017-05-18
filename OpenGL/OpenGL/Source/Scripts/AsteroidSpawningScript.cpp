@@ -13,7 +13,7 @@ namespace SpaceGame
   Path AsteroidSpawningScript::m_largeAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidLarge.png");
   Path AsteroidSpawningScript::m_hugeAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidHuge.png");
 
-  REGISTER_COMPONENT(AsteroidSpawningScript);
+  REGISTER(AsteroidSpawningScript);
 
   //------------------------------------------------------------------------------------------------
   AsteroidSpawningScript::AsteroidSpawningScript() :
@@ -130,7 +130,7 @@ namespace SpaceGame
 
     RectangleCollider::create(asteroidSpawner, screenDimensions);
 
-    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent(AsteroidSpawningScript::allocate());
+    const Handle<AsteroidSpawningScript>& asteroidSpawning = asteroidSpawner->addComponent<AsteroidSpawningScript>();
     asteroidSpawning->setTinyAsteroidCount(tinyAsteroidCount);
     asteroidSpawning->setSmallAsteroidCount(smallAsteroidCount);
     asteroidSpawning->setLargeAsteroidCount(largeAsteroidCount);

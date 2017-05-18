@@ -22,6 +22,7 @@
     <ClCompile Include="Source\Ship\KeyboardShipController.cpp" />
     <ClCompile Include="Source\Ship\Shield.cpp" />
     <ClCompile Include="Source\Ship\Ship.cpp" />
+    <ClCompile Include="Source\Ship\Turret.cpp" />
     <ClCompile Include="Source\SpaceGame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,7 @@
     <ClInclude Include="Headers\Ship\KeyboardShipController.h" />
     <ClInclude Include="Headers\Ship\Shield.h" />
     <ClInclude Include="Headers\Ship\Ship.h" />
+    <ClInclude Include="Headers\Ship\Turret.h" />
     <ClInclude Include="Headers\SpaceGame.h" />
   </ItemGroup>
   <ItemGroup>

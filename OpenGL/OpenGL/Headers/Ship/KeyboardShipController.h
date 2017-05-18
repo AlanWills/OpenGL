@@ -9,7 +9,7 @@ namespace SpaceGame
 
 class KeyboardShipController : public CelesteEngine::Script
 {
-  DECLARE_COMPONENT(CelesteEngine::PoolAllocator, KeyboardShipController, 10)
+  DECLARE_SCRIPT(KeyboardShipController, 10)
 
   public:
     void handleInput(GLfloat elapsedGameTime) override;

@@ -39,11 +39,11 @@ namespace SpaceGame
     const glm::vec2& screenDimensions = getViewportDimensions();
 
     const Handle<GameObject>& image = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
-    Image::create(image, "Logo.png", Image::kPreserveAspectRatio, screenDimensions);
+    UI::Image::create(image, "Logo.png", UI::Image::kPreserveAspectRatio, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
-    const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent(LoadResourcesAsyncScript::allocate());
+    const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
     loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
   }
 
@@ -60,13 +60,13 @@ namespace SpaceGame
     transitionToScreen(screen);
 
     const Handle<GameObject>& playGameButton = screen->allocateGameObject();
-    Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
+    UI::Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
 
     const Handle<GameObject>& exitGameButton = screen->allocateGameObject();
-    Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
+    UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
 
     const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
-    StackPanel::create(buttonStackPanel, {playGameButton, exitGameButton}, StackPanel::kVertical);
+    UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
     buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
   }
 

@@ -14,7 +14,7 @@ namespace SpaceGame
 
 class AsteroidSpawningScript : public Script
 {
-  DECLARE_COMPONENT(GapAllocator, AsteroidSpawningScript, 2);
+  DECLARE_SCRIPT(AsteroidSpawningScript, 2);
 
   public:
     void awake() override;

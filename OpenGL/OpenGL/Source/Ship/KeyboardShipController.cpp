@@ -6,7 +6,7 @@
 
 namespace SpaceGame
 {
-  REGISTER_COMPONENT(KeyboardShipController)
+  REGISTER(KeyboardShipController)
 
   //------------------------------------------------------------------------------------------------
   KeyboardShipController::KeyboardShipController() :
