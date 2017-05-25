@@ -90,12 +90,6 @@ namespace SpaceGame
   {
     const Handle<Screen>& currentScreen = getCurrentScreen();
     
-    if (!currentScreen->canAllocateGameObject())
-    {
-      ASSERT_FAIL("Out of game objects.  Consider increasing pool size");
-      return;
-    }
-
     const Handle<CelesteEngine::GameObject>& asteroid = currentScreen->allocateGameObject();
     asteroid->getTransform()->setParent(getParent()->getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));

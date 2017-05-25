@@ -6,6 +6,8 @@
 
 namespace SpaceGame
 {
+  using namespace Input;
+
   REGISTER(KeyboardShipController)
 
   //------------------------------------------------------------------------------------------------

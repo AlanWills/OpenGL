@@ -17,20 +17,8 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToSplashScreen()
   {
-    if (!Screen::canAllocate())
-    {
-      ASSERT_FAIL();
-      return;
-    }
-
     const Handle<Screen>& screen = Screen::allocate();
     transitionToScreen(screen);
-
-    if (!screen->canAllocateGameObject())
-    {
-      ASSERT_FAIL();
-      return;
-    }
 
     // Attach the async resource loader to a game object
     const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateGameObject();
@@ -50,12 +38,6 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToMainMenuScreen()
   {
-    if (!Screen::canAllocate())
-    {
-      ASSERT_FAIL();
-      return;
-    }
-
     const Handle<Screen>& screen = Screen::allocate();
     transitionToScreen(screen);
 
@@ -73,12 +55,6 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToGameplayScreenCallback(const Handle<GameObject>& sender)
   {
-    if (!Screen::canAllocate())
-    {
-      ASSERT_FAIL();
-      return;
-    }
-
     transitionToGameplayScreen(Screen::allocate(), "");
   }
 
