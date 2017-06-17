@@ -41,7 +41,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void SpaceLevel::createAsteroids(const Handle<Screen>& screen, const Handle<Data>& levelData)
   {
-    const Handle<CelesteEngine::GameObject>& asteroidSpawner = screen->allocateGameObject();
+    const Handle<CelesteEngine::GameObject>& asteroidSpawner = GameObject::allocate();
     createAsteroidSpawner(
       asteroidSpawner,
       levelData->getElementDataAsFloat(m_tinyAsteroidNodeName),
@@ -63,7 +63,7 @@ namespace SpaceGame
     levelBoundsElement->QueryFloatAttribute("width", &width);
     levelBoundsElement->QueryFloatAttribute("height", &height);
 
-    const Handle<CelesteEngine::GameObject>& levelBounds = screen->allocateGameObject();
+    const Handle<CelesteEngine::GameObject>& levelBounds = GameObject::allocate();
     RectangleCollider::create(levelBounds, glm::vec2(width, height));
     levelBounds->setName("LevelBounds");
   }
@@ -81,7 +81,7 @@ namespace SpaceGame
         child->QueryFloatAttribute("x", &x);
         child->QueryFloatAttribute("y", &y);
 
-        const Handle<CelesteEngine::GameObject>& spawnPoint = screen->allocateGameObject();
+        const Handle<CelesteEngine::GameObject>& spawnPoint = GameObject::allocate();
         spawnPoint->getTransform()->setTranslation(x, y, 1);
         spawnPoint->setTag("SpawnPoint");
 

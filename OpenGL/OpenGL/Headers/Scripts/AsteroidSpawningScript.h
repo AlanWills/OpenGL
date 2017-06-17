@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SpaceGameAllocatorSizes.h"
 #include "Objects/GameObject.h"
 #include "Physics/RectangleCollider.h"
 #include "FileSystem/Path.h"
@@ -14,16 +15,18 @@ namespace SpaceGame
 
 class AsteroidSpawningScript : public Script
 {
-  DECLARE_SCRIPT(AsteroidSpawningScript, 2);
+  DECLARE_SCRIPT(AsteroidSpawningScript, ASTEROID_SPAWNING_SCRIPT_POOLSIZE)
 
   public:
-    void awake() override;
     void update(GLfloat secondsPerUpdate) override;
 
     void setTinyAsteroidCount(int tinyAsteroidCount) { m_tinyAsteroidCount = tinyAsteroidCount; }
     void setSmallAsteroidCount(int smallAsteroidCount) { m_smallAsteroidCount = smallAsteroidCount; }
     void setLargeAsteroidCount(int largeAsteroidCount) { m_largeAsteroidCount = largeAsteroidCount; }
     void setHugeAsteroidCount(int hugeAsteroidCount) { m_hugeAsteroidCount = hugeAsteroidCount; }
+
+  protected:
+    void onAwake() override;
 
   private:
     typedef Component Inherited;

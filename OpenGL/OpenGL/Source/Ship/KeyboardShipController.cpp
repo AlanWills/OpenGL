@@ -32,7 +32,7 @@ namespace SpaceGame
     Inherited::handleInput(elapsedGameTime);
 
     const Handle<Keyboard>& keyboard = getKeyboard();
-    const Handle<Transform>& transform = getParentTransform();
+    const Handle<Transform>& transform = getTransform();
 
     if (keyboard->isKeyDown(m_moveForwardKey))
     {

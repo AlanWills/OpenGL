@@ -58,6 +58,7 @@
     <ClInclude Include="Headers\Ship\Ship.h" />
     <ClInclude Include="Headers\Ship\Turret.h" />
     <ClInclude Include="Headers\SpaceGame.h" />
+    <ClInclude Include="Headers\SpaceGameAllocatorSizes.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\arial.ttf" />

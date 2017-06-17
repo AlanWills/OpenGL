@@ -21,12 +21,12 @@ namespace SpaceGame
     transitionToScreen(screen);
 
     // Attach the async resource loader to a game object
-    const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateGameObject();
+    const Handle<CelesteEngine::GameObject>& resourceLoader = GameObject::allocate();
 
     // Add a background image
     const glm::vec2& screenDimensions = getViewportDimensions();
 
-    const Handle<GameObject>& image = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
+    const Handle<GameObject>& image = GameObject::allocate(getWindow()->getCamera()->getTransform());
     UI::Image::create(image, "Logo.png", UI::Image::kPreserveAspectRatio, screenDimensions);
     image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
@@ -41,13 +41,13 @@ namespace SpaceGame
     const Handle<Screen>& screen = Screen::allocate();
     transitionToScreen(screen);
 
-    const Handle<GameObject>& playGameButton = screen->allocateGameObject();
+    const Handle<GameObject>& playGameButton = GameObject::allocate();
     UI::Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
 
-    const Handle<GameObject>& exitGameButton = screen->allocateGameObject();
+    const Handle<GameObject>& exitGameButton = GameObject::allocate();
     UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
 
-    const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
+    const Handle<GameObject>& buttonStackPanel = GameObject::allocate(getWindow()->getCamera()->getTransform());
     UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
     buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
   }
@@ -63,10 +63,10 @@ namespace SpaceGame
   {
     transitionToScreen(screen);
 
-    const Handle<GameObject>& ship = screen->allocateGameObject();
+    const Handle<GameObject>& ship = GameObject::allocate();
     Ship::create(ship);
 
-    const Handle<GameObject>& shield = screen->allocateGameObject(ship->getTransform());
+    const Handle<GameObject>& shield = GameObject::allocate(ship->getTransform());
     Shield::create(shield);
   }
 }

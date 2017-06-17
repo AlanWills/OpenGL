@@ -150,6 +150,9 @@
     <ClInclude Include="Headers\Ship\Turret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Headers\SpaceGameAllocatorSizes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Resources\Audio\ButtonHover.wav">

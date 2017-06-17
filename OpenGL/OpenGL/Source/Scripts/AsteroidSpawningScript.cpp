@@ -32,12 +32,12 @@ namespace SpaceGame
   }
 
   //------------------------------------------------------------------------------------------------
-  void AsteroidSpawningScript::awake()
+  void AsteroidSpawningScript::onAwake()
   {
-    Inherited::awake();
+    Inherited::onAwake();
 
-    ASSERT(!getParent().is_null());
-    m_bounds = getParent()->findComponent<RectangleCollider>();
+    ASSERT(!getGameObject().is_null());
+    m_bounds = getGameObject()->findComponent<RectangleCollider>();
     ASSERT(!m_bounds.is_null());
 
     createAsteroids();
@@ -90,8 +90,8 @@ namespace SpaceGame
   {
     const Handle<Screen>& currentScreen = getCurrentScreen();
     
-    const Handle<CelesteEngine::GameObject>& asteroid = currentScreen->allocateGameObject();
-    asteroid->getTransform()->setParent(getParent()->getTransform());
+    const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate();
+    asteroid->getTransform()->setParent(getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
     SpriteRenderer::create(asteroid, asteroidTexturePath);
