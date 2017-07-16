@@ -47,9 +47,9 @@ namespace SpaceGame
   }
 
   //------------------------------------------------------------------------------------------------
-  void AsteroidSpawningScript::update(GLfloat secondsPerUpdate)
+  void AsteroidSpawningScript::onUpdate(GLfloat secondsPerUpdate)
   {
-    Inherited::update(secondsPerUpdate);
+    Inherited::onUpdate(secondsPerUpdate);
 
     // These asteroids will be contiguous in memory so this is still efficient iterating
     for (const Handle<CelesteEngine::GameObject>& asteroid : m_asteroids)
@@ -91,7 +91,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void AsteroidSpawningScript::createAsteroid(const Path& asteroidTexturePath)
   {
-    const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate();
+    const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate(Handle<Screen>());
     asteroid->getTransform()->setParent(getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 

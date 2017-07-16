@@ -19,8 +19,6 @@ class AsteroidSpawningScript : public Script
   DECLARE_SCRIPT(AsteroidSpawningScript, ASTEROID_SPAWNING_SCRIPT_POOLSIZE)
 
   public:
-    void update(GLfloat secondsPerUpdate) override;
-
     void setTinyAsteroidCount(int tinyAsteroidCount) { m_tinyAsteroidCount = tinyAsteroidCount; }
     void setSmallAsteroidCount(int smallAsteroidCount) { m_smallAsteroidCount = smallAsteroidCount; }
     void setLargeAsteroidCount(int largeAsteroidCount) { m_largeAsteroidCount = largeAsteroidCount; }
@@ -28,6 +26,7 @@ class AsteroidSpawningScript : public Script
 
   protected:
     void onAwake() override;
+    void onUpdate(GLfloat secondsPerUpdate) override;
 
   private:
     typedef Component Inherited;
