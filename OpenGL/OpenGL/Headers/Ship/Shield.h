@@ -6,7 +6,7 @@
 namespace SpaceGame
 {
 
-class DllExport Shield
+class CelesteEngineDllExport Shield
 {
   public:
     static void create(const Handle<GameObject>& shield);

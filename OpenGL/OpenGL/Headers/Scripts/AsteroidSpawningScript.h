@@ -8,6 +8,7 @@
 #include "Screens/Screen.h"
 
 using namespace CelesteEngine;
+using namespace CelesteEngine::Physics;
 
 
 namespace SpaceGame

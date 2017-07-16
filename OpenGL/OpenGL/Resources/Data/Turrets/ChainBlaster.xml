@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <SecondsPerFrame>0.1</SecondsPerFrame>
+  <Frames>
+    <Frame>ChainBlasterFrame0.png</Frame>
+    <Frame>ChainBlasterFrame1.png</Frame>
+    <Frame>ChainBlasterFrame2.png</Frame>
+  </Frames>
+</Root>

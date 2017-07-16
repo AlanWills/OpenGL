@@ -6,7 +6,7 @@
 namespace SpaceGame
 {
 
-class DllExport Turret
+class CelesteEngineDllExport Turret
 {
   public:
     static void create(const Handle<GameObject>& turret);

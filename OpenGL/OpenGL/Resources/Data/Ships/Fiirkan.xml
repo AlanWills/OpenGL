@@ -1,0 +1,5 @@
+<Root>
+  <TextureRelativePath>Fiirkan.png</TextureRelativePath>
+  <LinearSpeed>100</LinearSpeed>
+  <AngularSpeed>0.5</AngularSpeed>
+</Root>

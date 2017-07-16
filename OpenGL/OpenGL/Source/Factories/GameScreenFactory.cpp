@@ -1,7 +1,6 @@
 #include "stdafx.h"
 
 #include "Factories/GameScreenFactory.h"
-#include "Levels/SpaceLevel.h"
 #include "Objects/GameObject.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Game/Game.h"
@@ -18,7 +17,6 @@ namespace SpaceGame
   void GameScreenFactory::transitionToSplashScreen()
   {
     const Handle<Screen>& screen = Screen::allocate();
-    transitionToScreen(screen);
 
     // Attach the async resource loader to a game object
     const Handle<CelesteEngine::GameObject>& resourceLoader = screen->createGameObject();
@@ -32,6 +30,7 @@ namespace SpaceGame
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
+    loadResourcesScript->setWaitTime(3);
     loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
   }
 
@@ -39,7 +38,6 @@ namespace SpaceGame
   void GameScreenFactory::transitionToMainMenuScreen()
   {
     const Handle<Screen>& screen = Screen::allocate();
-    transitionToScreen(screen);
 
     const Handle<GameObject>& playGameButton = screen->createGameObject();
     UI::Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
@@ -55,18 +53,17 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToGameplayScreenCallback(const Handle<GameObject>& sender)
   {
-    transitionToGameplayScreen(Screen::allocate(), "");
+    killOwnerScreen(sender);
+    transitionToGameplayScreen(Screen::allocate());
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameScreenFactory::transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath)
+  void GameScreenFactory::transitionToGameplayScreen(const Handle<Screen>& screen)
   {
-    transitionToScreen(screen);
-
-    const Handle<GameObject>& ship = GameObject::allocate();
+    const Handle<GameObject>& ship = screen->createGameObject();
     Ship::create(ship);
 
-    const Handle<GameObject>& shield = GameObject::allocate(ship->getTransform());
-    Shield::create(shield);
+    //const Handle<GameObject>& shield = screen->createGameObject(ship->getTransform());
+    //Shield::create(shield);
   }
 }

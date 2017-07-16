@@ -3,6 +3,9 @@
 #include "Scripts/AsteroidSpawningScript.h"
 #include "Physics/RigidBody2D.h"
 #include "Screens/Screen.h"
+#include "Rendering/SpriteRenderer.h"
+
+using namespace CelesteEngine::Rendering;
 
 
 namespace SpaceGame
@@ -88,8 +91,6 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void AsteroidSpawningScript::createAsteroid(const Path& asteroidTexturePath)
   {
-    const Handle<Screen>& currentScreen = getCurrentScreen();
-    
     const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate();
     asteroid->getTransform()->setParent(getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));

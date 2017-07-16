@@ -19,6 +19,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestCelesteEnginePlus", "..
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestUtils", "..\..\CelesteEnginePlus\TestUtils\TestUtils.vcxproj", "{7F06E53E-178C-4E7E-8F24-061F18AA402A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E9980A8D-828E-44F0-978E-A57ABC348F47} = {E9980A8D-828E-44F0-978E-A57ABC348F47}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestSpaceGame", "TestSpaceGame\TestSpaceGame.vcxproj", "{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7F06E53E-178C-4E7E-8F24-061F18AA402A} = {7F06E53E-178C-4E7E-8F24-061F18AA402A}
+		{E9980A8D-828E-44F0-978E-A57ABC348F47} = {E9980A8D-828E-44F0-978E-A57ABC348F47}
+		{7FF626A5-BD48-43BA-BAB3-B06426F9D854} = {7FF626A5-BD48-43BA-BAB3-B06426F9D854}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +68,14 @@ Global
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Release|Win32.Build.0 = Release|Win32
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Release|x64.ActiveCfg = Release|x64
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A}.Release|x64.Build.0 = Release|x64
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Debug|Win32.Build.0 = Debug|Win32
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Debug|x64.ActiveCfg = Debug|x64
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Debug|x64.Build.0 = Debug|x64
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Release|Win32.ActiveCfg = Release|Win32
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Release|Win32.Build.0 = Release|Win32
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Release|x64.ActiveCfg = Release|x64
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,5 +83,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E07541B6-55FF-4134-B937-1C62821EE5FB} = {4F5F8855-63D0-438A-81F9-EB06DF585635}
 		{7F06E53E-178C-4E7E-8F24-061F18AA402A} = {4F5F8855-63D0-438A-81F9-EB06DF585635}
+		{AEE1891B-4CF1-4EC1-A3B6-10552F4D569D} = {4F5F8855-63D0-438A-81F9-EB06DF585635}
 	EndGlobalSection
 EndGlobal

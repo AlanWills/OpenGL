@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <TextureRelativePath>Relative\Path.jpg</TextureRelativePath>
+  <LinearSpeed>12</LinearSpeed>
+  <AngularSpeed>0.123</AngularSpeed>
+</Root>

@@ -15,5 +15,6 @@ namespace SpaceGame
     spriteRenderer->setColour(0, 0, 1, 0.25f);
 
     const Handle<OpacityLerper>& lerper = shield->addComponent<OpacityLerper>();
+    lerper->setLerpPerSecond(1);
   }
 }

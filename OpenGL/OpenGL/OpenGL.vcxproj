@@ -11,11 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp" />
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp" />
-    <ClCompile Include="Source\Levels\SpaceLevel.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
     <ClCompile Include="Source\Main.cpp" />
-    <ClCompile Include="Source\Ship\KeyboardShipController.cpp" />
     <ClCompile Include="Source\Ship\Shield.cpp" />
     <ClCompile Include="Source\Ship\Ship.cpp" />
     <ClCompile Include="Source\Ship\Turret.cpp" />
@@ -50,10 +49,9 @@
     <Image Include="Resources\Textures\Sprites\UI\Rectangle.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\DataConverters\ShipDataConverter.h" />
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />
-    <ClInclude Include="Headers\Levels\SpaceLevel.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
-    <ClInclude Include="Headers\Ship\KeyboardShipController.h" />
     <ClInclude Include="Headers\Ship\Shield.h" />
     <ClInclude Include="Headers\Ship\Ship.h" />
     <ClInclude Include="Headers\Ship\Turret.h" />
@@ -69,7 +67,8 @@
     <Media Include="Resources\Audio\HorrorOfSelf.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Resources\Data\AsteroidLevel.xml" />
+    <Xml Include="Resources\Data\Ships\Fiirkan.xml" />
+    <Xml Include="Resources\Data\Turrets\ChainBlaster.xml" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7FF626A5-BD48-43BA-BAB3-B06426F9D854}</ProjectGuid>

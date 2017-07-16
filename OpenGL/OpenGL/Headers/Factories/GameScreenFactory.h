@@ -16,10 +16,6 @@ class GameScreenFactory
     static void transitionToMainMenuScreen();
     
     static void transitionToGameplayScreenCallback(const Handle<GameObject>& screen);
-    static void transitionToGameplayScreen(const Handle<Screen>& screen, const std::string& relativeLevelDataFilePath);
-    static void transitionToGameplayScreen(const Handle<Screen>& screen, const Path& relativeLevelDataFilePath) 
-    { 
-      transitionToGameplayScreen(screen, relativeLevelDataFilePath.as_string()); 
-    }
+    static void transitionToGameplayScreen(const Handle<Screen>& screen);
 };
 }

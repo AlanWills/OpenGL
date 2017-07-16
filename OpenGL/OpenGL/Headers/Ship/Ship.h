@@ -1,13 +1,13 @@
 #pragma once
 
-#include "DllExport.h"
+#include "CelesteEngineDllExport.h"
 #include "Objects/GameObject.h"
 
 
 namespace SpaceGame
 {
 
-class DllExport Ship
+class CelesteEngineDllExport Ship
 {
   public:
     static void create(const Handle<CelesteEngine::GameObject>& gameObject);

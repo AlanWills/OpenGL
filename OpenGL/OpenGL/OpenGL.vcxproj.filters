@@ -33,9 +33,6 @@
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Levels\SpaceLevel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -45,13 +42,13 @@
     <ClCompile Include="Source\Ship\Ship.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Ship\KeyboardShipController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Ship\Shield.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Ship\Turret.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -129,9 +126,6 @@
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Levels\SpaceLevel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Factories\GameScreenFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -141,9 +135,6 @@
     <ClInclude Include="Headers\Ship\Ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Ship\KeyboardShipController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\Ship\Shield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -151,6 +142,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\SpaceGameAllocatorSizes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\DataConverters\ShipDataConverter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -166,7 +160,8 @@
     </Media>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="Resources\Data\AsteroidLevel.xml" />
+    <Xml Include="Resources\Data\Ships\Fiirkan.xml" />
+    <Xml Include="Resources\Data\Turrets\ChainBlaster.xml" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\arial.ttf" />
