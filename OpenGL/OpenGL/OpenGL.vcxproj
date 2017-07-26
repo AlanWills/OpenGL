@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -17,7 +17,7 @@
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\Ship\Shield.cpp" />
     <ClCompile Include="Source\Ship\Ship.cpp" />
-    <ClCompile Include="Source\Ship\Turret.cpp" />
+    <ClCompile Include="Source\Turrets\Turret.cpp" />
     <ClCompile Include="Source\SpaceGame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -54,9 +54,9 @@
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />
     <ClInclude Include="Headers\Ship\Shield.h" />
     <ClInclude Include="Headers\Ship\Ship.h" />
-    <ClInclude Include="Headers\Ship\Turret.h" />
     <ClInclude Include="Headers\SpaceGame.h" />
     <ClInclude Include="Headers\SpaceGameAllocatorSizes.h" />
+    <ClInclude Include="Headers\Turrets\Turret.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\arial.ttf" />
@@ -80,13 +80,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>

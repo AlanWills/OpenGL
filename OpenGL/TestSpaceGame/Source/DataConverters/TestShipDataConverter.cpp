@@ -44,7 +44,10 @@ namespace TestSpaceGame
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(ShipDataConverter_ConstructorData_ContainingInvalidXml_LoadsAsMuchDataAsItCan)
     {
-      const Handle<Data>& invalidData = getResourceManager()->loadData(SpaceGameResources::getInvalidShipDataRelativePath());
+      const Handle<Data>& invalidData = getResourceManager()->load<Data>(SpaceGameResources::getInvalidShipDataRelativePath());
+
+	    AssertCel::IsNotNull(invalidData);
+
       SpaceGame::ShipDataConverter converter = SpaceGame::ShipDataConverter(invalidData.as_const());
 
       Assert::AreEqual(0.123f, converter.getAngularSpeed());
@@ -55,7 +58,10 @@ namespace TestSpaceGame
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(ShipDataConverter_ConstructorData_ContainingValidXml_LoadsData)
     {
-      const Handle<Data>& validData = getResourceManager()->loadData(SpaceGameResources::getValidShipDataRelativePath());
+      const Handle<Data>& validData = getResourceManager()->load<Data>(SpaceGameResources::getValidShipDataRelativePath());
+
+	  AssertCel::IsNotNull(validData);
+
       SpaceGame::ShipDataConverter converter = SpaceGame::ShipDataConverter(validData.as_const());
 
       Assert::AreEqual(0.123f, converter.getAngularSpeed());
@@ -76,7 +82,10 @@ namespace TestSpaceGame
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(ShipDataConverter_ConstructorXmlElement_ContainingInvalidXml_LoadsAsMuchDataAsItCan)
     {
-      const Handle<Data>& invalidData = getResourceManager()->loadData(SpaceGameResources::getInvalidShipDataRelativePath());
+      const Handle<Data>& invalidData = getResourceManager()->load<Data>(SpaceGameResources::getInvalidShipDataRelativePath());
+
+	  AssertCel::IsNotNull(invalidData);
+
       SpaceGame::ShipDataConverter converter = SpaceGame::ShipDataConverter(invalidData->getDocumentRoot());
 
       Assert::AreEqual(0.123f, converter.getAngularSpeed());
@@ -87,7 +96,10 @@ namespace TestSpaceGame
     //------------------------------------------------------------------------------------------------
     TEST_METHOD(ShipDataConverter_ConstructorXmlElement_ContainingValidXml_LoadsData)
     {
-      const Handle<Data>& validData = getResourceManager()->loadData(SpaceGameResources::getValidShipDataRelativePath());
+      const Handle<Data>& validData = getResourceManager()->load<Data>(SpaceGameResources::getValidShipDataRelativePath());
+
+	  AssertCel::IsNotNull(validData);
+
       SpaceGame::ShipDataConverter converter = SpaceGame::ShipDataConverter(validData->getDocumentRoot());
 
       Assert::AreEqual(0.123f, converter.getAngularSpeed());

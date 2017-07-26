@@ -45,10 +45,10 @@
     <ClCompile Include="Source\Ship\Shield.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Ship\Turret.cpp">
+    <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp">
+    <ClCompile Include="Source\Turrets\Turret.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -138,13 +138,13 @@
     <ClInclude Include="Headers\Ship\Shield.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Headers\Ship\Turret.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Headers\SpaceGameAllocatorSizes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\DataConverters\ShipDataConverter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\Turrets\Turret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

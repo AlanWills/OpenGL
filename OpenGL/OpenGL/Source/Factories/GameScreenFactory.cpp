@@ -47,7 +47,7 @@ namespace SpaceGame
 
     const Handle<GameObject>& buttonStackPanel = screen->createGameObject(getWindow()->getCamera()->getTransform());
     UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
-    buttonStackPanel->getTransform()->setTranslation(glm::vec3(getViewportDimensions() * 0.5f, 0));
+    buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
   }
 
   //------------------------------------------------------------------------------------------------
