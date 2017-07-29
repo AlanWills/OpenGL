@@ -91,7 +91,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void AsteroidSpawningScript::createAsteroid(const Path& asteroidTexturePath)
   {
-    const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate(Handle<Screen>());
+    /*const Handle<CelesteEngine::GameObject>& asteroid = GameObject::allocate(Handle<Screen>());
     asteroid->getTransform()->setParent(getTransform());
     asteroid->getTransform()->setTranslation(glm::vec3(generateAsteroidPosition(), 0));
 
@@ -102,7 +102,7 @@ namespace SpaceGame
 
     RectangleCollider::create(asteroid, renderer->getDimensions());
 
-    m_asteroids.push_back(asteroid);
+    m_asteroids.push_back(asteroid);*/
   }
 
   //------------------------------------------------------------------------------------------------

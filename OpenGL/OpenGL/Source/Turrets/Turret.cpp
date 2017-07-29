@@ -48,7 +48,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void Turret::fire()
   {
-    const Handle<GameObject>& bullet = getGameObject()->getOwnerScreen()->createGameObject();
+    const Handle<GameObject>& bullet = getGameObject()->allocateGameObjectInOwnerScreen();
     SpriteRenderer::create(bullet, "GreenLaserRay.png");
     RigidBody2D::create(bullet, glm::vec2(0, 1000), 0);
   }
