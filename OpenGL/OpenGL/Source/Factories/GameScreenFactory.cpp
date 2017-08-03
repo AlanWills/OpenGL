@@ -45,7 +45,7 @@ namespace SpaceGame
     const Handle<GameObject>& exitGameButton = screen->allocateGameObject();
     UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
     exitGameButton->addComponent<RigidBody2D>()->setAngularVelocity(0.1f);
-    exitGameButton->getTransform()->setTranslation(0, 0, 0.1f);
+    exitGameButton->getTransform()->setTranslation(0, -0.1f, 0.1f);
 
     //const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
     //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
