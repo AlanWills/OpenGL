@@ -27,7 +27,7 @@ namespace SpaceGame
       
     AnimationDataConverter animationLoader(getResourceManager()->load<Data>(Path("Turrets", "ChainBlaster.xml")).as_const());
 
-    const Handle<GameObject>& turret = gameObject->allocateGameObjectInOwnerScreen(gameObject->getTransform());
+    const Handle<GameObject>& turret = gameObject->allocateGameObjectInSameLayer(gameObject->getTransform());
     const Handle<Turret>& turretController = turret->addComponent<Turret>();
     const Handle<SpriteRenderer>& turretRenderer = turret->addComponent<SpriteRenderer>();
     const Handle<Animation>& animation = Animation::create(

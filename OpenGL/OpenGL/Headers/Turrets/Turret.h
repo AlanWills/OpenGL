@@ -9,7 +9,7 @@ namespace SpaceGame
 
 class Turret : public CelesteEngine::Script
 {
-  DECLARE_SCRIPT(Turret, 10)
+  DECLARE_SCRIPT(Turret)
 
   public:
     static void create(const Handle<GameObject>& turret);

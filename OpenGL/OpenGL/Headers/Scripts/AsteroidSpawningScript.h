@@ -16,7 +16,7 @@ namespace SpaceGame
 
 class AsteroidSpawningScript : public Script
 {
-  DECLARE_SCRIPT(AsteroidSpawningScript, ASTEROID_SPAWNING_SCRIPT_POOLSIZE)
+  DECLARE_SCRIPT(AsteroidSpawningScript)
 
   public:
     void setTinyAsteroidCount(int tinyAsteroidCount) { m_tinyAsteroidCount = tinyAsteroidCount; }

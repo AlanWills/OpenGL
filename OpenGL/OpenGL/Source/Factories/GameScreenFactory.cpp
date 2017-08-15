@@ -19,14 +19,13 @@ namespace SpaceGame
     const Handle<Screen>& screen = Screen::allocate();
 
     // Attach the async resource loader to a game object
-    const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateGameObject();
+    const Handle<CelesteEngine::GameObject>& resourceLoader = screen->allocateGameObject(kWorld);
 
     // Add a background image
     const glm::vec2& screenDimensions = getViewportDimensions();
 
-    const Handle<GameObject>& image = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
+    const Handle<GameObject>& image = screen->allocateGameObject(kGUI);
     UI::Image::create(image, "Logo.png", UI::Image::kPreserveAspectRatio, screenDimensions);
-    image->getTransform()->translate(glm::vec3(screenDimensions * 0.5f, 0));
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
@@ -39,16 +38,18 @@ namespace SpaceGame
   {
     const Handle<Screen>& screen = Screen::allocate();
 
-    const Handle<GameObject>& playGameButton = screen->allocateGameObject();
+    const Handle<GameObject>& playGameButton = screen->allocateGameObject(kWorld);
     UI::Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
+    //playGameButton->getTransform()->setTranslation(0, -0.05f, 0);
 
-    const Handle<GameObject>& exitGameButton = screen->allocateGameObject();
+    const Handle<GameObject>& exitGameButton = screen->allocateGameObject(kGUI);
     UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
     exitGameButton->addComponent<RigidBody2D>()->setAngularVelocity(0.1f);
-    exitGameButton->getTransform()->setTranslation(0, -0.1f, 0.1f);
+    exitGameButton->getTransform()->setTranslation(getViewportDimensions() * 0.5f + glm::vec2(0, -10));
 
-    //const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(getWindow()->getCamera()->getTransform());
-    //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
+    //const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(kGUI);
+    //buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
+    //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -61,7 +62,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToGameplayScreen(const Handle<Screen>& screen)
   {
-    const Handle<GameObject>& ship = screen->allocateGameObject();
+    const Handle<GameObject>& ship = screen->allocateGameObject(kWorld);
     Ship::create(ship);
 
     //const Handle<GameObject>& shield = screen->createGameObject(ship->getTransform());

@@ -11,7 +11,7 @@ using namespace CelesteEngine::Physics;
 
 namespace SpaceGame
 {
-  REGISTER(Turret)
+  REGISTER_SCRIPT(Turret, 10)
 
   //------------------------------------------------------------------------------------------------
   Turret::Turret() :
@@ -48,7 +48,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void Turret::fire()
   {
-    const Handle<GameObject>& bullet = getGameObject()->allocateGameObjectInOwnerScreen();
+    const Handle<GameObject>& bullet = getGameObject()->allocateGameObjectInSameLayer();
     SpriteRenderer::create(bullet, "GreenLaserRay.png");
     RigidBody2D::create(bullet, glm::vec2(0, 1000), 0);
   }

@@ -16,7 +16,7 @@ namespace SpaceGame
   Path AsteroidSpawningScript::m_largeAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidLarge.png");
   Path AsteroidSpawningScript::m_hugeAsteroidTexturePath = Path("Sprites", "Asteroids", "AsteroidHuge.png");
 
-  REGISTER(AsteroidSpawningScript);
+  REGISTER_SCRIPT(AsteroidSpawningScript, ASTEROID_SPAWNING_SCRIPT_POOLSIZE);
 
   //------------------------------------------------------------------------------------------------
   AsteroidSpawningScript::AsteroidSpawningScript() :
