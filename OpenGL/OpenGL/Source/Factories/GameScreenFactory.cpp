@@ -38,18 +38,16 @@ namespace SpaceGame
   {
     const Handle<Screen>& screen = Screen::allocate();
 
-    const Handle<GameObject>& playGameButton = screen->allocateGameObject(kWorld);
+    const Handle<GameObject>& playGameButton = screen->allocateGameObject(kGUI);
     UI::Button::create(playGameButton, "Play", std::bind(&transitionToGameplayScreenCallback, std::placeholders::_1));
-    //playGameButton->getTransform()->setTranslation(0, -0.05f, 0);
 
     const Handle<GameObject>& exitGameButton = screen->allocateGameObject(kGUI);
     UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
     exitGameButton->addComponent<RigidBody2D>()->setAngularVelocity(0.1f);
-    exitGameButton->getTransform()->setTranslation(getViewportDimensions() * 0.5f + glm::vec2(0, -10));
 
     //const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(kGUI);
     //buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
-    //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton);
+    //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
   }
 
   //------------------------------------------------------------------------------------------------

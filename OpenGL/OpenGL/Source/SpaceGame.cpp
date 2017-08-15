@@ -11,13 +11,6 @@ namespace SpaceGame
   {
     Inherited::onInitialize();
 
-    // Add to onInitialize override
-    m_topDownCamera = new TopDownCamera();
-    m_topDownCamera->initialize(Handle<TopDownCamera>(&m_topDownCamera));
-
-    // Viewport takes ownership of camera now
-    getWindow()->setCamera(m_topDownCamera);
-
     GameScreenFactory::transitionToSplashScreen();
   }
 }
