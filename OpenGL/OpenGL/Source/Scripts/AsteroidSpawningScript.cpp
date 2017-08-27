@@ -108,7 +108,7 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   glm::vec2 AsteroidSpawningScript::generateAsteroidPosition() const
   {
-    const glm::vec2& halfScreenDims = getViewportDimensions() * 0.5f;
+    const glm::vec2& halfScreenDims = glm::vec2() * 0.5f;
     return glm::vec2(m_random.generate(-halfScreenDims.x, halfScreenDims.x), m_random.generate(-halfScreenDims.y, halfScreenDims.y));
   }
 
@@ -120,7 +120,8 @@ namespace SpaceGame
     float largeAsteroidCount,
     float hugeAsteroidCount)
   {
-    const glm::vec2& screenDimensions = getViewportDimensions();
+    /*const glm::vec2& screenDimensions = getViewportDimensions();*/
+    glm::vec2 screenDimensions;
     asteroidSpawner->getTransform()->translate(screenDimensions * 0.5f);
 
     RectangleCollider::create(asteroidSpawner, screenDimensions);

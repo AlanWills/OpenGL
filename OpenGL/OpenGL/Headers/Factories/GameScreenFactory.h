@@ -16,6 +16,6 @@ class GameScreenFactory
     static void transitionToMainMenuScreen();
     
     static void transitionToGameplayScreenCallback(const Handle<GameObject>& screen);
-    static void transitionToGameplayScreen(const Handle<Screen>& screen);
+    static void createGameplayScreen(const Handle<Screen>& screen);
 };
 }

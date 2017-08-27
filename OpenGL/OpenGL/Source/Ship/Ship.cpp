@@ -23,7 +23,10 @@ namespace SpaceGame
     const Handle<RigidBody2D>& shipRigidBody = RigidBody2D::create(gameObject, glm::vec2(), 0);
     shipRigidBody->setMaxLinearVelocity(glm::vec2(loader.getLinearSpeed()));
     shipRigidBody->setMaxAngularVelocity(loader.getAngularSpeed());
+
     const Handle<Input::KeyboardRigidBody2DController>& movementController = gameObject->addComponent<Input::KeyboardRigidBody2DController>();
+    movementController->setLinearVelocityDelta(0.01f);
+    movementController->setSpace(Input::KeyboardRigidBody2DController::kLocal); // Move ship in it's local space
       
     AnimationDataConverter animationLoader(getResourceManager()->load<Data>(Path("Turrets", "ChainBlaster.xml")).as_const());
 

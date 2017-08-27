@@ -48,9 +48,13 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void Turret::fire()
   {
+    // Do not parent bullet to ship transform!
     const Handle<GameObject>& bullet = getGameObject()->allocateGameObjectInSameLayer();
+    bullet->getTransform()->setWorldTranslation(getTransform()->getWorldTranslation());
+    bullet->getTransform()->setWorldRotation(getTransform()->getWorldRotation());
+
     SpriteRenderer::create(bullet, "GreenLaserRay.png");
-    RigidBody2D::create(bullet, glm::vec2(0, 1000), 0);
+    RigidBody2D::create(bullet, glm::vec2(getTransform()->getWorldMatrix()[1]) * 500.0f, 0);
   }
 
   //------------------------------------------------------------------------------------------------

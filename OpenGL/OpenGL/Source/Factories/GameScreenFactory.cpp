@@ -26,6 +26,7 @@ namespace SpaceGame
 
     const Handle<GameObject>& image = screen->allocateGameObject(kGUI);
     UI::Image::create(image, "Logo.png", UI::Image::kPreserveAspectRatio, screenDimensions);
+    image->getTransform()->setTranslation(screenDimensions * 0.5f);
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
@@ -43,25 +44,32 @@ namespace SpaceGame
 
     const Handle<GameObject>& exitGameButton = screen->allocateGameObject(kGUI);
     UI::Button::create(exitGameButton, "Exit", std::bind(&Game::exitCallback, std::placeholders::_1));
-    exitGameButton->addComponent<RigidBody2D>()->setAngularVelocity(0.1f);
-
-    //const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(kGUI);
-    //buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
-    //UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
+    
+    const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(kGUI);
+    buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
+    UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
   }
 
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::transitionToGameplayScreenCallback(const Handle<GameObject>& sender)
   {
-    //killOwnerScreen(sender);
-    transitionToGameplayScreen(Screen::allocate());
+    killOwnerScreen(sender);
+    createGameplayScreen(Screen::allocate());
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameScreenFactory::transitionToGameplayScreen(const Handle<Screen>& screen)
+  void GameScreenFactory::createGameplayScreen(const Handle<Screen>& screen)
   {
-    const Handle<GameObject>& ship = screen->allocateGameObject(kWorld);
-    Ship::create(ship);
+    const Handle<GameObject>& testTextInput = screen->allocateGameObject(kGUI);
+    const Handle<TextRenderer>& textRenderer = testTextInput->addComponent<TextRenderer>();
+
+    // Make some kind of textbox/text input script?
+    getKeyboard().subscribeToTextInputted(std::bind(&TextRenderer::appendLetter, textRenderer, std::placeholders::_1));
+    testTextInput->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
+    testTextInput->getTransform()->setScale(3, 3);
+
+    //const Handle<GameObject>& ship = screen->allocateGameObject(kWorld);
+    //Ship::create(ship);
 
     //const Handle<GameObject>& shield = screen->createGameObject(ship->getTransform());
     //Shield::create(shield);
