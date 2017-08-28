@@ -9,6 +9,7 @@
 #include "Animation/StateMachine.h"
 #include "Ship/Ship.h"
 #include "Ship/Shield.h"
+#include "UI/TextBox.h"
 
 
 namespace SpaceGame
@@ -60,18 +61,13 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::createGameplayScreen(const Handle<Screen>& screen)
   {
-    const Handle<GameObject>& testTextInput = screen->allocateGameObject(kGUI);
-    const Handle<TextRenderer>& textRenderer = testTextInput->addComponent<TextRenderer>();
+    const glm::vec2& viewportDimensions = getViewportDimensions();
 
-    // Make some kind of textbox/text input script?
-    getKeyboard().subscribeToTextInputted(std::bind(&TextRenderer::appendLetter, textRenderer, std::placeholders::_1));
-    testTextInput->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
-    testTextInput->getTransform()->setScale(3, 3);
-
-    //const Handle<GameObject>& ship = screen->allocateGameObject(kWorld);
-    //Ship::create(ship);
-
-    //const Handle<GameObject>& shield = screen->createGameObject(ship->getTransform());
-    //Shield::create(shield);
+    const Handle<GameObject>& floor = screen->allocateGameObject(Layer::kWorld);
+    //floor->getTransform()->setTranslation(viewportDimensions * 0.5f);
+    const Handle<SpriteRenderer>& floorRenderer = SpriteRenderer::create(floor, Path("Sprites", "UI", "Rectangle.png"));
+    floorRenderer->setColour(glm::vec4(1, 1, 1, 1));
+    floor->setName("Floor");
+    floor->getTransform()->setScale(glm::vec2(viewportDimensions.x, viewportDimensions.y * 0.25f) / floorRenderer->getDimensions());
   }
 }
