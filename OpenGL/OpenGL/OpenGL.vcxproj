@@ -108,7 +108,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -141,7 +141,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rd Party\Include\freetype2;$(ProjectDir)..\..\3rd Party\Include\freetype2;$(ProjectDir)..\..\Engine\Headers;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\CelesteEnginePlus\Headers;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Include;$(ProjectDir)..\..\..\CelesteEnginePlus\3rdParty\Include\freetype2;$(ProjectDir)..\..\3rdParty\Include\freetype2;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

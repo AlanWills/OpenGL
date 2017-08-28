@@ -4,7 +4,7 @@
 #include "Objects/GameObject.h"
 #include "Resources/LoadResourcesAsyncScript.h"
 #include "Game/Game.h"
-#include "Input/KeyboardVisibilityScript.h"
+#include "Input/KeyboardRigidBody2DController.h"
 #include "Physics/RigidBody2D.h"
 #include "Animation/StateMachine.h"
 #include "Ship/Ship.h"
@@ -31,8 +31,8 @@ namespace SpaceGame
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
-    loadResourcesScript->setWaitTime(3);
-    loadResourcesScript->addOnLoadCompleteCallback(&transitionToMainMenuScreen);
+    loadResourcesScript->setWaitTime(1);
+    loadResourcesScript->getLoadCompleteEvent().subscribe(&transitionToMainMenuScreen);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -63,11 +63,41 @@ namespace SpaceGame
   {
     const glm::vec2& viewportDimensions = getViewportDimensions();
 
-    const Handle<GameObject>& floor = screen->allocateGameObject(Layer::kWorld);
-    //floor->getTransform()->setTranslation(viewportDimensions * 0.5f);
+    const Handle<GameObject>& floor = screen->allocateGameObject(Layer::kGUI);
     const Handle<SpriteRenderer>& floorRenderer = SpriteRenderer::create(floor, Path("Sprites", "UI", "Rectangle.png"));
     floorRenderer->setColour(glm::vec4(1, 1, 1, 1));
     floor->setName("Floor");
-    floor->getTransform()->setScale(glm::vec2(viewportDimensions.x, viewportDimensions.y * 0.25f) / floorRenderer->getDimensions());
+
+    glm::vec2 floorSize = glm::vec2(viewportDimensions.x, viewportDimensions.y * 0.25f);
+    floor->getTransform()->setScale(floorSize / floorRenderer->getDimensions());
+    floor->getTransform()->setTranslation(floorSize * 0.5f);
+
+    const Handle<GameObject>& door = screen->allocateGameObject(Layer::kGUI);
+    const Handle<SpriteRenderer>& doorRenderer = SpriteRenderer::create(door, Path("Sprites", "UI", "Rectangle.png"));
+    doorRenderer->setColour(glm::vec4(0.5f, 0.5f, 0.5f, 1));
+    door->setName("Door");
+
+    glm::vec2 doorSize = glm::vec2(viewportDimensions.x * 0.1f, viewportDimensions.y - floorSize.y);
+    door->getTransform()->setScale(doorSize / doorRenderer->getDimensions());
+    door->getTransform()->setTranslation(viewportDimensions.x - doorSize.x * 0.5f, doorSize.y * 0.5f + floorSize.y);
+
+    const Handle<GameObject>& player = screen->allocateGameObject(Layer::kGUI);
+    const Handle<SpriteRenderer>& playerRenderer = SpriteRenderer::create(player, Path("Sprites", "UI", "Rectangle.png"));
+    playerRenderer->setColour(glm::vec4(0, 0, 1, 1));
+    player->setName("Player");
+
+    glm::vec2 playerSize = glm::vec2(100, 100);
+    player->getTransform()->setScale(playerSize / playerRenderer->getDimensions());
+    player->getTransform()->setTranslation(viewportDimensions.x * 0.5f, floorSize.y + playerSize.y * 0.5f);
+
+    const Handle<KeyboardRigidBody2DController>& playerMovement = player->addComponent<KeyboardRigidBody2DController>();
+    playerMovement->setIncreaseXLinearVelocityKey(GLFW_KEY_D);
+    playerMovement->setDecreaseXLinearVelocityKey(GLFW_KEY_A);
+    playerMovement->setLinearVelocityDelta(10, 0);
+    playerMovement->setIncrementMode(KeyboardRigidBody2DController::kToggle);
+
+    const Handle<GameObject>& terminal = screen->allocateGameObject(Layer::kGUI);
+    const Handle<SpriteRenderer>& terminalRenderer = SpriteRenderer::create(terminal, Path("Sprites", "UI", "Rectangle.png"));
+    terminalRenderer->setColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
   }
 }
