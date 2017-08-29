@@ -17,5 +17,6 @@ class GameScreenFactory
     
     static void transitionToGameplayScreenCallback(const Handle<GameObject>& screen);
     static void createGameplayScreen(const Handle<Screen>& screen);
+    static void createTerminalScreen(const Handle<Screen>& screen);
 };
 }

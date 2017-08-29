@@ -55,7 +55,7 @@ namespace SpaceGame
   void GameScreenFactory::transitionToGameplayScreenCallback(const Handle<GameObject>& sender)
   {
     killOwnerScreen(sender);
-    createGameplayScreen(Screen::allocate());
+    createTerminalScreen(Screen::allocate());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -99,5 +99,40 @@ namespace SpaceGame
     const Handle<GameObject>& terminal = screen->allocateGameObject(Layer::kGUI);
     const Handle<SpriteRenderer>& terminalRenderer = SpriteRenderer::create(terminal, Path("Sprites", "UI", "Rectangle.png"));
     terminalRenderer->setColour(glm::vec4(0.1f, 0.1f, 0.1f, 1));
+
+    glm::vec2 terminalSize = glm::vec2(90, 150);
+    terminal->getTransform()->setScale(terminalSize / terminalRenderer->getDimensions());
+    terminal->getTransform()->setTranslation(viewportDimensions.x * 0.5f, floorSize.y + terminalSize.y * 0.5f);
+  }
+
+  //------------------------------------------------------------------------------------------------
+  void GameScreenFactory::createTerminalScreen(const Handle<Screen>& screen)
+  {
+    const glm::vec2& viewportDimensions = getViewportDimensions();
+
+    const Handle<GameObject>& terminalTextBox = screen->allocateGameObject(kGUI);
+    terminalTextBox->getTransform()->setTranslation(viewportDimensions.x * 0.25f, viewportDimensions.y);
+
+    const Handle<TextRenderer>& terminalRenderer = terminalTextBox->addComponent<TextRenderer>();
+    terminalRenderer->setMaxWidth(viewportDimensions.x * 0.5f);
+    terminalRenderer->setHorizontalAlignment(Horizontal::kLeft);
+    terminalRenderer->setVerticalAlignment(Vertical::kTop);
+    terminalRenderer->setFontHeight(24);
+    terminalRenderer->setText("bool isDoorOpen = false;");
+
+    const Handle<TextBox>& textBox = terminalTextBox->addComponent<TextBox>();
+
+    const Handle<GameObject>& descriptionLabel = screen->allocateGameObject(kGUI);
+    descriptionLabel->getTransform()->setTranslation(viewportDimensions.x * 0.75f, viewportDimensions.y);
+    
+    const Handle<TextRenderer>& descriptionRenderer = descriptionLabel->addComponent<TextRenderer>();
+    descriptionRenderer->setMaxWidth(viewportDimensions.x * 0.5f);
+    descriptionRenderer->setHorizontalAlignment(Horizontal::kLeft);
+    descriptionRenderer->setVerticalAlignment(Vertical::kTop);
+    descriptionRenderer->setFontHeight(24);
+    descriptionRenderer->setText(
+      "Ah yes, the good ol' 'bool' - computers love dealing in yes and no and that is what a bool is for.\
+       \n\nIt can only have two values: true (yes) or false (no), but is really useful.\
+       \n\nThis bool is currently set to false and is called 'isDoorOpen'...");
   }
 }
