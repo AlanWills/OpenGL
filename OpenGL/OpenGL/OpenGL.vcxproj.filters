@@ -51,6 +51,9 @@
     <ClCompile Include="Source\Turrets\Turret.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\ComputerInteractionUI\ComputerInteractionUI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Vertex Shaders\sprite.vert" />
@@ -61,27 +64,6 @@
     <None Include="Resources\Fragment Shaders\text.frag" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Textures\Backgrounds\RainbowNebula.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidHuge.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidLarge.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidSmall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidTiny.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Icons\SpawnPoint.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Sprites\Spawn Points\NavBuoy.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Resources\Textures\Sprites\UI\ButtonDefault.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -94,31 +76,19 @@
     <Image Include="Resources\Textures\Sprites\UI\Rectangle.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\ChainBlasterFrame0.png">
+    <Image Include="Resources\Textures\Sprites\UI\Logo.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\ChainBlasterFrame1.png">
+    <Image Include="Resources\Textures\Sprites\Scientist.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\ChainBlasterFrame2.png">
+    <Image Include="Resources\Textures\Sprites\ComputerTerminal.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\Fiirkan.png">
+    <Image Include="Resources\Textures\Sprites\MetalDoor.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Resources\Textures\GreenLaserRay.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\HellfireMissile.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\HellfireMissileTurret.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\Logo.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Resources\Textures\EnergyShield.png">
+    <Image Include="Resources\Textures\Sprites\UI\UpDirectionIndicator.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -145,6 +115,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Headers\Turrets\Turret.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Headers\UI\ComputerInteractionUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\ComputerInteractionUI\ComputerInteractionUI.cpp" />
     <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp" />
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
@@ -27,26 +28,15 @@
     <None Include="Resources\Vertex Shaders\text.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\Textures\EnergyShield.png" />
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidHuge.png" />
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidLarge.png" />
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidSmall.png" />
-    <Image Include="Resources\Textures\Sprites\Asteroids\AsteroidTiny.png" />
-    <Image Include="Resources\Textures\Backgrounds\RainbowNebula.png" />
-    <Image Include="Resources\Textures\Sprites\Icons\SpawnPoint.png" />
+    <Image Include="Resources\Textures\Sprites\ComputerTerminal.png" />
+    <Image Include="Resources\Textures\Sprites\MetalDoor.png" />
+    <Image Include="Resources\Textures\Sprites\Scientist.png" />
     <Image Include="Resources\Textures\Sprites\UI\ButtonDefault.png" />
     <Image Include="Resources\Textures\Sprites\UI\ButtonHighlighted.png" />
     <Image Include="Resources\Textures\Sprites\UI\ButtonPressed.png" />
-    <Image Include="Resources\Textures\ChainBlasterFrame0.png" />
-    <Image Include="Resources\Textures\ChainBlasterFrame2.png" />
-    <Image Include="Resources\Textures\ChainBlasterFrame1.png" />
-    <Image Include="Resources\Textures\Fiirkan.png" />
-    <Image Include="Resources\Textures\GreenLaserRay.png" />
-    <Image Include="Resources\Textures\HellfireMissileTurret.png" />
-    <Image Include="Resources\Textures\HellfireMissile.png" />
-    <Image Include="Resources\Textures\Logo.png" />
-    <Image Include="Resources\Textures\Sprites\Spawn Points\NavBuoy.png" />
+    <Image Include="Resources\Textures\Sprites\UI\Logo.png" />
     <Image Include="Resources\Textures\Sprites\UI\Rectangle.png" />
+    <Image Include="Resources\Textures\Sprites\UI\UpDirectionIndicator.png" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Headers\DataConverters\ShipDataConverter.h" />
@@ -57,6 +47,7 @@
     <ClInclude Include="Headers\SpaceGame.h" />
     <ClInclude Include="Headers\SpaceGameAllocatorSizes.h" />
     <ClInclude Include="Headers\Turrets\Turret.h" />
+    <ClInclude Include="Headers\UI\ComputerInteractionUI.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Resources\Fonts\arial.ttf" />
