@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\ComputerInteractionUI\ComputerInteractionUI.cpp" />
+    <ClCompile Include="Source\Controllers\PlayerController.cpp" />
     <ClCompile Include="Source\DataConverters\ShipDataConverter.cpp" />
     <ClCompile Include="Source\Factories\GameScreenFactory.cpp" />
     <ClCompile Include="Source\Scripts\AsteroidSpawningScript.cpp" />
@@ -39,6 +40,7 @@
     <Image Include="Resources\Textures\Sprites\UI\UpDirectionIndicator.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Headers\Controllers\PlayerController.h" />
     <ClInclude Include="Headers\DataConverters\ShipDataConverter.h" />
     <ClInclude Include="Headers\Factories\GameScreenFactory.h" />
     <ClInclude Include="Headers\Scripts\AsteroidSpawningScript.h" />

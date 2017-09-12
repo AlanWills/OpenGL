@@ -6,11 +6,15 @@
 #include "Game/Game.h"
 #include "Input/KeyboardRigidBody2DController.h"
 #include "Physics/RigidBody2D.h"
-#include "Animation/StateMachine.h""
+#include "Animation/StateMachine.h"
+#include "Animation/Animators/MoveToPositionAnimator.h"
 #include "UI/TextBox.h"
 #include "UI/ToolTip.h"
 #include "UI/ComputerInteractionUI.h"
+#include "Controllers/PlayerController.h"
 
+
+using namespace CelesteEngine::Animators;
 
 namespace SpaceGame
 {
@@ -31,7 +35,7 @@ namespace SpaceGame
 
     // Add resource loading whilst we display the splash screen
     const Handle<LoadResourcesAsyncScript>& loadResourcesScript = resourceLoader->addComponent<LoadResourcesAsyncScript>();
-    loadResourcesScript->setWaitTime(1);
+    loadResourcesScript->setWaitTime(0.01f);
     loadResourcesScript->getLoadCompleteEvent().subscribe(&transitionToMainMenuScreen);
   }
 
@@ -48,7 +52,7 @@ namespace SpaceGame
     
     const Handle<GameObject>& buttonStackPanel = screen->allocateGameObject(kGUI);
     buttonStackPanel->getTransform()->setTranslation(getViewportDimensions() * 0.5f);
-    UI::StackPanel::create(buttonStackPanel, UI::StackPanel::VerticalAlignment::kCentre, playGameButton, exitGameButton);
+    UI::StackPanel::create(buttonStackPanel, Vertical::kCentre, playGameButton, exitGameButton);
   }
 
   //------------------------------------------------------------------------------------------------
@@ -56,6 +60,7 @@ namespace SpaceGame
   {
     sender->getOwnerScreen()->die();
     createGameplayScreen(Screen::allocate());
+    createTerminalScreen(Screen::allocate());
   }
 
   //------------------------------------------------------------------------------------------------
@@ -99,7 +104,13 @@ namespace SpaceGame
     playerMovement->setLinearVelocityDelta(10, 0);
     playerMovement->setIncrementMode(KeyboardRigidBody2DController::kToggle);
 
+    const Handle<PlayerController>& playerController = player->addComponent<PlayerController>();
+    playerController->setMinPosition(playerSize.x * 0.5f);
+    playerController->setMaxPosition(door->getTransform()->getTranslation().x - (doorSize.x + playerSize.x) * 0.5f);
+    playerController->setNextLevelPosition(viewportDimensions.x + playerSize.x * 0.5f);
+
     const Handle<GameObject>& terminal = screen->allocateGameObject(Layer::kGUI);
+    terminal->setName("Terminal");
     const Handle<SpriteRenderer>& terminalRenderer = SpriteRenderer::create(terminal, Path("Sprites", "ComputerTerminal.png"));
 
     glm::vec2 terminalSize = glm::vec2(90, 90);
@@ -115,24 +126,25 @@ namespace SpaceGame
   //------------------------------------------------------------------------------------------------
   void GameScreenFactory::createTerminalScreen(const Handle<Screen>& screen)
   {
+    screen->setName("Terminal");
     const glm::vec2& viewportDimensions = getViewportDimensions();
 
     {
       const Handle<GameObject>& terminalTextBox = screen->allocateGameObject(kGUI);
-      terminalTextBox->getTransform()->setTranslation(viewportDimensions.x * 0.25f, viewportDimensions.y);
+      terminalTextBox->getTransform()->setTranslation(10, viewportDimensions.y - 10);
+      terminalTextBox->setName("TerminalTextBox");
 
       const Handle<TextRenderer>& terminalRenderer = createTextRenderer(
         terminalTextBox,
-        "bool isDoorOpen = false;",
+        "",
         24,
-        viewportDimensions.x * 0.5f,
         Horizontal::kLeft,
         Vertical::kTop);
       const Handle<TextBox>& textBox = terminalTextBox->addComponent<TextBox>();
 
       const Handle<GameObject>& boolToolTip = screen->allocateGameObject(kGUI, terminalTextBox->getTransform());
       const glm::vec2& boolSize = terminalRenderer->getFont().measureString("bool");
-      boolToolTip->getTransform()->setTranslation(boolSize.x * 0.5f - viewportDimensions.x * 0.25f,-boolSize.y * 0.5f - 50, 0.01f);
+      boolToolTip->getTransform()->setTranslation(boolSize.x * 0.5f, -boolSize.y * 0.5f - 50, 0.01f);
 
       const Handle<ToolTip>& toolTip = boolToolTip->addComponent<ToolTip>();
       const Handle<RectangleCollider>& rectangleCollider = boolToolTip->addComponent<RectangleCollider>();
@@ -143,38 +155,69 @@ namespace SpaceGame
         boolToolTip,
         "bool",
         12,
-        boolSize.x,
         Horizontal::kLeft,
         Vertical::kCentre);
       toolTipTextRenderer->setColour(0, 1.0f, 1.0f, 1);
     }
 
     {
-      const Handle<GameObject>& descriptionLabel = screen->allocateGameObject(kGUI);
-      descriptionLabel->getTransform()->setTranslation(viewportDimensions.x * 0.75f, viewportDimensions.y);
+      const Handle<GameObject>& outputLabel = screen->allocateGameObject(kGUI);
+      outputLabel->getTransform()->setTranslation(viewportDimensions.x * 0.5f, viewportDimensions.y);
+      outputLabel->setName("Output");
 
-      const Handle<TextRenderer>& descriptionRenderer = createTextRenderer(
-        descriptionLabel,
-        "Ah yes, the  'bool' - the computer equivalent of yes and no.\
-        \n\nIt can only have two values: true (yes) or false (no), but is really useful.\
-        \n\nThis bool is currently set to false and is called 'isDoorOpen'...", 
+      const Handle<TextRenderer>& outputRenderer = createTextRenderer(
+        outputLabel,
+        "",
         24, 
-        viewportDimensions.x * 0.5f,
         Horizontal::kLeft,
         Vertical::kTop);
     }
 
     {
       const Handle<GameObject>& runCodeButton = screen->allocateGameObject(kGUI);
-      const Handle<Button>& button = Button::create(runCodeButton, "Run Code", std::bind(&GameScreenFactory::runCodeAndActivateGameplayScreen, std::placeholders::_1));
-      runCodeButton->getTransform()->setTranslation(viewportDimensions.x * 0.5f, button->getSpriteRenderer()->getDimensions().y);
+      Button::create(runCodeButton, "Run Code", std::bind(&GameScreenFactory::runCode, std::placeholders::_1));
+   
+      const Handle<GameObject>& quitButton = screen->allocateGameObject(kGUI);
+      Button::create(
+        quitButton, 
+        "Quit", 
+        std::bind(&deactivateOwnerScreen, std::placeholders::_1),
+        [](const Handle<GameObject>& gameObject) -> void { activateScreen("Gameplay"); });
+
+      const Handle<GameObject>& terminalButtonStackPanelObject = screen->allocateGameObject(kGUI);
+      terminalButtonStackPanelObject->getTransform()->setTranslation(viewportDimensions.x * 0.5f, viewportDimensions.y * 0.1f);
+      StackPanel::create(terminalButtonStackPanelObject, Horizontal::kCentre, runCodeButton, quitButton);
     }
+
+    deactivateScreen(screen);
   }
 
   //------------------------------------------------------------------------------------------------
-  void GameScreenFactory::runCodeAndActivateGameplayScreen(const Handle<GameObject>& gameObject)
+  void GameScreenFactory::runCode(const Handle<GameObject>& gameObject)
   {
-    gameObject->getOwnerScreen()->die();
-    activateScreen(getScreenManager()->findScreen("Gameplay"));
+    std::string terminalCode;
+    gameObject->getOwnerScreen()->findGameObjectWithName("TerminalTextBox")->findComponent<TextRenderer>()->getLine(0, terminalCode);
+    const Handle<Screen>& gameplayScreen = getScreenManager()->findScreen("Gameplay");
+
+    if (terminalCode == "openDoor();")
+    {
+      gameplayScreen->findGameObjectWithName("Terminal")->findComponent<SpaceGameUI::ComputerInteractionUI>()->die();
+
+      const Handle<GameObject>& door = gameplayScreen->findGameObjectWithName("Door");
+      const Handle<MoveToPositionAnimator>& animator = door->addComponent<MoveToPositionAnimator>();
+      animator->setSpeed(100);
+      animator->setTargetPosition(door->getTransform()->getTranslation() + glm::vec3(0, 500, 0));
+
+      // Also should be able to set length of animation too
+
+      const Handle<PlayerController>& playerController = gameplayScreen->findGameObjectWithName("Player")->findComponent<PlayerController>();
+      playerController->setMaxPosition(playerController->getNextLevelPosition());
+    }
+    else if (terminalCode == "help();")
+    {
+      const Handle<TextRenderer>& outputRenderer = gameObject->getOwnerScreen()->findGameObjectWithName("Output")->findComponent<TextRenderer>();
+      outputRenderer->clear();
+      outputRenderer->addLine("> Help Text");
+    }
   }
 }

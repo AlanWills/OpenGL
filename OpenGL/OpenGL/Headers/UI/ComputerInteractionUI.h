@@ -15,6 +15,7 @@ namespace SpaceGame
         void onSetGameObject(const Handle<GameObject>& gameObject) override;
         void onHandleInput() override;
         void onUpdate(GLfloat elapsedGameTime) override;
+        void onDeath() override;
 
       private:
         typedef CelesteEngine::Script Inherited;

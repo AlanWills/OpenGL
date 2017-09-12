@@ -49,7 +49,7 @@ namespace SpaceGame
       if (m_icon->shouldRender() && getKeyboard().isKeyDown(GLFW_KEY_UP))
       {
         deactivateOwnerScreen(getGameObject());
-        GameScreenFactory::createTerminalScreen(Screen::allocate());
+        activateScreen("Terminal");
       }
     }
 
@@ -60,6 +60,15 @@ namespace SpaceGame
 
       const Handle<GameObject>& player = getGameObject()->getOwnerScreen()->findGameObjectWithName("Player");
       m_icon->setShouldRender(player->findComponent<Collider>()->intersects(getGameObject()->findComponent<RectangleCollider>()->rectangle()));
+    }
+
+    //------------------------------------------------------------------------------------------------
+    void ComputerInteractionUI::onDeath()
+    {
+      Inherited::onDeath();
+
+      m_icon->die();
+      m_icon.reset();
     }
   }
 }
